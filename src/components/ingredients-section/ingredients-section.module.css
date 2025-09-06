@@ -10,6 +10,23 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+
+      .circle {
+        background-color: var(--color-primary-fade);
+        color: var(--color-primary);
+
+        display: grid;
+        place-content: center;
+
+        block-size: 1.5rem;
+        aspect-ratio: 1 / 1;
+
+        border-radius: 999rem;
+
+        svg {
+          font-size: 0.75rem;
+        }
+      }
     }
 
     svg {

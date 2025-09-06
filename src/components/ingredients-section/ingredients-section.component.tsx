@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
-import IconComponent from "../icon/icon.component";
+import CheckIcon from "@/icons/check.icon";
+
 import TypographyComponent from "../typography/typography.component";
 
 import styles from "./ingredients-section.module.css";
@@ -23,7 +24,9 @@ export default function IngredientsSectionComponent({
       <ul>
         {ingredients.map((i, index) => (
           <li key={index}>
-            <IconComponent name="check-circle-bold" color="primary" />
+            <span className={styles.circle}>
+              <CheckIcon />
+            </span>
             <TypographyComponent span variant="p2">
               {i.quantity}&nbsp;
               {i.title}
