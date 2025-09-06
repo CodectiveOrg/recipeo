@@ -1,0 +1,90 @@
+.featured-recipe-card {
+  color: var(--color-white);
+
+  position: relative;
+  isolation: isolate;
+
+  block-size: 100%;
+  inline-size: 100%;
+
+  border-radius: 1rem;
+
+  user-select: none;
+
+  &::before,
+  > img {
+    border-radius: inherit;
+  }
+
+  &::before {
+    content: "";
+
+    background-image: linear-gradient(
+      0deg,
+      var(--color-overlay),
+      transparent 70%
+    );
+
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    block-size: 100%;
+    inline-size: 100%;
+  }
+
+  > img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+  }
+
+  .writings {
+    display: grid;
+    grid-template-areas: "title title" "user duration";
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-content: end;
+    gap: 0.5rem;
+
+    block-size: 100%;
+
+    padding: 1rem;
+
+    .title {
+      grid-area: title;
+
+      inline-size: 12rem;
+
+      line-height: 110%;
+    }
+
+    .user {
+      grid-area: user;
+
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      > img {
+        block-size: 1.25rem;
+        inline-size: 1.25rem;
+
+        border-radius: 999rem;
+      }
+    }
+
+    .duration {
+      grid-area: duration;
+
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      text-wrap: nowrap;
+    }
+  }
+}

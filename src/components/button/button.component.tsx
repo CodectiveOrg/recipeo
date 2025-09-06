@@ -1,25 +1,36 @@
-import { type ComponentProps, type ReactNode } from "react";
+import { type ComponentProps, type ElementType, type ReactNode } from "react";
 
 import clsx from "clsx";
 
 import styles from "./button.module.css";
 
-type Props = ComponentProps<"button"> & {
+type Combine<T, K> = Omit<T, keyof K> & K;
+
+type Props<T extends ElementType> = {
+  as?: T;
+  className?: string;
   variant?: "solid" | "outlined" | "text";
   color?: "primary" | "secondary" | "danger";
   size?: "large" | "medium" | "small";
 };
 
-export default function ButtonComponent({
-  className,
+type CombinedProps<T extends ElementType> = Combine<
+  ComponentProps<T>,
+  Props<T>
+>;
+
+export default function ButtonComponent<T extends ElementType = "button">({
+  as,
   variant = "solid",
   color = "primary",
   size = "large",
-  children,
+  className,
   ...otherProps
-}: Props): ReactNode {
+}: CombinedProps<T>): ReactNode {
+  const Component = as ?? "button";
+
   return (
-    <button
+    <Component
       className={clsx(
         styles.button,
         styles[variant],
@@ -28,8 +39,6 @@ export default function ButtonComponent({
         className,
       )}
       {...otherProps}
-    >
-      {children}
-    </button>
+    />
   );
 }

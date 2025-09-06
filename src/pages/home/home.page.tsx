@@ -4,34 +4,52 @@ import { Link } from "react-router";
 
 import { toast } from "react-toastify";
 
+import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
+
 import ButtonComponent from "@/components/button/button.component.tsx";
+import CarouselComponent from "@/components/carousel/carousel.component.tsx";
+import FeaturedRecipeCardComponent from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
-import SearchInputComponent from "@/components/search-input/search-input.component.tsx";
+import SearchInputComponent from "@/components/search-input/search-input.component";
 import StepsSectionComponent from "@/components/steps-section/steps-section.component";
-import TextAreaComponent from "@/components/text-area/text-area.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
+import type { Recipe } from "@/entities/recipe.ts";
+
 import styles from "./home.module.css";
+
+const recipe: Recipe = {
+  id: 1,
+  title: "Asian white noodle with extra seafood",
+  description: "Lorem ipsum dolor sit amet.",
+  duration: 20,
+  tags: [],
+  ingredients: [],
+  steps: [],
+  user: { username: "James Spader", picture: "" },
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
 
 const steps = [
   {
     description:
       "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
-    image: "/assets/cutting-onion.jpg",
+    image: "/public/images/cutting-onion.jpg",
   },
   {
     description:
       "Your recipe has been uploaded, you can see it on your profile. ",
-    image: "/assets/board.jpg",
+    image: "/public/images/board.jpg",
   },
   {
     description:
       "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
-    image: "/assets/sliced-potato.jpg",
+    image: "/public/images/sliced-potato.jpg",
   },
   {
     description:
@@ -52,14 +70,37 @@ export default function HomePage(): ReactNode {
         <br />
         <StepsSectionComponent steps={steps} />
         <br />
-        <TextAreaComponent />
+        <GreetingsSection userName="James Spader" />
         <br />
-        <TextAreaComponent
-          defaultLines={1}
-          minLines={1}
-          maxLines={3}
-          placeholder="Height can be from 1 to 3..."
-        />
+        <CarouselComponent slideBlockSize="10rem" slideInlineSize="17.5rem">
+          <FeaturedRecipeCardComponent
+            featured={{
+              id: 1,
+              picture: "",
+              recipe,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            }}
+          />
+          <FeaturedRecipeCardComponent
+            featured={{
+              id: 2,
+              picture: "",
+              recipe,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            }}
+          />
+          <FeaturedRecipeCardComponent
+            featured={{
+              id: 3,
+              picture: "",
+              recipe,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            }}
+          />
+        </CarouselComponent>
         <br />
         <ImageInputComponent />
         <br />
