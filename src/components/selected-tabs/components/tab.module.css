@@ -1,0 +1,14 @@
+.tab-button {
+  flex-grow: 1;
+
+  &.active {
+    color: var(--color-text);
+
+    border-bottom: 3px solid var(--color-primary);
+    border-radius: 0;
+  }
+
+  &.deactive {
+    color: var(--color-text-secondary);
+  }
+}

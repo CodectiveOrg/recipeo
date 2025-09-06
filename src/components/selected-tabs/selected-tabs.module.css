@@ -1,0 +1,9 @@
+.selected-tabs {
+  .tabs {
+    display: flex;
+  }
+
+  .content {
+    padding: 1.5rem 0;
+  }
+}
