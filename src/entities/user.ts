@@ -5,3 +5,5 @@ export class User {
   public password!: string;
   public picture!: string | null;
 }
+
+export type EssentialUser = Pick<User, "username" | "picture">;

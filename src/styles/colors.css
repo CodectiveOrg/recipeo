@@ -4,11 +4,14 @@
 
   --color-text: hsl(219deg 33% 27%); /* #2e3e5c */
   --color-text-secondary: hsl(229deg 21% 69%); /* #9fa5c0 */
+  --color-text-secondary-fade: hsl(229deg 21% 69% / 20%);
   --color-outline: hsl(215deg 38% 87%); /* #d0dbea */
   --color-form: hsl(220deg 16% 96%); /* #f4f5f7 */
 
   --color-primary: hsl(151deg 74% 46%); /* #1fcc79 */
+  --color-primary-fade: hsl(150deg 100% 95%); /* #e3fff1 */
   --color-danger: hsl(0deg 100% 70%); /* #ff6464 */
 
   --color-backdrop: hsl(0deg 0% 0% / 60%);
+  --color-overlay: hsl(0deg 0% 0% / 60%);
 }

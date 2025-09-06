@@ -1,0 +1,8 @@
+.sign-up {
+  display: grid;
+  align-content: center;
+
+  min-block-size: 100dvh;
+
+  padding-inline: 1.5rem;
+}

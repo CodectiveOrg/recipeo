@@ -1,0 +1,31 @@
+.auth {
+  .writings {
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+  }
+
+  form {
+    display: grid;
+    gap: 1rem;
+
+    margin-block: 2rem;
+
+    > button {
+      inline-size: 100%;
+
+      margin-block-start: 3.5rem;
+    }
+  }
+
+  .alternative {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    a {
+      color: var(--color-primary);
+    }
+  }
+}

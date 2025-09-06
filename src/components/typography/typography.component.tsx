@@ -10,7 +10,7 @@ type Props = PropsWithChildren<
     className?: string;
     style?: CSSProperties;
     variant: "h1" | "h2" | "h3" | "p1" | "p2" | "s";
-    color?: "primary" | "text" | "text-secondary";
+    color?: "inherit" | "primary" | "text" | "text-secondary";
     maxLines?: number;
   }
 >;
@@ -22,7 +22,7 @@ export default function TypographyComponent({
   className,
   style,
   variant,
-  color = "text",
+  color = "inherit",
   maxLines,
   children,
 }: Props): ReactNode {

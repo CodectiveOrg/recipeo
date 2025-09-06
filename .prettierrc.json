@@ -6,6 +6,7 @@
     "^react-router(/(.*))?$",
     "^react-error-boundary(/(.*))?$",
     "^@tanstack(/(.*))?$",
+    "^swiper(/(.*))?$",
     "^@iconify(/(.*))?$",
     "^@iconify-json(/(.*))?$",
     "^react-toastify(/(.*))?$",

@@ -1,0 +1,37 @@
+.onboarding {
+  main {
+    display: grid;
+    align-content: start;
+
+    block-size: 100dvh;
+
+    img {
+      block-size: 100%;
+      max-block-size: 25rem;
+      inline-size: 100%;
+      object-fit: cover;
+    }
+
+    .writings {
+      display: grid;
+      justify-items: center;
+      gap: 1rem;
+
+      margin-block: 3rem 4.5rem;
+      padding-inline: 1.5rem;
+
+      text-align: center;
+
+      p {
+        max-inline-size: 24ch;
+      }
+    }
+
+    a {
+      inline-size: min(20rem, 100%);
+
+      margin-block-end: 4.5rem;
+      margin-inline: auto;
+    }
+  }
+}
