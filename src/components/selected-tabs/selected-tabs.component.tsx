@@ -23,8 +23,8 @@ export default function SelectedTabsComponent({ tabList }: Props): ReactNode {
           <TabComponent
             key={index}
             label={tab.label}
-            color={state === index ? "text" : "text-secondary"}
-            selected={state === index ? styles.active : ""}
+            color={state === index ? "primary" : "secondary"}
+            selected={state === index ? "active" : "deactive"}
             onClick={() => setState(index)}
           />
         ))}

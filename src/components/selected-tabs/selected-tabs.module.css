@@ -1,23 +1,9 @@
 .selected-tabs {
   .tabs {
     display: flex;
-
-    block-size: 2.25rem;
-
-    cursor: pointer;
-
-    span {
-      flex-grow: 1;
-
-      text-align: center;
-
-      &.active {
-        border-bottom: 3px solid var(--color-primary);
-      }
-    }
   }
 
   .content {
-    padding: 0.5rem 0;
+    padding: 1.5rem 0;
   }
 }

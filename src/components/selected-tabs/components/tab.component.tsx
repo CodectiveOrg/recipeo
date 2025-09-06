@@ -1,11 +1,15 @@
 import type { ReactNode } from "react";
 
-import TypographyComponent from "@/components/typography/typography.component";
+import clsx from "clsx";
+
+import ButtonComponent from "@/components/button/button.component";
+
+import styles from "./tab.module.css";
 
 type Props = {
   label: string;
-  color: "text" | "text-secondary";
-  selected: string;
+  color: "primary" | "secondary";
+  selected: "active" | "deactive";
   onClick: () => void;
 };
 export default function TabComponent({
@@ -15,10 +19,15 @@ export default function TabComponent({
   onClick,
 }: Props): ReactNode {
   return (
-    <span className={selected} key={label} onClick={onClick}>
-      <TypographyComponent span variant="p2" color={color}>
-        {label}
-      </TypographyComponent>
-    </span>
+    <ButtonComponent
+      variant="text"
+      size="large"
+      color={color}
+      className={clsx(styles["tab-button"], styles[selected])}
+      key={label}
+      onClick={onClick}
+    >
+      {label}
+    </ButtonComponent>
   );
 }
