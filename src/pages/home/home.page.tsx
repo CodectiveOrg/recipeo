@@ -11,6 +11,7 @@ import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 import FeaturedRecipeCardComponent from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
+import IngredientsSectionComponent from "@/components/ingredients-section/ingredients-section.component";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
@@ -34,6 +35,13 @@ const recipe: Recipe = {
   updatedAt: new Date(),
 };
 
+const ingredients = [
+  { title: "Tomatoes", quantity: "3" },
+  { title: "paprika", quantity: "1/2" },
+  { title: "potatoes", quantity: "2" },
+  { title: "onion", quantity: "1" },
+];
+
 export default function HomePage(): ReactNode {
   // const [defaultValue, setDefaultValue] = useState<number>(20);
   const [value, setValue] = useState<number>(20);
@@ -42,6 +50,9 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <br />
+        <IngredientsSectionComponent ingredients={ingredients} />
+        <br />
         <GreetingsSection userName="James Spader" />
         <br />
         <CarouselComponent slideBlockSize="10rem" slideInlineSize="17.5rem">
