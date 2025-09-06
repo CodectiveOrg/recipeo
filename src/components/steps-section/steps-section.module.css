@@ -13,14 +13,13 @@
       background-color: var(--color-text);
       color: var(--color-white);
 
+      display: grid;
+      place-content: center;
+
       block-size: 1.5rem;
       inline-size: 1.5rem;
 
-      padding-top: 0.25rem;
-
       border-radius: 999rem;
-
-      text-align: center;
     }
 
     .description {
