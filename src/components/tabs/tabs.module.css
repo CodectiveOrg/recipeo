@@ -1,0 +1,9 @@
+.tabs {
+  .nav {
+    display: flex;
+  }
+
+  .content {
+    padding-block: 1.5rem;
+  }
+}

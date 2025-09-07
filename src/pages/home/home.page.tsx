@@ -14,7 +14,7 @@ import ImageInputComponent from "@/components/image-input/image-input.component.
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
-import SelectedTabsComponent from "@/components/selected-tabs/selected-tabs.component";
+import TabsComponent from "@/components/tabs/tabs.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
@@ -35,12 +35,19 @@ const recipe: Recipe = {
   updatedAt: new Date(),
 };
 
-const tabList = [
-  { label: "Left", content: <div>Left Content</div> },
-  {
-    label: "Right",
-    content: <div>Right Content</div>,
-  },
+function ComponentA(): ReactNode {
+  console.log("A");
+  return <div>Left Content</div>;
+}
+
+function ComponentB(): ReactNode {
+  console.log("B");
+  return <div>Right Content</div>;
+}
+
+const tabs = [
+  { label: "Left", content: <ComponentA /> },
+  { label: "Right", content: <ComponentB /> },
 ];
 
 export default function HomePage(): ReactNode {
@@ -51,7 +58,7 @@ export default function HomePage(): ReactNode {
       <header>Header</header>
       <main>
         <br />
-        <SelectedTabsComponent tabList={tabList} />
+        <TabsComponent tabs={tabs} />
         <br />
         <GreetingsSection userName="James Spader" />
         <br />
