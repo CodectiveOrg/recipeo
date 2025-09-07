@@ -6,6 +6,7 @@
   .content {
     display: grid;
     justify-content: center;
+    gap: 2rem;
 
     inline-size: min(20rem, 100%);
 
@@ -13,18 +14,16 @@
     padding: 3rem 1rem;
 
     img {
-      block-size: 10rem;
-      inline-size: 10rem;
-      object-fit: cover;
+      justify-self: center;
 
-      margin: 0 auto 2rem;
+      inline-size: 10rem;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
     }
 
     .writings {
       display: grid;
       gap: 0.5rem;
-
-      margin-block-end: 1.5rem;
 
       text-align: center;
     }
