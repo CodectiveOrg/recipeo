@@ -15,6 +15,7 @@ import ImageInputComponent from "@/components/image-input/image-input.component.
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
+import StepsSectionComponent from "@/components/steps-section/steps-section.component.tsx";
 import SuccessModalComponent from "@/components/success-modal/success-modal.component.tsx";
 import TabsComponent from "@/components/tabs/tabs.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
@@ -22,6 +23,7 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import { Ingredient } from "@/entities/ingredient.ts";
 import type { Recipe } from "@/entities/recipe.ts";
+import type { Step } from "@/entities/step.ts";
 
 import styles from "./home.module.css";
 
@@ -58,6 +60,33 @@ const ingredients: Ingredient[] = [
   { title: "Paprika", amount: 0.5, unit: "tbsp" },
 ];
 
+const steps: Step[] = [
+  {
+    description:
+      "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
+    picture: "https://picsum.photos/1280/720",
+  },
+  {
+    description:
+      "Your recipe has been uploaded, you can see it on your profile. ",
+    picture: "https://picsum.photos/600/600",
+  },
+  {
+    description:
+      "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
+    picture: "https://picsum.photos/400/800",
+  },
+  {
+    description:
+      "Your recipe has been uploaded, you can see it on your profile. ",
+    picture: "",
+  },
+  {
+    description: "Your recipe has been uploaded. ",
+    picture: null,
+  },
+];
+
 export default function HomePage(): ReactNode {
   const [value, setValue] = useState<number>(20);
 
@@ -75,6 +104,8 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <StepsSectionComponent steps={steps} />
+        <br />
         <IngredientsSection ingredients={ingredients} />
         <br />
         <ButtonComponent onClick={openModal}>Open Modal</ButtonComponent>

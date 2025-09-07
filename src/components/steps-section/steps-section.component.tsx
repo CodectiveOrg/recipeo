@@ -1,13 +1,10 @@
 import type { ReactNode } from "react";
 
+import type { Step } from "@/entities/step.ts";
+
 import TypographyComponent from "../typography/typography.component";
 
 import styles from "./steps-section.module.css";
-
-type Step = {
-  description: string;
-  image?: string;
-};
 
 type Props = {
   steps: Step[];
@@ -23,10 +20,10 @@ export default function StepsSectionComponent({ steps }: Props): ReactNode {
             {index + 1}
           </TypographyComponent>
           <div className={styles.description}>
-            <TypographyComponent span variant="p2">
+            <TypographyComponent as="span" variant="p2">
               {step.description}
             </TypographyComponent>
-            {step.image ? <img src={step.image} alt="" /> : null}
+            {step.picture ? <img src={step.picture} alt="" /> : null}
           </div>
         </div>
       ))}
