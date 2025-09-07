@@ -33,7 +33,7 @@ export default function FeaturedRecipeCardComponent({
       <img src={featured.picture || "/placeholders/featured.webp"} alt="" />
       <span className={styles.writings}>
         <TypographyComponent
-          span
+          as="span"
           className={styles.title}
           variant="h2"
           maxLines={2}
@@ -46,7 +46,7 @@ export default function FeaturedRecipeCardComponent({
             alt="User's Profile Picture"
           />
           <TypographyComponent
-            span
+            as="span"
             ellipsis
             className={styles.username}
             variant="s"
@@ -56,7 +56,7 @@ export default function FeaturedRecipeCardComponent({
         </span>
         <span className={styles.duration}>
           <IconComponent name="alarm-linear" />
-          <TypographyComponent span variant="s">
+          <TypographyComponent as="span" variant="s">
             {formatDuration(recipe.duration)}
           </TypographyComponent>
         </span>

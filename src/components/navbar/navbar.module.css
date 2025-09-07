@@ -1,6 +1,9 @@
 .navbar {
   --offset: 1.5rem;
 
+  position: relative;
+  z-index: 1;
+
   display: grid;
   grid-template-rows: var(--offset) auto;
 

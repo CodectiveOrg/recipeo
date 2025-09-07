@@ -1,0 +1,31 @@
+.tab {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  block-size: max-content;
+  inline-size: 100%;
+
+  padding-block-end: 1rem;
+
+  border: none;
+  border-block-end: 3px solid transparent;
+
+  font-size: 0.9375rem;
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+  line-height: 1.125rem;
+
+  cursor: pointer;
+
+  &.active {
+    color: var(--color-text);
+
+    border-color: var(--color-primary);
+  }
+}
