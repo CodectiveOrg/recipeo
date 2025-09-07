@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { toast } from "react-toastify";
 
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
+import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
@@ -19,6 +20,7 @@ import TabsComponent from "@/components/tabs/tabs.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
+import { Ingredient } from "@/entities/ingredient.ts";
 import type { Recipe } from "@/entities/recipe.ts";
 
 import styles from "./home.module.css";
@@ -49,6 +51,13 @@ const tabs = [
   { label: "Right", content: <ComponentB /> },
 ];
 
+const ingredients: Ingredient[] = [
+  { title: "Potato", amount: 2, unit: "" },
+  { title: "Onion", amount: 1, unit: "" },
+  { title: "Tomato", amount: 3, unit: "" },
+  { title: "Paprika", amount: 0.5, unit: "tbsp" },
+];
+
 export default function HomePage(): ReactNode {
   const [value, setValue] = useState<number>(20);
 
@@ -66,6 +75,8 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <IngredientsSection ingredients={ingredients} />
+        <br />
         <ButtonComponent onClick={openModal}>Open Modal</ButtonComponent>
         <ModalComponent ref={modalRef} onClose={closeModal}>
           This is modal.
@@ -186,7 +197,7 @@ export default function HomePage(): ReactNode {
         </div>
         <br />
         <TypographyComponent
-          p
+          as="p"
           ellipsis
           variant="p1"
           style={{ maxInlineSize: "40ch" }}
@@ -197,7 +208,7 @@ export default function HomePage(): ReactNode {
         </TypographyComponent>
         <br />
         <TypographyComponent
-          p
+          as="p"
           variant="p2"
           maxLines={3}
           style={{ maxInlineSize: "40ch" }}
@@ -228,7 +239,11 @@ export default function HomePage(): ReactNode {
           </ButtonComponent>
         </div>
         <br />
-        <TypographyComponent p variant="p2" style={{ maxInlineSize: "40ch" }}>
+        <TypographyComponent
+          as="p"
+          variant="p2"
+          style={{ maxInlineSize: "40ch" }}
+        >
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
           atque autem consectetur dolorem eaque enim ex harum hic id illo labore
           libero magni, non obcaecati quibusdam sequi similique vitae

@@ -72,7 +72,7 @@ export default function AuthSection({
     <div className={styles.auth}>
       <div className={styles.writings}>
         <TypographyComponent variant="h1">{heading}</TypographyComponent>
-        <TypographyComponent p variant="p2" color="text-secondary">
+        <TypographyComponent as="p" variant="p2" color="text-secondary">
           Please enter your account here
         </TypographyComponent>
       </div>
@@ -100,7 +100,7 @@ export default function AuthSection({
         </ButtonComponent>
       </form>
       <div className={styles.alternative}>
-        <TypographyComponent p variant="p2">
+        <TypographyComponent as="p" variant="p2">
           {alternative.text}
         </TypographyComponent>
         <Link className="h3" to={alternative.linkHref}>

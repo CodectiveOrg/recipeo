@@ -59,13 +59,13 @@ export default function RangeInputComponent({
     >
       <span className={styles.label}>{label}</span>
       <span className={styles.hints}>
-        <TypographyComponent span variant="h3" color="text-secondary">
+        <TypographyComponent as="span" variant="h3" color="text-secondary">
           &lt;{min}
         </TypographyComponent>
-        <TypographyComponent span variant="h3" color="primary">
+        <TypographyComponent as="span" variant="h3" color="primary">
           {internalValue}
         </TypographyComponent>
-        <TypographyComponent span variant="h3" color="text-secondary">
+        <TypographyComponent as="span" variant="h3" color="text-secondary">
           &gt;{max}
         </TypographyComponent>
       </span>

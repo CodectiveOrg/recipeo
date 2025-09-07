@@ -2,9 +2,9 @@ import { type ComponentProps, type ElementType, type ReactNode } from "react";
 
 import clsx from "clsx";
 
-import styles from "./button.module.css";
+import type { Combine } from "@/utils/type.utils.ts";
 
-type Combine<T, K> = Omit<T, keyof K> & K;
+import styles from "./button.module.css";
 
 type Props<T extends ElementType> = {
   as?: T;
