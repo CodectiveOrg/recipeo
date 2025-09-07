@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useRef, useState } from "react";
 
 import { Link } from "react-router";
 
@@ -11,6 +11,7 @@ import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 import FeaturedRecipeCardComponent from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
+import ModalComponent from "@/components/modal/modal.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
@@ -51,10 +52,24 @@ const tabs = [
 export default function HomePage(): ReactNode {
   const [value, setValue] = useState<number>(20);
 
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  const openModal = (): void => {
+    modalRef.current?.showModal();
+  };
+
+  const closeModal = (): void => {
+    modalRef.current?.close();
+  };
+
   return (
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <ButtonComponent onClick={openModal}>Open Modal</ButtonComponent>
+        <ModalComponent ref={modalRef} onClose={closeModal}>
+          This is modal.
+        </ModalComponent>
         <br />
         <TabsComponent tabs={tabs} />
         <br />
