@@ -12,10 +12,10 @@ import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 import FeaturedRecipeCardComponent from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
-import ModalComponent from "@/components/modal/modal.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
+import SuccessModalComponent from "@/components/success-modal/success-modal.component.tsx";
 import TabsComponent from "@/components/tabs/tabs.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
@@ -67,9 +67,9 @@ export default function HomePage(): ReactNode {
     modalRef.current?.showModal();
   };
 
-  const closeModal = (): void => {
-    modalRef.current?.close();
-  };
+  // const closeModal = (): void => {
+  //   modalRef.current?.close();
+  // };
 
   return (
     <div className={styles.home}>
@@ -78,9 +78,7 @@ export default function HomePage(): ReactNode {
         <IngredientsSection ingredients={ingredients} />
         <br />
         <ButtonComponent onClick={openModal}>Open Modal</ButtonComponent>
-        <ModalComponent ref={modalRef} onClose={closeModal}>
-          This is modal.
-        </ModalComponent>
+        <SuccessModalComponent ref={modalRef} />
         <br />
         <TabsComponent tabs={tabs} />
         <br />

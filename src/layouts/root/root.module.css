@@ -1,5 +1,5 @@
 .root {
-  max-inline-size: 30rem;
+  max-inline-size: var(--layout-size-2);
 
   margin-inline: auto;
 }

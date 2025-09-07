@@ -8,45 +8,28 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./success-modal.module.css";
 
-type Props = ComponentProps<typeof ModalComponent> & {
-  image?: string;
-  title: string;
-  hint?: string;
-  href?: string;
-  linkText?: string;
-  onAccept?: () => void;
+type Props = {
+  ref: ComponentProps<typeof ModalComponent>["ref"];
 };
 
-export default function SuccessModalComponent({
-  image,
-  title,
-  hint,
-  href = "/home",
-  linkText = "Back To Home",
-  onAccept,
-  ...otherProps
-}: Props): ReactNode {
+export default function SuccessModalComponent({ ref }: Props): ReactNode {
   return (
-    <ModalComponent {...otherProps}>
-      <div className={styles["success-modal"]}>
-        <div className={styles["image-wrapper"]}>
-          <img src={image} alt="" />
-        </div>
-        <div className={styles.writings}>
-          <TypographyComponent variant="h1">{title}</TypographyComponent>
-          {hint && (
-            <TypographyComponent p variant="p2">
-              {hint}
-            </TypographyComponent>
-          )}
-        </div>
-
-        <ButtonComponent as={Link} to={href} onClick={onAccept}>
-          <TypographyComponent span variant="h3">
-            {linkText}
-          </TypographyComponent>
-        </ButtonComponent>
+    <ModalComponent
+      ref={ref}
+      dismissOnBackdropClick={false}
+      className={styles["success-modal"]}
+      contentClassName={styles.content}
+    >
+      <img src="/emoji/partying-face.webp" alt="" />
+      <div className={styles.writings}>
+        <TypographyComponent variant="h1">Upload Success</TypographyComponent>
+        <TypographyComponent as="p" variant="p2" color="text-secondary">
+          Your recipe has been uploaded, you can see it on your profile.
+        </TypographyComponent>
       </div>
+      <ButtonComponent as={Link} to="/">
+        Back to Home
+      </ButtonComponent>
     </ModalComponent>
   );
 }

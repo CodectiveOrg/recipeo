@@ -1,30 +1,32 @@
 .success-modal {
   background-color: var(--color-white);
 
-  padding: 3rem 1rem;
+  inline-size: min(var(--layout-size-2) - 3rem, 100% - 3rem);
 
-  .image-wrapper {
-    block-size: 10rem;
-    inline-size: 10rem;
-    object-fit: cover;
+  .content {
+    display: grid;
+    justify-content: center;
 
-    margin: 0 auto 2rem;
+    inline-size: min(20rem, 100%);
+
+    margin: auto;
+    padding: 3rem 1rem;
 
     img {
-      block-size: 100%;
-      inline-size: 100%;
+      block-size: 10rem;
+      inline-size: 10rem;
+      object-fit: cover;
+
+      margin: 0 auto 2rem;
     }
-  }
 
-  .writings {
-    display: grid;
-    justify-items: center;
-    gap: 0.5rem;
+    .writings {
+      display: grid;
+      gap: 0.5rem;
 
-    margin-block-end: 1.5rem;
+      margin-block-end: 1.5rem;
 
-    p {
-      max-inline-size: 16rem;
+      text-align: center;
     }
   }
 }
