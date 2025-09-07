@@ -105,7 +105,7 @@ export default function ImageInputComponent({
 
   const blankContent = (
     <div className={styles.blank}>
-      <IconComponent name="upload-bold" />
+      <IconComponent name="gallery-bold" />
       <TypographyComponent variant="p2" color="text">
         Add Cover Photo
       </TypographyComponent>
