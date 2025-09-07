@@ -1,7 +1,7 @@
 .success-modal {
   background-color: var(--color-white);
 
-  inline-size: min(var(--layout-size-2) - 3rem, 100% - 3rem);
+  inline-size: calc(min(var(--layout-size-2), 100%) - 3rem);
 
   .content {
     display: grid;
