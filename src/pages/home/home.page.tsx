@@ -1,10 +1,11 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useRef, useState } from "react";
 
 import { Link } from "react-router";
 
 import { toast } from "react-toastify";
 
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
+import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
@@ -14,10 +15,12 @@ import ImageInputComponent from "@/components/image-input/image-input.component.
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
-import StepsSectionComponent from "@/components/steps-section/steps-section.component";
+import SuccessModalComponent from "@/components/success-modal/success-modal.component.tsx";
+import TabsComponent from "@/components/tabs/tabs.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
+import { Ingredient } from "@/entities/ingredient.ts";
 import type { Recipe } from "@/entities/recipe.ts";
 
 import styles from "./home.module.css";
@@ -35,40 +38,49 @@ const recipe: Recipe = {
   updatedAt: new Date(),
 };
 
-const steps = [
-  {
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
-    image: "/public/images/cutting-onion.jpg",
-  },
-  {
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. ",
-    image: "/public/images/board.jpg",
-  },
-  {
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
-    image: "/public/images/sliced-potato.jpg",
-  },
-  {
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. ",
-    image: "",
-  },
-  { description: "Your recipe has been uploaded. ", image: "" },
+function ComponentA(): ReactNode {
+  return <div>Left Content</div>;
+}
+
+function ComponentB(): ReactNode {
+  return <div>Right Content</div>;
+}
+
+const tabs = [
+  { label: "Left", content: <ComponentA /> },
+  { label: "Right", content: <ComponentB /> },
+];
+
+const ingredients: Ingredient[] = [
+  { title: "Potato", amount: 2, unit: "" },
+  { title: "Onion", amount: 1, unit: "" },
+  { title: "Tomato", amount: 3, unit: "" },
+  { title: "Paprika", amount: 0.5, unit: "tbsp" },
 ];
 
 export default function HomePage(): ReactNode {
-  // const [defaultValue, setDefaultValue] = useState<number>(20);
   const [value, setValue] = useState<number>(20);
+
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  const openModal = (): void => {
+    modalRef.current?.showModal();
+  };
+
+  // const closeModal = (): void => {
+  //   modalRef.current?.close();
+  // };
 
   return (
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <IngredientsSection ingredients={ingredients} />
         <br />
-        <StepsSectionComponent steps={steps} />
+        <ButtonComponent onClick={openModal}>Open Modal</ButtonComponent>
+        <SuccessModalComponent ref={modalRef} />
+        <br />
+        <TabsComponent tabs={tabs} />
         <br />
         <GreetingsSection userName="James Spader" />
         <br />
@@ -183,7 +195,7 @@ export default function HomePage(): ReactNode {
         </div>
         <br />
         <TypographyComponent
-          p
+          as="p"
           ellipsis
           variant="p1"
           style={{ maxInlineSize: "40ch" }}
@@ -194,7 +206,7 @@ export default function HomePage(): ReactNode {
         </TypographyComponent>
         <br />
         <TypographyComponent
-          p
+          as="p"
           variant="p2"
           maxLines={3}
           style={{ maxInlineSize: "40ch" }}
@@ -225,7 +237,11 @@ export default function HomePage(): ReactNode {
           </ButtonComponent>
         </div>
         <br />
-        <TypographyComponent p variant="p2" style={{ maxInlineSize: "40ch" }}>
+        <TypographyComponent
+          as="p"
+          variant="p2"
+          style={{ maxInlineSize: "40ch" }}
+        >
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
           atque autem consectetur dolorem eaque enim ex harum hic id illo labore
           libero magni, non obcaecati quibusdam sequi similique vitae

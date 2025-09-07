@@ -1,5 +1,5 @@
 .guest {
-  max-inline-size: 25rem;
+  max-inline-size: var(--layout-size-1);
 
   margin-inline: auto;
 }
