@@ -36,12 +36,10 @@ const recipe: Recipe = {
 };
 
 function ComponentA(): ReactNode {
-  console.log("A");
   return <div>Left Content</div>;
 }
 
 function ComponentB(): ReactNode {
-  console.log("B");
   return <div>Right Content</div>;
 }
 
