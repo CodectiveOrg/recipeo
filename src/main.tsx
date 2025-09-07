@@ -13,6 +13,7 @@ import Routing from "./routing.tsx";
 
 import "./index.css";
 import "./styles/colors.css";
+import "./styles/layout.css";
 import "./styles/shadows.css";
 import "./styles/typography.css";
 
