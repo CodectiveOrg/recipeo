@@ -18,8 +18,8 @@ export default function IngredientsSection({ ingredients }: Props): ReactNode {
         Ingredients
       </TypographyComponent>
       <ul>
-        {ingredients.map((ingredient, index) => (
-          <li key={index}>
+        {ingredients.map((ingredient) => (
+          <li key={ingredient.id}>
             <CheckCircleComponent active />
             <TypographyComponent as="span" variant="p2">
               {ingredient.amount} {ingredient.unit} {ingredient.title}

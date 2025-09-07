@@ -1,0 +1,40 @@
+.steps {
+  display: grid;
+  gap: 1rem;
+
+  > ul {
+    display: grid;
+    gap: 2rem;
+
+    > li {
+      .step {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1rem;
+
+        .number {
+          grid-row: span 2;
+
+          background-color: var(--color-text);
+          color: var(--color-white);
+
+          display: grid;
+          place-content: center;
+
+          block-size: 1.5rem;
+          inline-size: 1.5rem;
+
+          border-radius: 999rem;
+        }
+
+        img {
+          block-size: 10rem;
+          inline-size: 100%;
+          object-fit: cover;
+
+          border-radius: 0.75rem;
+        }
+      }
+    }
+  }
+}
