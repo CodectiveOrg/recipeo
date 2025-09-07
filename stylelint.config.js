@@ -73,6 +73,7 @@ export default {
           "box-shadow",
           "text-shadow",
           "mix-blend-mode",
+          "backdrop-filter",
           "opacity",
           "visibility",
         ],
@@ -106,7 +107,7 @@ export default {
         groupName: "filter",
         emptyLineBefore: "always",
         noEmptyLineBetween: true,
-        properties: ["filter", "backdrop-filter"],
+        properties: ["filter"],
       },
       {
         groupName: "mask",
