@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
+import StepsSection from "@/sections/steps/steps.section.tsx";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
@@ -15,7 +16,6 @@ import ImageInputComponent from "@/components/image-input/image-input.component.
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
-import StepsSectionComponent from "@/components/steps-section/steps-section.component.tsx";
 import SuccessModalComponent from "@/components/success-modal/success-modal.component.tsx";
 import TabsComponent from "@/components/tabs/tabs.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
@@ -54,34 +54,39 @@ const tabs = [
 ];
 
 const ingredients: Ingredient[] = [
-  { title: "Potato", amount: 2, unit: "" },
-  { title: "Onion", amount: 1, unit: "" },
-  { title: "Tomato", amount: 3, unit: "" },
-  { title: "Paprika", amount: 0.5, unit: "tbsp" },
+  { id: 1, title: "Potato", amount: 2, unit: "" },
+  { id: 2, title: "Onion", amount: 1, unit: "" },
+  { id: 3, title: "Tomato", amount: 3, unit: "" },
+  { id: 4, title: "Paprika", amount: 0.5, unit: "tbsp" },
 ];
 
 const steps: Step[] = [
   {
+    id: 1,
     description:
       "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
     picture: "https://picsum.photos/1280/720",
   },
   {
+    id: 2,
     description:
       "Your recipe has been uploaded, you can see it on your profile. ",
     picture: "https://picsum.photos/600/600",
   },
   {
+    id: 3,
     description:
       "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
     picture: "https://picsum.photos/400/800",
   },
   {
+    id: 4,
     description:
       "Your recipe has been uploaded, you can see it on your profile. ",
     picture: "",
   },
   {
+    id: 5,
     description: "Your recipe has been uploaded. ",
     picture: null,
   },
@@ -104,7 +109,7 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
-        <StepsSectionComponent steps={steps} />
+        <StepsSection steps={steps} />
         <br />
         <IngredientsSection ingredients={ingredients} />
         <br />
