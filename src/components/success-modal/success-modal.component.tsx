@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import ButtonComponent from "@/components/button/button.component";
 import ModalComponent from "@/components/modal/modal.component";
@@ -13,12 +13,20 @@ type Props = {
 };
 
 export default function SuccessModalComponent({ ref }: Props): ReactNode {
+  const navigate = useNavigate();
+
+  const navigateToHomePage = (): void => {
+    navigate("/");
+  };
+
   return (
     <ModalComponent
       ref={ref}
       dismissOnBackdropClick={false}
       className={styles["success-modal"]}
       contentClassName={styles.content}
+      onClose={navigateToHomePage}
+      onCancel={navigateToHomePage}
     >
       <img src="/emoji/partying-face.webp" alt="" />
       <div className={styles.writings}>
