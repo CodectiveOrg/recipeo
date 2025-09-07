@@ -6,5 +6,6 @@
 
   &::backdrop {
     background-color: var(--color-backdrop);
+    backdrop-filter: blur(2px);
   }
 }
