@@ -14,7 +14,9 @@ type Props = {
 export default function IngredientsSection({ ingredients }: Props): ReactNode {
   return (
     <div className={styles.ingredients}>
-      <TypographyComponent variant="h2">Ingredients</TypographyComponent>
+      <TypographyComponent as="h2" variant="h2">
+        Ingredients
+      </TypographyComponent>
       <ul>
         {ingredients.map((ingredient, index) => (
           <li key={index}>
