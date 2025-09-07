@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useRef, useState } from "react";
 
 import { Link } from "react-router";
 
@@ -11,10 +11,11 @@ import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 import FeaturedRecipeCardComponent from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
-import IngredientsSectionComponent from "@/components/ingredients-section/ingredients-section.component";
+import ModalComponent from "@/components/modal/modal.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
+import TabsComponent from "@/components/tabs/tabs.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
@@ -35,23 +36,42 @@ const recipe: Recipe = {
   updatedAt: new Date(),
 };
 
-const ingredients = [
-  { title: "Tomatoes", quantity: "3" },
-  { title: "paprika", quantity: "1/2" },
-  { title: "potatoes", quantity: "2" },
-  { title: "onion", quantity: "1" },
+function ComponentA(): ReactNode {
+  return <div>Left Content</div>;
+}
+
+function ComponentB(): ReactNode {
+  return <div>Right Content</div>;
+}
+
+const tabs = [
+  { label: "Left", content: <ComponentA /> },
+  { label: "Right", content: <ComponentB /> },
 ];
 
 export default function HomePage(): ReactNode {
-  // const [defaultValue, setDefaultValue] = useState<number>(20);
   const [value, setValue] = useState<number>(20);
+
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  const openModal = (): void => {
+    modalRef.current?.showModal();
+  };
+
+  const closeModal = (): void => {
+    modalRef.current?.close();
+  };
 
   return (
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <ButtonComponent onClick={openModal}>Open Modal</ButtonComponent>
+        <ModalComponent ref={modalRef} onClose={closeModal}>
+          This is modal.
+        </ModalComponent>
         <br />
-        <IngredientsSectionComponent ingredients={ingredients} />
+        <TabsComponent tabs={tabs} />
         <br />
         <GreetingsSection userName="James Spader" />
         <br />
