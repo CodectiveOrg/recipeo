@@ -16,7 +16,7 @@ type Props = {
 export default function AuthValidationComponent({ rules }: Props): ReactNode {
   return (
     <div className={styles["auth-validation"]}>
-      <TypographyComponent p variant="p1">
+      <TypographyComponent as="p" variant="p1">
         Your Password must contain:
       </TypographyComponent>
       <ul className={styles.rules}>
@@ -26,7 +26,7 @@ export default function AuthValidationComponent({ rules }: Props): ReactNode {
             className={clsx(styles.rule, rule.isValid && styles.valid)}
           >
             <CheckCircleComponent active={rule.isValid} />
-            <TypographyComponent p variant="p2">
+            <TypographyComponent as="p" variant="p2">
               {rule.title}
             </TypographyComponent>
           </li>

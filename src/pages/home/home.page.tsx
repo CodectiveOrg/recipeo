@@ -197,7 +197,7 @@ export default function HomePage(): ReactNode {
         </div>
         <br />
         <TypographyComponent
-          p
+          as="p"
           ellipsis
           variant="p1"
           style={{ maxInlineSize: "40ch" }}
@@ -208,7 +208,7 @@ export default function HomePage(): ReactNode {
         </TypographyComponent>
         <br />
         <TypographyComponent
-          p
+          as="p"
           variant="p2"
           maxLines={3}
           style={{ maxInlineSize: "40ch" }}
@@ -239,7 +239,11 @@ export default function HomePage(): ReactNode {
           </ButtonComponent>
         </div>
         <br />
-        <TypographyComponent p variant="p2" style={{ maxInlineSize: "40ch" }}>
+        <TypographyComponent
+          as="p"
+          variant="p2"
+          style={{ maxInlineSize: "40ch" }}
+        >
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
           atque autem consectetur dolorem eaque enim ex harum hic id illo labore
           libero magni, non obcaecati quibusdam sequi similique vitae
