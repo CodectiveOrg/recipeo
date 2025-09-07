@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
 
-import CheckIcon from "@/icons/check.icon.tsx";
+import CheckCircleComponent from "@/components/check-circle/check-circle.component.tsx";
+import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import { Ingredient } from "@/entities/ingredient.ts";
-
-import TypographyComponent from "../../components/typography/typography.component.tsx";
 
 import styles from "./ingredients.module.css";
 
@@ -19,9 +18,7 @@ export default function IngredientsSection({ ingredients }: Props): ReactNode {
       <ul>
         {ingredients.map((ingredient, index) => (
           <li key={index}>
-            <span className={styles.circle}>
-              <CheckIcon />
-            </span>
+            <CheckCircleComponent active />
             <TypographyComponent span variant="p2">
               {ingredient.amount} {ingredient.unit} {ingredient.title}
             </TypographyComponent>
