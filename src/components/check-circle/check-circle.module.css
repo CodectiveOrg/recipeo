@@ -1,0 +1,19 @@
+.check-circle {
+  background-color: var(--color-text-secondary-fade);
+  color: var(--color-text-secondary);
+
+  display: grid;
+  place-content: center;
+
+  block-size: 1.5rem;
+  aspect-ratio: 1 / 1;
+
+  border-radius: 999rem;
+
+  font-size: 0.75rem;
+
+  &.active {
+    background-color: var(--color-primary-fade);
+    color: var(--color-primary);
+  }
+}

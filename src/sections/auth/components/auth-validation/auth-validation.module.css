@@ -15,28 +15,8 @@
       align-items: center;
       gap: 0.5rem;
 
-      .circle {
-        background-color: var(--color-text-secondary-fade);
-        color: var(--color-text-secondary);
-
-        display: grid;
-        place-content: center;
-
-        block-size: 1.5rem;
-        aspect-ratio: 1 / 1;
-
-        border-radius: 999rem;
-
-        font-size: 0.75rem;
-      }
-
       &.valid {
         color: var(--color-text);
-
-        .circle {
-          background-color: var(--color-primary-fade);
-          color: var(--color-primary);
-        }
       }
     }
   }
