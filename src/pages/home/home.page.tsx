@@ -15,6 +15,7 @@ import IconComponent from "@/components/icon/icon.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
+import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
 import SuccessModalComponent from "@/components/success-modal/success-modal.component.tsx";
 import TabsComponent from "@/components/tabs/tabs.component.tsx";
@@ -32,6 +33,7 @@ const recipe: Recipe = {
   title: "Asian white noodle with extra seafood",
   description: "Lorem ipsum dolor sit amet.",
   duration: 20,
+  picture: null,
   tags: [],
   ingredients: [],
   steps: [],
@@ -149,6 +151,8 @@ export default function HomePage(): ReactNode {
             }}
           />
         </CarouselComponent>
+        <br />
+        <RecipeCardComponent recipe={recipe} />
         <br />
         <ImageInputComponent />
         <br />

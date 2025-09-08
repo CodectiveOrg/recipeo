@@ -8,6 +8,7 @@ export class Recipe {
   public title!: string;
   public description!: string;
   public duration!: number;
+  public picture!: string | null;
   public tags!: Tag[];
   public ingredients!: Ingredient[];
   public steps!: Step[];

@@ -1,0 +1,91 @@
+.recipe-card {
+  background-color: var(--color-white);
+
+  border-radius: 1rem;
+
+  padding: 0.5rem 0.5rem 0.75rem 0.5rem;
+
+  box-shadow: var(--shadow-card);
+
+  container: card / inline-size;
+
+  display: grid;
+  gap: 0.5rem;
+
+  img {
+    inline-size: 5.25rem;
+
+    object-fit: cover;
+
+    border-radius: 1rem;
+  }
+
+  @container (inline-size > 7.5rem) {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+
+    img {
+      inline-size: 6.25rem;
+
+      aspect-ratio: 1.19;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem;
+
+      .writings {
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        > img {
+          block-size: 1.25rem;
+          inline-size: 1.25rem;
+
+          border-radius: 999rem;
+        }
+      }
+
+      > button {
+        grid-row: 1 / span 2;
+
+        display: grid;
+        place-content: center;
+
+        inline-size: 1.5rem;
+        block-size: 1.5rem;
+      }
+    }
+  }
+
+  @container (inline-size > 17.5rem) {
+    padding: 1rem;
+
+    img {
+      position: relative;
+
+      inline-size: 10.5rem;
+      aspect-ratio: 1.3;
+
+      icon {
+        position: absolute;
+        inset-block-start: 0.75rem;
+        inset-inline-end: 0.75rem;
+
+        inline-size: 1.75rem;
+        block-size: 1.75rem;
+      }
+    }
+
+    .wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+}
