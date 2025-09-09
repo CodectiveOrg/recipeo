@@ -1,0 +1,6 @@
+.popular-recipes {
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+}

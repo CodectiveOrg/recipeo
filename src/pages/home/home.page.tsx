@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
+import PopularRecipesSection from "@/sections/popular-recipes/popular-recipes.section";
 import StepsSection from "@/sections/steps/steps.section.tsx";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
@@ -109,6 +110,11 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <br />
+        <PopularRecipesSection />
+        <br />
+        <PopularRecipesSection size="small" />
+        <br />
         <StepsSection steps={steps} />
         <br />
         <IngredientsSection ingredients={ingredients} />
