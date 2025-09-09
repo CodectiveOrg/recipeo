@@ -39,6 +39,10 @@
         svg {
           color: var(--color-white);
         }
+
+        &.liked {
+          color: var(--color-red);
+        }
       }
     }
 

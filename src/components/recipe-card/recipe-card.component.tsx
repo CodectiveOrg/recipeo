@@ -6,6 +6,8 @@ import { useMutation } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 
+import clsx from "clsx";
+
 import { likeRecipeApi } from "@/api/recipe/like-recipe.api";
 import { unlikeRecipeApi } from "@/api/recipe/unlike-recipe.api";
 
@@ -14,6 +16,8 @@ import IconComponent from "@/components/icon/icon.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import { Recipe } from "@/entities/recipe";
+
+import { formatDuration } from "@/utils/format.utils";
 
 import styles from "./recipe-card.module.css";
 
@@ -31,9 +35,20 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
     onSuccess: () => {},
   });
 
+  const { mutate: unlikeMutate } = useMutation({
+    mutationKey: ["recipe-card", recipe.id],
+    mutationFn: unlikeRecipeApi,
+    onError: (error): void => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {},
+  });
+
   const handleLikeUnlikeRecipe = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    likeMutate(recipe.id);
+    recipe.isLikedByCurrentUser
+      ? unlikeMutate(recipe.id)
+      : likeMutate(recipe.id);
   };
 
   return (
@@ -41,7 +56,10 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
       <div className={styles.content}>
         <div className={styles["image-wrapper"]}>
           <img src={recipe.picture || "/placeholders/featured.webp"} alt="" />
-          <IconButtonComponent onClick={handleLikeUnlikeRecipe}>
+          <IconButtonComponent
+            className={clsx(recipe.isLikedByCurrentUser ?? "liked")}
+            onClick={handleLikeUnlikeRecipe}
+          >
             <IconComponent name="heart-bold" />
           </IconButtonComponent>
         </div>
@@ -68,6 +86,13 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
           <IconButtonComponent>
             <IconComponent name="arrow-right-linear" />
           </IconButtonComponent>
+
+          <span className={styles.duration}>
+            <IconComponent name="clock-circle-outline" />
+            <TypographyComponent as="span" variant="s">
+              {formatDuration(recipe.duration)}
+            </TypographyComponent>
+          </span>
         </div>
       </div>
     </Link>
