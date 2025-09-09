@@ -1,10 +1,8 @@
-import { FeaturedRecipe } from "@/entities/featured-recipe";
 import { Ingredient } from "@/entities/ingredient";
 import { Like } from "@/entities/like";
 import { Step } from "@/entities/step";
 import { Tag } from "@/entities/tag";
 import type { EssentialUser } from "@/entities/user.ts";
-
 export class Recipe {
   public id!: number;
   public title!: string;
@@ -17,10 +15,8 @@ export class Recipe {
   public steps!: Step[];
   public user!: EssentialUser;
   public likes!: Like[];
-  public featured!: FeaturedRecipe;
   public createdAt!: Date;
   public updatedAt!: Date;
-
   public likesCount!: number;
   public isLikedByCurrentUser!: boolean;
 }

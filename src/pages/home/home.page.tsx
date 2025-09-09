@@ -34,12 +34,16 @@ const recipe: Recipe = {
   description: "Lorem ipsum dolor sit amet.",
   duration: 20,
   picture: null,
+  isChosen: false,
   tags: [],
   ingredients: [],
   steps: [],
   user: { username: "James Spader", picture: "" },
+  likes: [],
   createdAt: new Date(),
   updatedAt: new Date(),
+  likesCount: 2,
+  isLikedByCurrentUser: false,
 };
 
 function ComponentA(): ReactNode {
