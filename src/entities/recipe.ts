@@ -3,6 +3,7 @@ import { Like } from "@/entities/like";
 import { Step } from "@/entities/step";
 import { Tag } from "@/entities/tag";
 import type { EssentialUser } from "@/entities/user.ts";
+
 export class Recipe {
   public id!: number;
   public title!: string;

@@ -9,37 +9,35 @@
 
     .image-wrapper {
       position: relative;
+      overflow: hidden;
 
       inline-size: 10.5rem;
       aspect-ratio: 1.3;
 
       border-radius: 1rem;
 
-      overflow: hidden;
-
       img {
-        inline-size: 100%;
         block-size: 100%;
+        inline-size: 100%;
       }
 
       > button {
-        position: absolute;
+        background-color: var(--color-black);
 
+        position: absolute;
         inset-block-start: 0.75rem;
         inset-inline-end: 0.75rem;
-
-        inline-size: 1.75rem;
-        block-size: 1.75rem;
 
         display: grid;
         place-content: center;
 
+        block-size: 1.75rem;
+        inline-size: 1.75rem;
+
         border-radius: 0.5rem;
 
-        background-color: var(--color-black);
         svg {
-          /* color: var(--color-white); */
-          color: red;
+          color: var(--color-white);
         }
       }
     }
@@ -63,12 +61,10 @@
 
     img {
       inline-size: 6.25rem;
+      aspect-ratio: 1.19;
+      object-fit: cover;
 
       border-radius: 1rem;
-
-      aspect-ratio: 1.19;
-
-      object-fit: cover;
     }
 
     .wrapper {
@@ -91,24 +87,23 @@
           block-size: 1.25rem;
           inline-size: 1.25rem;
 
-          border-radius: 999rem;
-
           border: 1px solid var(--color-outline);
+          border-radius: 999rem;
         }
       }
 
       > button {
+        align-self: center;
+
+        background-color: var(--color-primary);
+
         display: grid;
         place-content: center;
 
-        align-self: center;
-
-        inline-size: 1.5rem;
         block-size: 1.5rem;
+        inline-size: 1.5rem;
 
         border-radius: 0.5rem;
-
-        background-color: var(--color-primary);
 
         svg {
           color: var(--color-white);
@@ -122,21 +117,19 @@
   .content {
     /* Small */
     background-color: var(--color-white);
-
-    border: 1px solid hsl(0deg 0% 98% / 1);
-    border-radius: 1rem;
-
-    padding: 0.5rem 0.5rem 0.75rem 0.5rem;
-
     box-shadow: var(--shadow-card);
 
     display: grid;
     gap: 0.5rem;
 
+    padding: 0.5rem 0.5rem 0.75rem;
+
+    border: 1px solid hsl(0deg 0% 98% / 100%);
+    border-radius: 1rem;
+
     img {
       inline-size: 5.25rem;
       aspect-ratio: 1;
-
       object-fit: cover;
 
       border-radius: 1rem;
