@@ -42,7 +42,7 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
         <div className={styles["image-wrapper"]}>
           <img src={recipe.picture || "/placeholders/featured.webp"} alt="" />
           <IconButtonComponent onClick={handleLikeUnlikeRecipe}>
-            <IconComponent name="heart-linear" />
+            <IconComponent name="heart-bold" />
           </IconButtonComponent>
         </div>
         <div className={styles.wrapper}>

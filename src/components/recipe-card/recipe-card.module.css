@@ -37,9 +37,9 @@
         border-radius: 0.5rem;
 
         background-color: var(--color-black);
-
         svg {
-          color: var(--color-white);
+          /* color: var(--color-white); */
+          color: red;
         }
       }
     }
