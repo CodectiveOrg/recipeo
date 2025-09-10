@@ -1,0 +1,123 @@
+.recipe-card {
+  container-type: inline-size;
+
+  color: inherit;
+
+  display: block;
+
+  .content {
+    box-shadow: var(--shadow-card);
+
+    position: relative;
+
+    display: grid;
+
+    border: 1px solid var(--color-form);
+    border-radius: 1rem;
+
+    .recipe-picture {
+      grid-area: picture;
+
+      object-fit: cover;
+
+      border-radius: 1rem;
+    }
+
+    .title {
+      grid-area: title;
+
+      min-block-size: 2lh;
+    }
+
+    .user-badge {
+      grid-area: user-badge;
+    }
+
+    .duration-badge {
+      grid-area: duration-badge;
+    }
+
+    .like-button {
+      grid-area: picture;
+    }
+
+    .arrow-button {
+      grid-area: arrow;
+    }
+  }
+}
+
+@container (inline-size <= 200px) {
+  .recipe-card {
+    .content {
+      grid-template-areas: "picture" "title";
+      gap: 0.5rem;
+
+      padding: 0.5rem;
+
+      .recipe-picture {
+        block-size: 5rem;
+        inline-size: 100%;
+      }
+
+      .user-badge,
+      .duration-badge,
+      .like-button,
+      .arrow-button {
+        display: none;
+      }
+    }
+  }
+}
+
+@container (200px < inline-size < 360px) {
+  .recipe-card {
+    .content {
+      grid-template-areas: "picture picture" "title title" "user-badge duration-badge";
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 0.25rem;
+      row-gap: 0.75rem;
+
+      padding: 1rem;
+
+      .recipe-picture {
+        block-size: 8rem;
+        inline-size: 100%;
+      }
+
+      .user-badge,
+      .duration-badge {
+        align-self: center;
+      }
+
+      .arrow-button {
+        display: none;
+      }
+    }
+  }
+}
+
+@container (360px <= inline-size ) {
+  .recipe-card {
+    .content {
+      grid-template-areas: "picture title arrow" "picture user-badge arrow";
+      grid-template-columns: auto 1fr auto;
+      column-gap: 1rem;
+      row-gap: 0.5rem;
+
+      padding: 0.5rem;
+      padding-inline-end: 1rem;
+
+      .recipe-picture {
+        min-block-size: 5rem;
+        block-size: 100%;
+        inline-size: 100px;
+      }
+
+      .duration-badge,
+      .like-button {
+        display: none;
+      }
+    }
+  }
+}

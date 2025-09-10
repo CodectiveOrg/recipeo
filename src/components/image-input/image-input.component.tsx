@@ -117,6 +117,7 @@ export default function ImageInputComponent({
 
   const previewContent = (
     <div className={styles.preview}>
+      {/* TODO: User ImageComponent. */}
       <img src={previouslyUploadedPicture ?? previewUrl ?? ""} alt="" />
       <IconButtonComponent onClick={handleRemoveButtonClick}>
         <IconComponent name="close-circle-bold" />

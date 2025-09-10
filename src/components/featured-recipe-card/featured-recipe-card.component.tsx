@@ -4,12 +4,12 @@ import { Link } from "react-router";
 
 import clsx from "clsx";
 
-import IconComponent from "@/components/icon/icon.component";
+import DurationBadgeComponent from "@/components/duration-badge/duration-badge.component.tsx";
+import ImageComponent from "@/components/image/image.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
+import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
 
 import type { FeaturedRecipe } from "@/entities/featured-recipe.ts";
-
-import { formatDuration } from "@/utils/format.utils.ts";
 
 import styles from "./featured-recipe-card.module.css";
 
@@ -30,7 +30,7 @@ export default function FeaturedRecipeCardComponent({
       to={`/recipe/${recipe.id}`}
       {...otherProps}
     >
-      <img src={featured.picture || "/placeholders/featured.webp"} alt="" />
+      <ImageComponent folder="featured" src={featured.picture} alt="" />
       <span className={styles.writings}>
         <TypographyComponent
           as="span"
@@ -40,26 +40,14 @@ export default function FeaturedRecipeCardComponent({
         >
           {recipe.title}
         </TypographyComponent>
-        <span className={styles.user}>
-          <img
-            src={recipe.user.picture || "/placeholders/user.svg"}
-            alt="User's Profile Picture"
-          />
-          <TypographyComponent
-            as="span"
-            ellipsis
-            className={styles.username}
-            variant="s"
-          >
-            {recipe.user.username}
-          </TypographyComponent>
-        </span>
-        <span className={styles.duration}>
-          <IconComponent name="alarm-linear" />
-          <TypographyComponent as="span" variant="s">
-            {formatDuration(recipe.duration)}
-          </TypographyComponent>
-        </span>
+        <UserBadgeComponent
+          className={styles["user-badge"]}
+          user={recipe.user}
+        />
+        <DurationBadgeComponent
+          className={styles["duration-badge"]}
+          duration={recipe.duration}
+        />
       </span>
     </Link>
   );
