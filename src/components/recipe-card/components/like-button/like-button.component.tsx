@@ -1,6 +1,6 @@
 import type { MouseEvent, ReactNode } from "react";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 
@@ -10,8 +10,6 @@ import { likeRecipeApi } from "@/api/recipe/like-recipe.api.ts";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
-
-import { queryClient } from "@/providers/query.provider";
 
 import styles from "./like-button.module.css";
 
@@ -26,24 +24,16 @@ export default function LikeButtonComponent({
   recipeId,
   liked,
 }: Props): ReactNode {
+  const queryClient = useQueryClient();
+
   const { mutateAsync } = useMutation({
     mutationKey: ["like-button", recipeId],
     mutationFn: likeRecipeApi,
-    onMutate: async (data) => {
-      await queryClient.cancelQueries({ queryKey: ["like-button", recipeId] });
-
-      const oldData = queryClient.getQueryData(["like-button", recipeId]);
-
-      queryClient.setQueryData(["like-button", recipeId], data);
-
-      return { oldData };
-    },
-    onError: (err, _, context) => {
-      queryClient.setQueryData(["like-button", recipeId], context?.oldData);
+    onError: (err) => {
       toast.error(err.message);
     },
-    onSettled: () => {
-      queryClient.invalidateQueries();
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["recipe"] });
     },
   });
 
