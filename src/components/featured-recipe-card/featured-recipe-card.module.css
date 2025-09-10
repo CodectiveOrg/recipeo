@@ -47,7 +47,7 @@
 
   .writings {
     display: grid;
-    grid-template-areas: "title title" "user duration";
+    grid-template-areas: "title title" "user-badge duration-badge";
     grid-template-columns: minmax(0, 1fr) auto;
     align-content: end;
     gap: 0.5rem;
@@ -64,29 +64,12 @@
       line-height: 110%;
     }
 
-    .user {
-      grid-area: user;
-
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      > img {
-        block-size: 1.25rem;
-        inline-size: 1.25rem;
-
-        border-radius: 999rem;
-      }
+    .user-badge {
+      grid-area: user-badge;
     }
 
-    .duration {
-      grid-area: duration;
-
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-
-      text-wrap: nowrap;
+    .duration-badge {
+      grid-area: duration-badge;
     }
   }
 }
