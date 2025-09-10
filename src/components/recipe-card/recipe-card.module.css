@@ -21,34 +21,6 @@
       border-radius: 1rem;
     }
 
-    button.like {
-      grid-area: like;
-
-      background-color: var(--color-white);
-
-      position: absolute;
-      inset-block-start: 0.75rem;
-      inset-inline-end: 0.75rem;
-
-      display: grid;
-      place-content: center;
-
-      block-size: 1.75rem;
-      inline-size: 1.75rem;
-
-      border-radius: 0.5rem;
-
-      svg {
-        &.liked {
-          color: var(--color-red);
-        }
-
-        &.unliked {
-          color: var(--color-black);
-        }
-      }
-    }
-
     .title {
       grid-area: title;
     }
@@ -61,29 +33,19 @@
       gap: 0.5rem;
     }
 
-    .arrow {
-      grid-area: arrow;
-      align-self: center;
-
-      background-color: var(--color-black);
-      color: var(--color-white);
-
-      display: grid;
-      place-content: center;
-
-      block-size: 1.5rem;
-      inline-size: 1.5rem;
-
-      border-radius: 0.5rem;
-
-      font-size: 0.75rem;
-    }
-
     .duration {
       grid-area: duration;
 
       display: flex;
       gap: 0.25rem;
+    }
+
+    .like-button {
+      grid-area: picture;
+    }
+
+    .arrow-button {
+      grid-area: arrow;
     }
   }
 }
@@ -97,23 +59,14 @@
       padding: 0.5rem;
 
       .recipe-picture {
-        block-size: 84px;
+        block-size: 5rem;
         inline-size: 100%;
       }
 
-      button.like {
-        display: none;
-      }
-
-      .user {
-        display: none;
-      }
-
-      .arrow {
-        display: none;
-      }
-
-      .duration {
+      .user,
+      .duration,
+      .like-button,
+      .arrow-button {
         display: none;
       }
     }
@@ -131,24 +84,20 @@
       padding: 1rem;
 
       .recipe-picture {
-        block-size: 128px;
+        block-size: 8rem;
         inline-size: 100%;
-      }
-
-      button.like {
-        grid-area: picture;
       }
 
       .user {
         align-self: center;
       }
 
-      .arrow {
-        display: none;
-      }
-
       .duration {
         align-self: center;
+      }
+
+      .arrow-button {
+        display: none;
       }
     }
   }
@@ -166,156 +115,15 @@
       padding-inline-end: 1rem;
 
       .recipe-picture {
-        min-block-size: 84px;
+        min-block-size: 5rem;
         block-size: 100%;
         inline-size: 100px;
       }
 
-      button.like {
-        display: none;
-      }
-
-      .duration {
+      .duration,
+      .like-button {
         display: none;
       }
     }
   }
 }
-
-/* @container (inline-size > 120px) { */
-
-/*  .content { */
-
-/*    !* Medium *! */
-
-/*    display: grid; */
-
-/*    grid-template-columns: auto 1fr; */
-
-/*    gap: 1rem; */
-
-/*    img { */
-
-/*      inline-size: 6.25rem; */
-
-/*      aspect-ratio: 1.19; */
-
-/*      object-fit: cover; */
-
-/*      border-radius: 1rem; */
-
-/*    } */
-
-/*    .wrapper { */
-
-/*      display: grid; */
-
-/*      grid-template-columns: auto 1fr; */
-
-/*      align-items: center; */
-
-/*      gap: 0.5rem; */
-
-/*      .writings { */
-
-/*        display: grid; */
-
-/*        gap: 0.5rem; */
-
-/*      } */
-
-/*      .user { */
-
-/*        display: flex; */
-
-/*        align-items: center; */
-
-/*        gap: 0.5rem; */
-
-/*        > img { */
-
-/*          block-size: 1.25rem; */
-
-/*          inline-size: 1.25rem; */
-
-/*          border: 1px solid var(--color-outline); */
-
-/*          border-radius: 999rem; */
-
-/*        } */
-
-/*      } */
-
-/*      > button { */
-
-/*        align-self: center; */
-
-/*        background-color: var(--color-primary); */
-
-/*        display: grid; */
-
-/*        place-content: center; */
-
-/*        block-size: 1.5rem; */
-
-/*        inline-size: 1.5rem; */
-
-/*        border-radius: 0.5rem; */
-
-/*        svg { */
-
-/*          color: var(--color-white); */
-
-/*        } */
-
-/*      } */
-
-/*    } */
-
-/*  } */
-
-/* } */
-
-/* @container (inline-size > 280px) { */
-
-/*  .content { */
-
-/*    !* Small *! */
-
-/*    background-color: var(--color-white); */
-
-/*    box-shadow: var(--shadow-card); */
-
-/*    display: grid; */
-
-/*    gap: 0.5rem; */
-
-/*    padding: 0.5rem 0.5rem 0.75rem; */
-
-/*    border: 1px solid hsl(0deg 0% 98% / 100%); */
-
-/*    border-radius: 1rem; */
-
-/*    img { */
-
-/*      inline-size: 5.25rem; */
-
-/*      aspect-ratio: 1; */
-
-/*      object-fit: cover; */
-
-/*      border-radius: 1rem; */
-
-/*    } */
-
-/*    .user, */
-
-/*    button { */
-
-/*      display: none; */
-
-/*    } */
-
-/*  } */
-
-/* } */
