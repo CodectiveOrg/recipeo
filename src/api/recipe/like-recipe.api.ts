@@ -11,7 +11,7 @@ export async function likeRecipeApi({
   id,
   action,
 }: Params): Promise<ResponseDto> {
-  return await richFetch(`/${id}/like`, {
+  return await richFetch(`/recipe/${id}/like`, {
     method: action === "like" ? "POST" : "DELETE",
   });
 }

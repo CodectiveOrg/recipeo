@@ -37,6 +37,7 @@ export default function LikeButtonComponent({
     e: MouseEvent<HTMLButtonElement>,
   ): Promise<void> => {
     e.stopPropagation();
+    e.preventDefault();
 
     await mutateAsync({
       id: recipeId,
