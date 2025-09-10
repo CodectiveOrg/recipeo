@@ -6,8 +6,6 @@ import { useMutation } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 
-import clsx from "clsx";
-
 import { likeRecipeApi } from "@/api/recipe/like-recipe.api";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component";
@@ -66,7 +64,7 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
         <TypographyComponent
           as="p"
           className={styles.title}
-          variant="h2"
+          variant="h3"
           color="text"
           maxLines={2}
         >

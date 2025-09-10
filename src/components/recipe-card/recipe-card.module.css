@@ -3,10 +3,6 @@
 
   display: block;
 
-  inline-size: 200px;
-
-  margin: 1.5rem;
-
   .content {
     box-shadow: var(--shadow-card);
 
@@ -92,7 +88,39 @@
   }
 }
 
-@container (120px < inline-size <= 280px) {
+@container (inline-size <= 200px) {
+  .recipe-card {
+    .content {
+      grid-template-areas: "picture" "title";
+      gap: 0.5rem;
+
+      padding: 0.5rem;
+
+      .recipe-picture {
+        block-size: 84px;
+        inline-size: 100%;
+      }
+
+      button.like {
+        display: none;
+      }
+
+      .user {
+        display: none;
+      }
+
+      .arrow {
+        display: none;
+      }
+
+      .duration {
+        display: none;
+      }
+    }
+  }
+}
+
+@container (200px < inline-size < 360px) {
   .recipe-card {
     .content {
       grid-template-areas: "picture picture" "title title" "user duration";
@@ -126,7 +154,7 @@
   }
 }
 
-@container (280px < inline-size ) {
+@container (360px <= inline-size ) {
   .recipe-card {
     .content {
       grid-template-areas: "picture title arrow" "picture user arrow";
