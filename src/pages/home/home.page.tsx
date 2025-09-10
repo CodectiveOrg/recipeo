@@ -14,7 +14,7 @@ export default function HomePage(): ReactNode {
   const { data } = useQuery({
     queryKey: ["recipe"],
     queryFn: async () => {
-      const data = await richFetch<Recipe>("/recipe/1");
+      const data = await richFetch<Recipe[]>("/recipe/recent");
 
       if ("error" in data) {
         throw new Error(data.error);
@@ -27,7 +27,15 @@ export default function HomePage(): ReactNode {
   return (
     <div className={styles.home}>
       <header>Header</header>
-      <main>{data && <RecipeCardComponent recipe={data} />}</main>
+      <main>
+        {data && (
+          <>
+            <RecipeCardComponent recipe={data[0]} />
+            <RecipeCardComponent recipe={data[1]} />
+            <RecipeCardComponent recipe={data[2]} />
+          </>
+        )}
+      </main>
     </div>
   );
 }

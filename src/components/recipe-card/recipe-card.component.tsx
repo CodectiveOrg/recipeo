@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router";
 
 import DurationBadgeComponent from "@/components/duration-badge/duration-badge.component.tsx";
+import ImageComponent from "@/components/image/image.component.tsx";
 import ArrowButtonComponent from "@/components/recipe-card/components/arrow-button/arrow-button.component.tsx";
 import LikeButtonComponent from "@/components/recipe-card/components/like-button/like-button.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
@@ -20,9 +21,10 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
   return (
     <Link className={styles["recipe-card"]} to={`/recipe/${recipe.id}`}>
       <div className={styles.content}>
-        <img
+        <ImageComponent
           className={styles["recipe-picture"]}
-          src={recipe.picture || "/placeholders/recipe.webp"}
+          folder="recipe"
+          src={recipe.picture}
           alt=""
         />
         <TypographyComponent

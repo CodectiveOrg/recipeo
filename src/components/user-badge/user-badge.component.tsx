@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import clsx from "clsx";
 
+import ImageComponent from "@/components/image/image.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { EssentialUser } from "@/entities/user.ts";
@@ -19,7 +20,7 @@ export default function UserBadgeComponent({
 }: Props): ReactNode {
   return (
     <span className={clsx(styles["user-badge"], className)}>
-      <img src={user.picture || "/placeholders/user.svg"} alt="" />
+      <ImageComponent folder="user" src={user.picture} alt="" />
       <TypographyComponent as="span" ellipsis variant="s">
         {user.username}
       </TypographyComponent>

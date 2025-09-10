@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import clsx from "clsx";
 
 import DurationBadgeComponent from "@/components/duration-badge/duration-badge.component.tsx";
+import ImageComponent from "@/components/image/image.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
 import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
 
@@ -29,7 +30,7 @@ export default function FeaturedRecipeCardComponent({
       to={`/recipe/${recipe.id}`}
       {...otherProps}
     >
-      <img src={featured.picture || "/placeholders/featured.webp"} alt="" />
+      <ImageComponent folder="featured" src={featured.picture} alt="" />
       <span className={styles.writings}>
         <TypographyComponent
           as="span"

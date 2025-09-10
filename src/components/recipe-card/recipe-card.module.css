@@ -1,6 +1,8 @@
 .recipe-card {
   container-type: inline-size;
 
+  color: inherit;
+
   display: block;
 
   .content {
@@ -23,6 +25,8 @@
 
     .title {
       grid-area: title;
+
+      min-block-size: 2lh;
     }
 
     .user-badge {
