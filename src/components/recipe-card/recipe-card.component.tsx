@@ -2,15 +2,13 @@ import type { ReactNode } from "react";
 
 import { Link } from "react-router";
 
-import IconComponent from "@/components/icon/icon.component";
+import DurationBadgeComponent from "@/components/duration-badge/duration-badge.component.tsx";
 import ArrowButtonComponent from "@/components/recipe-card/components/arrow-button/arrow-button.component.tsx";
 import LikeButtonComponent from "@/components/recipe-card/components/like-button/like-button.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
 import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
 
 import { Recipe } from "@/entities/recipe";
-
-import { formatDuration } from "@/utils/format.utils";
 
 import styles from "./recipe-card.module.css";
 
@@ -40,12 +38,10 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
           className={styles["user-badge"]}
           user={recipe.user}
         />
-        <span className={styles.duration}>
-          <IconComponent name="alarm-linear" />
-          <TypographyComponent as="span" variant="s">
-            {formatDuration(recipe.duration)}
-          </TypographyComponent>
-        </span>
+        <DurationBadgeComponent
+          className={styles["duration-badge"]}
+          duration={recipe.duration}
+        />
         <LikeButtonComponent
           className={styles["like-button"]}
           recipeId={recipe.id}

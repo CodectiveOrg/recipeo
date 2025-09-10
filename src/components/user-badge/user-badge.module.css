@@ -1,2 +1,12 @@
 .user-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  > img {
+    block-size: 1.5rem;
+    inline-size: 1.5rem;
+
+    border-radius: 999rem;
+  }
 }

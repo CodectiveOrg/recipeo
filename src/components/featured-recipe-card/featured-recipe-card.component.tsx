@@ -4,13 +4,11 @@ import { Link } from "react-router";
 
 import clsx from "clsx";
 
-import IconComponent from "@/components/icon/icon.component";
+import DurationBadgeComponent from "@/components/duration-badge/duration-badge.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
 import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
 
 import type { FeaturedRecipe } from "@/entities/featured-recipe.ts";
-
-import { formatDuration } from "@/utils/format.utils.ts";
 
 import styles from "./featured-recipe-card.module.css";
 
@@ -45,12 +43,10 @@ export default function FeaturedRecipeCardComponent({
           className={styles["user-badge"]}
           user={recipe.user}
         />
-        <span className={styles.duration}>
-          <IconComponent name="alarm-linear" />
-          <TypographyComponent as="span" variant="s">
-            {formatDuration(recipe.duration)}
-          </TypographyComponent>
-        </span>
+        <DurationBadgeComponent
+          className={styles["duration-badge"]}
+          duration={recipe.duration}
+        />
       </span>
     </Link>
   );
