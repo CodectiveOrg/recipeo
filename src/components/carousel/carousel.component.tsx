@@ -20,7 +20,12 @@ export default function CarouselComponent({
 }: Props): ReactNode {
   return (
     <div className={styles.carousel}>
-      <Swiper slidesPerView="auto" spaceBetween={16} modules={[FreeMode]}>
+      <Swiper
+        slidesPerView="auto"
+        spaceBetween={16}
+        modules={[FreeMode]}
+        style={{ blockSize: "inherit" }}
+      >
         {children.map((child, index) => (
           <SwiperSlide
             key={index}

@@ -2,6 +2,8 @@ import { type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
+import PopularRecipesSection from "@/sections/popular-recipes/popular-recipes.section";
+
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 
 import type { Recipe } from "@/entities/recipe.ts";
@@ -28,6 +30,12 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <br />
+        <PopularRecipesSection />
+        <br />
+        <PopularRecipesSection size="small" />
+        <br />
+        <br />
         {data && (
           <>
             <RecipeCardComponent recipe={data[0]} />
