@@ -3,7 +3,7 @@
 
   display: block;
 
-  inline-size: 280px;
+  inline-size: 200px;
 
   margin: 1.5rem;
 
@@ -31,8 +31,8 @@
       background-color: var(--color-white);
 
       position: absolute;
-      inset-block-start: 2rem;
-      inset-inline-end: 2rem;
+      inset-block-start: 0.75rem;
+      inset-inline-end: 0.75rem;
 
       display: grid;
       place-content: center;
@@ -85,6 +85,9 @@
 
     .duration {
       grid-area: duration;
+
+      display: flex;
+      gap: 0.25rem;
     }
   }
 }
@@ -93,7 +96,7 @@
   .recipe-card {
     .content {
       grid-template-areas: "picture picture" "title title" "user duration";
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       column-gap: 0.25rem;
       row-gap: 0.75rem;
 
@@ -101,11 +104,15 @@
 
       .recipe-picture {
         block-size: 128px;
-        inline-size: 100px;
+        inline-size: 100%;
       }
 
       button.like {
         grid-area: picture;
+      }
+
+      .user {
+        align-self: center;
       }
 
       .arrow {
@@ -113,7 +120,7 @@
       }
 
       .duration {
-        display: none;
+        align-self: center;
       }
     }
   }
