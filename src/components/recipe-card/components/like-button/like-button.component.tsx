@@ -11,6 +11,8 @@ import { likeRecipeApi } from "@/api/recipe/like-recipe.api.ts";
 import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 
+import { queryClient } from "@/providers/query.provider";
+
 import styles from "./like-button.module.css";
 
 type Props = {
@@ -25,12 +27,24 @@ export default function LikeButtonComponent({
   liked,
 }: Props): ReactNode {
   const { mutateAsync } = useMutation({
-    mutationKey: ["recipe-card", recipeId],
+    mutationKey: ["like-button", recipeId],
     mutationFn: likeRecipeApi,
-    onError: (error): void => {
-      toast.error(error.message);
+    onMutate: async (data) => {
+      await queryClient.cancelQueries({ queryKey: ["like-button", recipeId] });
+
+      const oldData = queryClient.getQueryData(["like-button", recipeId]);
+
+      queryClient.setQueryData(["like-button", recipeId], data);
+
+      return { oldData };
     },
-    onSuccess: () => {},
+    onError: (err, _, context) => {
+      queryClient.setQueryData(["like-button", recipeId], context?.oldData);
+      toast.error(err.message);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries();
+    },
   });
 
   const handleLikeButtonClick = async (
