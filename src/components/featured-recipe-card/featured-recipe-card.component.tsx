@@ -6,6 +6,7 @@ import clsx from "clsx";
 
 import IconComponent from "@/components/icon/icon.component";
 import TypographyComponent from "@/components/typography/typography.component";
+import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
 
 import type { FeaturedRecipe } from "@/entities/featured-recipe.ts";
 
@@ -40,20 +41,10 @@ export default function FeaturedRecipeCardComponent({
         >
           {recipe.title}
         </TypographyComponent>
-        <span className={styles.user}>
-          <img
-            src={recipe.user.picture || "/placeholders/user.svg"}
-            alt="User's Profile Picture"
-          />
-          <TypographyComponent
-            as="span"
-            ellipsis
-            className={styles.username}
-            variant="s"
-          >
-            {recipe.user.username}
-          </TypographyComponent>
-        </span>
+        <UserBadgeComponent
+          className={styles["user-badge"]}
+          user={recipe.user}
+        />
         <span className={styles.duration}>
           <IconComponent name="alarm-linear" />
           <TypographyComponent as="span" variant="s">

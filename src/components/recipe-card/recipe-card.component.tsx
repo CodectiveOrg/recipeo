@@ -6,6 +6,7 @@ import IconComponent from "@/components/icon/icon.component";
 import ArrowButtonComponent from "@/components/recipe-card/components/arrow-button/arrow-button.component.tsx";
 import LikeButtonComponent from "@/components/recipe-card/components/like-button/like-button.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
+import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
 
 import { Recipe } from "@/entities/recipe";
 
@@ -35,17 +36,12 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
         >
           {recipe.title}
         </TypographyComponent>
-        <span className={styles.user}>
-          <img
-            src={recipe.user.picture || "/placeholders/user.svg"}
-            alt="User's Profile Picture"
-          />
-          <TypographyComponent as="span" ellipsis variant="s">
-            {recipe.user.username}
-          </TypographyComponent>
-        </span>
+        <UserBadgeComponent
+          className={styles["user-badge"]}
+          user={recipe.user}
+        />
         <span className={styles.duration}>
-          <IconComponent name="clock-circle-outline" />
+          <IconComponent name="alarm-linear" />
           <TypographyComponent as="span" variant="s">
             {formatDuration(recipe.duration)}
           </TypographyComponent>

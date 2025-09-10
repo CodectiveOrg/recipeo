@@ -47,7 +47,7 @@
 
   .writings {
     display: grid;
-    grid-template-areas: "title title" "user duration";
+    grid-template-areas: "title title" "user-badge duration";
     grid-template-columns: minmax(0, 1fr) auto;
     align-content: end;
     gap: 0.5rem;
@@ -64,8 +64,8 @@
       line-height: 110%;
     }
 
-    .user {
-      grid-area: user;
+    .user-badge {
+      grid-area: user-badge;
 
       display: flex;
       align-items: center;

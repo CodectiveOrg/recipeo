@@ -25,8 +25,8 @@
       grid-area: title;
     }
 
-    .user {
-      grid-area: user;
+    .user-badge {
+      grid-area: user-badge;
 
       display: flex;
       align-items: center;
@@ -63,7 +63,7 @@
         inline-size: 100%;
       }
 
-      .user,
+      .user-badge,
       .duration,
       .like-button,
       .arrow-button {
@@ -76,7 +76,7 @@
 @container (200px < inline-size < 360px) {
   .recipe-card {
     .content {
-      grid-template-areas: "picture picture" "title title" "user duration";
+      grid-template-areas: "picture picture" "title title" "user-badge duration";
       grid-template-columns: minmax(0, 1fr) auto;
       column-gap: 0.25rem;
       row-gap: 0.75rem;
@@ -88,7 +88,7 @@
         inline-size: 100%;
       }
 
-      .user {
+      .user-badge {
         align-self: center;
       }
 
@@ -106,7 +106,7 @@
 @container (360px <= inline-size ) {
   .recipe-card {
     .content {
-      grid-template-areas: "picture title arrow" "picture user arrow";
+      grid-template-areas: "picture title arrow" "picture user-badge arrow";
       grid-template-columns: auto 1fr auto;
       column-gap: 1rem;
       row-gap: 0.5rem;
