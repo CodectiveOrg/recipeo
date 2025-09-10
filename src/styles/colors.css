@@ -12,6 +12,8 @@
   --color-primary-fade: hsl(150deg 100% 95%); /* #e3fff1 */
   --color-danger: hsl(0deg 100% 70%); /* #ff6464 */
 
+  --color-red: hsl(0deg 100% 50%); /* #ff0000 */
+
   --color-backdrop: hsl(0deg 0% 0% / 60%);
   --color-overlay: hsl(0deg 0% 0% / 60%);
 }

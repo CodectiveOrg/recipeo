@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import ImageComponent from "@/components/image/image.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { Step } from "@/entities/step.ts";
@@ -30,7 +31,9 @@ export default function StepsSection({ steps }: Props): ReactNode {
               <TypographyComponent as="p" variant="p2">
                 {step.description}
               </TypographyComponent>
-              {step.picture && <img src={step.picture} alt="" />}
+              {step.picture && (
+                <ImageComponent folder="step" src={step.picture} alt="" />
+              )}
             </div>
           </li>
         ))}

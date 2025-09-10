@@ -1,0 +1,25 @@
+.like-button {
+  background-color: var(--color-white);
+
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-end: 0.75rem;
+
+  display: grid;
+  place-content: center;
+
+  block-size: 1.75rem;
+  inline-size: 1.75rem;
+
+  border-radius: 0.5rem;
+
+  svg {
+    &.liked {
+      color: var(--color-red);
+    }
+
+    &.unliked {
+      color: var(--color-black);
+    }
+  }
+}
