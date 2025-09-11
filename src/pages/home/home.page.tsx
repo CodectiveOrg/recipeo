@@ -4,6 +4,7 @@ import { Link } from "react-router";
 
 import { toast } from "react-toastify";
 
+import TagsSection from "@/sections/categories/tags.section";
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
 import StepsSection from "@/sections/steps/steps.section.tsx";
@@ -109,6 +110,7 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <TagsSection />
         <StepsSection steps={steps} />
         <br />
         <IngredientsSection ingredients={ingredients} />
