@@ -15,6 +15,7 @@ import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
 import SignUpPage from "@/pages/sign-up/sign-up.page.tsx";
 
 import HomePage from "./pages/home/home.page.tsx";
+import RecipePage from "./pages/recipe/recipe.page.tsx";
 
 export default function Routing(): ReactNode {
   return (
@@ -30,6 +31,7 @@ export default function Routing(): ReactNode {
         <Route element={<SignedInOnlyGuard />}>
           <Route element={<SignedInLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="/recipe" element={<RecipePage />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
