@@ -4,10 +4,10 @@ import { Link } from "react-router";
 
 import { toast } from "react-toastify";
 
-import TagsSection from "@/sections/categories/tags.section";
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
 import StepsSection from "@/sections/steps/steps.section.tsx";
+import TagsSection from "@/sections/tags/tags.section.tsx";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";

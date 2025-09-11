@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 
 import { Link } from "react-router";
 
@@ -13,14 +13,36 @@ import TypographyComponent from "@/components/typography/typography.component";
 import styles from "./tags.module.css";
 
 export default function TagsSection(): ReactNode {
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+
   const { data } = useQuery({
     queryKey: ["tags-section"],
     queryFn: getTagsApi,
   });
 
+  const isSelected = (tagId: number): boolean => {
+    const index = selectedTags.findIndex((id) => id === tagId);
+    return index >= 0 ? true : false;
+  };
+
+  const handleButtonToggleSelection = (tagId: number) => {
+    const index = selectedTags.findIndex((id) => id === tagId);
+
+    if (index >= 0) {
+      setSelectedTags((old) => old.filter((id) => id !== tagId));
+    } else {
+      setSelectedTags((old) => [...old, tagId]);
+    }
+  };
+
   const content = data
     ? data.map((tag) => (
-        <ButtonComponent key={tag.id} size="small">
+        <ButtonComponent
+          key={tag.id}
+          size="small"
+          variant={isSelected(tag.id) ? "solid" : "outlined"}
+          onClick={() => handleButtonToggleSelection(tag.id)}
+        >
           {tag.title}
         </ButtonComponent>
       ))
@@ -34,7 +56,7 @@ export default function TagsSection(): ReactNode {
         </TypographyComponent>
       </header>
 
-      <CarouselComponent slideBlockSize="8rem" slideInlineSize="8rem">
+      <CarouselComponent slideBlockSize="4rem" slideInlineSize="10rem">
         {content}
       </CarouselComponent>
     </div>
