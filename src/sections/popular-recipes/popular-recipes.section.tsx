@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 
+import { Link } from "react-router";
+
 import { useQuery } from "@tanstack/react-query";
 
 import { getPopularRecipesApi } from "@/api/public/get-popularRecipes.api";
 
-import ButtonComponent from "@/components/button/button.component";
 import CarouselComponent from "@/components/carousel/carousel.component";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import TypographyComponent from "@/components/typography/typography.component";
@@ -36,18 +37,18 @@ export default function PopularRecipesSection({
         <TypographyComponent as="h1" variant="h1">
           Popular Recipes
         </TypographyComponent>
-        <ButtonComponent variant="text" size="small" color="primary">
-          View All
-        </ButtonComponent>
+        <Link to="#">View All</Link>
       </div>
-      <CarouselComponent
-        slideBlockSize={size === "medium" ? "15rem" : "8.5rem"}
-        slideInlineSize={size === "medium" ? "12.5rem" : "6.25rem"}
-      >
-        {data.map((recipe) => (
-          <RecipeCardComponent key={recipe.id} recipe={recipe} />
-        ))}
-      </CarouselComponent>
+      <>
+        <CarouselComponent
+          slideBlockSize={size === "medium" ? "15rem" : "8.5rem"}
+          slideInlineSize={size === "medium" ? "12.5rem" : "6.25rem"}
+        >
+          {data.map((recipe) => (
+            <RecipeCardComponent key={recipe.id} recipe={recipe} />
+          ))}
+        </CarouselComponent>
+      </>
     </div>
   );
 }

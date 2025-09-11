@@ -1,6 +1,18 @@
 .popular-recipes {
   .header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+
+    padding-bottom: 0.75rem;
+
+    > a {
+      color: var(--color-primary);
+
+      font-size: 0.75rem;
+      font-weight: 800;
+
+      line-height: 130%;
+    }
   }
 }
