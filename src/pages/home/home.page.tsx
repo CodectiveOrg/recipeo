@@ -2,6 +2,8 @@ import { type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
+import EditorsChoiceComponent from "@/sections/editors-choice/editors-choice.section";
+
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 
 import type { Recipe } from "@/entities/recipe.ts";
@@ -32,9 +34,9 @@ export default function HomePage(): ReactNode {
           <>
             <RecipeCardComponent recipe={data[0]} />
             <RecipeCardComponent recipe={data[1]} />
-            <RecipeCardComponent recipe={data[2]} />
           </>
         )}
+        <EditorsChoiceComponent></EditorsChoiceComponent>
       </main>
     </div>
   );
