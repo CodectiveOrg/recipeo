@@ -15,8 +15,16 @@ import styles from "./recent-recipes.module.css";
 
 const PAGE_SIZE = 2;
 
+type FetchPageType = {
+  data: Recipe[];
+  nextCursor: number | null;
+};
 export default function RecentRecipesSection(): ReactNode {
-  const fetchPage = async ({ pageParam = 0 }) => {
+  const fetchPage = async ({
+    pageParam = 0,
+  }: {
+    pageParam: number;
+  }): Promise<FetchPageType> => {
     const all = await getRecentRecipesApi();
     const start = pageParam;
     const end = start + PAGE_SIZE;
