@@ -1,10 +1,11 @@
 import { Fragment, type ReactNode, useCallback } from "react";
 
+import { Link } from "react-router";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { getRecentRecipesApi } from "@/api/public/get-recentRecipes.api";
 
-import ButtonComponent from "@/components/button/button.component";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
@@ -58,9 +59,7 @@ export default function RecentRecipesSection(): ReactNode {
         <TypographyComponent as="h2" variant="h2">
           Recent Recipes
         </TypographyComponent>
-        <ButtonComponent variant="text" size="small" color="primary">
-          View All
-        </ButtonComponent>
+        <Link to="#">View All</Link>
       </div>
 
       <div className={styles["scroll-recipes"]} onScroll={onScroll}>
