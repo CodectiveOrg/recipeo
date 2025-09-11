@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+import { Fragment, type ReactNode, useCallback } from "react";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -20,7 +20,9 @@ export default function RecentRecipesSection(): ReactNode {
     const start = pageParam;
     const end = start + PAGE_SIZE;
     const data = all.slice(start, end);
-    const nextCursor = end < all.length ? end : null;
+    const nextCursor =
+      pageParam + PAGE_SIZE < all.length ? pageParam + PAGE_SIZE : null;
+
     return { data, nextCursor };
   };
 
@@ -32,16 +34,19 @@ export default function RecentRecipesSection(): ReactNode {
       initialPageParam: 0,
     });
 
-  const onScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    if (
-      scrollHeight - scrollTop - clientHeight < 250 &&
-      hasNextPage &&
-      !isFetchingNextPage
-    ) {
-      fetchNextPage();
-    }
-  };
+  const onScroll = useCallback(
+    (e: React.UIEvent<HTMLDivElement>) => {
+      const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+      if (
+        scrollHeight - scrollTop - clientHeight < 250 &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage();
+      }
+    },
+    [hasNextPage, isFetchingNextPage, fetchNextPage],
+  );
 
   if (status === "error") {
     return <>Error...</>;
@@ -59,15 +64,27 @@ export default function RecentRecipesSection(): ReactNode {
       </div>
 
       <div className={styles["scroll-recipes"]} onScroll={onScroll}>
-        {data?.pages.map((page, i) => (
-          <Fragment key={i}>
-            {page.data.map((recipe: Recipe) => (
-              <RecipeCardComponent key={recipe.id} recipe={recipe} />
-            ))}
-          </Fragment>
-        ))}
-        {isFetchingNextPage && <p>Loading more...</p>}
-        {!hasNextPage && <p>No more recipes</p>}
+        <ul>
+          {data?.pages.map((page, i) => (
+            <Fragment key={i}>
+              {page.data.map((recipe: Recipe) => (
+                <li key={recipe.id}>
+                  <RecipeCardComponent recipe={recipe} />
+                </li>
+              ))}
+            </Fragment>
+          ))}
+        </ul>
+        {isFetchingNextPage && (
+          <TypographyComponent as="p" variant="s" color="text-secondary">
+            Loading more...
+          </TypographyComponent>
+        )}
+        {!hasNextPage && (
+          <TypographyComponent as="p" variant="s" color="text-secondary">
+            No more recipes
+          </TypographyComponent>
+        )}
       </div>
     </div>
   );
