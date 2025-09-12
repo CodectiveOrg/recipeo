@@ -1,0 +1,83 @@
+.sheet {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  background-color: var(--color-white);
+
+  display: grid;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  padding-inline: 1.5rem;
+
+  .drag-handle {
+    display: flex;
+    justify-content: center;
+    cursor: grab;
+
+    .drag {
+      width: 2.5rem;
+      height: 0.3125rem;
+      border-radius: 999rem;
+      background-color: var(--color-outline);
+      margin: 1rem;
+    }
+  }
+
+  .sheet-content {
+    display: grid;
+    gap: 1rem;
+    margin-block-end: 5rem;
+
+    .section-one {
+      display: grid;
+      gap: 1rem;
+
+      .recipe-info {
+        display: grid;
+        gap: 0.5rem;
+      }
+      .user-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .like {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .icon {
+          display: grid;
+          place-content: center;
+          background-color: var(--color-primary);
+          border-radius: 999rem;
+          color: var(--color-white);
+          inline-size: 1.5rem;
+          block-size: 1.5rem;
+
+          svg {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    > hr {
+      block-size: 1px;
+      color: var(--color-outline);
+    }
+    .section-two {
+      display: grid;
+      gap: 0.5rem;
+
+      .description > span {
+        line-height: 1.5rem;
+      }
+    }
+  }
+}
