@@ -1,0 +1,17 @@
+.filters-drawer {
+  header {
+    text-align: center;
+  }
+
+  .content {
+    display: grid;
+    gap: 1.5rem;
+
+    .action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  }
+}
