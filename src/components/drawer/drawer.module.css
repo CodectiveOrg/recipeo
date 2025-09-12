@@ -1,0 +1,14 @@
+.drawer {
+  inset-block-start: unset;
+
+  margin-inline: auto;
+
+  border: none;
+  border-start-start-radius: 2rem;
+  border-start-end-radius: 2rem;
+
+  &::backdrop {
+    background-color: var(--color-backdrop);
+    backdrop-filter: blur(2px);
+  }
+}
