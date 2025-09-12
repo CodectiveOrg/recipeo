@@ -31,7 +31,7 @@ export default function Routing(): ReactNode {
         <Route element={<SignedInOnlyGuard />}>
           <Route element={<SignedInLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="/recipe" element={<RecipePage />} />
+            <Route path="/recipe/:recipeId" element={<RecipePage />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
