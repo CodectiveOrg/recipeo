@@ -51,7 +51,7 @@ export default function SwipeableButtomSheetComponent({
     const onMouseUp = (): void => onDragEnd();
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
-    return () => {
+    return (): void => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };

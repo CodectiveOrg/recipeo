@@ -1,35 +1,41 @@
 .sheet {
-  position: sticky;
-  left: 0;
-  bottom: 0;
-
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
   background-color: var(--color-white);
 
-  display: grid;
+  position: sticky;
+  bottom: 0;
+  left: 0;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+
+  display: grid;
 
   padding-inline: 1.5rem;
+
+  border-top-right-radius: 2rem;
+  border-top-left-radius: 2rem;
+  -webkit-overflow-scrolling: touch;
 
   .drag-handle {
     display: flex;
     justify-content: center;
+
     cursor: grab;
 
     .drag {
+      background-color: var(--color-outline);
+
       width: 2.5rem;
       height: 0.3125rem;
-      border-radius: 999rem;
-      background-color: var(--color-outline);
+
       margin: 1rem;
+
+      border-radius: 999rem;
     }
   }
 
   .sheet-content {
     display: grid;
     gap: 1rem;
+
     margin-block-end: 5rem;
 
     .section-one {
@@ -40,10 +46,11 @@
         display: grid;
         gap: 0.5rem;
       }
+
       .user-info {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
       }
 
       .like {
@@ -52,13 +59,16 @@
         gap: 0.5rem;
 
         .icon {
+          background-color: var(--color-primary);
+          color: var(--color-white);
+
           display: grid;
           place-content: center;
-          background-color: var(--color-primary);
-          border-radius: 999rem;
-          color: var(--color-white);
-          inline-size: 1.5rem;
+
           block-size: 1.5rem;
+          inline-size: 1.5rem;
+
+          border-radius: 999rem;
 
           svg {
             font-size: 1rem;
@@ -68,9 +78,11 @@
     }
 
     > hr {
-      block-size: 1px;
       color: var(--color-outline);
+
+      block-size: 1px;
     }
+
     .section-two {
       display: grid;
       gap: 0.5rem;
