@@ -18,20 +18,20 @@ export default function FiltersDrawerComponent(): ReactNode {
   };
 
   const label = (
-    <>
+    <div className={styles.label}>
       <TypographyComponent as="span" variant="h2">
         Cooking Duration
       </TypographyComponent>
       <TypographyComponent as="span" variant="p1" color="text-secondary">
         (in minutes)
       </TypographyComponent>
-    </>
+    </div>
   );
 
   return (
     <div className={styles["filters-drawer"]}>
       <header>
-        <TypographyComponent variant="h2">Add a filter</TypographyComponent>
+        <TypographyComponent variant="h2" color="text">Add a filter</TypographyComponent>
       </header>
       <div className={styles.content}>
         <TagsSection />
