@@ -28,7 +28,7 @@ export default function ShareButtonComponent(): ReactNode {
     setShareMessage("");
   };
 
-  const handleShareButton = async () => {
+  const handleShareButton = async (): Promise<void> => {
     if (navigator.share) {
       try {
         await navigator.share({
@@ -56,7 +56,7 @@ export default function ShareButtonComponent(): ReactNode {
     }
   };
 
-  const handleCopy = () => {
+  const handleCopy = (): void => {
     navigator.clipboard.writeText(window.location.href);
     toast.success("URL copied to clipboard!");
     closeModal();
