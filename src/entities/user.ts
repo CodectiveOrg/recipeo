@@ -4,6 +4,9 @@ export class User {
   public email!: string;
   public password!: string;
   public picture!: string | null;
+  public followersCount!: string;
+  public followingCount!: string;
+  public recipesCount!: string;
 }
 
 export type EssentialUser = Pick<User, "username" | "picture">;
