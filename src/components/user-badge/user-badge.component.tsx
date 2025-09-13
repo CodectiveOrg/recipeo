@@ -20,9 +20,9 @@ export default function UserBadgeComponent({
 }: Props): ReactNode {
   return (
     <span className={clsx(styles["user-badge"], className)}>
-      <ImageComponent folder="user" src={user.picture} alt="" />
+      <ImageComponent folder="user" src={user?.picture} alt="" />
       <TypographyComponent as="span" ellipsis variant="s">
-        {user.username}
+        {user?.username}
       </TypographyComponent>
     </span>
   );
