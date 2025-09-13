@@ -31,6 +31,7 @@ export default function PopularRecipesSection({
   if (isError) {
     return <>Error...</>;
   }
+
   return (
     <div className={styles["popular-recipes"]}>
       <div className={styles["header"]}>
@@ -44,7 +45,7 @@ export default function PopularRecipesSection({
           slideBlockSize={size === "medium" ? "15rem" : "8.5rem"}
           slideInlineSize={size === "medium" ? "12.5rem" : "6.25rem"}
         >
-          {data.map((recipe) => (
+          {data.items.map((recipe) => (
             <RecipeCardComponent key={recipe.id} recipe={recipe} />
           ))}
         </CarouselComponent>
