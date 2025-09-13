@@ -9,37 +9,42 @@ import { getRecentRecipesApi } from "@/api/public/get-recentRecipes.api";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
+import type { RecentRecipesResponseDto } from "@/dto/response/recentRecipes.response.dto";
+
 import type { Recipe } from "@/entities/recipe";
 
 import styles from "./recent-recipes.module.css";
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 5;
 
 type FetchPageType = {
-  data: Recipe[];
-  nextCursor: number | null;
+  pageParam: number;
 };
+
 export default function RecentRecipesSection(): ReactNode {
   const fetchPage = async ({
     pageParam = 0,
-  }: {
-    pageParam: number;
-  }): Promise<FetchPageType> => {
+  }: FetchPageType): Promise<RecentRecipesResponseDto> => {
     const all = await getRecentRecipesApi();
     const start = pageParam;
     const end = start + PAGE_SIZE;
-    const data = all.slice(start, end);
-    const nextCursor =
-      pageParam + PAGE_SIZE < all.length ? pageParam + PAGE_SIZE : null;
-
-    return { data, nextCursor };
+    const pageItems = all.items.slice(start, end);
+    const currentPage = Math.floor(start / PAGE_SIZE) + 1;
+    const lastPage = Math.ceil(all.items.length / PAGE_SIZE);
+    return { items: pageItems, lastPage, currentPage };
   };
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: ["recent-recipes"],
-      queryFn: fetchPage,
-      getNextPageParam: (last) => last.nextCursor,
+      queryFn: ({ pageParam = 0 }) => fetchPage({ pageParam }),
+      getNextPageParam: (last) => {
+        if (last.currentPage < last.lastPage) {
+          return last.currentPage * PAGE_SIZE;
+        }
+        return undefined;
+      },
+
       initialPageParam: 0,
     });
 
@@ -74,7 +79,7 @@ export default function RecentRecipesSection(): ReactNode {
         <ul>
           {data?.pages.map((page, i) => (
             <Fragment key={i}>
-              {page.data.map((recipe: Recipe) => (
+              {page.items.map((recipe: Recipe) => (
                 <li key={recipe.id}>
                   <RecipeCardComponent recipe={recipe} />
                 </li>
