@@ -1,0 +1,29 @@
+.icon {
+  block-size: 1.5rem;
+  inline-size: 1.5rem;
+}
+
+.modal {
+  position: absolute;
+
+  padding: 1rem;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-block-end: 0.5rem;
+  }
+
+  .body {
+    display: grid;
+    gap: 0.75rem;
+
+    > input {
+      color: var(--color-text-secondary);
+
+      font-weight: 500;
+    }
+  }
+}
