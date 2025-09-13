@@ -1,3 +1,6 @@
 import type { Recipe } from "@/entities/recipe";
 
-export type RecentRecipesResponseDto = Recipe[];
+import type { PaginatedResponseDto } from "./paginated.response.dto";
+import type { ResponseDto } from "./response.dto";
+
+export type RecentRecipesResponseDto = PaginatedResponseDto<Recipe>;
