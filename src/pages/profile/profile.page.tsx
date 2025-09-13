@@ -25,6 +25,12 @@ export default function ProfilePage(): ReactNode {
     enabled: !!profileId,
   });
 
+  const stats = [
+    { count: user?.recipesCount, label: "Recipes" },
+    { count: user?.followingCount, label: "Following" },
+    { count: user?.followersCount, label: "Followers" },
+  ];
+
   const tabs = [
     {
       label: "Recipes",
@@ -51,24 +57,20 @@ export default function ProfilePage(): ReactNode {
             {user.username}
           </TypographyComponent>
           <div className={styles.stats}>
-            <TypographyComponent as="h2" variant="h2">
-              {user.recipesCount}
-            </TypographyComponent>
-            <TypographyComponent as="h2" variant="h2">
-              {user.followingCount}
-            </TypographyComponent>
-            <TypographyComponent as="h2" variant="h2">
-              {user.followersCount}
-            </TypographyComponent>
-            <TypographyComponent as="span" variant="s" color="text-secondary">
-              Recipes
-            </TypographyComponent>
-            <TypographyComponent as="span" variant="s" color="text-secondary">
-              Following
-            </TypographyComponent>
-            <TypographyComponent as="span" variant="s" color="text-secondary">
-              Followers
-            </TypographyComponent>
+            {stats.map(({ count, label }) => (
+              <div key={label} className={styles.stat}>
+                <TypographyComponent as="h2" variant="h2">
+                  {count}
+                </TypographyComponent>
+                <TypographyComponent
+                  as="span"
+                  variant="s"
+                  color="text-secondary"
+                >
+                  {label}
+                </TypographyComponent>
+              </div>
+            ))}
           </div>
         </div>
         <hr />
