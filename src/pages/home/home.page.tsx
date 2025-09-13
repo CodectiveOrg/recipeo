@@ -2,9 +2,11 @@ import { type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
+import PopularRecipesSection from "@/sections/popular-recipes/popular-recipes.section";
+
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 
-import type { Recipe } from "@/entities/recipe.ts";
+import type { RecentRecipesResponseDto } from "@/dto/response/recentResipes.response.dto";
 
 import { richFetch } from "@/utils/fetch.utils.ts";
 
@@ -14,13 +16,13 @@ export default function HomePage(): ReactNode {
   const { data } = useQuery({
     queryKey: ["recipe"],
     queryFn: async () => {
-      const data = await richFetch<Recipe[]>("/recipe/recent");
+      const data = await richFetch<RecentRecipesResponseDto>("/recipe/recent");
 
       if ("error" in data) {
         throw new Error(data.error);
       }
 
-      return data.result;
+      return data.result.items;
     },
   });
 
@@ -28,6 +30,12 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <br />
+        <PopularRecipesSection />
+        <br />
+        <PopularRecipesSection size="small" />
+        <br />
+        <br />
         {data && (
           <>
             <RecipeCardComponent recipe={data[0]} />

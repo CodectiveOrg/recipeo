@@ -1,0 +1,7 @@
+.carousel {
+  block-size: 10.5rem;
+
+  .swiper {
+    block-size: inherit;
+  }
+}
