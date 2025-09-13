@@ -27,17 +27,20 @@
 
       .stats {
         display: grid;
-        inline-size: 20rem;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         place-items: center;
         align-items: center;
+
+        inline-size: 20rem;
       }
     }
 
     > hr {
+      background-color: hsl(220deg 16% 96% / 100%);
+
       block-size: 0.5rem;
-      background-color: hsla(220, 16%, 96%, 1);
+
       border: none;
     }
   }
