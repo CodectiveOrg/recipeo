@@ -7,7 +7,7 @@ import type { SearchHistoryType } from "@/types/search-history.type";
 
 import styles from "./item.module.css";
 
-type Props = Omit<SearchHistoryType, "id">
+type Props = Omit<SearchHistoryType, "id">;
 
 export default function ItemComponent({ title }: Props): ReactNode {
   return (
