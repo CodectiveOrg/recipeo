@@ -12,11 +12,11 @@ type SearchHistoryStore = {
 
 export const useSearchHistory = create<SearchHistoryStore>((set) => ({
   list: [{ id: 1, title: "TEST" }],
-  add: (item) => {
+  add: (item): void => {
     set((state) => ({ list: [...state.list, item] }));
   },
-  remove: (id) =>
+  remove: (id): void =>
     set((state) => ({ list: state.list.filter((item) => item.id !== id) })),
-  initialize: (items) => set({ list: items }),
-  reset: () => set({ list: [] }),
+  initialize: (items): void => set({ list: items }),
+  reset: (): void => set({ list: [] }),
 }));
