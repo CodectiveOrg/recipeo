@@ -1,7 +1,5 @@
 import { type ReactNode, useRef } from "react";
 
-import TagsSection from "@/sections/tags/tags.section";
-
 import ButtonComponent from "@/components/button/button.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
@@ -34,7 +32,6 @@ export default function FiltersDrawerComponent(): ReactNode {
         <TypographyComponent variant="h2" color="text">Add a filter</TypographyComponent>
       </header>
       <div className={styles.content}>
-        <TagsSection />
         <RangeInputComponent
           label={label}
           ref={rangeInputRef}
