@@ -25,7 +25,7 @@ export default function TagsSection(): ReactNode {
     return index >= 0 ? true : false;
   };
 
-  const handleButtonToggleSelection = (tagId: number) => {
+  const handleButtonToggleSelection = (tagId: number): void => {
     const index = selectedTags.findIndex((id) => id === tagId);
 
     if (index >= 0) {
