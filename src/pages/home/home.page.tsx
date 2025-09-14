@@ -1,15 +1,15 @@
 import { type ReactNode, useRef } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import ButtonComponent from "@/components/button/button.component";
-import DrawerComponent from "@/components/drawer/drawer.component";
-import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
-import TypographyComponent from "@/components/typography/typography.component";
+import HandfulSection from "@/sections/handful/handful.section.tsx";
 
-import type { Recipe } from "@/entities/recipe.ts";
+import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
+import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 
-import { richFetch } from "@/utils/fetch.utils.ts";
+import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
+import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
+import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
 import styles from "./home.module.css";
 
@@ -20,20 +20,22 @@ type GetRecentRecipesResponseDto = {
 };
 
 export default function HomePage(): ReactNode {
-  const drawerRef = useRef<HTMLDialogElement>(null);
+  const popularRecipesQueryResult = useQuery({
+    queryKey: ["recipes", "popular"],
+    queryFn: getPopularRecipesApi,
+  });
 
-  const { data } = useQuery({
-    queryKey: ["recipe"],
-    queryFn: async () => {
-      const data =
-        await richFetch<GetRecentRecipesResponseDto>("/recipe/recent");
-
-      if ("error" in data) {
-        throw new Error(data.error);
+  const recentRecipesQueryResult = useInfiniteQuery({
+    queryKey: ["recipes", "recent"],
+    queryFn: getRecentRecipesApi,
+    getNextPageParam: (last) => {
+      if (last.currentPage >= last.lastPage) {
+        return null;
       }
 
-      return data.result;
+      return last.currentPage + 1;
     },
+    initialPageParam: 1,
   });
 
   return (
@@ -43,16 +45,24 @@ export default function HomePage(): ReactNode {
       </DrawerComponent>
       <header>Header</header>
       <main>
-        {data && (
-          <>
-            <RecipeCardComponent recipe={data.items[0]} />
-            <RecipeCardComponent recipe={data.items[1]} />
-          </>
-        )}
-
-        <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
-          Open Drawer
-        </ButtonComponent>
+        <HandfulSection title="Tags" viewAllHref="/tags">
+          <TagsCarouselComponent />
+        </HandfulSection>
+        <br />
+        <HandfulSection title="Popular Recipes" viewAllHref="/popular">
+          <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />
+        </HandfulSection>
+        <br />
+        <HandfulSection title="Popular Recipes" viewAllHref="/popular">
+          <RecipesCarouselComponent
+            queryResult={popularRecipesQueryResult}
+            size="small"
+          />
+        </HandfulSection>
+        <br />
+        <HandfulSection title="Recent Recipes" viewAllHref="/recent">
+          <InfiniteRecipesComponent queryResult={recentRecipesQueryResult} />
+        </HandfulSection>
       </main>
     </div>
   );
