@@ -31,7 +31,7 @@ export default function ProfilePage(): ReactNode {
     isError: userError,
     data: user,
   } = useQuery({
-    queryKey: ["user-profile", profileId],
+    queryKey: ["user", "profile", profileId],
     queryFn: async () => UserProfileApi({ profileId: profileId! }),
     enabled: !!profileId,
   });
