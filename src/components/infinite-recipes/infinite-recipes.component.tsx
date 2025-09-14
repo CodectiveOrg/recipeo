@@ -8,12 +8,12 @@ import type {
 import { useInView } from "react-intersection-observer";
 
 import LoadingComponent from "@/components/loading/loading.component.tsx";
-import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
+import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
 
-import styles from "./recent-recipes.module.css";
+import styles from "./infinite-recipes.module.css";
 
 type Props = {
   queryResult: UseInfiniteQueryResult<
@@ -21,7 +21,7 @@ type Props = {
   >;
 };
 
-export default function RecentRecipesSection({
+export default function InfiniteRecipesComponent({
   queryResult,
 }: Props): ReactNode {
   const {
@@ -50,7 +50,7 @@ export default function RecentRecipesSection({
   }
 
   return (
-    <div className={styles["recent-recipes"]}>
+    <div className={styles["infinite-recipes"]}>
       <ul>
         {data.pages.map((page, pageIndex) => (
           <Fragment key={page.currentPage}>

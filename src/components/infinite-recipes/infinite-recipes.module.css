@@ -1,4 +1,4 @@
-.recent-recipes {
+.infinite-recipes {
   > ul {
     display: grid;
     gap: 1rem;

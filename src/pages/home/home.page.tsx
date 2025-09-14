@@ -3,11 +3,11 @@ import { type ReactNode } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import HandfulSection from "@/sections/handful/handful.section.tsx";
-import RecentRecipesSection from "@/sections/recent-recipes/recent-recipes.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 
+import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
@@ -52,7 +52,7 @@ export default function HomePage(): ReactNode {
         </HandfulSection>
         <br />
         <HandfulSection title="Recent Recipes" viewAllHref="/recent">
-          <RecentRecipesSection queryResult={recentRecipesQueryResult} />
+          <InfiniteRecipesComponent queryResult={recentRecipesQueryResult} />
         </HandfulSection>
       </main>
     </div>
