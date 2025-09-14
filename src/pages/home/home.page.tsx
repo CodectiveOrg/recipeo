@@ -2,24 +2,25 @@ import { type ReactNode, useRef } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
+import { Bounce } from "react-toastify";
+
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 
+import ButtonComponent from "@/components/button/button.component";
+import DrawerComponent from "@/components/drawer/drawer.component";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
+import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./home.module.css";
 
-type GetRecentRecipesResponseDto = {
-  items: Recipe[];
-  currentPage: number;
-  lastPage: number;
-};
-
 export default function HomePage(): ReactNode {
+  const drawerRef = useRef<HTMLDialogElement | null>(null);
+
   const popularRecipesQueryResult = useQuery({
     queryKey: ["recipes", "popular"],
     queryFn: getPopularRecipesApi,
@@ -41,10 +42,13 @@ export default function HomePage(): ReactNode {
   return (
     <div className={styles.home}>
       <DrawerComponent ref={drawerRef}>
-        <TypographyComponent variant="h2">Add a filter</TypographyComponent>
+        <TypographyComponent variant="h2">Drawer Component</TypographyComponent>
       </DrawerComponent>
       <header>Header</header>
       <main>
+        <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
+          Show Drawer
+        </ButtonComponent>
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>

@@ -1,6 +1,8 @@
 .drawer {
   inset-block-start: unset;
 
+  inline-size: calc(min(var(--layout-size-2), 100%) - 3rem);
+
   margin-inline: auto;
 
   border: none;
