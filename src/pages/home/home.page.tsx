@@ -2,39 +2,34 @@ import { type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
+import RecipesCarouselSection from "@/sections/recipes-carousel/recipes-carousel.section.tsx";
 
-import type { Recipe } from "@/entities/recipe.ts";
-
-import { richFetch } from "@/utils/fetch.utils.ts";
+import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
-  const { data } = useQuery({
-    queryKey: ["recipe"],
-    queryFn: async () => {
-      const data = await richFetch<Recipe[]>("/recipe/recent");
-
-      if ("error" in data) {
-        throw new Error(data.error);
-      }
-
-      return data.result;
-    },
+  const popularRecipesQueryResult = useQuery({
+    queryKey: ["recipes", "popular"],
+    queryFn: getPopularRecipesApi,
   });
 
   return (
     <div className={styles.home}>
       <header>Header</header>
       <main>
-        {data && (
-          <>
-            <RecipeCardComponent recipe={data[0]} />
-            <RecipeCardComponent recipe={data[1]} />
-            <RecipeCardComponent recipe={data[2]} />
-          </>
-        )}
+        <RecipesCarouselSection
+          title="Popular Recipes"
+          queryResult={popularRecipesQueryResult}
+          viewAllHref="/popular"
+        />
+        <br />
+        <RecipesCarouselSection
+          title="Popular Recipes"
+          queryResult={popularRecipesQueryResult}
+          viewAllHref="/popular"
+          size="small"
+        />
       </main>
     </div>
   );

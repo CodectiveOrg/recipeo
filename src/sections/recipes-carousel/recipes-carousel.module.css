@@ -1,0 +1,23 @@
+.recipes-carousel {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-block-end: 0.75rem;
+
+    a {
+      color: var(--color-primary);
+    }
+  }
+
+  .slide {
+    &.medium {
+      inline-size: 15rem;
+    }
+
+    &.small {
+      inline-size: 8rem;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.carousel {
+  user-select: none;
+
+  .slide {
+    block-size: max-content;
+    inline-size: max-content;
+  }
+}
