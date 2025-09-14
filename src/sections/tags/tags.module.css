@@ -2,8 +2,6 @@
   display: grid;
   gap: 1rem;
 
-  padding: 1rem;
-
   header {
     display: flex;
     align-items: center;

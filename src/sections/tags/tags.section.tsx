@@ -57,6 +57,13 @@ export default function TagsSection(): ReactNode {
       </header>
 
       <CarouselComponent slideBlockSize="4rem" slideInlineSize="10rem">
+        <ButtonComponent
+          size="small"
+          variant={isSelected(-1) ? "solid" : "outlined"}
+          onClick={() => handleButtonToggleSelection(-1)}
+        >
+          All
+        </ButtonComponent>
         {content}
       </CarouselComponent>
     </div>
