@@ -1,4 +1,4 @@
-export type PaginatedResponseDto<T> = {
+export type Paginated<T> = {
   items: T[];
   currentPage: number;
   lastPage: number;

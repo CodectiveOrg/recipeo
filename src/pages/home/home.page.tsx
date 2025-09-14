@@ -9,8 +9,8 @@ import { getPopularRecipesApi } from "@/api/public/get-popularRecipes.api.ts";
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
-  const getPopularRecipesQueryResult = useQuery({
-    queryKey: ["popular-recipes"],
+  const popularRecipesQueryResult = useQuery({
+    queryKey: ["recipes", "popular"],
     queryFn: getPopularRecipesApi,
   });
 
@@ -20,14 +20,14 @@ export default function HomePage(): ReactNode {
       <main>
         <RecipesCarouselSection
           title="Popular Recipes"
+          queryResult={popularRecipesQueryResult}
           viewAllHref="/popular"
-          queryResult={getPopularRecipesQueryResult}
         />
         <br />
         <RecipesCarouselSection
           title="Popular Recipes"
+          queryResult={popularRecipesQueryResult}
           viewAllHref="/popular"
-          queryResult={getPopularRecipesQueryResult}
           size="small"
         />
       </main>
