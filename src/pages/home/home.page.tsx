@@ -2,9 +2,12 @@ import { type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import RecipesCarouselSection from "@/sections/recipes-carousel/recipes-carousel.section.tsx";
+import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
+
+import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
+import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
 import styles from "./home.module.css";
 
@@ -18,18 +21,20 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
-        <RecipesCarouselSection
-          title="Popular Recipes"
-          queryResult={popularRecipesQueryResult}
-          viewAllHref="/popular"
-        />
+        <HandfulSection title="Tags" viewAllHref="/tags">
+          <TagsCarouselComponent />
+        </HandfulSection>
         <br />
-        <RecipesCarouselSection
-          title="Popular Recipes"
-          queryResult={popularRecipesQueryResult}
-          viewAllHref="/popular"
-          size="small"
-        />
+        <HandfulSection title="Popular Recipes" viewAllHref="/popular">
+          <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />
+        </HandfulSection>
+        <br />
+        <HandfulSection title="Popular Recipes" viewAllHref="/popular">
+          <RecipesCarouselComponent
+            queryResult={popularRecipesQueryResult}
+            size="small"
+          />
+        </HandfulSection>
       </main>
     </div>
   );
