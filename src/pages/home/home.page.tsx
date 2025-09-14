@@ -2,7 +2,6 @@ import { type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
 import StepsSection from "@/sections/steps/steps.section.tsx";
@@ -15,6 +14,7 @@ import IconComponent from "@/components/icon/icon.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
+import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import SearchInputComponent from "@/components/search-input/search-input.component";
 import SuccessModalComponent from "@/components/success-modal/success-modal.component.tsx";
 import TabsComponent from "@/components/tabs/tabs.component.tsx";
