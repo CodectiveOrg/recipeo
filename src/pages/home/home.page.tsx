@@ -1,9 +1,8 @@
-import { type ReactNode, useRef, useState } from "react";
+import { type ReactNode } from "react";
 
-import { Link } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
-import { toast } from "react-toastify";
-
+import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import IngredientsSection from "@/sections/ingredients/ingredients.section.tsx";
 import StepsSection from "@/sections/steps/steps.section.tsx";
@@ -24,87 +23,24 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import { Ingredient } from "@/entities/ingredient.ts";
 import type { Recipe } from "@/entities/recipe.ts";
-import type { Step } from "@/entities/step.ts";
+
+import { richFetch } from "@/utils/fetch.utils.ts";
 
 import styles from "./home.module.css";
 
-const recipe: Recipe = {
-  id: 1,
-  title: "Asian white noodle with extra seafood",
-  description: "Lorem ipsum dolor sit amet.",
-  duration: 20,
-  tags: [],
-  ingredients: [],
-  steps: [],
-  user: { username: "James Spader", picture: "" },
-  createdAt: new Date(),
-  updatedAt: new Date(),
-};
-
-function ComponentA(): ReactNode {
-  return <div>Left Content</div>;
-}
-
-function ComponentB(): ReactNode {
-  return <div>Right Content</div>;
-}
-
-const tabs = [
-  { label: "Left", content: <ComponentA /> },
-  { label: "Right", content: <ComponentB /> },
-];
-
-const ingredients: Ingredient[] = [
-  { id: 1, title: "Potato", amount: 2, unit: "" },
-  { id: 2, title: "Onion", amount: 1, unit: "" },
-  { id: 3, title: "Tomato", amount: 3, unit: "" },
-  { id: 4, title: "Paprika", amount: 0.5, unit: "tbsp" },
-];
-
-const steps: Step[] = [
-  {
-    id: 1,
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
-    picture: "https://picsum.photos/1280/720",
-  },
-  {
-    id: 2,
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. ",
-    picture: "https://picsum.photos/600/600",
-  },
-  {
-    id: 3,
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. Your recipe has been uploaded, you can see it on your profile.",
-    picture: "https://picsum.photos/400/800",
-  },
-  {
-    id: 4,
-    description:
-      "Your recipe has been uploaded, you can see it on your profile. ",
-    picture: "",
-  },
-  {
-    id: 5,
-    description: "Your recipe has been uploaded. ",
-    picture: null,
-  },
-];
-
 export default function HomePage(): ReactNode {
-  const [value, setValue] = useState<number>(20);
+  const { data } = useQuery({
+    queryKey: ["recipe"],
+    queryFn: async () => {
+      const data = await richFetch<Recipe[]>("/recipe/recent");
 
-  const modalRef = useRef<HTMLDialogElement>(null);
+      if ("error" in data) {
+        throw new Error(data.error);
+      }
 
-  const openModal = (): void => {
-    modalRef.current?.showModal();
-  };
-
-  // const closeModal = (): void => {
-  //   modalRef.current?.close();
-  // };
+      return data.result;
+    },
+  });
 
   return (
     <div className={styles.home}>
@@ -293,6 +229,13 @@ export default function HomePage(): ReactNode {
           repellendus saepe tempore ullam velit voluptatibus. Dolorum,
           praesentium!
         </TypographyComponent>
+        {data && (
+          <>
+            <RecipeCardComponent recipe={data[0]} />
+            <RecipeCardComponent recipe={data[1]} />
+            <RecipeCardComponent recipe={data[2]} />
+          </>
+        )}
       </main>
     </div>
   );

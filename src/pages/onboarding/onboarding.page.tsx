@@ -11,7 +11,7 @@ export default function OnboardingPage(): ReactNode {
   return (
     <div className={styles.onboarding}>
       <main>
-        <img src="/images/onboarding.png" alt="" />
+        <img src="/images/onboarding.webp" alt="" />
         <div className={styles.writings}>
           <TypographyComponent variant="h1">Start Cooking</TypographyComponent>
           <TypographyComponent as="p" variant="p1" color="text-secondary">
