@@ -22,7 +22,13 @@ export default function HomePage(): ReactNode {
   const recentRecipesQueryResult = useInfiniteQuery({
     queryKey: ["recipes", "recent"],
     queryFn: getRecentRecipesApi,
-    getNextPageParam: (last) => last.currentPage + 1,
+    getNextPageParam: (last) => {
+      if (last.currentPage >= last.lastPage) {
+        return null;
+      }
+
+      return last.currentPage + 1;
+    },
     initialPageParam: 1,
   });
 

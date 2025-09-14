@@ -1,8 +1,4 @@
 .recent-recipes {
-  overflow: auto;
-
-  block-size: 10rem;
-
   > ul {
     display: grid;
     gap: 1rem;

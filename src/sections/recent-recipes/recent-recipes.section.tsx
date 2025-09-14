@@ -1,17 +1,17 @@
-import { Fragment, type ReactNode, type UIEvent } from "react";
+import { Fragment, type ReactNode } from "react";
 
 import type {
   InfiniteData,
   UseInfiniteQueryResult,
 } from "@tanstack/react-query";
 
+import { useInView } from "react-intersection-observer";
+
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { RecentRecipesResponseDto } from "@/dto/response/recentRecipes.response.dto";
-
-import type { Recipe } from "@/entities/recipe.ts";
 
 import styles from "./recent-recipes.module.css";
 
@@ -31,19 +31,13 @@ export default function RecentRecipesSection({
     isFetchingNextPage,
   } = queryResult;
 
-  const handleScroll = (e: UIEvent<HTMLDivElement>): void => {
-    console.log("here");
-
-    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-
-    if (
-      scrollHeight - scrollTop - clientHeight < 250 &&
-      hasNextPage &&
-      !isFetchingNextPage
-    ) {
-      fetchNextPage();
-    }
-  };
+  const { ref } = useInView({
+    onChange: async (inView) => {
+      if (inView && !isFetchingNextPage && hasNextPage) {
+        await fetchNextPage();
+      }
+    },
+  });
 
   if (isPending) {
     return <LoadingComponent />;
@@ -54,12 +48,21 @@ export default function RecentRecipesSection({
   }
 
   return (
-    <div className={styles["recent-recipes"]} onScroll={handleScroll}>
+    <div className={styles["recent-recipes"]}>
       <ul>
-        {data.pages.map((page) => (
+        {data.pages.map((page, pageIndex) => (
           <Fragment key={page.currentPage}>
-            {page.items.map((recipe: Recipe) => (
-              <li key={recipe.id}>
+            {page.items.map((recipe, recipeIndex) => (
+              <li
+                key={recipe.id}
+                ref={
+                  hasNextPage &&
+                  pageIndex === data.pages.length - 1 &&
+                  recipeIndex === page.items.length - 1
+                    ? ref
+                    : undefined
+                }
+              >
                 <RecipeCardComponent recipe={recipe} />
               </li>
             ))}
@@ -68,12 +71,12 @@ export default function RecentRecipesSection({
       </ul>
       {isFetchingNextPage && (
         <TypographyComponent as="p" variant="s" color="text-secondary">
-          Loading more...
+          Loading...
         </TypographyComponent>
       )}
       {!hasNextPage && (
         <TypographyComponent as="p" variant="s" color="text-secondary">
-          No more recipes
+          All done!
         </TypographyComponent>
       )}
     </div>
