@@ -2,6 +2,7 @@ import { type ReactNode } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
+import EditorsChoiceComponent from "@/sections/editors-choice/editors-choice.section";
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
@@ -36,6 +37,9 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <HandfulSection title="Editor's Choice" viewAllHref="/choices">
+          <EditorsChoiceComponent />
+        </HandfulSection>
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>

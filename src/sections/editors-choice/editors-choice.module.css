@@ -1,17 +1,4 @@
 .editors-choice {
   display: grid;
-  gap: 0.75rem;
-
-  padding: 1.5rem;
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  > ul {
-    display: grid;
-    gap: 1rem;
-  }
+  gap: 1rem;
 }
