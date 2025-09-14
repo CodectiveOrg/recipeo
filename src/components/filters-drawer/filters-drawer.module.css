@@ -13,10 +13,7 @@
       gap: 0.5rem;
     }
 
-    .action {
-      /* display: flex;
-      align-items: center;
-      justify-content: space-between; */
+    .actions {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;

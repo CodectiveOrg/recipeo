@@ -41,7 +41,7 @@ export default function FiltersDrawerComponent(): ReactNode {
           min={10}
           max={60}
         ></RangeInputComponent>
-        <div className={styles.action}>
+        <div className={styles.actions}>
           <ButtonComponent color="secondary" onClick={handleOnCancelButton}>
             Cancel
           </ButtonComponent>
