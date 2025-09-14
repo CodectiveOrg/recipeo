@@ -6,11 +6,16 @@ import { useQuery } from "@tanstack/react-query";
 
 import { UserProfileApi } from "@/api/user/user-profile.api";
 
+import ButtonComponent from "@/components/button/button.component";
 import ImageComponent from "@/components/image/image.component";
+import LoadingComponent from "@/components/loading/loading.component";
 import TabsComponent from "@/components/tabs/tabs.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
+import useVerifyQuery from "@/queries/use-verify.query";
+
 import BackButtonComponent from "./components/back-button/back-button.component";
+import LikedTabComponent from "./components/liked-tab/liked-tab.component";
 import RecipesTabComponent from "./components/recipes-tab/recipes-tab.component";
 import ShareButtonComponent from "./components/share-button/share-button.component";
 
@@ -19,7 +24,13 @@ import styles from "./profile.module.css";
 export default function ProfilePage(): ReactNode {
   const { profileId } = useParams();
 
-  const { data: user } = useQuery({
+  const { isPending, isError, data } = useVerifyQuery();
+
+  const {
+    isPending: userPending,
+    isError: userError,
+    data: user,
+  } = useQuery({
     queryKey: ["user-profile", profileId],
     queryFn: async () => UserProfileApi({ profileId: profileId! }),
     enabled: !!profileId,
@@ -36,10 +47,16 @@ export default function ProfilePage(): ReactNode {
       label: "Recipes",
       content: <RecipesTabComponent profileId={profileId!} />,
     },
-    { label: "Liked", content: <div>Liked Recipes</div> },
+    { label: "Liked", content: <LikedTabComponent profileId={profileId!} /> },
   ];
 
-  if (!user) return null;
+  if (isPending || userPending) {
+    return <LoadingComponent />;
+  }
+
+  if (isError || userError) {
+    return <div>Error</div>;
+  }
   return (
     <div className={styles.profile}>
       <main>
@@ -72,6 +89,11 @@ export default function ProfilePage(): ReactNode {
               </div>
             ))}
           </div>
+          {data.id !== user.id && (
+            <ButtonComponent size="medium" className={styles.button}>
+              Follow
+            </ButtonComponent>
+          )}
         </div>
         <hr />
         <TabsComponent tabs={tabs} />

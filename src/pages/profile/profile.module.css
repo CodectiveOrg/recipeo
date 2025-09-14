@@ -30,16 +30,20 @@
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
 
-        inline-size: 20rem;
+        inline-size: 19.86rem;
 
         .stat {
           text-align: center;
         }
       }
+
+      .button {
+        inline-size: 16.43rem;
+      }
     }
 
     > hr {
-      background-color: hsl(220deg 16% 96% / 100%);
+      background-color: var(--color-form);
 
       block-size: 0.5rem;
 
