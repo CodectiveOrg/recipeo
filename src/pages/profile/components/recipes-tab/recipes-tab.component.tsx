@@ -17,7 +17,7 @@ export default function RecipesTabComponent({
   profileId: string;
 }): ReactNode {
   const { isPending, isError, data } = useQuery({
-    queryKey: ["user", "recipes", , profileId],
+    queryKey: ["user", "recipes", profileId],
     queryFn: () => UserRecipesApi({ profileId: profileId! }),
     enabled: !!profileId,
   });

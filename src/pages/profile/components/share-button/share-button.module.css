@@ -6,9 +6,9 @@
 .modal {
   position: absolute;
 
-  padding: 1rem;
-
   max-inline-size: min-content;
+
+  padding: 1rem;
 
   .header {
     display: flex;
