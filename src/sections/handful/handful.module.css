@@ -1,4 +1,4 @@
-.recipes-carousel {
+.handful {
   .header {
     display: flex;
     align-items: center;
@@ -8,16 +8,6 @@
 
     a {
       color: var(--color-primary);
-    }
-  }
-
-  .slide {
-    &.medium {
-      inline-size: 15rem;
-    }
-
-    &.small {
-      inline-size: 8rem;
     }
   }
 }
