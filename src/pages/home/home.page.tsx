@@ -2,8 +2,6 @@ import { type ReactNode, useRef } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { Bounce } from "react-toastify";
-
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
