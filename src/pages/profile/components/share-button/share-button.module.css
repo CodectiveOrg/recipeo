@@ -8,6 +8,8 @@
 
   padding: 1rem;
 
+  max-inline-size: min-content;
+
   .header {
     display: flex;
     align-items: center;
