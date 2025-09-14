@@ -8,27 +8,15 @@ import "@/styles/swiper.css";
 import styles from "./carousel.module.css";
 
 type Props = {
-  slideBlockSize: string;
-  slideInlineSize: string;
   children: ReactNode[];
 };
 
-export default function CarouselComponent({
-  slideBlockSize,
-  slideInlineSize,
-  children,
-}: Props): ReactNode {
+export default function CarouselComponent({ children }: Props): ReactNode {
   return (
     <div className={styles.carousel}>
-      <Swiper slidesPerView="auto" spaceBetween={16} modules={[FreeMode]}>
+      <Swiper slidesPerView="auto" modules={[FreeMode]}>
         {children.map((child, index) => (
-          <SwiperSlide
-            key={index}
-            style={{
-              blockSize: slideBlockSize,
-              inlineSize: slideInlineSize,
-            }}
-          >
+          <SwiperSlide key={index} className={styles.slide}>
             {child}
           </SwiperSlide>
         ))}
