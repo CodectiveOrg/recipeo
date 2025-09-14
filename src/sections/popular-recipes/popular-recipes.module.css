@@ -15,4 +15,14 @@
       line-height: 130%;
     }
   }
+
+  .slide {
+    &.medium {
+      inline-size: 15rem;
+    }
+
+    &.small {
+      inline-size: 8rem;
+    }
+  }
 }

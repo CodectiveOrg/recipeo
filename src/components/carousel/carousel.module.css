@@ -1,7 +1,8 @@
 .carousel {
-  block-size: 10.5rem;
+  user-select: none;
 
-  .swiper {
-    block-size: inherit;
+  .slide {
+    block-size: max-content;
+    inline-size: max-content;
   }
 }

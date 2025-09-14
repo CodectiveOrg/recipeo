@@ -4,6 +4,8 @@ import { Link } from "react-router";
 
 import { useQuery } from "@tanstack/react-query";
 
+import clsx from "clsx";
+
 import { getPopularRecipesApi } from "@/api/public/get-popularRecipes.api";
 
 import CarouselComponent from "@/components/carousel/carousel.component";
@@ -40,16 +42,13 @@ export default function PopularRecipesSection({
         </TypographyComponent>
         <Link to="#">View All</Link>
       </div>
-      <>
-        <CarouselComponent
-          slideBlockSize={size === "medium" ? "15rem" : "8.5rem"}
-          slideInlineSize={size === "medium" ? "12.5rem" : "6.25rem"}
-        >
-          {data.items.map((recipe) => (
+      <CarouselComponent>
+        {data.items.map((recipe) => (
+          <div className={clsx(styles.slide, styles[size])}>
             <RecipeCardComponent key={recipe.id} recipe={recipe} />
-          ))}
-        </CarouselComponent>
-      </>
+          </div>
+        ))}
+      </CarouselComponent>
     </div>
   );
 }
