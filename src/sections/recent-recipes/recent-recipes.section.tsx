@@ -1,83 +1,81 @@
-import { Fragment, type ReactNode, useCallback } from "react";
+import { Fragment, type ReactNode, type UIEvent } from "react";
 
-import { Link } from "react-router";
+import type {
+  InfiniteData,
+  UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
-import type { InfiniteData } from "@tanstack/react-query";
-
+import LoadingComponent from "@/components/loading/loading.component.tsx";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { RecentRecipesResponseDto } from "@/dto/response/recentRecipes.response.dto";
 
-import type { Recipe } from "@/entities/recipe";
+import type { Recipe } from "@/entities/recipe.ts";
 
 import styles from "./recent-recipes.module.css";
 
 type Props = {
-  recentRecipes: InfiniteData<RecentRecipesResponseDto, unknown> | undefined;
-  hasNextPage: boolean;
-  isFetchingNextPage: boolean;
-  fetchNextPage: () => void;
-  status: "error" | "success" | "pending";
+  queryResult: UseInfiniteQueryResult<InfiniteData<RecentRecipesResponseDto>>;
 };
 
 export default function RecentRecipesSection({
-  recentRecipes,
-  hasNextPage,
-  isFetchingNextPage,
-  fetchNextPage,
-  status,
+  queryResult,
 }: Props): ReactNode {
-  const handleScroll = useCallback(
-    (e: React.UIEvent<HTMLDivElement>) => {
-      const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-      if (
-        scrollHeight - scrollTop - clientHeight < 250 &&
-        hasNextPage &&
-        !isFetchingNextPage
-      ) {
-        fetchNextPage();
-      }
-    },
-    [hasNextPage, isFetchingNextPage, fetchNextPage],
-  );
+  const {
+    isPending,
+    isError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = queryResult;
 
-  if (status === "error") {
+  const handleScroll = (e: UIEvent<HTMLDivElement>): void => {
+    console.log("here");
+
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+
+    if (
+      scrollHeight - scrollTop - clientHeight < 250 &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      fetchNextPage();
+    }
+  };
+
+  if (isPending) {
+    return <LoadingComponent />;
+  }
+
+  if (isError) {
     return <>Error...</>;
   }
 
   return (
-    <div className={styles["recent-recipes"]}>
-      <div className={styles.header}>
-        <TypographyComponent as="h2" variant="h2">
-          Recent Recipes
+    <div className={styles["recent-recipes"]} onScroll={handleScroll}>
+      <ul>
+        {data.pages.map((page) => (
+          <Fragment key={page.currentPage}>
+            {page.items.map((recipe: Recipe) => (
+              <li key={recipe.id}>
+                <RecipeCardComponent recipe={recipe} />
+              </li>
+            ))}
+          </Fragment>
+        ))}
+      </ul>
+      {isFetchingNextPage && (
+        <TypographyComponent as="p" variant="s" color="text-secondary">
+          Loading more...
         </TypographyComponent>
-        <Link to="#">View All</Link>
-      </div>
-
-      <div className={styles["scroll-recipes"]} onScroll={handleScroll}>
-        <ul>
-          {recentRecipes?.pages.map((page, i) => (
-            <Fragment key={i}>
-              {page.items.map((recipe: Recipe) => (
-                <li key={recipe.id}>
-                  <RecipeCardComponent recipe={recipe} />
-                </li>
-              ))}
-            </Fragment>
-          ))}
-        </ul>
-        {isFetchingNextPage && (
-          <TypographyComponent as="p" variant="s" color="text-secondary">
-            Loading more...
-          </TypographyComponent>
-        )}
-        {!hasNextPage && (
-          <TypographyComponent as="p" variant="s" color="text-secondary">
-            No more recipes
-          </TypographyComponent>
-        )}
-      </div>
+      )}
+      {!hasNextPage && (
+        <TypographyComponent as="p" variant="s" color="text-secondary">
+          No more recipes
+        </TypographyComponent>
+      )}
     </div>
   );
 }

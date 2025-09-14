@@ -2,8 +2,16 @@ import type { RecentRecipesResponseDto } from "@/dto/response/recentRecipes.resp
 
 import { richFetch } from "@/utils/fetch.utils.ts";
 
-export async function getRecentRecipesApi(): Promise<RecentRecipesResponseDto> {
-  const data = await richFetch<RecentRecipesResponseDto>("/recipe/recent");
+type Params = {
+  pageParam: number;
+};
+
+export async function getRecentRecipesApi({
+  pageParam,
+}: Params): Promise<RecentRecipesResponseDto> {
+  const data = await richFetch<RecentRecipesResponseDto>(
+    `/recipe/recent?page=${pageParam}`,
+  );
 
   if ("error" in data) {
     throw new Error(data.error);
