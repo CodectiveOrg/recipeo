@@ -44,7 +44,11 @@ export default function RecipesCarouselSection({
         <TypographyComponent as="h2" variant="h1">
           {title}
         </TypographyComponent>
-        {viewAllHref && <Link to={viewAllHref}>View All</Link>}
+        {viewAllHref && (
+          <Link to={viewAllHref} className="p2">
+            View All
+          </Link>
+        )}
       </div>
       <CarouselComponent>
         {data.items.map((recipe) => (
