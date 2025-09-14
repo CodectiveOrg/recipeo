@@ -1,11 +1,13 @@
 import { type ReactNode } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
+import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 
+import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
@@ -15,6 +17,19 @@ export default function HomePage(): ReactNode {
   const popularRecipesQueryResult = useQuery({
     queryKey: ["recipes", "popular"],
     queryFn: getPopularRecipesApi,
+  });
+
+  const recentRecipesQueryResult = useInfiniteQuery({
+    queryKey: ["recipes", "recent"],
+    queryFn: getRecentRecipesApi,
+    getNextPageParam: (last) => {
+      if (last.currentPage >= last.lastPage) {
+        return null;
+      }
+
+      return last.currentPage + 1;
+    },
+    initialPageParam: 1,
   });
 
   return (
@@ -34,6 +49,10 @@ export default function HomePage(): ReactNode {
             queryResult={popularRecipesQueryResult}
             size="small"
           />
+        </HandfulSection>
+        <br />
+        <HandfulSection title="Recent Recipes" viewAllHref="/recent">
+          <InfiniteRecipesComponent queryResult={recentRecipesQueryResult} />
         </HandfulSection>
       </main>
     </div>
