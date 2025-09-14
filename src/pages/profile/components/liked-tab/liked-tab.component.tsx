@@ -9,15 +9,15 @@ import RecipeCardComponent from "@/components/recipe-card/recipe-card.component"
 
 import type { Recipe } from "@/entities/recipe";
 
-import styles from "./recipes-tab.module.css";
+import styles from "./liked-tab.module.css";
 
-export default function RecipesTabComponent({
+export default function LikedTabComponent({
   profileId,
 }: {
   profileId: string;
 }): ReactNode {
   const { isPending, isError, data } = useQuery({
-    queryKey: ["user", "recipes", , profileId],
+    queryKey: ["user", "liked", profileId],
     queryFn: () => UserRecipesApi({ profileId: profileId! }),
     enabled: !!profileId,
   });
@@ -31,7 +31,7 @@ export default function RecipesTabComponent({
   }
   return (
     <>
-      <div className={styles.recipes}>
+      <div className={styles.liked}>
         {data.map((recipe: Recipe) => (
           <RecipeCardComponent recipe={recipe} key={recipe.id} />
         ))}
