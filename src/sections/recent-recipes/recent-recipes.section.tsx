@@ -11,12 +11,14 @@ import LoadingComponent from "@/components/loading/loading.component.tsx";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
-import type { RecentRecipesResponseDto } from "@/dto/response/recentRecipes.response.dto";
+import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
 
 import styles from "./recent-recipes.module.css";
 
 type Props = {
-  queryResult: UseInfiniteQueryResult<InfiniteData<RecentRecipesResponseDto>>;
+  queryResult: UseInfiniteQueryResult<
+    InfiniteData<PaginatedRecipesResponseDto>
+  >;
 };
 
 export default function RecentRecipesSection({

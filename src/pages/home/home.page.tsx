@@ -6,7 +6,7 @@ import HandfulSection from "@/sections/handful/handful.section.tsx";
 import RecentRecipesSection from "@/sections/recent-recipes/recent-recipes.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
-import { getRecentRecipesApi } from "@/api/public/get-recentRecipes.api.ts";
+import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";

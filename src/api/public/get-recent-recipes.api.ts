@@ -1,4 +1,4 @@
-import type { RecentRecipesResponseDto } from "@/dto/response/recentRecipes.response.dto";
+import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
 
 import { richFetch } from "@/utils/fetch.utils.ts";
 
@@ -8,8 +8,8 @@ type Params = {
 
 export async function getRecentRecipesApi({
   pageParam,
-}: Params): Promise<RecentRecipesResponseDto> {
-  const data = await richFetch<RecentRecipesResponseDto>(
+}: Params): Promise<PaginatedRecipesResponseDto> {
+  const data = await richFetch<PaginatedRecipesResponseDto>(
     `/recipe/recent?page=${pageParam}`,
   );
 
