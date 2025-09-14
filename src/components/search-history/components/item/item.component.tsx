@@ -7,9 +7,9 @@ import type { SearchHistoryType } from "@/types/search-history.type";
 
 import styles from "./item.module.css";
 
-type Props = SearchHistoryType;
+type Props = Omit<SearchHistoryType, "id">
 
-export default function ItemComponent({ id, title }: Props): ReactNode {
+export default function ItemComponent({ title }: Props): ReactNode {
   return (
     <li className={styles.item}>
       <IconComponent className={styles.icon} name="clock-circle-linear" />
