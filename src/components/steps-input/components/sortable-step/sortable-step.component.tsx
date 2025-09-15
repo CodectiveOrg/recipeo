@@ -3,12 +3,13 @@ import type { ChangeEvent, ReactNode, SyntheticEvent } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import ButtonComponent from "@/components/button/button.component";
 import IconButtonComponent from "@/components/icon-button/icon-button.component";
 import IconComponent from "@/components/icon/icon.component";
 import TextAreaComponent from "@/components/text-area/text-area.component";
 
 import type { Step } from "@/entities/step";
+
+import UploadImageButtonComponent from "../upload-image-button/upload-image-button.component";
 
 import styles from "./sortable-step.module.css";
 
@@ -16,7 +17,6 @@ type Props = {
   step: Step;
   index: number;
   onDescriptionChange: (id: number, value: string) => void;
-  onFileChange: (id: number, url: string | null) => void;
   onDeleteStep: (id: number) => void;
 };
 
@@ -24,25 +24,10 @@ export default function SortableStepComponent({
   step,
   index,
   onDescriptionChange,
-  onFileChange,
   onDeleteStep,
 }: Props): ReactNode {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: step.id });
-
-  // TODO
-  const handleInputFileChange = (
-    event: ChangeEvent<HTMLInputElement>,
-  ): void => {
-    handleStopPropagation(event);
-    const file = event.target.files?.[0] ?? null;
-    if (file) {
-      const url = URL.createObjectURL(file);
-      onFileChange(step.id, url);
-    } else {
-      onFileChange(step.id, null);
-    }
-  };
 
   const handleStopPropagation = (event: SyntheticEvent): void => {
     event.stopPropagation();
@@ -75,18 +60,7 @@ export default function SortableStepComponent({
           }}
           placeholder="Tell a little about your food"
         />
-        <ButtonComponent size="medium" color="secondary">
-          <IconComponent name="camera-bold" />
-          <input
-            id={"upload-" + step.id}
-            type="file"
-            accept="image/*"
-            onChange={(event) => {
-              handleStopPropagation(event);
-              handleInputFileChange(event);
-            }}
-          />
-        </ButtonComponent>
+        <UploadImageButtonComponent stepID={step.id} />
       </div>
     </li>
   );

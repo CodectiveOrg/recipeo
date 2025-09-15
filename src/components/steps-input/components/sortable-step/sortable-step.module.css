@@ -34,16 +34,5 @@
   .step-content {
     display: grid;
     gap: 0.5rem;
-
-    > button {
-      display: flex;
-      align-items: center;
-
-      cursor: pointer;
-
-      > input {
-        display: none;
-      }
-    }
   }
 }

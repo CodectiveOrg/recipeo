@@ -9,7 +9,7 @@ import {
 
 import ButtonComponent from "@/components/button/button.component";
 import IconComponent from "@/components/icon/icon.component";
-import SortableStepComponent from "@/components/steps-input/components/sortable-step.component";
+import SortableStepComponent from "@/components/steps-input/components/sortable-step/sortable-step.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import type { Step } from "@/entities/step";
@@ -46,14 +46,6 @@ export default function StepsInputComponent(): ReactNode {
     );
   };
 
-  const handleFileChange = (id: number, fileUrl: string | null): void => {
-    setSteps((steps) =>
-      steps.map((step) =>
-        step.id === id ? { ...step, picture: fileUrl } : step,
-      ),
-    );
-  };
-
   const handleAddStep = (): void => {
     setSteps((steps) => [
       ...steps,
@@ -86,14 +78,12 @@ export default function StepsInputComponent(): ReactNode {
                 step={step}
                 index={index}
                 onDescriptionChange={handleDescriptionChange}
-                onFileChange={handleFileChange}
                 onDeleteStep={handleDeleteStep}
               />
             ))}
           </ul>
         </SortableContext>
       </DndProvider>
-
       <ButtonComponent
         variant="outlined"
         color="secondary"
