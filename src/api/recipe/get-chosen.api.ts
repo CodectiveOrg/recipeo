@@ -1,9 +1,9 @@
-import type { GetEditorsChoiceResponseDto } from "@/dto/response/get-editors-choice.response.dto";
+import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
 
 import { richFetch } from "@/utils/fetch.utils";
 
-export async function getChosenApi(): Promise<GetEditorsChoiceResponseDto[]> {
-  const data = await richFetch<GetEditorsChoiceResponseDto[]>("/recipe/chosen");
+export async function getChosenApi(): Promise<PaginatedRecipesResponseDto> {
+  const data = await richFetch<PaginatedRecipesResponseDto>("/recipe/chosen");
 
   if ("error" in data) {
     throw new Error(data.error);
