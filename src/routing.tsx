@@ -9,13 +9,12 @@ import GuestLayout from "@/layouts/guest/guest.layout.tsx";
 import RootLayout from "@/layouts/root/root.layout.tsx";
 import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 
+import HomePage from "@/pages/home/home.page.tsx";
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
+import RecipePage from "@/pages/recipe/recipe.page.tsx";
 import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
 import SignUpPage from "@/pages/sign-up/sign-up.page.tsx";
-
-import HomePage from "./pages/home/home.page.tsx";
-import RecipePage from "./pages/recipe/recipe.page.tsx";
 
 export default function Routing(): ReactNode {
   return (
@@ -28,11 +27,13 @@ export default function Routing(): ReactNode {
             <Route path="sign-up" element={<SignUpPage />} />
           </Route>
         </Route>
-        <Route element={<SignedInOnlyGuard />}>
-          <Route element={<SignedInLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="/recipe/:recipeId" element={<RecipePage />} />
+        z
+        <Route element={<SignedInLayout />}>
+          <Route element={<SignedInOnlyGuard />}>
+            <Route path="todo" element="TODO" />
           </Route>
+          <Route index element={<HomePage />} />
+          <Route path="recipe/:recipeId" element={<RecipePage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>

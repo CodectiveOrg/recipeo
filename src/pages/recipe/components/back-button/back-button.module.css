@@ -1,19 +1,12 @@
-.back-btn {
-  grid-area: overlay;
-  align-self: start;
-  justify-self: start;
-
-  background-color: var(--color-overlay);
-  backdrop-filter: blur(8px);
+.back-button {
+  background-color: var(--color-overlay-light);
+  backdrop-filter: blur(2px);
 
   display: grid;
   place-content: center;
 
   block-size: 3.5rem;
   inline-size: 3.5rem;
-
-  margin-block-start: 1.5rem;
-  margin-inline-start: 1.5rem;
 
   border-radius: 999rem;
 

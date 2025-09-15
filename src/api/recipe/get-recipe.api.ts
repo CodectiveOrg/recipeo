@@ -3,7 +3,7 @@ import type { RecipeResponseDto } from "@/dto/response/recipe.response.dto";
 import { richFetch } from "@/utils/fetch.utils";
 
 type Params = {
-  recipeId: string;
+  recipeId: string | undefined;
 };
 
 export async function getRecipeApi({
