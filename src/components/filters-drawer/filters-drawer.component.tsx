@@ -10,9 +10,9 @@ import styles from "./filters-drawer.module.css";
 export default function FiltersDrawerComponent(): ReactNode {
   const rangeInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleOnCancelButton = () => {};
+  const handleOnCancelButton = (): void => {};
 
-  const handleOnDoneButton = () => {
+  const handleOnDoneButton = (): void => {
     console.log(rangeInputRef.current?.value);
   };
 
