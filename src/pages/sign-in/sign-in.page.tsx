@@ -6,11 +6,11 @@ import { useMutation } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 
-import AuthSection from "@/sections/auth/auth.section.tsx";
-
 import { signInApi } from "@/api/auth/sign-in.api.ts";
 
 import type { AuthRequestDto } from "@/dto/request/auth.request.dto.ts";
+
+import AuthSection from "@/sections/auth/auth.section.tsx";
 
 import styles from "./sign-in.module.css";
 

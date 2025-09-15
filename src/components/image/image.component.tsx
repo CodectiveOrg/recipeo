@@ -12,6 +12,7 @@ const placeholders: Record<Folder, string> = {
 type Props = Omit<ComponentProps<"img">, "src"> & {
   folder: Folder;
   src: string | null;
+  alt: string;
 };
 
 export default function ImageComponent({

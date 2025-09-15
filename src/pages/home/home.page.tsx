@@ -2,15 +2,17 @@ import { type ReactNode } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import HandfulSection from "@/sections/handful/handful.section.tsx";
-
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
+import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
+import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import StepsInputComponent from "@/components/steps-input/steps-input.component";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
+
+import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./home.module.css";
 
@@ -18,6 +20,11 @@ export default function HomePage(): ReactNode {
   const popularRecipesQueryResult = useQuery({
     queryKey: ["recipes", "popular"],
     queryFn: getPopularRecipesApi,
+  });
+
+  const chosenRecipesQueryResult = useQuery({
+    queryKey: ["recipes", "chosen"],
+    queryFn: getChosenRecipesApi,
   });
 
   const recentRecipesQueryResult = useInfiniteQuery({
@@ -47,11 +54,8 @@ export default function HomePage(): ReactNode {
           <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />
         </HandfulSection>
         <br />
-        <HandfulSection title="Popular Recipes" viewAllHref="/popular">
-          <RecipesCarouselComponent
-            queryResult={popularRecipesQueryResult}
-            size="small"
-          />
+        <HandfulSection title="Editor's Choice" viewAllHref="/chosen">
+          <ChosenRecipesComponent queryResult={chosenRecipesQueryResult} />
         </HandfulSection>
         <br />
         <HandfulSection title="Recent Recipes" viewAllHref="/recent">
