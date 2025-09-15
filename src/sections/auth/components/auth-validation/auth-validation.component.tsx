@@ -2,10 +2,10 @@ import type { ReactNode } from "react";
 
 import clsx from "clsx";
 
-import { type ParsedRule } from "@/sections/auth/hooks/use-auth-validation.hook.ts";
-
 import CheckCircleComponent from "@/components/check-circle/check-circle.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
+
+import { type ParsedRule } from "@/sections/auth/hooks/use-auth-validation.hook.ts";
 
 import styles from "./auth-validation.module.css";
 
