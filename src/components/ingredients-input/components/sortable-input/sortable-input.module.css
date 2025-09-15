@@ -1,0 +1,20 @@
+.input-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+
+  .aside-input-actions {
+    display: grid;
+    place-items: center;
+    align-content: start;
+    gap: 0.5rem;
+
+    svg {
+      display: grid;
+      place-content: center;
+
+      block-size: 1.5rem;
+      inline-size: 1.5rem;
+    }
+  }
+}
