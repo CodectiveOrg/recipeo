@@ -9,20 +9,21 @@
 
     .first-column {
       display: grid;
-      align-content: start;
       place-items: center;
+      align-content: start;
       gap: 0.5rem;
 
       .circle {
         background-color: var(--color-text);
-        border-radius: 999rem;
+        color: var(--color-white);
+
         display: grid;
         place-content: center;
 
         block-size: 1.75rem;
         inline-size: 1.75rem;
 
-        color: var(--color-white);
+        border-radius: 999rem;
       }
 
       .drag-icon {
