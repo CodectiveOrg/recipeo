@@ -1,18 +1,15 @@
 import type { ResponseDto } from "@/dto/response/response.dto";
-import type { VerifyResponseDto } from "@/dto/response/verify.response.dto";
-
-import type { User } from "@/entities/user";
 
 import { richFetch } from "@/utils/fetch.utils";
 
 type Params = {
-  verifyId: VerifyResponseDto;
+  targetUserId: number | undefined;
 };
 
 export async function UserUnFollowApi({
-  verifyId,
-}: Params): Promise<ResponseDto<User>> {
-  const data = await richFetch<ResponseDto<User>>(`/user/unfollow/${verifyId}`);
+  targetUserId,
+}: Params): Promise<ResponseDto> {
+  const data = await richFetch<ResponseDto>(`/user/unfollow/${targetUserId}`);
 
   if ("error" in data) {
     throw new Error(data.error);

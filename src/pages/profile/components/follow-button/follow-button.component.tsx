@@ -1,4 +1,4 @@
-import { type ComponentProps, type ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { useMutation } from "@tanstack/react-query";
 
@@ -9,27 +9,24 @@ import { UserUnFollowApi } from "@/api/user/user-unfollow.api";
 
 import ButtonComponent from "@/components/button/button.component";
 
-import useVerifyQuery from "@/queries/use-verify.query";
-
-type Props = ComponentProps<"button"> & {
-  isInitiallyFollowing: boolean;
+type Props = {
+  userId: number | undefined;
   className?: string;
 };
 export default function FollowButtonComponent({
-  isInitiallyFollowing,
+  userId,
   className,
 }: Props): ReactNode {
-  const [isFollowing, setIsFollowing] = useState(isInitiallyFollowing);
-  const { data } = useVerifyQuery();
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const { mutateAsync: followMutateAsync } = useMutation({
-    mutationKey: ["user", "follow", data],
-    mutationFn: () => UserFollowApi({ verifyId: data! }),
+    mutationKey: ["user", "follow", userId],
+    mutationFn: () => UserFollowApi({ targetUserId: userId }),
   });
 
   const { mutateAsync: unfollowMutateAsync } = useMutation({
-    mutationKey: ["user", "unfollow", data],
-    mutationFn: () => UserUnFollowApi({ verifyId: data! }),
+    mutationKey: ["user", "unfollow", userId],
+    mutationFn: () => UserUnFollowApi({ targetUserId: userId }),
   });
 
   const handleClickButton = async (): Promise<void> => {
@@ -41,7 +38,7 @@ export default function FollowButtonComponent({
             setIsFollowing(false);
           },
           onError: (error: Error) => {
-            toast.error(error.message || "Failed to unfollow");
+            toast.error(error.message);
           },
         });
       } else {
@@ -51,7 +48,7 @@ export default function FollowButtonComponent({
             setIsFollowing(true);
           },
           onError: (error: Error) => {
-            toast.error(error.message || "Failed to follow");
+            toast.error(error.message);
           },
         });
       }
@@ -61,7 +58,11 @@ export default function FollowButtonComponent({
   };
 
   return (
-    <ButtonComponent className={className} onClick={handleClickButton}>
+    <ButtonComponent
+      size="medium"
+      className={className}
+      onClick={handleClickButton}
+    >
       {isFollowing ? "Unfollow" : "Follow"}
     </ButtonComponent>
   );

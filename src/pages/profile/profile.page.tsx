@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import { UserProfileApi } from "@/api/user/user-profile.api";
 
-import ButtonComponent from "@/components/button/button.component";
 import ImageComponent from "@/components/image/image.component";
 import LoadingComponent from "@/components/loading/loading.component";
 import TabsComponent from "@/components/tabs/tabs.component";
@@ -15,6 +14,7 @@ import TypographyComponent from "@/components/typography/typography.component";
 import useVerifyQuery from "@/queries/use-verify.query";
 
 import BackButtonComponent from "./components/back-button/back-button.component";
+import FollowButtonComponent from "./components/follow-button/follow-button.component";
 import LikedTabComponent from "./components/liked-tab/liked-tab.component";
 import RecipesTabComponent from "./components/recipes-tab/recipes-tab.component";
 import ShareButtonComponent from "./components/share-button/share-button.component";
@@ -79,7 +79,7 @@ export default function ProfilePage(): ReactNode {
           <div className={styles.stats}>
             {stats.map(({ count, label }) => (
               <div key={label} className={styles.stat}>
-                <TypographyComponent as="h2" variant="h2">
+                <TypographyComponent as="div" variant="h2">
                   {count}
                 </TypographyComponent>
                 <TypographyComponent
@@ -93,9 +93,10 @@ export default function ProfilePage(): ReactNode {
             ))}
           </div>
           {verifyId.id !== user.id && (
-            <ButtonComponent size="medium" className={styles.button}>
-              Follow
-            </ButtonComponent>
+            <FollowButtonComponent
+              userId={finalyId}
+              className={styles.button}
+            />
           )}
         </div>
         <hr />
