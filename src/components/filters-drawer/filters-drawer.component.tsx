@@ -1,6 +1,7 @@
 import { type ReactNode, useRef } from "react";
 
 import ButtonComponent from "@/components/button/button.component";
+import FilterCategoryInputComponent from "@/components/filter-category-input/filter-category-input.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
@@ -29,9 +30,12 @@ export default function FiltersDrawerComponent(): ReactNode {
   return (
     <div className={styles["filters-drawer"]}>
       <header>
-        <TypographyComponent variant="h2" color="text">Add a filter</TypographyComponent>
+        <TypographyComponent variant="h2" color="text">
+          Add a filter
+        </TypographyComponent>
       </header>
       <div className={styles.content}>
+        <FilterCategoryInputComponent label="Category" />
         <RangeInputComponent
           label={label}
           ref={rangeInputRef}

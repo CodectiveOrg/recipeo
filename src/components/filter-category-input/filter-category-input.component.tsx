@@ -6,13 +6,13 @@ import clsx from "clsx";
 
 import { getAllTagsApi } from "@/api/tag/get-all-tags.api";
 
+import ButtonComponent from "@/components/button/button.component";
 import LoadingComponent from "@/components/loading/loading.component";
 
 import { Tag } from "@/entities/tag";
 
-import ButtonComponent from "@/components/button/button.component";
-
 import styles from "./filter-category-input.module.css";
+import TypographyComponent from "../typography/typography.component";
 
 type Props = Omit<
   ComponentProps<"input">,
@@ -32,7 +32,7 @@ export default function FilterCategoryInputComponent({
   onChange,
   ...otherProps
 }: Props): ReactNode {
-  const [uncontrolledValue, setUncontrolledValue] = useState<Tag>(
+  const [uncontrolledValue, setUncontrolledValue] = useState<string>(
     defaultValue ?? "All",
   );
   const value = controlledValue ?? uncontrolledValue;
@@ -55,19 +55,22 @@ export default function FilterCategoryInputComponent({
   const tags: Tag[] = [{ id: -1, title: "All" }, ...data];
 
   const handleButtonClick = (tag: Tag): void => {
-    setUncontrolledValue(tag);
+    setUncontrolledValue(tag.title);
     onChange?.(tag);
   };
 
   return (
-    <div className={clsx(styles["filter-category-component"], className)}>
-      <label htmlFor={id}>{label}</label>
-      <div className={styles.colors}>
+    <div className={clsx(styles["filter-category-input"], className)}>
+      <label htmlFor={id}>
+        <TypographyComponent as="span" variant="h2">{label}</TypographyComponent>
+      </label>
+      <div className={styles.buttons}>
         {tags.map((tag) => (
           <ButtonComponent
             key={tag.id}
+            size="small"
             color={tag.title === value ? "primary" : "secondary"}
-            onClick={() => handleButtonClick(tag.id)}
+            onClick={() => handleButtonClick(tag)}
           >
             {tag.title}
           </ButtonComponent>

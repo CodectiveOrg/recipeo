@@ -1,11 +1,14 @@
 .filters-drawer {
+  display: grid;
+  gap: 2rem;
+
   header {
     text-align: center;
   }
 
   .content {
     display: grid;
-    gap: 1.5rem;
+    gap: 2rem;
 
     .label {
       display: flex;

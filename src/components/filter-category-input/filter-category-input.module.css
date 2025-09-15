@@ -1,2 +1,10 @@
 .filter-category-input {
+  display: grid;
+  gap: 1rem;
+
+  .buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem 0.5rem;
+  }
 }
