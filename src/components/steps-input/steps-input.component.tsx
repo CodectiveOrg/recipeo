@@ -14,7 +14,7 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import type { Step } from "@/entities/step";
 
-import DndProvider from "@/providers/dndProvider/dnd.provider";
+import DndProvider from "@/providers/dnd-provider/dnd.provider";
 
 import styles from "./steps-input.module.css";
 

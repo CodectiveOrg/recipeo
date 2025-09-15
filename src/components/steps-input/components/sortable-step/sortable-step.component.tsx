@@ -5,11 +5,10 @@ import { CSS } from "@dnd-kit/utilities";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component";
 import IconComponent from "@/components/icon/icon.component";
+import UploadImageButtonComponent from "@/components/steps-input/components/upload-image-button/upload-image-button.component";
 import TextAreaComponent from "@/components/text-area/text-area.component";
 
 import type { Step } from "@/entities/step";
-
-import UploadImageButtonComponent from "../upload-image-button/upload-image-button.component";
 
 import styles from "./sortable-step.module.css";
 
