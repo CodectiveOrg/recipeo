@@ -9,13 +9,13 @@ import GuestLayout from "@/layouts/guest/guest.layout.tsx";
 import RootLayout from "@/layouts/root/root.layout.tsx";
 import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 
+import EditorsChoicePage from "@/pages/editors-choice/editors-choice.page.tsx";
 import HomePage from "@/pages/home/home.page.tsx";
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
 import RecipePage from "@/pages/recipe/recipe.page.tsx";
 import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
 import SignUpPage from "@/pages/sign-up/sign-up.page.tsx";
-import EditorsChoicePage from "@/pages/editors-choice/editors-choice.page.tsx";
 
 export default function Routing(): ReactNode {
   return (
