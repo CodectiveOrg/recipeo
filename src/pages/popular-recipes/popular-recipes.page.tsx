@@ -44,9 +44,6 @@ export default function PopularRecipesPage(): ReactNode {
     },
   });
 
-  console.log(data?.pageParams);
-  console.log(data?.pages);
-
   if (isPending) {
     return <LoadingComponent />;
   }
