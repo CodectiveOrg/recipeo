@@ -12,7 +12,9 @@ import styles from "./share-button.module.css";
 
 export default function ShareButtonComponent(): ReactNode {
   const [shareMessage, setShareMessage] = useState<string>("");
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const openModal = (): void => {
