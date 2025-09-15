@@ -1,40 +1,104 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
+
+import type { DragEndEvent } from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 import DndProvider from "@/providers/dndProvider/dnd.provider";
 
 import ButtonComponent from "../button/button.component";
 import IconComponent from "../icon/icon.component";
-import TextAreaComponent from "../text-area/text-area.component";
 import TypographyComponent from "../typography/typography.component";
+import SortableStepComponent from "./components/sortable-step.component";
 
 import styles from "./steps-input.module.css";
 
+type StepType = {
+  id: number;
+  description: string;
+  picture: string | null;
+};
+
 export default function StepsInputComponent(): ReactNode {
+  const [steps, setSteps] = useState<StepType[]>([
+    {
+      id: 1,
+      description: "",
+      picture: null,
+    },
+  ]);
+
+  const handleDragEnd = (event: DragEndEvent): void => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      setSteps((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  };
+
+  const handleDescriptionChange = (id: number, value: string): void => {
+    setSteps((steps) =>
+      steps.map((step) =>
+        step.id === id ? { ...step, description: value } : step,
+      ),
+    );
+  };
+
+  function handleFileChange(id: number, fileUrl: string | null) {
+    setSteps((steps) =>
+      steps.map((step) =>
+        step.id === id ? { ...step, picture: fileUrl } : step,
+      ),
+    );
+  }
+
+  function addStep() {
+    setSteps((steps) => [
+      ...steps,
+      {
+        id: steps.length > 0 ? steps[steps.length - 1].id + 1 : 1,
+        description: "",
+        picture: null,
+        text: "",
+      },
+    ]);
+  }
+
   return (
     <div className={styles.steps}>
       <TypographyComponent as="h2" variant="h2">
         Steps
       </TypographyComponent>
-      <DndProvider>
-        <div className={styles["step-input"]}>
-          <div className={styles["first-column"]}>
-            <span className={styles.circle}>1</span>
-            <IconComponent
-              name="code-scan-line-duotone"
-              className={styles["drag-icon"]}
-            />
-          </div>
-
-          <div className={styles.upload}>
-            <TextAreaComponent placeholder="Tell a little about your food" />
-            <ButtonComponent size="medium" color="secondary">
-              <IconComponent name="camera-bold" />
-            </ButtonComponent>
-          </div>
-        </div>
+      <DndProvider onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={steps.map((step) => step.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          <ul className={styles["step-section"]}>
+            {steps.map((step, index) => (
+              <SortableStepComponent
+                key={step.id}
+                step={step}
+                index={index}
+                onDescriptionChange={handleDescriptionChange}
+              />
+            ))}
+          </ul>
+        </SortableContext>
       </DndProvider>
 
-      <ButtonComponent variant="outlined" color="secondary" size="medium">
+      <ButtonComponent
+        variant="outlined"
+        color="secondary"
+        size="medium"
+        onClick={addStep}
+      >
         <IconComponent name="add-square-linear" /> Steps
       </ButtonComponent>
     </div>
