@@ -1,17 +1,13 @@
 import type { ReactNode } from "react";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { toast } from "react-toastify";
-
 import clsx from "clsx";
-
-import { likeRecipeApi } from "@/api/recipe/like-recipe.api.ts";
 
 import IconComponent from "@/components/icon/icon.component";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { Recipe } from "@/entities/recipe.ts";
+
+import useLikeMutation from "@/mutations/use-like.mutation.ts";
 
 import styles from "./like-button.module.css";
 
@@ -24,18 +20,7 @@ export default function LikeButtonComponent({
   className,
   recipe,
 }: Props): ReactNode {
-  const queryClient = useQueryClient();
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: ["like-button", recipe.id],
-    mutationFn: likeRecipeApi,
-    onError: (err) => {
-      toast.error(err.message);
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["recipe"] });
-    },
-  });
+  const { mutateAsync, isPending } = useLikeMutation(recipe.id);
 
   const handleLikeButtonClick = async (): Promise<void> => {
     await mutateAsync({

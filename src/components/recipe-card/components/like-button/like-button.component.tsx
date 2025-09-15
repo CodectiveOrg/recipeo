@@ -1,15 +1,11 @@
 import type { MouseEvent, ReactNode } from "react";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { toast } from "react-toastify";
-
 import clsx from "clsx";
-
-import { likeRecipeApi } from "@/api/recipe/like-recipe.api.ts";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
+
+import useLikeMutation from "@/mutations/use-like.mutation.ts";
 
 import styles from "./like-button.module.css";
 
@@ -24,18 +20,7 @@ export default function LikeButtonComponent({
   recipeId,
   liked,
 }: Props): ReactNode {
-  const queryClient = useQueryClient();
-
-  const { mutateAsync } = useMutation({
-    mutationKey: ["like-button", recipeId],
-    mutationFn: likeRecipeApi,
-    onError: (err) => {
-      toast.error(err.message);
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["recipe"] });
-    },
-  });
+  const { mutateAsync, isPending } = useLikeMutation(recipeId);
 
   const handleLikeButtonClick = async (
     e: MouseEvent<HTMLButtonElement>,
@@ -52,6 +37,7 @@ export default function LikeButtonComponent({
   return (
     <IconButtonComponent
       className={clsx(styles["like-button"], className)}
+      disabled={isPending}
       onClick={handleLikeButtonClick}
     >
       {liked ? (
