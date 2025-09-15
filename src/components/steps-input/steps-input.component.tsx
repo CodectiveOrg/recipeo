@@ -50,25 +50,24 @@ export default function StepsInputComponent(): ReactNode {
     );
   };
 
-  function handleFileChange(id: number, fileUrl: string | null) {
+  const handleFileChange = (id: number, fileUrl: string | null): void => {
     setSteps((steps) =>
       steps.map((step) =>
         step.id === id ? { ...step, picture: fileUrl } : step,
       ),
     );
-  }
+  };
 
-  function addStep() {
+  const addStep = (): void => {
     setSteps((steps) => [
       ...steps,
       {
         id: steps.length > 0 ? steps[steps.length - 1].id + 1 : 1,
         description: "",
         picture: null,
-        text: "",
       },
     ]);
-  }
+  };
 
   return (
     <div className={styles.steps}>
