@@ -11,8 +11,9 @@ import LoadingComponent from "@/components/loading/loading.component";
 
 import { Tag } from "@/entities/tag";
 
-import styles from "./filter-category-input.module.css";
 import TypographyComponent from "../typography/typography.component";
+
+import styles from "./filter-category-input.module.css";
 
 type Props = Omit<
   ComponentProps<"input">,
@@ -62,7 +63,9 @@ export default function FilterCategoryInputComponent({
   return (
     <div className={clsx(styles["filter-category-input"], className)}>
       <label htmlFor={id}>
-        <TypographyComponent as="span" variant="h2">{label}</TypographyComponent>
+        <TypographyComponent as="span" variant="h2">
+          {label}
+        </TypographyComponent>
       </label>
       <div className={styles.buttons}>
         {tags.map((tag) => (
