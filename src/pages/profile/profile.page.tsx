@@ -68,6 +68,7 @@ export default function ProfilePage(): ReactNode {
           <ImageComponent
             folder="user"
             src={user.picture}
+            alt=""
             className={styles.profile}
           />
           <TypographyComponent as="h2" variant="h2">
