@@ -23,8 +23,8 @@
     .drag {
       background-color: var(--color-outline);
 
-      width: 2.5rem;
-      height: 0.3125rem;
+      block-size: 0.3125rem;
+      inline-size: 2.5rem;
 
       margin: 1rem;
 
