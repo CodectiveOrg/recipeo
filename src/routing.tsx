@@ -15,6 +15,7 @@ import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
 import RecipePage from "@/pages/recipe/recipe.page.tsx";
 import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
 import SignUpPage from "@/pages/sign-up/sign-up.page.tsx";
+import EditorsChoicePage from "@/pages/editors-choice/editors-choice.page.tsx";
 
 export default function Routing(): ReactNode {
   return (
@@ -35,6 +36,7 @@ export default function Routing(): ReactNode {
           <Route index element={<HomePage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
         </Route>
+        <Route path="chosen-recipes" element={<EditorsChoicePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
