@@ -1,0 +1,7 @@
+.popular-recipes {
+  main {
+    > p {
+      text-align: center;
+    }
+  }
+}

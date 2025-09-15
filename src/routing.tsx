@@ -12,6 +12,7 @@ import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 import HomePage from "@/pages/home/home.page.tsx";
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
+import PopularRecipesPage from "@/pages/popular-recipes/popular-recipes.page";
 import RecipePage from "@/pages/recipe/recipe.page.tsx";
 import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
 import SignUpPage from "@/pages/sign-up/sign-up.page.tsx";
@@ -35,6 +36,7 @@ export default function Routing(): ReactNode {
           <Route index element={<HomePage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
         </Route>
+        <Route path="/popular-recipes" element={<PopularRecipesPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
