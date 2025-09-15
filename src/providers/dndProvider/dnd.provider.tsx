@@ -2,13 +2,20 @@ import { type PropsWithChildren, type ReactNode } from "react";
 
 import {
   DndContext,
+  type DragEndEvent,
   PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 
-type Props = PropsWithChildren;
-export default function DndProvider({ children }: Props): ReactNode {
+type Props = PropsWithChildren & {
+  onDragEnd: (event: DragEndEvent) => void;
+};
+export default function DndProvider({ onDragEnd, children }: Props): ReactNode {
   const sensors = useSensors(useSensor(PointerSensor));
-  return <DndContext sensors={sensors}>{children}</DndContext>;
+  return (
+    <DndContext sensors={sensors} onDragEnd={onDragEnd}>
+      {children}
+    </DndContext>
+  );
 }
