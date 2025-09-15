@@ -10,7 +10,7 @@ import LoadingComponent from "@/components/loading/loading.component";
 
 import { Tag } from "@/entities/tag";
 
-import ButtonComponent from "../button/button.component";
+import ButtonComponent from "@/components/button/button.component";
 
 import styles from "./filter-category-input.module.css";
 
