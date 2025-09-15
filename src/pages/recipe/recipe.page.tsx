@@ -6,10 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getRecipeApi } from "@/api/recipe/get-recipe.api";
 
-import ImageComponent from "@/components/image/image.component";
 import LoadingComponent from "@/components/loading/loading.component";
 
-import BackButtonComponent from "@/pages/recipe/components/back-button/back-button.component.tsx";
+import RecipeCoverComponent from "@/pages/recipe/components/recipe-cover/recipe-cover.component.tsx";
 import RecipeDetailsComponent from "@/pages/recipe/components/recipe-details/recipe-details.component.tsx";
 import RecipePanelComponent from "@/pages/recipe/components/recipe-panel/recipe-panel.component.tsx";
 
@@ -35,15 +34,7 @@ export default function RecipePage(): ReactNode {
     <div className={styles.recipe}>
       <header />
       <main>
-        <div className={styles.background}>
-          <ImageComponent
-            className={styles.picture}
-            folder="recipe"
-            src={data.picture}
-            alt=""
-          />
-          <BackButtonComponent className={styles["back-button"]} />
-        </div>
+        <RecipeCoverComponent picture={data.picture} />
         <RecipePanelComponent className={styles.panel}>
           <RecipeDetailsComponent recipe={data} />
         </RecipePanelComponent>

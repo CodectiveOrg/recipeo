@@ -1,0 +1,19 @@
+.recipe-cover {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: -1;
+
+  .picture {
+    grid-area: overlay;
+
+    block-size: 20rem;
+    inline-size: 100%;
+    object-fit: cover;
+  }
+
+  .back-button {
+    position: absolute;
+    inset-block-start: 1.5rem;
+    inset-inline-start: 1.5rem;
+  }
+}
