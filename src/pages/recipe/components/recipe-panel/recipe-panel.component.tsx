@@ -6,10 +6,12 @@ import styles from "./recipe-panel.module.css";
 
 type Props = PropsWithChildren<{
   className?: string;
+  contentClassName?: string;
 }>;
 
 export default function RecipePanelComponent({
   className,
+  contentClassName,
   children,
 }: Props): ReactNode {
   return (
@@ -17,7 +19,7 @@ export default function RecipePanelComponent({
       <div className={styles["drag-handle"]}>
         <span className={styles.drag}></span>
       </div>
-      <div className={styles.content}>{children}</div>
+      <div className={clsx(styles.content, contentClassName)}>{children}</div>
     </div>
   );
 }

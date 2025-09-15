@@ -1,0 +1,8 @@
+.recipe-description {
+  display: grid;
+  gap: 0.5rem;
+
+  .description > span {
+    line-height: 1.5rem;
+  }
+}
