@@ -6,7 +6,7 @@ import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
-import { getChosenApi } from "@/api/recipe/get-chosen.api.ts";
+import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
@@ -23,7 +23,7 @@ export default function HomePage(): ReactNode {
 
   const chosenRecipesQueryResult = useQuery({
     queryKey: ["recipes", "chosen"],
-    queryFn: getChosenApi,
+    queryFn: getChosenRecipesApi,
   });
 
   const recentRecipesQueryResult = useInfiniteQuery({

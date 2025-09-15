@@ -2,7 +2,7 @@ import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recip
 
 import { richFetch } from "@/utils/fetch.utils";
 
-export async function getChosenApi(): Promise<PaginatedRecipesResponseDto> {
+export async function getChosenRecipesApi(): Promise<PaginatedRecipesResponseDto> {
   const data = await richFetch<PaginatedRecipesResponseDto>("/recipe/chosen");
 
   if ("error" in data) {
