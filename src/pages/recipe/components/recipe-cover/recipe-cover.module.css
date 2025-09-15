@@ -4,8 +4,6 @@
   z-index: -1;
 
   .picture {
-    grid-area: overlay;
-
     block-size: 20rem;
     inline-size: 100%;
     object-fit: cover;
