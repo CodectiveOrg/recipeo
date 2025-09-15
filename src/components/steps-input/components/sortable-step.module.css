@@ -1,9 +1,9 @@
-.step-input {
+.step {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.5rem;
 
-  .first-column {
+  .aside-step-actions {
     display: grid;
     place-items: center;
     align-content: start;
@@ -31,11 +31,11 @@
     }
   }
 
-  .upload {
+  .step-content {
     display: grid;
     gap: 0.5rem;
 
-    > button > label {
+    > button {
       display: flex;
       align-items: center;
 

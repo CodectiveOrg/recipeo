@@ -30,9 +30,12 @@ export default function SortableStepComponent({
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: step.id });
 
-  const handleInputFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    handleStopPropagation(e);
-    const file = e.target.files?.[0] ?? null;
+  // TODO
+  const handleInputFileChange = (
+    event: ChangeEvent<HTMLInputElement>,
+  ): void => {
+    handleStopPropagation(event);
+    const file = event.target.files?.[0] ?? null;
     if (file) {
       const url = URL.createObjectURL(file);
       onFileChange(step.id, url);
@@ -41,13 +44,13 @@ export default function SortableStepComponent({
     }
   };
 
-  const handleStopPropagation = (e: SyntheticEvent): void => {
-    e.stopPropagation();
+  const handleStopPropagation = (event: SyntheticEvent): void => {
+    event.stopPropagation();
   };
 
   return (
     <li
-      className={styles["step-input"]}
+      className={styles.step}
       ref={setNodeRef}
       style={{
         transform: CSS.Transform.toString(transform),
@@ -55,7 +58,7 @@ export default function SortableStepComponent({
       }}
       {...attributes}
     >
-      <div className={styles["first-column"]}>
+      <div className={styles["aside-step-actions"]}>
         <span className={styles.circle}>{index + 1}</span>
         <IconComponent name="code-scan-line-duotone" {...listeners} />
         <IconButtonComponent onClick={() => onDeleteStep(step.id)}>
@@ -63,28 +66,26 @@ export default function SortableStepComponent({
         </IconButtonComponent>
       </div>
 
-      <div className={styles.upload}>
+      <div className={styles["step-content"]}>
         <TextAreaComponent
           value={step.description}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-            handleStopPropagation(e);
-            onDescriptionChange(step.id, e.target.value);
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            handleStopPropagation(event);
+            onDescriptionChange(step.id, event.target.value);
           }}
           placeholder="Tell a little about your food"
         />
         <ButtonComponent size="medium" color="secondary">
-          <label>
-            <IconComponent name="camera-bold" />
-            <input
-              id={"upload-" + step.id}
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                handleStopPropagation(e);
-                handleInputFileChange(e);
-              }}
-            />
-          </label>
+          <IconComponent name="camera-bold" />
+          <input
+            id={"upload-" + step.id}
+            type="file"
+            accept="image/*"
+            onChange={(event) => {
+              handleStopPropagation(event);
+              handleInputFileChange(event);
+            }}
+          />
         </ButtonComponent>
       </div>
     </li>

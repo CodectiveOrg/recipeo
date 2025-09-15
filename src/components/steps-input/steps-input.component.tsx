@@ -7,23 +7,19 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import DndProvider from "@/providers/dndProvider/dnd.provider";
+import ButtonComponent from "@/components/button/button.component";
+import IconComponent from "@/components/icon/icon.component";
+import SortableStepComponent from "@/components/steps-input/components/sortable-step.component";
+import TypographyComponent from "@/components/typography/typography.component";
 
-import ButtonComponent from "../button/button.component";
-import IconComponent from "../icon/icon.component";
-import TypographyComponent from "../typography/typography.component";
-import SortableStepComponent from "./components/sortable-step.component";
+import type { Step } from "@/entities/step";
+
+import DndProvider from "@/providers/dndProvider/dnd.provider";
 
 import styles from "./steps-input.module.css";
 
-type StepType = {
-  id: number;
-  description: string;
-  picture: string | null;
-};
-
 export default function StepsInputComponent(): ReactNode {
-  const [steps, setSteps] = useState<StepType[]>([
+  const [steps, setSteps] = useState<Step[]>([
     {
       id: 1,
       description: "",
