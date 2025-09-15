@@ -28,7 +28,6 @@ export default function Routing(): ReactNode {
             <Route path="sign-up" element={<SignUpPage />} />
           </Route>
         </Route>
-        z
         <Route element={<SignedInLayout />}>
           <Route element={<SignedInOnlyGuard />}>
             <Route path="todo" element="TODO" />
