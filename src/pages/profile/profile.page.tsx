@@ -24,7 +24,7 @@ import styles from "./profile.module.css";
 export default function ProfilePage(): ReactNode {
   const { profileId } = useParams();
 
-  const { isPending, isError, data } = useVerifyQuery();
+  const { isPending, isError, data: verifyId } = useVerifyQuery();
 
   const {
     isPending: userPending,
@@ -89,7 +89,7 @@ export default function ProfilePage(): ReactNode {
               </div>
             ))}
           </div>
-          {data.id !== user.id && (
+          {verifyId.id !== user.id && (
             <ButtonComponent size="medium" className={styles.button}>
               Follow
             </ButtonComponent>
