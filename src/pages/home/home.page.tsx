@@ -9,6 +9,7 @@ import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
+import StepsInputComponent from "@/components/steps-input/steps-input.component";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
 import styles from "./home.module.css";
@@ -36,6 +37,8 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <StepsInputComponent />
+        <br />
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>
