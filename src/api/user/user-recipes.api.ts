@@ -3,7 +3,7 @@ import type { Recipe } from "@/entities/recipe";
 import { richFetch } from "@/utils/fetch.utils";
 
 type Params = {
-  profileId: string;
+  profileId: number | undefined;
 };
 
 export async function UserRecipesApi({ profileId }: Params): Promise<Recipe[]> {

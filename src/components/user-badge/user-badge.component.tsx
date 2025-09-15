@@ -22,13 +22,13 @@ export default function UserBadgeComponent({
 }: Props): ReactNode {
   return (
     <span className={clsx(styles["user-badge"], styles[size], className)}>
-      <ImageComponent folder="user" src={user.picture} alt="" />
+      <ImageComponent folder="user" src={user?.picture} alt="" />
       <TypographyComponent
         as="span"
         ellipsis
         variant={size === "medium" ? "s" : "h3"}
       >
-        {user.username}
+        {user?.username}
       </TypographyComponent>
     </span>
   );

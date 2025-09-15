@@ -26,14 +26,15 @@ export default function ProfilePage(): ReactNode {
 
   const { isPending, isError, data: verifyId } = useVerifyQuery();
 
+  const finalyId = Number(profileId) || verifyId?.id;
+
   const {
     isPending: userPending,
     isError: userError,
     data: user,
   } = useQuery({
-    queryKey: ["user", "profile", profileId],
-    queryFn: async () => UserProfileApi({ profileId: profileId! }),
-    enabled: !!profileId,
+    queryKey: ["user", "profile", finalyId],
+    queryFn: async () => UserProfileApi({ profileId: finalyId }),
   });
 
   const stats = [
@@ -45,9 +46,9 @@ export default function ProfilePage(): ReactNode {
   const tabs = [
     {
       label: "Recipes",
-      content: <RecipesTabComponent profileId={profileId!} />,
+      content: <RecipesTabComponent profileId={finalyId} />,
     },
-    { label: "Liked", content: <LikedTabComponent profileId={profileId!} /> },
+    { label: "Liked", content: <LikedTabComponent profileId={finalyId} /> },
   ];
 
   if (isPending || userPending) {
@@ -59,6 +60,7 @@ export default function ProfilePage(): ReactNode {
   }
   return (
     <div className={styles.profile}>
+      <header />
       <main>
         <div className={styles.header}>
           <BackButtonComponent />

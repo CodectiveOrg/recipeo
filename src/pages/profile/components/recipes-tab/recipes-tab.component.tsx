@@ -14,12 +14,11 @@ import styles from "./recipes-tab.module.css";
 export default function RecipesTabComponent({
   profileId,
 }: {
-  profileId: string;
+  profileId: number | undefined;
 }): ReactNode {
   const { isPending, isError, data } = useQuery({
     queryKey: ["user", "recipes", profileId],
-    queryFn: () => UserRecipesApi({ profileId: profileId! }),
-    enabled: !!profileId,
+    queryFn: () => UserRecipesApi({ profileId }),
   });
 
   if (isPending) {

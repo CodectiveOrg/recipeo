@@ -34,6 +34,7 @@ export default function Routing(): ReactNode {
           </Route>
           <Route index element={<HomePage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
+          <Route path="profile" element={<ProfilePage />} />
           <Route path="profile/:profileId" element={<ProfilePage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

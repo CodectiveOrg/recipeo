@@ -14,12 +14,11 @@ import styles from "./liked-tab.module.css";
 export default function LikedTabComponent({
   profileId,
 }: {
-  profileId: string;
+  profileId: number | undefined;
 }): ReactNode {
   const { isPending, isError, data } = useQuery({
     queryKey: ["user", "liked", profileId],
-    queryFn: () => UserRecipesApi({ profileId: profileId! }),
-    enabled: !!profileId,
+    queryFn: () => UserRecipesApi({ profileId }),
   });
 
   if (isPending) {
