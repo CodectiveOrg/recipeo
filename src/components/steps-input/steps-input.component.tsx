@@ -58,7 +58,7 @@ export default function StepsInputComponent(): ReactNode {
     );
   };
 
-  const addStep = (): void => {
+  const handleAddStep = (): void => {
     setSteps((steps) => [
       ...steps,
       {
@@ -67,6 +67,10 @@ export default function StepsInputComponent(): ReactNode {
         picture: null,
       },
     ]);
+  };
+
+  const handleDeleteStep = (id: number): void => {
+    setSteps((steps) => steps.filter((step) => step.id !== id));
   };
 
   return (
@@ -86,6 +90,8 @@ export default function StepsInputComponent(): ReactNode {
                 step={step}
                 index={index}
                 onDescriptionChange={handleDescriptionChange}
+                onFileChange={handleFileChange}
+                onDeleteStep={handleDeleteStep}
               />
             ))}
           </ul>
@@ -96,7 +102,7 @@ export default function StepsInputComponent(): ReactNode {
         variant="outlined"
         color="secondary"
         size="medium"
-        onClick={addStep}
+        onClick={handleAddStep}
       >
         <IconComponent name="add-square-linear" /> Steps
       </ButtonComponent>

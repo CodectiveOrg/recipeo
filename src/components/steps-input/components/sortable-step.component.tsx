@@ -1,9 +1,10 @@
-import type { ReactNode } from "react";
+import type { ChangeEvent, ReactNode, SyntheticEvent } from "react";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 import ButtonComponent from "@/components/button/button.component";
+import IconButtonComponent from "@/components/icon-button/icon-button.component";
 import IconComponent from "@/components/icon/icon.component";
 import TextAreaComponent from "@/components/text-area/text-area.component";
 
@@ -15,28 +16,32 @@ type Props = {
   step: Step;
   index: number;
   onDescriptionChange: (id: number, value: string) => void;
+  onFileChange: (id: number, url: string | null) => void;
+  onDeleteStep: (id: number) => void;
 };
 
 export default function SortableStepComponent({
   step,
   index,
   onDescriptionChange,
+  onFileChange,
+  onDeleteStep,
 }: Props): ReactNode {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: step.id });
 
-  //   function handleFileChangeLocal(e: React.ChangeEvent<HTMLInputElement>) {
-  //     stopPropagation(e);
-  //     const file = e.target.files?.[0] ?? null;
-  //     if (file) {
-  //       const url = URL.createObjectURL(file);
-  //       onFileChange(step.id, url);
-  //     } else {
-  //       onFileChange(step.id, null);
-  //     }
-  //   }
+  const handleInputFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    handleStopPropagation(e);
+    const file = e.target.files?.[0] ?? null;
+    if (file) {
+      const url = URL.createObjectURL(file);
+      onFileChange(step.id, url);
+    } else {
+      onFileChange(step.id, null);
+    }
+  };
 
-  const stopPropagation = (e: React.SyntheticEvent): void => {
+  const handleStopPropagation = (e: SyntheticEvent): void => {
     e.stopPropagation();
   };
 
@@ -52,41 +57,33 @@ export default function SortableStepComponent({
     >
       <div className={styles["first-column"]}>
         <span className={styles.circle}>{index + 1}</span>
-        <IconComponent
-          name="code-scan-line-duotone"
-          className={styles["drag-icon"]}
-          {...listeners}
-        />
+        <IconComponent name="code-scan-line-duotone" {...listeners} />
+        <IconButtonComponent onClick={() => onDeleteStep(step.id)}>
+          <IconComponent name="trash-bin-minimalistic-linear" color="danger" />
+        </IconButtonComponent>
       </div>
 
       <div className={styles.upload}>
         <TextAreaComponent
           value={step.description}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            stopPropagation(e);
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+            handleStopPropagation(e);
             onDescriptionChange(step.id, e.target.value);
           }}
           placeholder="Tell a little about your food"
         />
         <ButtonComponent size="medium" color="secondary">
-          <label
-            htmlFor={"upload-" + step.id}
-            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-          >
+          <label>
             <IconComponent name="camera-bold" />
-            {/* <input
+            <input
               id={"upload-" + step.id}
               type="file"
               accept="image/*"
               onChange={(e) => {
-                stopPropagation(e);
-                onFileChange(
-                  step.id,
-                  e.target.files ? e.target.files[0] : null,
-                );
+                handleStopPropagation(e);
+                handleInputFileChange(e);
               }}
-              style={{ display: "none" }}
-            /> */}
+            />
           </label>
         </ButtonComponent>
       </div>
