@@ -1,0 +1,30 @@
+.recipe-panel {
+  background-color: var(--color-white);
+
+  display: grid;
+
+  padding-inline: 1.5rem;
+
+  border-start-start-radius: 2rem;
+  border-start-end-radius: 2rem;
+
+  .drag-handle {
+    display: flex;
+    justify-content: center;
+
+    .drag {
+      background-color: var(--color-outline);
+
+      block-size: 0.25rem;
+      inline-size: 2.5rem;
+
+      margin: 1rem;
+
+      border-radius: 999rem;
+    }
+  }
+
+  .content {
+    margin-block-end: 5rem;
+  }
+}

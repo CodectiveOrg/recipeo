@@ -8,9 +8,6 @@ import {
 
 import { Link } from "react-router";
 
-import AuthValidationComponent from "@/sections/auth/components/auth-validation/auth-validation.component.tsx";
-import { useAuthValidationHook } from "@/sections/auth/hooks/use-auth-validation.hook.ts";
-
 import ButtonComponent from "@/components/button/button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
@@ -18,6 +15,9 @@ import TextInputComponent from "@/components/text-input/text-input.component.tsx
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { AuthRequestDto } from "@/dto/request/auth.request.dto.ts";
+
+import AuthValidationComponent from "@/sections/auth/components/auth-validation/auth-validation.component.tsx";
+import { useAuthValidationHook } from "@/sections/auth/hooks/use-auth-validation.hook.ts";
 
 import styles from "./auth.module.css";
 

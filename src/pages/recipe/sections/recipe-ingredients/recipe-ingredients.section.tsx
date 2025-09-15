@@ -5,13 +5,15 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import { Ingredient } from "@/entities/ingredient.ts";
 
-import styles from "./ingredients.module.css";
+import styles from "./recipe-ingredients.module.css";
 
 type Props = {
   ingredients: Ingredient[];
 };
 
-export default function IngredientsSection({ ingredients }: Props): ReactNode {
+export default function RecipeIngredientsSection({
+  ingredients,
+}: Props): ReactNode {
   return (
     <div className={styles.ingredients}>
       <TypographyComponent as="h2" variant="h2">
