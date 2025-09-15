@@ -51,7 +51,7 @@ export default function HomePage(): ReactNode {
           <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />
         </HandfulSection>
         <br />
-        <HandfulSection title="Editor's Choice" viewAllHref="/popular">
+        <HandfulSection title="Editor's Choice" viewAllHref="/chosen">
           <ChosenRecipesComponent queryResult={chosenRecipesQueryResult} />
         </HandfulSection>
         <br />
