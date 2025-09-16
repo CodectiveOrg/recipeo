@@ -8,10 +8,9 @@ import { getAllTagsApi } from "@/api/tag/get-all-tags.api";
 
 import ButtonComponent from "@/components/button/button.component";
 import LoadingComponent from "@/components/loading/loading.component";
+import TypographyComponent from "@/components/typography/typography.component";
 
 import { Tag } from "@/entities/tag";
-
-import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filter-category-input.module.css";
 
