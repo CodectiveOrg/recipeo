@@ -5,6 +5,8 @@ import {
   useRef,
 } from "react";
 
+import { useNavigate } from "react-router";
+
 import { parseAsInteger, useQueryState } from "nuqs";
 
 import ButtonComponent from "@/components/button/button.component";
@@ -18,7 +20,9 @@ import styles from "./filters-drawer.module.css";
 type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {};
 
 export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
-  const [_, setDuration] = useQueryState<number>(
+  const navigate = useNavigate();
+
+  const [duration, setDuration] = useQueryState<number>(
     "duration",
     parseAsInteger.withDefault(30),
   );
@@ -44,6 +48,8 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
 
     setDuration(parseInt(rangeInputRef.current?.value));
     setTag(inputedTag);
+
+    navigate(`/recipe/:${duration}/:inputedTag`);
 
     ref.current?.close();
   };
