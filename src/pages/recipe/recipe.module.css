@@ -1,0 +1,18 @@
+.recipe {
+  > main {
+    isolation: isolate;
+
+    .panel {
+      margin-block-start: -2rem;
+    }
+
+    .content {
+      display: grid;
+      gap: 1rem;
+
+      > hr {
+        border: 1px solid var(--color-outline);
+      }
+    }
+  }
+}

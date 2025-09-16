@@ -1,0 +1,22 @@
+.recipe-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+
+  .title,
+  .duration {
+    grid-column: 1 / -1;
+  }
+
+  .duration {
+    .tag {
+      text-transform: capitalize;
+
+      &:not(:empty) {
+        &::after {
+          content: " - ";
+        }
+      }
+    }
+  }
+}
