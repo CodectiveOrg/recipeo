@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useRef } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
@@ -6,17 +6,22 @@ import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
+import ButtonComponent from "@/components/button/button.component";
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
+import DrawerComponent from "@/components/drawer/drawer.component";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import StepsInputComponent from "@/components/steps-input/steps-input.component";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
+import TypographyComponent from "@/components/typography/typography.component";
 
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
+  const drawerRef = useRef<HTMLDialogElement | null>(null);
+
   const popularRecipesQueryResult = useQuery({
     queryKey: ["recipes", "popular"],
     queryFn: getPopularRecipesApi,
@@ -42,13 +47,19 @@ export default function HomePage(): ReactNode {
 
   return (
     <div className={styles.home}>
+      <DrawerComponent ref={drawerRef}>
+        <TypographyComponent variant="h2">Drawer Component</TypographyComponent>
+      </DrawerComponent>
       <header>Header</header>
       <main>
-        <StepsInputComponent />
-        <br />
+        <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
+          Show Drawer
+        </ButtonComponent>
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>
+        <br />
+        <StepsInputComponent />
         <br />
         <HandfulSection title="Popular Recipes" viewAllHref="/popular">
           <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />

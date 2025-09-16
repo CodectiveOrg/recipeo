@@ -1,0 +1,19 @@
+.drawer {
+  inset-block-start: auto;
+
+  inline-size: 100%;
+  max-inline-size: var(--layout-size-2);
+
+  margin-inline: auto;
+  padding-block-start: 2rem;
+  padding-inline: 1.5rem;
+
+  border: none;
+  border-start-start-radius: 2rem;
+  border-start-end-radius: 2rem;
+
+  &::backdrop {
+    background-color: var(--color-backdrop);
+    backdrop-filter: blur(2px);
+  }
+}
