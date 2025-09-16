@@ -1,13 +1,17 @@
-import type { Recipe } from "@/entities/recipe";
+import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
 
 import { richFetch } from "@/utils/fetch.utils";
 
 type Params = {
-  profileId: number | undefined;
+  userId: number | undefined;
 };
 
-export async function UserRecipesApi({ profileId }: Params): Promise<Recipe[]> {
-  const data = await richFetch<Recipe[]>(`/user/${profileId}/recipes`);
+export async function UserRecipesApi({
+  userId,
+}: Params): Promise<PaginatedRecipesResponseDto> {
+  const data = await richFetch<PaginatedRecipesResponseDto>(
+    `/recipe/user/${userId}`,
+  );
 
   if ("error" in data) {
     throw new Error(data.error);

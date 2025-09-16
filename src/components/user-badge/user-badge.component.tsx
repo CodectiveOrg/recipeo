@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { Link } from "react-router";
+
 import clsx from "clsx";
 
 import ImageComponent from "@/components/image/image.component.tsx";
@@ -21,7 +23,10 @@ export default function UserBadgeComponent({
   size = "medium",
 }: Props): ReactNode {
   return (
-    <span className={clsx(styles["user-badge"], styles[size], className)}>
+    <Link
+      className={clsx(styles["user-badge"], styles[size], className)}
+      to={`/user/${user?.id}`}
+    >
       <ImageComponent folder="user" src={user?.picture} alt="" />
       <TypographyComponent
         as="span"
@@ -30,6 +35,6 @@ export default function UserBadgeComponent({
       >
         {user?.username}
       </TypographyComponent>
-    </span>
+    </Link>
   );
 }

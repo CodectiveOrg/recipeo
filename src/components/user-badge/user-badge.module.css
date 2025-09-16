@@ -1,4 +1,6 @@
 .user-badge {
+  color: var(--color-text);
+
   display: flex;
   align-items: center;
   gap: 0.25rem;

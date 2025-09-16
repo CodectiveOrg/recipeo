@@ -40,7 +40,7 @@ const items: Item[] = [
     icon: <IconComponent name="bell-bold" />,
   },
   {
-    href: "/profile",
+    href: "/user",
     title: "Profile",
     icon: <IconComponent name="user-bold" />,
   },

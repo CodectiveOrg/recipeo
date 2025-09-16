@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { UserProfileApi } from "@/api/user/user-profile.api";
+import { getUserApi } from "@/api/user/get-user.api.ts";
 
 import ImageComponent from "@/components/image/image.component";
 import LoadingComponent from "@/components/loading/loading.component";
@@ -19,37 +19,21 @@ import LikedTabComponent from "./components/liked-tab/liked-tab.component";
 import RecipesTabComponent from "./components/recipes-tab/recipes-tab.component";
 import ShareButtonComponent from "./components/share-button/share-button.component";
 
-import styles from "./profile.module.css";
+import styles from "./user.module.css";
 
-export default function ProfilePage(): ReactNode {
-  const { profileId } = useParams();
+export default function UserPage(): ReactNode {
+  const { userId } = useParams();
 
-  const { isPending, isError, data: verifyId } = useVerifyQuery();
-
-  const finalyId = Number(profileId) || verifyId?.id;
+  const { isPending, isError, data: currentUser } = useVerifyQuery();
 
   const {
     isPending: userPending,
     isError: userError,
     data: user,
   } = useQuery({
-    queryKey: ["user", "profile", finalyId],
-    queryFn: async () => UserProfileApi({ profileId: finalyId }),
+    queryKey: ["user", userId],
+    queryFn: async () => getUserApi({ userId }),
   });
-
-  const stats = [
-    { count: user?.recipesCount, label: "Recipes" },
-    { count: user?.followingCount, label: "Following" },
-    { count: user?.followersCount, label: "Followers" },
-  ];
-
-  const tabs = [
-    {
-      label: "Recipes",
-      content: <RecipesTabComponent profileId={finalyId} />,
-    },
-    { label: "Liked", content: <LikedTabComponent profileId={finalyId} /> },
-  ];
 
   if (isPending || userPending) {
     return <LoadingComponent />;
@@ -58,9 +42,24 @@ export default function ProfilePage(): ReactNode {
   if (isError || userError) {
     return <div>Error</div>;
   }
+
+  const stats = [
+    { count: user.recipesCount, label: "Recipes" },
+    { count: user.followingCount, label: "Following" },
+    { count: user.followersCount, label: "Followers" },
+  ];
+
+  const tabs = [
+    {
+      label: "Recipes",
+      content: <RecipesTabComponent userId={user.id} />,
+    },
+    { label: "Liked", content: <LikedTabComponent userId={user.id} /> },
+  ];
+
   return (
-    <div className={styles.profile}>
-      <header />
+    <div className={styles.user}>
+      <header></header>
       <main>
         <div className={styles.header}>
           <BackButtonComponent />
@@ -71,7 +70,7 @@ export default function ProfilePage(): ReactNode {
             folder="user"
             src={user.picture}
             alt=""
-            className={styles.profile}
+            className={styles.user}
           />
           <TypographyComponent as="h2" variant="h2">
             {user.username}
@@ -92,11 +91,8 @@ export default function ProfilePage(): ReactNode {
               </div>
             ))}
           </div>
-          {verifyId.id !== user.id && (
-            <FollowButtonComponent
-              userId={finalyId}
-              className={styles.button}
-            />
+          {currentUser.id !== user.id && (
+            <FollowButtonComponent userId={user.id} className={styles.button} />
           )}
         </div>
         <hr />

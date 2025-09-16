@@ -12,13 +12,13 @@ import type { Recipe } from "@/entities/recipe";
 import styles from "./liked-tab.module.css";
 
 export default function LikedTabComponent({
-  profileId,
+  userId,
 }: {
-  profileId: number | undefined;
+  userId: number | undefined;
 }): ReactNode {
   const { isPending, isError, data } = useQuery({
-    queryKey: ["user", "liked", profileId],
-    queryFn: () => UserRecipesApi({ profileId }),
+    queryKey: ["user", "liked", userId],
+    queryFn: () => UserRecipesApi({ userId }),
   });
 
   if (isPending) {

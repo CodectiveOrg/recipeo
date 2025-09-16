@@ -34,7 +34,7 @@ export default function ShareButtonComponent(): ReactNode {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "share Profile",
+          title: "Share Profile",
           url: window.location.href,
         });
         openModal();
@@ -73,7 +73,7 @@ export default function ShareButtonComponent(): ReactNode {
         <ModalComponent ref={modalRef} className={styles.modal}>
           <div className={styles.header}>
             <TypographyComponent as="span" variant="h2" color="text">
-              share Profile
+              Share Profile
             </TypographyComponent>
             <IconButtonComponent onClick={closeModal}>
               <IconComponent

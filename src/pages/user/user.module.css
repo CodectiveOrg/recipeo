@@ -1,4 +1,4 @@
-.profile {
+.user {
   display: grid;
   gap: 1.5rem;
 
@@ -20,7 +20,7 @@
       align-items: center;
       gap: 1.5rem;
 
-      .profile {
+      .user {
         block-size: 4.5rem;
         inline-size: 4.5rem;
       }

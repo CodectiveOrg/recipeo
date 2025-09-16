@@ -9,4 +9,4 @@ export class User {
   public recipesCount!: string;
 }
 
-export type EssentialUser = Pick<User, "username" | "picture">;
+export type EssentialUser = Pick<User, "id" | "username" | "picture">;
