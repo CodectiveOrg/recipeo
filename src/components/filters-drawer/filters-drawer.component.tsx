@@ -10,7 +10,7 @@ import { parseAsInteger, useQueryState } from "nuqs";
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
-import TagInputComponent from "@/components/tag-input/tag-input.component";
+import TagInputComponent from "@/components/tag-input2/tag-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
@@ -18,10 +18,14 @@ import styles from "./filters-drawer.module.css";
 type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {};
 
 export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
-  const [duration, setDuration] = useQueryState(
+  const [_, setDuration] = useQueryState<number>(
     "duration",
-    parseAsInteger.withDefault(0),
+    parseAsInteger.withDefault(30),
   );
+
+  const [__, setTag] = useQueryState<string>("tag", {
+    parse: (value) => value,
+  });
 
   const rangeInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -29,16 +33,17 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     ref.current?.close();
   };
 
-  const handleSubmitButton = (): void => {
-    console.log(rangeInputRef.current?.value);
-    // setDuration(parseInt(rangeInputRef.current?.value));
-    ref.current?.close();
-  };
+  let inputedTag = "";
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    console.log(formData);
+
+    if (!rangeInputRef.current) {
+      return;
+    }
+
+    setDuration(parseInt(rangeInputRef.current?.value));
+    setTag(inputedTag);
 
     ref.current?.close();
   };
@@ -62,7 +67,12 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         </TypographyComponent>
       </header>
       <form onSubmit={handleSubmitForm}>
-        <TagInputComponent label="Tag" />
+        <TagInputComponent
+          label="Tag"
+          onChange={(value) => {
+            inputedTag = value;
+          }}
+        />
         <RangeInputComponent
           ref={rangeInputRef}
           label={rangeInputLabel}
@@ -77,9 +87,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
           >
             Cancel
           </ButtonComponent>
-          <ButtonComponent type="submit" onClick={handleSubmitButton}>
-            Done
-          </ButtonComponent>
+          <ButtonComponent type="submit">Done</ButtonComponent>
         </div>
       </form>
     </DrawerComponent>
