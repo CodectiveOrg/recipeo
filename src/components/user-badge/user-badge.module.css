@@ -9,4 +9,11 @@
 
     border-radius: 999rem;
   }
+
+  &.large {
+    > img {
+      block-size: 2rem;
+      inline-size: 2rem;
+    }
+  }
 }

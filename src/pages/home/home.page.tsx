@@ -2,8 +2,6 @@ import { type ReactNode } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import HandfulSection from "@/sections/handful/handful.section.tsx";
-
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
@@ -13,6 +11,8 @@ import FiltersDrawerComponent from "@/components/filters-drawer/filters-drawer.c
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component";
+
+import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./home.module.css";
 
