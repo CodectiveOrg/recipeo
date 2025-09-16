@@ -9,6 +9,7 @@
 
   main {
     display: grid;
+    align-content: start;
     gap: 1.5rem;
 
     > hr {
