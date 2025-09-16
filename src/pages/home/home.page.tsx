@@ -6,15 +6,15 @@ import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
-import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import ButtonComponent from "@/components/button/button.component";
+import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import DrawerComponent from "@/components/drawer/drawer.component";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
+import TypographyComponent from "@/components/typography/typography.component";
 
 import HandfulSection from "@/sections/handful/handful.section.tsx";
-import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./home.module.css";
 
