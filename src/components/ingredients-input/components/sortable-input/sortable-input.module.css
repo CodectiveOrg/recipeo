@@ -10,11 +10,7 @@
     gap: 0.5rem;
 
     svg {
-      display: grid;
-      place-content: center;
-
-      block-size: 1.5rem;
-      inline-size: 1.5rem;
+      font-size: 1.5rem;
     }
   }
 }
