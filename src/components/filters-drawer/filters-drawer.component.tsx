@@ -19,7 +19,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     console.log(rangeInputRef.current?.value);
   };
 
-  const label = (
+  const rangeInputLabel = (
     <div className={styles.label}>
       <TypographyComponent as="span" variant="h2">
         Cooking Duration
