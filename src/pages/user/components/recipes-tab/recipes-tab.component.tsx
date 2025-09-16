@@ -1,19 +1,19 @@
 import type { ReactNode } from "react";
 
+import { useParams } from "react-router";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { UserRecipesApi } from "@/api/user/user-recipes.api";
+import { userRecipesApi } from "@/api/user/user-recipes.api";
 
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 
-type Props = {
-  userId: number;
-};
+export default function RecipesTabComponent(): ReactNode {
+  const { userId } = useParams();
 
-export default function RecipesTabComponent({ userId }: Props): ReactNode {
   const queryResult = useInfiniteQuery({
     queryKey: ["user", "recipes", userId],
-    queryFn: () => UserRecipesApi({ userId: userId }),
+    queryFn: ({ pageParam }) => userRecipesApi({ userId, pageParam }),
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {
         return null;

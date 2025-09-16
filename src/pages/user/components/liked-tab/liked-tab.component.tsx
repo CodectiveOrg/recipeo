@@ -1,40 +1,28 @@
 import type { ReactNode } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
-import { UserRecipesApi } from "@/api/user/user-recipes.api";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-import LoadingComponent from "@/components/loading/loading.component";
-import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
+import { userRecipesApi } from "@/api/user/user-recipes.api";
 
-import type { Recipe } from "@/entities/recipe";
+import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 
-import styles from "./liked-tab.module.css";
+export default function LikedTabComponent(): ReactNode {
+  const { userId } = useParams();
 
-export default function LikedTabComponent({
-  userId,
-}: {
-  userId: number | undefined;
-}): ReactNode {
-  const { isPending, isError, data } = useQuery({
-    queryKey: ["user", "liked", userId],
-    queryFn: () => UserRecipesApi({ userId }),
+  const queryResult = useInfiniteQuery({
+    queryKey: ["user", "recipes", userId],
+    queryFn: ({ pageParam }) => userRecipesApi({ userId, pageParam }),
+    getNextPageParam: (last) => {
+      if (last.currentPage >= last.lastPage) {
+        return null;
+      }
+
+      return last.currentPage + 1;
+    },
+    initialPageParam: 1,
   });
 
-  if (isPending) {
-    return <LoadingComponent />;
-  }
-
-  if (isError) {
-    return <div>Error...</div>;
-  }
-  return (
-    <>
-      <div className={styles.liked}>
-        {data.map((recipe: Recipe) => (
-          <RecipeCardComponent recipe={recipe} key={recipe.id} />
-        ))}
-      </div>
-    </>
-  );
+  return <InfiniteRecipesComponent queryResult={queryResult} />;
 }

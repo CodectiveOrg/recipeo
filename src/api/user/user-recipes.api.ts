@@ -3,14 +3,16 @@ import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recip
 import { richFetch } from "@/utils/fetch.utils";
 
 type Params = {
-  userId: number | undefined;
+  userId: string | undefined;
+  pageParam: number;
 };
 
-export async function UserRecipesApi({
+export async function userRecipesApi({
   userId,
+  pageParam,
 }: Params): Promise<PaginatedRecipesResponseDto> {
   const data = await richFetch<PaginatedRecipesResponseDto>(
-    `/recipe/user/${userId}`,
+    `/recipe/user/${userId}?page=${pageParam}`,
   );
 
   if ("error" in data) {
