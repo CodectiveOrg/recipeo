@@ -1,25 +1,18 @@
 .user {
-  display: grid;
-  gap: 1.5rem;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.75rem 1.5rem;
+  }
 
   main {
     display: grid;
     gap: 1.5rem;
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0.75rem 1.5rem;
-    }
-
     > hr {
-      background-color: var(--color-form);
-
-      block-size: 0.5rem;
-
-      border: none;
+      border: 0.25rem solid var(--color-form);
     }
   }
 }

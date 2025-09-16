@@ -14,12 +14,11 @@ import styles from "./user.module.css";
 export default function UserPage(): ReactNode {
   return (
     <div className={styles.user}>
-      <header></header>
+      <header>
+        <BackButtonComponent />
+        <ShareButtonComponent />
+      </header>
       <main>
-        <div className={styles.header}>
-          <BackButtonComponent />
-          <ShareButtonComponent />
-        </div>
         <UserHeadComponent />
         <hr />
         <TabsComponent
