@@ -10,7 +10,7 @@ import { parseAsInteger, useQueryState } from "nuqs";
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
 import RangeInputComponent from "@/components/range-input/range-input.component";
-import TagInputComponent from "@/components/tag-input2/tag-input.component";
+import TagInputComponent from "@/components/tag-input/tag-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
