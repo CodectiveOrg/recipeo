@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
 
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { useQuery } from "@tanstack/react-query";
 
 import { getUserApi } from "@/api/user/get-user.api.ts";
 
+import ButtonComponent from "@/components/button/button.component.tsx";
 import ImageComponent from "@/components/image/image.component";
 import LoadingComponent from "@/components/loading/loading.component";
 import TabsComponent from "@/components/tabs/tabs.component";
@@ -24,22 +25,22 @@ import styles from "./user.module.css";
 export default function UserPage(): ReactNode {
   const { userId } = useParams();
 
-  const { isPending, isError, data: currentUser } = useVerifyQuery();
+  const { isPending: isVerifyPending, data: currentUser } = useVerifyQuery();
 
   const {
-    isPending: userPending,
-    isError: userError,
+    isPending: isUserPending,
+    isError: isUserError,
     data: user,
   } = useQuery({
     queryKey: ["user", userId],
     queryFn: async () => getUserApi({ userId }),
   });
 
-  if (isPending || userPending) {
+  if (isVerifyPending || isUserPending) {
     return <LoadingComponent />;
   }
 
-  if (isError || userError) {
+  if (isUserError) {
     return <div>Error</div>;
   }
 
@@ -91,8 +92,17 @@ export default function UserPage(): ReactNode {
               </div>
             ))}
           </div>
-          {currentUser.id !== user.id && (
-            <FollowButtonComponent userId={user.id} className={styles.button} />
+          {currentUser ? (
+            currentUser.id !== user.id && (
+              <FollowButtonComponent
+                userId={user.id}
+                className={styles.button}
+              />
+            )
+          ) : (
+            <ButtonComponent as={Link} to="/sign-in">
+              Sign In to Follow
+            </ButtonComponent>
           )}
         </div>
         <hr />
