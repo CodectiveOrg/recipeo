@@ -19,7 +19,16 @@ type Input = {
   value: string;
 };
 export default function IngredientsInputComponent(): ReactNode {
-  const [inputs, setInputs] = useState<Input[]>([{ id: 1, value: "" }]);
+  const [inputs, setInputs] = useState<Input[]>([
+    {
+      id: Number(
+        String(Date.now() + Math.random())
+          .split(".")
+          .join(""),
+      ),
+      value: "",
+    },
+  ]);
 
   const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
@@ -47,7 +56,14 @@ export default function IngredientsInputComponent(): ReactNode {
   const handleAddInput = (): void => {
     setInputs((items) => [
       ...items,
-      { id: items.length > 0 ? items[items.length - 1].id + 1 : 1, value: "" },
+      {
+        id: Number(
+          String(Date.now() + Math.random())
+            .split(".")
+            .join(""),
+        ),
+        value: "",
+      },
     ]);
   };
 

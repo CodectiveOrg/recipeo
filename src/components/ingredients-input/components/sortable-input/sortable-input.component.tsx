@@ -36,8 +36,10 @@ export default function SortableInputComponent({
       }}
       {...attributes}
     >
-      <div className={styles["aside-input-actions"]}>
-        <IconComponent name="code-scan-line-duotone" {...listeners} />
+      <div className={styles["aside-actions"]}>
+        <IconButtonComponent {...listeners}>
+          <IconComponent name="code-scan-line-duotone" />
+        </IconButtonComponent>
         <IconButtonComponent onClick={() => onDelete(id)}>
           <IconComponent name="trash-bin-minimalistic-linear" color="danger" />
         </IconButtonComponent>

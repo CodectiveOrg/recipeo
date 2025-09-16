@@ -1,12 +1,10 @@
 .input-item {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 0.5rem;
 
-  .aside-input-actions {
+  .aside-actions {
     display: grid;
-    place-items: center;
-    align-content: start;
     gap: 0.5rem;
 
     svg {
