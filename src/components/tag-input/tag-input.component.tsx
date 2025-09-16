@@ -33,7 +33,7 @@ export default function TagInputComponent({
   ...otherProps
 }: Props): ReactNode {
   const [uncontrolledValue, setUncontrolledValue] = useState<string>(
-    defaultValue ?? "All",
+    defaultValue ?? "",
   );
   const value = controlledValue ?? uncontrolledValue;
 
