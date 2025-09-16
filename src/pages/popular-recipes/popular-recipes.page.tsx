@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from "react";
 
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -9,6 +9,7 @@ import { useInView } from "react-intersection-observer";
 import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api";
 
 import IconComponent from "@/components/icon-button/icon-button.component";
+import IconButtonComponent from "@/components/icon-button/icon-button.component";
 import LoadingComponent from "@/components/loading/loading.component";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import TypographyComponent from "@/components/typography/typography.component";
@@ -44,6 +45,8 @@ export default function PopularRecipesPage(): ReactNode {
     },
   });
 
+  const navigate = useNavigate();
+
   if (isPending) {
     return <LoadingComponent />;
   }
@@ -55,10 +58,15 @@ export default function PopularRecipesPage(): ReactNode {
   return (
     <div className={styles["popular-recipes"]}>
       <header>
-        <Link to="/">
+        <IconButtonComponent
+          className={styles["back-button"]}
+          onClick={() => navigate(-1)}
+        >
           <IconComponent name="alt-arrow-left-linear" />
-        </Link>
-        <TypographyComponent variant="h2">Popular Recipes</TypographyComponent>
+        </IconButtonComponent>
+        <TypographyComponent variant="h2" className={styles.title}>
+          Popular Recipes
+        </TypographyComponent>
       </header>
       <main>
         <ul>
