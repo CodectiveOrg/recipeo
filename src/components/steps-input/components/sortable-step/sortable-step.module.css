@@ -1,20 +1,15 @@
 .step {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 0.5rem;
 
-  .aside-step-actions {
+  .aside-actions {
     display: grid;
-    place-items: center;
     align-content: start;
     gap: 1rem;
 
     svg {
-      display: grid;
-      place-content: center;
-
-      block-size: 1.5rem;
-      inline-size: 1.5rem;
+      font-size: 1.5rem;
     }
 
     .circle {

@@ -1,4 +1,4 @@
-import type { ChangeEvent, ReactNode, SyntheticEvent } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -28,10 +28,6 @@ export default function SortableStepComponent({
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: step.id });
 
-  const handleStopPropagation = (event: SyntheticEvent): void => {
-    event.stopPropagation();
-  };
-
   return (
     <li
       className={styles.step}
@@ -42,19 +38,20 @@ export default function SortableStepComponent({
       }}
       {...attributes}
     >
-      <div className={styles["aside-step-actions"]}>
+      <div className={styles["aside-actions"]}>
         <span className={styles.circle}>{index + 1}</span>
-        <IconComponent name="code-scan-line-duotone" {...listeners} />
+        <IconButtonComponent {...listeners}>
+          <IconComponent name="code-scan-line-duotone" />
+        </IconButtonComponent>
         <IconButtonComponent onClick={() => onDeleteStep(step.id)}>
           <IconComponent name="trash-bin-minimalistic-linear" color="danger" />
         </IconButtonComponent>
       </div>
-
       <div className={styles["step-content"]}>
         <TextAreaComponent
           value={step.description}
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            handleStopPropagation(event);
+            event.stopPropagation();
             onDescriptionChange(step.id, event.target.value);
           }}
           placeholder="Tell a little about your food"

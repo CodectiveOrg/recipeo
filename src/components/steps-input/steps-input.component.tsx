@@ -21,7 +21,11 @@ import styles from "./steps-input.module.css";
 export default function StepsInputComponent(): ReactNode {
   const [steps, setSteps] = useState<Step[]>([
     {
-      id: 1,
+      id: Number(
+        String(Date.now() + Math.random())
+          .split(".")
+          .join(""),
+      ),
       description: "",
       picture: null,
     },
@@ -46,23 +50,27 @@ export default function StepsInputComponent(): ReactNode {
     );
   };
 
-  const handleAddStep = (): void => {
+  const handleAddStepButton = (): void => {
     setSteps((steps) => [
       ...steps,
       {
-        id: steps.length > 0 ? steps[steps.length - 1].id + 1 : 1,
+        id: Number(
+          String(Date.now() + Math.random())
+            .split(".")
+            .join(""),
+        ),
         description: "",
         picture: null,
       },
     ]);
   };
 
-  const handleDeleteStep = (id: number): void => {
+  const handleDeleteStepButton = (id: number): void => {
     setSteps((steps) => steps.filter((step) => step.id !== id));
   };
 
   return (
-    <div className={styles.steps}>
+    <div className={styles["steps-input"]}>
       <TypographyComponent as="h2" variant="h2">
         Steps
       </TypographyComponent>
@@ -71,14 +79,14 @@ export default function StepsInputComponent(): ReactNode {
           items={steps.map((step) => step.id)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className={styles["step-section"]}>
+          <ul className={styles.steps}>
             {steps.map((step, index) => (
               <SortableStepComponent
                 key={step.id}
                 step={step}
                 index={index}
                 onDescriptionChange={handleDescriptionChange}
-                onDeleteStep={handleDeleteStep}
+                onDeleteStep={handleDeleteStepButton}
               />
             ))}
           </ul>
@@ -88,7 +96,7 @@ export default function StepsInputComponent(): ReactNode {
         variant="outlined"
         color="secondary"
         size="medium"
-        onClick={handleAddStep}
+        onClick={handleAddStepButton}
       >
         <IconComponent name="add-square-linear" /> Steps
       </ButtonComponent>
