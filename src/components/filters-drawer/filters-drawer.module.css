@@ -2,11 +2,13 @@
   display: grid;
   gap: 2rem;
 
+  padding-block-end: 2rem;
+  
   header {
     text-align: center;
   }
 
-  .content {
+  form {
     display: grid;
     gap: 2rem;
 

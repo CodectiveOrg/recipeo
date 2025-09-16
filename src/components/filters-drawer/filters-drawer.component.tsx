@@ -1,4 +1,9 @@
-import { type ComponentProps, type ReactNode, useRef } from "react";
+import {
+  type ComponentProps,
+  type FormEvent,
+  type ReactNode,
+  useRef,
+} from "react";
 
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
@@ -13,10 +18,21 @@ type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {};
 export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
   const rangeInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleOnCancelButton = (): void => {};
+  const handleCancelButton = (): void => {
+    ref.current?.close();
+  };
 
-  const handleOnDoneButton = (): void => {
+  const handleSubmitButton = (): void => {
     console.log(rangeInputRef.current?.value);
+    ref.current?.close();
+  };
+
+  const handleSubmitForm = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    console.log(formData);
+
+    ref.current?.close();
   };
 
   const rangeInputLabel = (
@@ -37,7 +53,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
           Add a filter
         </TypographyComponent>
       </header>
-      <div className={styles.content}>
+      <form onSubmit={handleSubmitForm}>
         <FilterTagInputComponent label="Tag" />
         <RangeInputComponent
           ref={rangeInputRef}
@@ -46,12 +62,18 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
           max={60}
         />
         <div className={styles.actions}>
-          <ButtonComponent color="secondary" onClick={handleOnCancelButton}>
+          <ButtonComponent
+            type="reset"
+            color="secondary"
+            onClick={handleCancelButton}
+          >
             Cancel
           </ButtonComponent>
-          <ButtonComponent onClick={handleOnDoneButton}>Done</ButtonComponent>
+          <ButtonComponent type="submit" onClick={handleSubmitButton}>
+            Done
+          </ButtonComponent>
         </div>
-      </div>
+      </form>
     </DrawerComponent>
   );
 }
