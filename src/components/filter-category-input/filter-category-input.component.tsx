@@ -11,7 +11,7 @@ import LoadingComponent from "@/components/loading/loading.component";
 
 import { Tag } from "@/entities/tag";
 
-import TypographyComponent from "../typography/typography.component";
+import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filter-category-input.module.css";
 
