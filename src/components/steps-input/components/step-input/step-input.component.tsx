@@ -10,7 +10,7 @@ import TextAreaComponent from "@/components/text-area/text-area.component";
 
 import type { Step } from "@/entities/step";
 
-import styles from "./sortable-step.module.css";
+import styles from "./step-input.module.css";
 
 type Props = {
   step: Step;
@@ -19,7 +19,7 @@ type Props = {
   onDeleteStep: (id: number) => void;
 };
 
-export default function SortableStepComponent({
+export default function StepInputComponent({
   step,
   index,
   onDescriptionChange,
@@ -30,7 +30,7 @@ export default function SortableStepComponent({
 
   return (
     <li
-      className={styles.step}
+      className={styles["step-input"]}
       ref={setNodeRef}
       style={{
         transform: CSS.Transform.toString(transform),

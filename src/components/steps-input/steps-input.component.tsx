@@ -9,12 +9,13 @@ import {
 
 import ButtonComponent from "@/components/button/button.component";
 import IconComponent from "@/components/icon/icon.component";
-import SortableStepComponent from "@/components/steps-input/components/sortable-step/sortable-step.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import type { Step } from "@/entities/step";
 
 import DndProvider from "@/providers/dnd-provider/dnd.provider";
+
+import StepInputComponent from "./components/step-input/step-input.component";
 
 import styles from "./steps-input.module.css";
 
@@ -81,7 +82,7 @@ export default function StepsInputComponent(): ReactNode {
         >
           <ul className={styles.steps}>
             {steps.map((step, index) => (
-              <SortableStepComponent
+              <StepInputComponent
                 key={step.id}
                 step={step}
                 index={index}
