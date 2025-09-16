@@ -41,7 +41,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         <FilterCategoryInputComponent label="Category" />
         <RangeInputComponent
           ref={rangeInputRef}
-          label={label}
+          label={rangeInputLabel}
           min={10}
           max={60}
         />
