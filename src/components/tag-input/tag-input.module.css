@@ -2,9 +2,13 @@
   display: grid;
   gap: 1rem;
 
-  .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 0.5rem;
+  select {
+    inline-size: 100%;
+    padding: 0.25rem 0.5rem;
+
+    option {
+      padding: 0.25rem 0.5rem;
+      color: var(--color-text);
+    }
   }
 }

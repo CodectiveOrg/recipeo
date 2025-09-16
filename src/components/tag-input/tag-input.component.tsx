@@ -1,4 +1,10 @@
-import { type ComponentProps, type ReactNode, useId, useState } from "react";
+import {
+  type ChangeEvent,
+  type ComponentProps,
+  type ReactNode,
+  useId,
+  useState,
+} from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -6,7 +12,6 @@ import clsx from "clsx";
 
 import { getAllTagsApi } from "@/api/tag/get-all-tags.api";
 
-import ButtonComponent from "@/components/button/button.component";
 import LoadingComponent from "@/components/loading/loading.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
@@ -19,9 +24,9 @@ type Props = Omit<
   "type" | "value" | "defaultValue" | "onChange"
 > & {
   label: string;
-  value?: "All";
-  defaultValue?: "All";
-  onChange?: (value: Tag) => void;
+  value?: string;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
 };
 
 export default function TagInputComponent({
@@ -33,7 +38,7 @@ export default function TagInputComponent({
   ...otherProps
 }: Props): ReactNode {
   const [uncontrolledValue, setUncontrolledValue] = useState<string>(
-    defaultValue ?? "",
+    defaultValue ?? "all",
   );
   const value = controlledValue ?? uncontrolledValue;
 
@@ -52,11 +57,11 @@ export default function TagInputComponent({
     return <>Error...</>;
   }
 
-  const tags: Tag[] = [{ id: -1, title: "All" }, ...data];
+  const tags: Tag[] = [{ id: -1, title: "all" }, ...data];
 
-  const handleButtonClick = (tag: Tag): void => {
-    setUncontrolledValue(tag.title);
-    onChange?.(tag);
+  const handleChangeTag = (e: ChangeEvent<HTMLSelectElement>): void => {
+    setUncontrolledValue(e.currentTarget.value);
+    onChange?.(e.currentTarget.value);
   };
 
   return (
@@ -66,18 +71,13 @@ export default function TagInputComponent({
           {label}
         </TypographyComponent>
       </label>
-      <div className={styles.buttons}>
+      <select name="tag" id={id} onChange={handleChangeTag}>
         {tags.map((tag) => (
-          <ButtonComponent
-            key={tag.id}
-            size="small"
-            color={tag.title === value ? "primary" : "secondary"}
-            onClick={() => handleButtonClick(tag)}
-          >
+          <option key={tag.id} value={tag.title}>
             {tag.title}
-          </ButtonComponent>
+          </option>
         ))}
-      </div>
+      </select>
       <input id={id} type="hidden" value={value} {...otherProps} />
     </div>
   );
