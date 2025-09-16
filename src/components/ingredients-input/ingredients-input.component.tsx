@@ -9,10 +9,11 @@ import {
 
 import ButtonComponent from "@/components/button/button.component";
 import IconComponent from "@/components/icon/icon.component";
-import SortableInputComponent from "@/components/ingredients-input/components/sortable-input/sortable-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import DndProvider from "@/providers/dnd-provider/DndProvider";
+
+import IngredientInputComponent from "./components/ingredient-input/ingredient-input.component";
 
 import styles from "./ingredients-input.module.css";
 
@@ -81,7 +82,7 @@ export default function IngredientsInputComponent(): ReactNode {
         >
           <ul className={styles.ingredients}>
             {inputs.map((item) => (
-              <SortableInputComponent
+              <IngredientInputComponent
                 key={item.id}
                 id={item.id}
                 value={item.value}

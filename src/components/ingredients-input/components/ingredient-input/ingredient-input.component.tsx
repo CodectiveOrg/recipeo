@@ -7,7 +7,7 @@ import IconButtonComponent from "@/components/icon-button/icon-button.component"
 import IconComponent from "@/components/icon/icon.component";
 import TextInputComponent from "@/components/text-input/text-input.component";
 
-import styles from "./sortable-input.module.css";
+import styles from "./ingredient-input.module.css";
 
 type Props = {
   id: number;
@@ -15,7 +15,7 @@ type Props = {
   onChange: (id: number, newValue: string) => void;
   onDelete: (id: number) => void;
 };
-export default function SortableInputComponent({
+export default function IngredientInputComponent({
   id,
   value,
   onChange,
@@ -25,11 +25,10 @@ export default function SortableInputComponent({
     useSortable({
       id,
     });
-
   return (
     <li
       ref={setNodeRef}
-      className={styles.ingredient}
+      className={styles["ingredient-input"]}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
