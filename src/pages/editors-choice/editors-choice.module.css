@@ -1,15 +1,33 @@
 .editors-choice {
-  display: grid;
-  gap: 1rem;
-
   header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    justify-items: start;
     gap: 1rem;
+
+    .back-button {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+
+      color: inherit;
+
+      isolation: isolate;
+
+      font-size: 1.5rem;
+    }
+
+    .title {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+
+      inline-size: 100%;
+
+      text-align: center;
+    }
   }
 
   main {
+    margin-block-start: 1rem;
+
     > p {
       text-align: center;
     }

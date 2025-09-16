@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from "react";
 
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -8,6 +8,7 @@ import { useInView } from "react-intersection-observer";
 
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
+import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import LoadingComponent from "@/components/loading/loading.component";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
@@ -44,6 +45,8 @@ export default function EditorsChoicePage(): ReactNode {
     },
   });
 
+  const navigate = useNavigate();
+
   if (isPending) {
     return <LoadingComponent />;
   }
@@ -55,10 +58,13 @@ export default function EditorsChoicePage(): ReactNode {
   return (
     <div className={styles["editors-choice"]}>
       <header>
-        <Link to="/">
+        <IconButtonComponent
+          className={styles["back-button"]}
+          onClick={() => navigate(-1)}
+        >
           <IconComponent name="alt-arrow-left-linear" />
-        </Link>
-        <TypographyComponent variant="h2">
+        </IconButtonComponent>
+        <TypographyComponent variant="h2" className={styles.title}>
           Editor's Chosen Recipes
         </TypographyComponent>
       </header>
