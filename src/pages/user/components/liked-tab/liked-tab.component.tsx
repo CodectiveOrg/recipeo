@@ -12,7 +12,7 @@ export default function LikedTabComponent(): ReactNode {
   const { userId } = useParams();
 
   const queryResult = useInfiniteQuery({
-    queryKey: ["user", "recipes", userId],
+    queryKey: ["user", "liked-tab", "recipes", userId],
     queryFn: ({ pageParam }) => userRecipesApi({ userId, pageParam }),
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {

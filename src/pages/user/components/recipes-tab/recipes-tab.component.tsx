@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { useParams } from "react-router";
 
@@ -12,7 +12,7 @@ export default function RecipesTabComponent(): ReactNode {
   const { userId } = useParams();
 
   const queryResult = useInfiniteQuery({
-    queryKey: ["user", "recipes", userId],
+    queryKey: ["user", "all-tab", "recipes", userId],
     queryFn: ({ pageParam }) => userRecipesApi({ userId, pageParam }),
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {
