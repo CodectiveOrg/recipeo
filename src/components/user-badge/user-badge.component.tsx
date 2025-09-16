@@ -1,6 +1,4 @@
-import type { ReactNode } from "react";
-
-import { Link } from "react-router";
+import type { ComponentProps, ElementType, ReactNode } from "react";
 
 import clsx from "clsx";
 
@@ -9,23 +7,36 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import type { EssentialUser } from "@/entities/user.ts";
 
+import type { Combine } from "@/utils/type.utils.ts";
+
 import styles from "./user-badge.module.css";
 
-type Props = {
+type Props<T extends ElementType> = {
+  as?: T;
   className?: string;
   user: EssentialUser;
   size?: "medium" | "large";
 };
 
-export default function UserBadgeComponent({
+type CombinedProps<T extends ElementType> = Combine<
+  Omit<ComponentProps<T>, "to">,
+  Props<T>
+>;
+
+export default function UserBadgeComponent<T extends ElementType = "button">({
+  as,
   className,
   user,
   size = "medium",
-}: Props): ReactNode {
+  ...otherProps
+}: CombinedProps<T>): ReactNode {
+  const Component = as ?? "button";
+
   return (
-    <Link
+    <Component
       className={clsx(styles["user-badge"], styles[size], className)}
       to={`/user/${user?.id}`}
+      {...otherProps}
     >
       <ImageComponent folder="user" src={user?.picture} alt="" />
       <TypographyComponent
@@ -35,6 +46,6 @@ export default function UserBadgeComponent({
       >
         {user?.username}
       </TypographyComponent>
-    </Link>
+    </Component>
   );
 }
