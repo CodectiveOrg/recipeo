@@ -33,9 +33,9 @@ export default function Routing(): ReactNode {
             <Route path="todo" element="TODO" />
           </Route>
           <Route index element={<HomePage />} />
+          <Route path="tags" element={<TagsPage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
         </Route>
-        <Route path="tags" element={<TagsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
