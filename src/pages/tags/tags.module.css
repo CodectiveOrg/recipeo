@@ -4,7 +4,7 @@
     justify-items: start;
     gap: 1rem;
 
-    .back-button{
+    .back-button {
       grid-column: 1 / -1;
       grid-row: 1 / -1;
 
@@ -23,7 +23,6 @@
 
       text-align: center;
     }
-
   }
 
   main {
