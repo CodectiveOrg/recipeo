@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from "react";
 
-import { DndContext, type DragEndEvent } from "@dnd-kit/core";
+import { type DragEndEvent } from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
@@ -11,6 +11,8 @@ import ButtonComponent from "@/components/button/button.component";
 import IconComponent from "@/components/icon/icon.component";
 import SortableInputComponent from "@/components/ingredients-input/components/sortable-input/sortable-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
+
+import DndProvider from "@/providers/dnd-provider/DndProvider";
 
 import styles from "./ingredients-input.module.css";
 
@@ -68,16 +70,16 @@ export default function IngredientsInputComponent(): ReactNode {
   };
 
   return (
-    <div className={styles.inputs}>
+    <div className={styles["ingredients-input"]}>
       <TypographyComponent as="h2" variant="h2">
         Ingredients
       </TypographyComponent>
-      <DndContext onDragEnd={handleDragEnd}>
+      <DndProvider onDragEnd={handleDragEnd}>
         <SortableContext
           items={inputs.map((item) => item.id)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className={styles["input-section"]}>
+          <ul className={styles.ingredients}>
             {inputs.map((item) => (
               <SortableInputComponent
                 key={item.id}
@@ -89,7 +91,7 @@ export default function IngredientsInputComponent(): ReactNode {
             ))}
           </ul>
         </SortableContext>
-      </DndContext>
+      </DndProvider>
       <ButtonComponent
         variant="outlined"
         color="secondary"

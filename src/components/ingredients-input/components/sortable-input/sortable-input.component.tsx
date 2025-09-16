@@ -29,7 +29,7 @@ export default function SortableInputComponent({
   return (
     <li
       ref={setNodeRef}
-      className={styles["input-item"]}
+      className={styles.ingredient}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
