@@ -11,8 +11,11 @@ export default function BackButtonComponent(): ReactNode {
   const navigate = useNavigate();
 
   return (
-    <IconButtonComponent onClick={() => navigate(-1)}>
-      <IconComponent name="alt-arrow-left-linear" className={styles.icon} />
+    <IconButtonComponent
+      className={styles["back-button"]}
+      onClick={() => navigate(-1)}
+    >
+      <IconComponent name="alt-arrow-left-linear" />
     </IconButtonComponent>
   );
 }
