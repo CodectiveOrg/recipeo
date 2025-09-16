@@ -7,6 +7,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import ErrorPage from "@/pages/error/error.page.tsx";
 
+import NuqsProvider from "@/providers/nuqs.provider.tsx";
 import QueryProvider from "@/providers/query.provider.tsx";
 
 import Routing from "./routing.tsx";
@@ -22,7 +23,9 @@ createRoot(document.getElementById("root")!).render(
     <ErrorBoundary FallbackComponent={ErrorPage}>
       <BrowserRouter>
         <QueryProvider>
-          <Routing />
+          <NuqsProvider>
+            <Routing />
+          </NuqsProvider>
         </QueryProvider>
       </BrowserRouter>
     </ErrorBoundary>

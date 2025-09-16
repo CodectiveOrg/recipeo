@@ -5,10 +5,12 @@ import {
   useRef,
 } from "react";
 
+import { parseAsInteger, useQueryState } from "nuqs";
+
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
-import FilterTagInputComponent from "@/components/filter-tag-input/filter-tag-input.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
+import TagInputComponent from "@/components/tag-input/tag-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
@@ -16,6 +18,11 @@ import styles from "./filters-drawer.module.css";
 type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {};
 
 export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
+  const [duration, setDuration] = useQueryState(
+    "duration",
+    parseAsInteger.withDefault(0),
+  );
+
   const rangeInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleCancelButton = (): void => {
@@ -24,6 +31,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
 
   const handleSubmitButton = (): void => {
     console.log(rangeInputRef.current?.value);
+    // setDuration(parseInt(rangeInputRef.current?.value));
     ref.current?.close();
   };
 
@@ -54,7 +62,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         </TypographyComponent>
       </header>
       <form onSubmit={handleSubmitForm}>
-        <FilterTagInputComponent label="Tag" />
+        <TagInputComponent label="Tag" />
         <RangeInputComponent
           ref={rangeInputRef}
           label={rangeInputLabel}
