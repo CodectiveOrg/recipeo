@@ -19,7 +19,7 @@ export default function DrawerComponent({
   children,
   ...otherProps
 }: Props): ReactNode {
-  const handleClick = (e: MouseEvent<HTMLDialogElement>): void => {
+  const handlePointerDown = (e: MouseEvent<HTMLDialogElement>): void => {
     if (dismissOnBackdropClick && e.currentTarget === e.target) {
       ref?.current?.close();
     } else {
@@ -31,7 +31,7 @@ export default function DrawerComponent({
     <dialog
       ref={ref}
       className={clsx(styles.drawer, className)}
-      onClick={handleClick}
+      onPointerDown={handlePointerDown}
       {...otherProps}
     >
       <div className={contentClassName}>{children}</div>

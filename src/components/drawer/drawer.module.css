@@ -1,9 +1,12 @@
 .drawer {
-  inset-block-start: unset;
+  inset-block-start: auto;
 
-  inline-size: calc(min(var(--layout-size-2), 100%) - 3rem);
+  inline-size: 100%;
+  max-inline-size: var(--layout-size-2);
 
   margin-inline: auto;
+  padding-block-start: 2rem;
+  padding-inline: 1.5rem;
 
   border: none;
   border-start-start-radius: 2rem;
