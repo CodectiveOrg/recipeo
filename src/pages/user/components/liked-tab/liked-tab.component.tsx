@@ -24,5 +24,7 @@ export default function LikedTabComponent(): ReactNode {
     initialPageParam: 1,
   });
 
-  return <InfiniteRecipesComponent queryResult={queryResult} />;
+  return (
+    <InfiniteRecipesComponent queryResult={queryResult} columnsCount={2} />
+  );
 }
