@@ -1,0 +1,19 @@
+.tag-input {
+  display: grid;
+  gap: 0.5rem;
+
+  select {
+    inline-size: 100%;
+
+    option {
+      padding: 0.25rem 0.5rem;
+      color: var(--color-text);
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 0.5rem;
+  }
+}
