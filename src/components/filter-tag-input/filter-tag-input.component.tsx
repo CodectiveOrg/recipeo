@@ -12,7 +12,7 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import { Tag } from "@/entities/tag";
 
-import styles from "./filter-category-input.module.css";
+import styles from "./filter-tag-input.module.css";
 
 type Props = Omit<
   ComponentProps<"input">,
@@ -24,7 +24,7 @@ type Props = Omit<
   onChange?: (value: Tag) => void;
 };
 
-export default function FilterCategoryInputComponent({
+export default function FilterTagInputComponent({
   className,
   label,
   value: controlledValue,
@@ -60,7 +60,7 @@ export default function FilterCategoryInputComponent({
   };
 
   return (
-    <div className={clsx(styles["filter-category-input"], className)}>
+    <div className={clsx(styles["filter-tag-input"], className)}>
       <label htmlFor={id}>
         <TypographyComponent as="span" variant="h2">
           {label}

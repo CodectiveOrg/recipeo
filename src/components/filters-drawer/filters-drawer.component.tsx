@@ -2,7 +2,7 @@ import { type ComponentProps, type ReactNode, useRef } from "react";
 
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
-import FilterCategoryInputComponent from "@/components/filter-category-input/filter-category-input.component";
+import FilterTagInputComponent from "@/components/filter-tag-input/filter-tag-input.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
@@ -38,7 +38,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         </TypographyComponent>
       </header>
       <div className={styles.content}>
-        <FilterCategoryInputComponent label="Category" />
+        <FilterTagInputComponent label="Tag" />
         <RangeInputComponent
           ref={rangeInputRef}
           label={rangeInputLabel}
