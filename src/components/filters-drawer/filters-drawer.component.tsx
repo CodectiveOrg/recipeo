@@ -1,13 +1,16 @@
-import { type ReactNode, useRef } from "react";
+import { type ComponentProps, type ReactNode, useRef } from "react";
 
 import ButtonComponent from "@/components/button/button.component";
+import DrawerComponent from "@/components/drawer/drawer.component.tsx";
 import FilterCategoryInputComponent from "@/components/filter-category-input/filter-category-input.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
 
-export default function FiltersDrawerComponent(): ReactNode {
+type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {};
+
+export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
   const rangeInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleOnCancelButton = (): void => {};
@@ -28,7 +31,7 @@ export default function FiltersDrawerComponent(): ReactNode {
   );
 
   return (
-    <div className={styles["filters-drawer"]}>
+    <DrawerComponent ref={ref} contentClassName={styles.content}>
       <header>
         <TypographyComponent variant="h2" color="text">
           Add a filter
@@ -37,11 +40,11 @@ export default function FiltersDrawerComponent(): ReactNode {
       <div className={styles.content}>
         <FilterCategoryInputComponent label="Category" />
         <RangeInputComponent
-          label={label}
           ref={rangeInputRef}
+          label={label}
           min={10}
           max={60}
-        ></RangeInputComponent>
+        />
         <div className={styles.actions}>
           <ButtonComponent color="secondary" onClick={handleOnCancelButton}>
             Cancel
@@ -49,6 +52,6 @@ export default function FiltersDrawerComponent(): ReactNode {
           <ButtonComponent onClick={handleOnDoneButton}>Done</ButtonComponent>
         </div>
       </div>
-    </div>
+    </DrawerComponent>
   );
 }

@@ -45,9 +45,9 @@ export default function HomePage(): ReactNode {
 
   return (
     <div className={styles.home}>
-      <FiltersDrawerComponent ref={drawerRef} />
       <header>Header</header>
       <main>
+        <FiltersDrawerComponent ref={drawerRef} />
         <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
           Show Drawer
         </ButtonComponent>
