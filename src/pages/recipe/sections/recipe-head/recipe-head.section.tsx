@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { Link } from "react-router";
 
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
@@ -33,7 +32,7 @@ export default function RecipeHeadSection({ recipe }: Props): ReactNode {
         <span className={styles.tag}>{recipe.tags[1]?.title}</span>
         {formatDuration(recipe.duration)}
       </TypographyComponent>
-      <UserBadgeComponent as={Link} user={recipe.user} size="large" />
+      <UserBadgeComponent link user={recipe.user} size="large" />
       <LikeButtonComponent recipe={recipe} />
     </div>
   );
