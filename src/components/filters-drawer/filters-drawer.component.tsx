@@ -51,7 +51,7 @@ export default function FiltersDrawerComponent({
 
     setDuration(parseInt(rangeInputRef.current?.value));
     setTag(inputedTag);
-  
+
     ref.current?.close();
   };
 
