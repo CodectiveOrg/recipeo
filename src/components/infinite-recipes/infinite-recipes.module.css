@@ -1,4 +1,11 @@
 .infinite-recipes {
+  --columns-count: 1;
+
+  > ul {
+    display: grid;
+    grid-template-columns: repeat(var(--columns-count), minmax(0, 1fr));
+  }
+
   > p {
     padding-block: 0.5rem;
 
