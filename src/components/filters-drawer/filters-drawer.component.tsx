@@ -15,8 +15,8 @@ import TypographyComponent from "@/components/typography/typography.component";
 import styles from "./filters-drawer.module.css";
 
 const FiltersSchema = z.object({
-  tag: z.coerce.string(),
-  maxDuration: z.coerce.number(),
+  tag: z.coerce.string<string>(),
+  maxDuration: z.coerce.number<number>(),
 });
 
 type Values = z.infer<typeof FiltersSchema>;
@@ -32,11 +32,14 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting },
-  } = useForm({
+  } = useForm<Values>({
     values,
     resolver: zodResolver(FiltersSchema),
   });
+
+  const watchedMaxDuration = watch("maxDuration");
 
   const handleCancelButtonClick = (): void => {
     ref.current?.close();
@@ -72,6 +75,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
           {...register("maxDuration")}
           min={10}
           max={60}
+          watchedValue={watchedMaxDuration}
         />
         <div className={styles.actions}>
           <ButtonComponent

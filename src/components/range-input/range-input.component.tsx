@@ -1,12 +1,4 @@
-import {
-  type CSSProperties,
-  type ChangeEvent,
-  type ComponentProps,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { type CSSProperties, type ComponentProps, type ReactNode } from "react";
 
 import clsx from "clsx";
 
@@ -19,36 +11,18 @@ type Props = Omit<ComponentProps<"input">, "type"> & {
   label: ReactNode;
   min: number;
   max: number;
-  defaultValue?: string | number;
-  value?: string | number;
+  watchedValue: number;
 };
 
 export default function RangeInputComponent({
-  ref,
   className,
   label,
   min,
   max,
-  defaultValue,
-  value,
-  onChange,
+  watchedValue,
   ...otherProps
 }: Props): ReactNode {
-  const localRef = useRef<HTMLInputElement | null>(null);
-
-  const [internalValue, setInternalValue] = useState<string>(`${defaultValue}`);
-
-  const percentageValue = ((+internalValue - min) / (max - min)) * 100;
-
-  useEffect(() => {
-    const finalValue = localRef.current?.value ?? "";
-    setInternalValue(`${finalValue}`);
-  }, [value, localRef]);
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInternalValue(localRef.current?.value ?? "");
-    onChange?.(e);
-  };
+  const percentageValue = ((+watchedValue - min) / (max - min)) * 100;
 
   return (
     <label
@@ -61,34 +35,17 @@ export default function RangeInputComponent({
           {min}
         </TypographyComponent>
         <TypographyComponent as="span" variant="h3" color="primary">
-          {+internalValue === max ? (
+          {+watchedValue === max ? (
             <IconComponent name="infinity-bold" />
           ) : (
-            internalValue
+            watchedValue
           )}
         </TypographyComponent>
         <TypographyComponent as="span" variant="h3" color="text-secondary">
           <IconComponent name="infinity-bold" />
         </TypographyComponent>
       </span>
-      <input
-        ref={(node) => {
-          localRef.current = node;
-
-          if (typeof ref === "function") {
-            ref(node);
-          } else if (ref) {
-            ref.current = node;
-          }
-        }}
-        type="range"
-        min={min}
-        max={max}
-        defaultValue={defaultValue}
-        value={value}
-        onChange={handleInputChange}
-        {...otherProps}
-      />
+      <input type="range" min={min} max={max} {...otherProps} />
     </label>
   );
 }
