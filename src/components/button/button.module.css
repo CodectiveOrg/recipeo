@@ -47,6 +47,8 @@
     &.primary {
       background-color: var(--color-white);
       color: var(--color-primary);
+
+      border-color: var(--color-primary);
     }
 
     &.secondary {
@@ -59,6 +61,8 @@
     &.danger {
       background-color: var(--color-white);
       color: var(--color-danger);
+
+      border-color: var(--color-danger);
     }
 
     &:disabled {
