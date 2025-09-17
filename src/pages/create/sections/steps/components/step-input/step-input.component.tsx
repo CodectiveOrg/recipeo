@@ -5,17 +5,17 @@ import {
   type SetStateAction,
 } from "react";
 
-import type { IngredientType } from "@/validation/schemas/ingredient.schema.ts";
+import type { StepType } from "@/validation/schemas/step.schema.ts";
 
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 
 type Props = {
   presentational?: boolean;
-  item: IngredientType;
-  setItems: Dispatch<SetStateAction<IngredientType[]>>;
+  item: StepType;
+  setItems: Dispatch<SetStateAction<StepType[]>>;
 };
 
-export default function IngredientInputComponent({
+export default function StepInputComponent({
   item,
   setItems,
 }: Props): ReactNode {
@@ -36,7 +36,7 @@ export default function IngredientInputComponent({
       type="text"
       value={item.title}
       onChange={handleTitleInputChange}
-      placeholder={`Ingredient...`}
+      placeholder={`Step...`}
     />
   );
 }

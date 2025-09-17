@@ -3,6 +3,7 @@ import { type ReactNode } from "react";
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import IngredientsSection from "@/pages/create/sections/ingredients/ingredients.section.tsx";
+import StepSection from "@/pages/create/sections/steps/step.section.tsx";
 
 import styles from "./recipe-form.module.css";
 
@@ -16,6 +17,7 @@ export default function RecipeFormComponent({
   return (
     <form className={styles["recipe-form"]}>
       <IngredientsSection defaultValues={defaultValues} />
+      <StepSection defaultValues={defaultValues} />
     </form>
   );
 }

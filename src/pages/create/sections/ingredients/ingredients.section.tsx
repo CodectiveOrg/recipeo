@@ -1,6 +1,6 @@
 import { type Context, type ReactNode, useState } from "react";
 
-import type { IngredientType } from "@/validation/schemas/ingredients.schema.ts";
+import type { IngredientType } from "@/validation/schemas/ingredient.schema.ts";
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import type {
