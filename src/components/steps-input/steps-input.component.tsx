@@ -51,7 +51,7 @@ export default function StepsInputComponent(): ReactNode {
     );
   };
 
-  const handleAddStepButton = (): void => {
+  const handleAddStepButtonClick = (): void => {
     setSteps((steps) => [
       ...steps,
       {
@@ -66,7 +66,7 @@ export default function StepsInputComponent(): ReactNode {
     ]);
   };
 
-  const handleDeleteStepButton = (id: number): void => {
+  const handleDeleteStepButtonClick = (id: number): void => {
     setSteps((steps) => steps.filter((step) => step.id !== id));
   };
 
@@ -87,7 +87,7 @@ export default function StepsInputComponent(): ReactNode {
                 step={step}
                 index={index}
                 onDescriptionChange={handleDescriptionChange}
-                onDeleteStep={handleDeleteStepButton}
+                onDeleteStep={handleDeleteStepButtonClick}
               />
             ))}
           </ul>
@@ -97,7 +97,7 @@ export default function StepsInputComponent(): ReactNode {
         variant="outlined"
         color="secondary"
         size="medium"
-        onClick={handleAddStepButton}
+        onClick={handleAddStepButtonClick}
       >
         <IconComponent name="add-square-linear" /> Steps
       </ButtonComponent>
