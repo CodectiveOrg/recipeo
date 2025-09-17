@@ -21,12 +21,12 @@ export default function HomePage(): ReactNode {
   const drawerRef = useRef<HTMLDialogElement | null>(null);
 
   const popularRecipesQueryResult = useQuery({
-    queryKey: ["recipes", "popular"],
+    queryKey: ["recipes", "popular", 1],
     queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
   });
 
   const chosenRecipesQueryResult = useQuery({
-    queryKey: ["recipes", "chosen"],
+    queryKey: ["recipes", "chosen", 1],
     queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
   });
 
