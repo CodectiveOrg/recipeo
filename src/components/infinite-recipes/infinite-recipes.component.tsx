@@ -51,6 +51,8 @@ export default function InfiniteRecipesComponent({
     return <>Error...</>;
   }
 
+  const isEmpty = data.pages[0].items.length === 0;
+
   return (
     <div className={styles["infinite-recipes"]}>
       <ul style={{ "--columns-count": `${columnsCount}` } as CSSProperties}>
@@ -73,12 +75,17 @@ export default function InfiniteRecipesComponent({
           </Fragment>
         ))}
       </ul>
+      {isEmpty && (
+        <TypographyComponent as="p" variant="s" color="text-secondary">
+          No recipes found!
+        </TypographyComponent>
+      )}
       {isFetchingNextPage && (
         <TypographyComponent as="p" variant="s" color="text-secondary">
           Loading...
         </TypographyComponent>
       )}
-      {!hasNextPage && (
+      {!hasNextPage && !isEmpty && (
         <TypographyComponent as="p" variant="s" color="text-secondary">
           All done!
         </TypographyComponent>
