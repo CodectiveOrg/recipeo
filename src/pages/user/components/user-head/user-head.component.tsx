@@ -43,7 +43,7 @@ export default function UserHeadComponent(): ReactNode {
   return (
     <div className={styles["user-head"]}>
       <ImageComponent
-        className={styles.user}
+        className={styles.picture}
         folder="user"
         src={user.picture}
         alt=""
@@ -61,7 +61,7 @@ export default function UserHeadComponent(): ReactNode {
           />
         )
       ) : (
-        <ButtonComponent as={Link} to="/sign-in">
+        <ButtonComponent className={styles.button} as={Link} to="/sign-in">
           Sign In to Follow
         </ButtonComponent>
       )}
