@@ -1,4 +1,6 @@
-import type { ComponentProps, ElementType, ReactNode } from "react";
+import type { PointerEvent, ReactNode } from "react";
+
+import { Link, useNavigate } from "react-router";
 
 import clsx from "clsx";
 
@@ -7,36 +9,39 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import type { EssentialUser } from "@/entities/user.ts";
 
-import type { Combine } from "@/utils/type.utils.ts";
-
 import styles from "./user-badge.module.css";
 
-type Props<T extends ElementType> = {
-  as?: T;
+type Props = {
+  link?: boolean;
   className?: string;
   user: EssentialUser;
   size?: "medium" | "large";
 };
 
-type CombinedProps<T extends ElementType> = Combine<
-  Omit<ComponentProps<T>, "to">,
-  Props<T>
->;
-
-export default function UserBadgeComponent<T extends ElementType = "button">({
-  as,
+export default function UserBadgeComponent({
+  link,
   className,
   user,
   size = "medium",
-  ...otherProps
-}: CombinedProps<T>): ReactNode {
-  const Component = as ?? "button";
+}: Props): ReactNode {
+  const navigate = useNavigate();
+
+  const Component = link ? Link : "button";
+
+  const href = `/user/${user?.id}`;
+
+  const handleButtonPointerDown = (e: PointerEvent): void => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    navigate(href);
+  };
 
   return (
     <Component
       className={clsx(styles["user-badge"], styles[size], className)}
-      to={`/user/${user?.id}`}
-      {...otherProps}
+      to={href}
+      onPointerDown={link ? undefined : handleButtonPointerDown}
     >
       <ImageComponent folder="user" src={user?.picture} alt="" />
       <TypographyComponent
