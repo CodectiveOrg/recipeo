@@ -9,6 +9,7 @@ import GuestLayout from "@/layouts/guest/guest.layout.tsx";
 import RootLayout from "@/layouts/root/root.layout.tsx";
 import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 
+import ChosenPage from "@/pages/chosen/chosen.page.tsx";
 import HomePage from "@/pages/home/home.page.tsx";
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
@@ -33,6 +34,7 @@ export default function Routing(): ReactNode {
             <Route path="todo" element="TODO" />
           </Route>
           <Route index element={<HomePage />} />
+          <Route path="chosen" element={<ChosenPage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
           <Route path="user/:userId" element={<UserPage />} />
         </Route>
