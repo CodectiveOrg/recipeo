@@ -6,7 +6,7 @@
 
   block-size: max-content;
 
-  border: none;
+  border: 2px solid transparent;
   border-radius: 999rem;
 
   font-size: 0.9375rem;
@@ -44,8 +44,6 @@
   }
 
   &.outlined {
-    border: 2px solid currentcolor;
-
     &.primary {
       background-color: var(--color-white);
       color: var(--color-primary);

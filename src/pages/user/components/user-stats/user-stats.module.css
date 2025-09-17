@@ -1,0 +1,8 @@
+.user-stats {
+  display: flex;
+  gap: 3rem;
+
+  .stat {
+    text-align: center;
+  }
+}

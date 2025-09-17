@@ -1,56 +1,28 @@
-import {
-  type CSSProperties,
-  type ChangeEvent,
-  type ComponentProps,
-  type ReactNode,
-  type RefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { type CSSProperties, type ComponentProps, type ReactNode } from "react";
 
 import clsx from "clsx";
 
+import IconComponent from "@/components/icon/icon.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./range-input.module.css";
 
-type Props = Omit<ComponentProps<"input">, "ref" | "type"> & {
-  ref?: RefObject<HTMLInputElement | null>;
+type Props = Omit<ComponentProps<"input">, "type"> & {
   label: ReactNode;
   min: number;
   max: number;
-  defaultValue?: string | number;
-  value?: string | number;
+  watchedValue: number;
 };
 
 export default function RangeInputComponent({
-  ref,
   className,
   label,
   min,
   max,
-  defaultValue,
-  value,
-  onChange,
+  watchedValue,
   ...otherProps
 }: Props): ReactNode {
-  const localRef = useRef<HTMLInputElement | null>(null);
-  const finalRef = ref ?? localRef;
-
-  const [internalValue, setInternalValue] = useState<string>(`${defaultValue}`);
-
-  const percentageValue = ((+internalValue - min) / (max - min)) * 100;
-
-  useEffect(() => {
-    const finalValue = finalRef.current?.value ?? "";
-    setInternalValue(`${finalValue}`);
-  }, [value, finalRef]);
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInternalValue(finalRef.current?.value ?? "");
-    onChange?.(e);
-  };
+  const percentageValue = ((+watchedValue - min) / (max - min)) * 100;
 
   return (
     <label
@@ -60,25 +32,20 @@ export default function RangeInputComponent({
       <span className={styles.label}>{label}</span>
       <span className={styles.hints}>
         <TypographyComponent as="span" variant="h3" color="text-secondary">
-          &lt;{min}
+          {min}
         </TypographyComponent>
         <TypographyComponent as="span" variant="h3" color="primary">
-          {internalValue}
+          {+watchedValue === max ? (
+            <IconComponent name="infinity-bold" />
+          ) : (
+            watchedValue
+          )}
         </TypographyComponent>
         <TypographyComponent as="span" variant="h3" color="text-secondary">
-          &gt;{max}
+          <IconComponent name="infinity-bold" />
         </TypographyComponent>
       </span>
-      <input
-        ref={finalRef}
-        type="range"
-        min={min}
-        max={max}
-        defaultValue={defaultValue}
-        value={value}
-        onChange={handleInputChange}
-        {...otherProps}
-      />
+      <input type="range" min={min} max={max} {...otherProps} />
     </label>
   );
 }
