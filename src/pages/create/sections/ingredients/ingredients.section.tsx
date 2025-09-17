@@ -1,8 +1,12 @@
-import { type ReactNode, useState } from "react";
+import { type Context, type ReactNode, useState } from "react";
 
 import type { IngredientType } from "@/validation/schemas/ingredients.schema.ts";
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
+import type {
+  BaseContextValue,
+  BaseItem,
+} from "@/pages/create/context/base.context.ts";
 import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
 import { SectionContext } from "@/pages/create/context/section.context.ts";
 import { generateIngredient } from "@/pages/create/data/data-generator.ts";
@@ -21,7 +25,13 @@ export default function IngredientsSection({
   });
 
   return (
-    <SectionContext value={{ context: IngredientsContext }}>
+    <SectionContext
+      value={{
+        context: IngredientsContext as unknown as Context<
+          BaseContextValue<BaseItem>
+        >,
+      }}
+    >
       <IngredientsContext
         value={{
           name: "Ingredient",
