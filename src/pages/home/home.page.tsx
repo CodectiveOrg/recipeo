@@ -2,9 +2,9 @@ import { type ReactNode, useRef } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
-import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
+import { getPopularRecipesApi } from "@/api/recipe/get-popular-recipes.api.ts";
+import { getRecentRecipesApi } from "@/api/recipe/get-recent-recipes.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
