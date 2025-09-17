@@ -4,19 +4,13 @@
 
   padding-block-end: 2rem;
 
-  header {
+  .title {
     text-align: center;
   }
 
   form {
     display: grid;
     gap: 2rem;
-
-    .label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
 
     .actions {
       display: grid;

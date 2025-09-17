@@ -63,11 +63,9 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
 
   return (
     <DrawerComponent ref={ref} contentClassName={styles.content}>
-      <header>
-        <TypographyComponent variant="h2" color="text">
-          Add a filter
-        </TypographyComponent>
-      </header>
+      <TypographyComponent className={styles.title} variant="h2" color="text">
+        Add a Filter
+      </TypographyComponent>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <TagInputComponent label="Tag" {...register("tag")} />
         <RangeInputComponent
