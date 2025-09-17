@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 
-import IngredientsSection from "@/pages/create/sections/ingredients/ingredients.section.tsx";
+import RecipeFormComponent from "@/pages/create/components/recipe-form/recipe-form.component.tsx";
 
 import styles from "./create.module.css";
 
@@ -9,7 +9,7 @@ export default function CreatePage(): ReactNode {
     <div className={styles.home}>
       <header>Create Page</header>
       <main>
-        <IngredientsSection />
+        <RecipeFormComponent />
       </main>
     </div>
   );

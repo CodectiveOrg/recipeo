@@ -42,7 +42,7 @@ export default function IngredientInputComponent({
           return x;
         }
 
-        return { ...x, title: e.currentTarget.value };
+        return { ...x, title: e.target.value };
       }),
     );
   };
@@ -61,7 +61,7 @@ export default function IngredientInputComponent({
       }}
       {...attributes}
     >
-      <IconButtonComponent {...listeners}>
+      <IconButtonComponent type="button" {...listeners}>
         <IconComponent name="sort-vertical-linear" color="text-secondary" />
       </IconButtonComponent>
       <TextInputComponent
@@ -73,6 +73,7 @@ export default function IngredientInputComponent({
       {index !== 0 && (
         <IconButtonComponent
           className={styles["remove-button"]}
+          type="button"
           onClick={handleRemoveButtonClick}
         >
           <IconComponent name="trash-bin-trash-linear" color="text-secondary" />
