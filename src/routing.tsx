@@ -35,11 +35,11 @@ export default function Routing(): ReactNode {
             <Route path="todo" element="TODO" />
           </Route>
           <Route index element={<HomePage />} />
+          <Route path="tags" element={<TagsPage />} />
           <Route path="chosen" element={<ChosenPage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
           <Route path="user/:userId" element={<UserPage />} />
         </Route>
-        <Route path="tags" element={<TagsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
