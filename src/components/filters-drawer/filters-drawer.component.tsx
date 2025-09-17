@@ -1,7 +1,10 @@
 import { type ComponentProps, type ReactNode } from "react";
 
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
@@ -11,10 +14,12 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
 
-type Values = {
-  tag: string;
-  duration: number;
-};
+const FiltersSchema = z.object({
+  tag: z.coerce.string(),
+  maxDuration: z.coerce.number(),
+});
+
+type Values = z.infer<typeof FiltersSchema>;
 
 type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref">;
 
@@ -24,8 +29,8 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     parseAsString.withDefault("all"),
   );
 
-  const [duration, setDuration] = useQueryState<number>(
-    "duration",
+  const [maxDuration, setMaxDuration] = useQueryState<number>(
+    "maxDuration",
     parseAsInteger.withDefault(60),
   );
 
@@ -33,8 +38,9 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<Values>({
-    defaultValues: { tag, duration },
+  } = useForm({
+    values: { tag, maxDuration },
+    resolver: zodResolver(FiltersSchema),
   });
 
   const handleCancelButtonClick = (): void => {
@@ -43,7 +49,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
 
   const handleFormSubmit = async (values: Values): Promise<void> => {
     await setTag(values.tag);
-    await setDuration(values.duration);
+    await setMaxDuration(values.maxDuration);
 
     ref.current?.close();
   };
@@ -70,7 +76,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         <TagInputComponent label="Tag" {...register("tag")} />
         <RangeInputComponent
           label={rangeInputLabel}
-          {...register("duration")}
+          {...register("maxDuration")}
           min={10}
           max={60}
         />
