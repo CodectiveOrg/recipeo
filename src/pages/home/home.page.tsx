@@ -16,13 +16,16 @@ import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-caro
 import SearchHistoryComponent from "@/components/search-history/search-history.componet";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
-import Greetings from "@/pages/home/components/greetings/greetings.component.tsx";
+import useVerifyQuery from "@/queries/use-verify.query.ts";
 
+import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
+  const { data: currentUser } = useVerifyQuery();
+
   const add = useSearchHistoryStore((state) => state.add);
 
   const drawerRef = useRef<HTMLDialogElement | null>(null);
@@ -53,7 +56,7 @@ export default function HomePage(): ReactNode {
   return (
     <div className={styles.home}>
       <header>
-        <Greetings />
+        <GreetingsSection userName={currentUser?.username ?? "Lazy User"} />
       </header>
       <main>
         <FiltersDrawerComponent ref={drawerRef} />
