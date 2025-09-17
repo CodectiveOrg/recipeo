@@ -1,0 +1,39 @@
+.tags {
+  header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-items: center;
+    gap: 1rem;
+
+    padding: 0.75rem 1.5rem;
+
+    .back-button {
+      grid-column: 1 / 2;
+      grid-row: 1 / -1;
+    }
+
+    .title {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+    }
+  }
+
+  main {
+    padding: 1.5rem;
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+      gap: 0.5rem;
+
+      > li {
+        display: contents;
+
+        > a {
+          text-transform: capitalize;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

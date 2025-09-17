@@ -1,0 +1,23 @@
+.ingredient-input {
+  --icon-size: 1.5rem;
+
+  display: grid;
+  grid-template-columns: var(--icon-size) minmax(0, 1fr) var(--icon-size);
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    font-size: var(--icon-size);
+  }
+
+  &.presentational,
+  &.sorting {
+    .remove-button {
+      opacity: 0;
+    }
+  }
+
+  &.dragging {
+    opacity: 0.5;
+  }
+}
