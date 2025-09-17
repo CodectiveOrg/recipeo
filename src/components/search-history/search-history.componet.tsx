@@ -17,10 +17,6 @@ const load = (): SearchHistoryType[] => {
   return JSON.parse(item);
 };
 
-const save = (list: SearchHistoryType[]): void => {
-  localStorage.setItem("search-history", JSON.stringify(list));
-};
-
 export default function SearchHistoryComponent(): ReactNode {
   useEffect(() => {
     useSearchHistory.getState().initialize(load());
