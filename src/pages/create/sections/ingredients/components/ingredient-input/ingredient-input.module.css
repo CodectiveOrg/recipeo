@@ -10,9 +10,14 @@
     font-size: var(--icon-size);
   }
 
+  &.presentational,
   &.sorting {
     .remove-button {
       opacity: 0;
     }
+  }
+
+  &.dragging {
+    opacity: 0.5;
   }
 }

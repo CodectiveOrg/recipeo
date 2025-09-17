@@ -16,11 +16,13 @@ import { IngredientsContext } from "@/pages/create/context/ingredients.context.t
 import styles from "./ingredient-input.module.css";
 
 type Props = {
+  presentational?: boolean;
   index: number;
   ingredient: IngredientType;
 };
 
 export default function IngredientInputComponent({
+  presentational,
   index,
   ingredient,
 }: Props): ReactNode {
@@ -33,7 +35,8 @@ export default function IngredientInputComponent({
     transform,
     transition,
     isSorting,
-  } = useSortable({ id: ingredient.id });
+    isDragging,
+  } = useSortable({ id: ingredient.id, data: { index, ingredient } });
 
   const handleTitleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setIngredients((old) =>
@@ -54,7 +57,12 @@ export default function IngredientInputComponent({
   return (
     <li
       ref={setNodeRef}
-      className={clsx(styles["ingredient-input"], isSorting && styles.sorting)}
+      className={clsx(
+        styles["ingredient-input"],
+        presentational && styles.presentational,
+        isSorting && styles.sorting,
+        isDragging && styles.dragging,
+      )}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
