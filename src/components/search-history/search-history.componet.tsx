@@ -1,31 +1,45 @@
-import { type ReactNode, useEffect } from "react";
+import { type ReactNode } from "react";
+
+import { Link } from "react-router";
 
 import { useSearchHistory } from "@/stores/search-history.store";
 
-import type { SearchHistoryType } from "@/types/search-history.type";
+import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
+import IconComponent from "@/components/icon/icon.component.tsx";
+import TypographyComponent from "@/components/typography/typography.component.tsx";
 
-import ItemComponent from "./components/item/item.component";
+import { generateSearchUrl } from "@/utils/url.utils.ts";
 
 import styles from "./search-history.module.css";
 
-const load = (): SearchHistoryType[] => {
-  const item = localStorage.getItem("search-history");
-  if (!item) {
-    return [];
-  }
-
-  return JSON.parse(item);
-};
-
 export default function SearchHistoryComponent(): ReactNode {
-  useEffect(() => {
-    useSearchHistory.getState().initialize(load());
-  }, []);
+  const items = useSearchHistory((state) => state.items);
+  const remove = useSearchHistory((state) => state.remove);
 
   return (
     <ul className={styles["search-history"]}>
-      {useSearchHistory.getState().list.map((item) => (
-        <ItemComponent key={item.id} {...item}></ItemComponent>
+      {items.map((item, index) => (
+        <li key={index}>
+          <Link to={generateSearchUrl(item)}>
+            <IconComponent name="clock-circle-linear" color="text-secondary" />
+            <TypographyComponent
+              as="span"
+              ellipsis
+              className={styles.title}
+              variant="p1"
+            >
+              {[item.query, item.tag, item.maxDuration]
+                .filter(Boolean)
+                .join(" - ")}
+            </TypographyComponent>
+          </Link>
+          <IconButtonComponent onClick={() => remove(index)}>
+            <IconComponent
+              name="trash-bin-trash-linear"
+              color="text-secondary"
+            />
+          </IconButtonComponent>
+        </li>
       ))}
     </ul>
   );

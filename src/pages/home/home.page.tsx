@@ -2,6 +2,8 @@ import { type ReactNode, useRef } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
+import { useSearchHistory } from "@/stores/search-history.store.ts";
+
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 import { getPopularRecipesApi } from "@/api/recipe/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/recipe/get-recent-recipes.api.ts";
@@ -19,6 +21,8 @@ import HandfulSection from "@/sections/handful/handful.section.tsx";
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
+  const add = useSearchHistory((state) => state.add);
+
   const drawerRef = useRef<HTMLDialogElement | null>(null);
 
   const popularRecipesQueryResult = useQuery({
@@ -51,6 +55,9 @@ export default function HomePage(): ReactNode {
         <FiltersDrawerComponent ref={drawerRef} />
         <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
           Show Drawer
+        </ButtonComponent>
+        <ButtonComponent onClick={() => add({ query: "value" })}>
+          Add Search History
         </ButtonComponent>
         <SearchHistoryComponent />
         <HandfulSection title="Tags" viewAllHref="/tags">

@@ -1,5 +1,26 @@
 .search-history {
-  background-color: var(--color-white);
+  display: grid;
+  gap: 1.5rem;
 
   padding: 1.5rem;
+
+  > li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+
+    a {
+      color: inherit;
+
+      display: contents;
+
+      .title {
+        padding-inline: 1rem;
+      }
+    }
+
+    svg {
+      font-size: 1.5rem;
+    }
+  }
 }

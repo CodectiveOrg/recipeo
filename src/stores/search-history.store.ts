@@ -1,22 +1,22 @@
 import { create } from "zustand/react";
 
-import type { SearchHistoryType } from "@/types/search-history.type.ts";
+import type { SearchRequestDto } from "@/dto/request/search.request.dto.ts";
 
-type SearchHistoryStore = {
-  list: SearchHistoryType[];
-  add: (item: SearchHistoryType) => void;
-  remove: (id: number) => void;
-  initialize: (items: SearchHistoryType[]) => void;
-  reset: () => void;
+const MAX_LENGTH = 3;
+
+type SearchHistoryState = {
+  items: SearchRequestDto[];
+  add: (item: SearchRequestDto) => void;
+  remove: (index: number) => void;
+  clear: () => void;
 };
 
-export const useSearchHistory = create<SearchHistoryStore>((set) => ({
-  list: [{ id: 1, title: "TEST" }],
+export const useSearchHistory = create<SearchHistoryState>()((set) => ({
+  items: [],
   add: (item): void => {
-    set((state) => ({ list: [...state.list, item] }));
+    set((state) => ({ items: [item, ...state.items].slice(0, MAX_LENGTH) }));
   },
-  remove: (id): void =>
-    set((state) => ({ list: state.list.filter((item) => item.id !== id) })),
-  initialize: (items): void => set({ list: items }),
-  reset: (): void => set({ list: [] }),
+  remove: (index): void =>
+    set((state) => ({ items: state.items.toSpliced(index, 1) })),
+  clear: (): void => set({ items: [] }),
 }));
