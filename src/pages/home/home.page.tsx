@@ -47,11 +47,7 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
-        <FiltersDrawerComponent
-          ref={drawerRef}
-          selectedTag="dinner"
-          inputRangeDefaultValue={40}
-        />
+        <FiltersDrawerComponent ref={drawerRef} />
         <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
           Show Drawer
         </ButtonComponent>
