@@ -16,4 +16,5 @@
 
   --color-backdrop: hsl(0deg 0% 0% / 60%);
   --color-overlay: hsl(0deg 0% 0% / 60%);
+  --color-overlay-light: hsl(0deg 0% 100% / 20%);
 }

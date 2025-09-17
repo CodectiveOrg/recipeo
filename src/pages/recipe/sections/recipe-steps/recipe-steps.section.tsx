@@ -5,13 +5,13 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import type { Step } from "@/entities/step.ts";
 
-import styles from "./steps.module.css";
+import styles from "./recipe-steps.module.css";
 
 type Props = {
   steps: Step[];
 };
 
-export default function StepsSection({ steps }: Props): ReactNode {
+export default function RecipeStepsSection({ steps }: Props): ReactNode {
   return (
     <div className={styles.steps}>
       <TypographyComponent as="h2" variant="h2">
