@@ -28,7 +28,6 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     tag: parseAsString.withDefault("all"),
     maxDuration: parseAsInteger.withDefault(60),
   });
-
   const {
     register,
     handleSubmit,
