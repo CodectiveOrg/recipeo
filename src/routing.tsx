@@ -16,8 +16,8 @@ import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
 import RecipePage from "@/pages/recipe/recipe.page.tsx";
 import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
 import SignUpPage from "@/pages/sign-up/sign-up.page.tsx";
-import UserPage from "@/pages/user/user.page.tsx";
 import TagsPage from "@/pages/tags/tags.page.tsx";
+import UserPage from "@/pages/user/user.page.tsx";
 
 export default function Routing(): ReactNode {
   return (
