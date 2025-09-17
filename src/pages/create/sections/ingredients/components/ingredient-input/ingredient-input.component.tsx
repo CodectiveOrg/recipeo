@@ -11,7 +11,7 @@ import IconButtonComponent from "@/components/icon-button/icon-button.component.
 import IconComponent from "@/components/icon/icon.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 
-import { IngredientsContext } from "@/pages/create/sections/ingredients/context/ingredients.context.ts";
+import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
 
 import styles from "./ingredient-input.module.css";
 

@@ -5,8 +5,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
+import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
 import IngredientInputComponent from "@/pages/create/sections/ingredients/components/ingredient-input/ingredient-input.component.tsx";
-import { IngredientsContext } from "@/pages/create/sections/ingredients/context/ingredients.context.ts";
 
 import styles from "./sortable-inputs.module.css";
 

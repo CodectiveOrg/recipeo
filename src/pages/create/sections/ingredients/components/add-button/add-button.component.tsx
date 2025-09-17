@@ -2,8 +2,8 @@ import { type ReactNode, use } from "react";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 
-import { IngredientsContext } from "@/pages/create/sections/ingredients/context/ingredients.context.ts";
-import { BLANK_INGREDIENT_DATA } from "@/pages/create/sections/ingredients/data/blank-ingredient.data.ts";
+import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
+import { BLANK_INGREDIENT_DATA } from "@/pages/create/data/blank-ingredient.data.ts";
 
 import styles from "./add-button.module.css";
 

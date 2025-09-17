@@ -9,7 +9,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
-import { IngredientsContext } from "@/pages/create/sections/ingredients/context/ingredients.context.ts";
+import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
 
 type Props = PropsWithChildren;
 
