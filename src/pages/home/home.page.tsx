@@ -22,12 +22,12 @@ export default function HomePage(): ReactNode {
 
   const popularRecipesQueryResult = useQuery({
     queryKey: ["recipes", "popular"],
-    queryFn: getPopularRecipesApi,
+    queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
   });
 
   const chosenRecipesQueryResult = useQuery({
     queryKey: ["recipes", "chosen"],
-    queryFn: getChosenRecipesApi,
+    queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
   });
 
   const recentRecipesQueryResult = useInfiniteQuery({
