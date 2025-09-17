@@ -8,7 +8,6 @@ import {
 } from "@dnd-kit/sortable";
 
 import ButtonComponent from "@/components/button/button.component";
-import IconComponent from "@/components/icon/icon.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import DndProvider from "@/providers/dnd-provider/DndProvider";
@@ -94,12 +93,14 @@ export default function IngredientsInputComponent(): ReactNode {
         </SortableContext>
       </DndProvider>
       <ButtonComponent
+        className={styles.add}
         variant="outlined"
         color="secondary"
         size="medium"
         onClick={handleAddInput}
       >
-        <IconComponent name="add-square-linear" /> Ingredients
+        <span className={styles.icon}>+</span>
+        Add More Ingredients
       </ButtonComponent>
     </div>
   );

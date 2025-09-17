@@ -22,9 +22,8 @@ export default function IngredientInputComponent({
   onDelete,
 }: Props): ReactNode {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({
-      id,
-    });
+    useSortable({ id });
+
   return (
     <li
       ref={setNodeRef}
@@ -35,20 +34,18 @@ export default function IngredientInputComponent({
       }}
       {...attributes}
     >
-      <div className={styles["aside-actions"]}>
-        <IconButtonComponent {...listeners}>
-          <IconComponent name="code-scan-line-duotone" />
-        </IconButtonComponent>
-        <IconButtonComponent onClick={() => onDelete(id)}>
-          <IconComponent name="trash-bin-minimalistic-linear" color="danger" />
-        </IconButtonComponent>
-      </div>
+      <IconButtonComponent {...listeners}>
+        <IconComponent name="sort-vertical-linear" />
+      </IconButtonComponent>
       <TextInputComponent
         type="text"
         value={value}
         onChange={(e) => onChange(id, e.target.value)}
-        placeholder="Enter ingredient"
+        placeholder={`Ingredient #${1}`}
       />
+      <IconButtonComponent onClick={() => onDelete(id)}>
+        <IconComponent name="trash-bin-trash-linear" color="danger" />
+      </IconButtonComponent>
     </li>
   );
 }

@@ -1,14 +1,9 @@
 .ingredient-input {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 0.5rem;
 
-  .aside-actions {
-    display: grid;
-    gap: 0.5rem;
-
-    svg {
-      font-size: 1.5rem;
-    }
+  svg {
+    font-size: 1.5rem;
   }
 }

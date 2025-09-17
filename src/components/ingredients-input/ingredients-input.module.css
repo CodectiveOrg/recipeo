@@ -8,4 +8,14 @@
     display: grid;
     gap: 1.5rem;
   }
+
+  .add {
+    .icon {
+      font-size: 2em;
+      font-weight: 400;
+
+      text-box-edge: cap alphabetic;
+      text-box-trim: trim-start;
+    }
+  }
 }
