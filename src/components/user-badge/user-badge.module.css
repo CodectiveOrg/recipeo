@@ -1,7 +1,16 @@
 .user-badge {
+  background-color: transparent;
+  color: var(--color-text);
+
   display: flex;
   align-items: center;
   gap: 0.25rem;
+
+  max-inline-size: max-content;
+
+  border: none;
+
+  cursor: pointer;
 
   > img {
     block-size: 1.5rem;

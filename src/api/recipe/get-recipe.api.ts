@@ -1,4 +1,4 @@
-import type { RecipeResponseDto } from "@/dto/response/recipe.response.dto";
+import type { GetRecipeResponseDto } from "@/dto/response/get-recipe.response.dto.ts";
 
 import { richFetch } from "@/utils/fetch.utils";
 
@@ -8,8 +8,8 @@ type Params = {
 
 export async function getRecipeApi({
   recipeId,
-}: Params): Promise<RecipeResponseDto> {
-  const data = await richFetch<RecipeResponseDto>(`/recipe/${recipeId}`);
+}: Params): Promise<GetRecipeResponseDto> {
+  const data = await richFetch<GetRecipeResponseDto>(`/recipe/${recipeId}`);
 
   if ("error" in data) {
     throw new Error(data.error);

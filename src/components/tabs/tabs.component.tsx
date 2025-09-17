@@ -4,7 +4,7 @@ import TabComponent from "./components/tab.component";
 
 import styles from "./tabs.module.css";
 
-type Tab = {
+export type Tab = {
   id?: string | number;
   label: string;
   content: ReactNode;

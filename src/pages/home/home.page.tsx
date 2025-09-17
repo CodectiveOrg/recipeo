@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useRef } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
@@ -6,7 +6,9 @@ import { getPopularRecipesApi } from "@/api/public/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/public/get-recent-recipes.api.ts";
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
+import ButtonComponent from "@/components/button/button.component";
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
+import FiltersDrawerComponent from "@/components/filters-drawer/filters-drawer.component";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
@@ -16,6 +18,8 @@ import HandfulSection from "@/sections/handful/handful.section.tsx";
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
+  const drawerRef = useRef<HTMLDialogElement | null>(null);
+
   const popularRecipesQueryResult = useQuery({
     queryKey: ["recipes", "popular"],
     queryFn: getPopularRecipesApi,
@@ -43,6 +47,10 @@ export default function HomePage(): ReactNode {
     <div className={styles.home}>
       <header>Header</header>
       <main>
+        <FiltersDrawerComponent ref={drawerRef} />
+        <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
+          Show Drawer
+        </ButtonComponent>
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>
