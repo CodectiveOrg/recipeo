@@ -4,23 +4,32 @@
 
   padding: 1.5rem;
 
-  > li {
+  > ul {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
+    gap: 1.5rem;
 
-    a {
-      color: inherit;
+    > li {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
 
-      display: contents;
+      a {
+        color: inherit;
 
-      .title {
-        padding-inline: 1rem;
+        display: contents;
+
+        .title {
+          padding-inline: 1rem;
+        }
+      }
+
+      svg {
+        font-size: 1.5rem;
       }
     }
+  }
 
-    svg {
-      font-size: 1.5rem;
-    }
+  > button {
+    justify-self: center;
   }
 }
