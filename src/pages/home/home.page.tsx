@@ -2,7 +2,7 @@ import { type ReactNode, useRef } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { useSearchHistory } from "@/stores/search-history.store.ts";
+import { useSearchHistoryStore } from "@/stores/search-history.store.ts";
 
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 import { getPopularRecipesApi } from "@/api/recipe/get-popular-recipes.api.ts";
@@ -21,7 +21,7 @@ import HandfulSection from "@/sections/handful/handful.section.tsx";
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
-  const add = useSearchHistory((state) => state.add);
+  const add = useSearchHistoryStore((state) => state.add);
 
   const drawerRef = useRef<HTMLDialogElement | null>(null);
 

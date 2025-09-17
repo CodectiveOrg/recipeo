@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 
 import { Link } from "react-router";
 
-import { useSearchHistory } from "@/stores/search-history.store";
+import { useSearchHistoryStore } from "@/stores/search-history.store";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
@@ -13,8 +13,8 @@ import { generateSearchUrl } from "@/utils/url.utils.ts";
 import styles from "./search-history.module.css";
 
 export default function SearchHistoryComponent(): ReactNode {
-  const items = useSearchHistory((state) => state.items);
-  const remove = useSearchHistory((state) => state.remove);
+  const items = useSearchHistoryStore((state) => state.items);
+  const remove = useSearchHistoryStore((state) => state.remove);
 
   return (
     <ul className={styles["search-history"]}>
