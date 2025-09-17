@@ -43,9 +43,9 @@ export default function NavbarComponent({ className }: Props): ReactNode {
       icon: <IconComponent name="chef-hat-minimalistic-bold" />,
     },
     {
-      href: "/notification",
-      title: "Notification",
-      icon: <IconComponent name="bell-bold" />,
+      href: "/popular",
+      title: "Popular",
+      icon: <IconComponent name="fire-bold" />,
     },
     {
       href: `/user/${currentUser?.id}`,
