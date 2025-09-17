@@ -6,14 +6,16 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import AddButtonComponent from "@/pages/create/sections/ingredients/components/add-button/add-button.component.tsx";
 import SortableInputsComponent from "@/pages/create/sections/ingredients/components/sortable-inputs/sortable-inputs.component.tsx";
-
-import { IngredientsContext } from "./context/ingredients.context.ts";
-import IngredientsDndProvider from "./providers/ingredients-dnd-provider.tsx";
+import { IngredientsContext } from "@/pages/create/sections/ingredients/context/ingredients.context.ts";
+import { BLANK_INGREDIENT_DATA } from "@/pages/create/sections/ingredients/data/blank-ingredient.data.ts";
+import IngredientsDndProvider from "@/pages/create/sections/ingredients/providers/ingredients-dnd-provider.tsx";
 
 import styles from "./ingredients.module.css";
 
 export default function IngredientsSection(): ReactNode {
-  const [ingredients, setIngredients] = useState<IngredientType[]>([]);
+  const [ingredients, setIngredients] = useState<IngredientType[]>([
+    { ...BLANK_INGREDIENT_DATA },
+  ]);
 
   return (
     <IngredientsContext value={{ ingredients, setIngredients }}>

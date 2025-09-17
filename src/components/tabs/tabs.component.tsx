@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from "react";
 
-import TabComponent from "./components/tab.component";
+import TabComponent from "@/components/tabs/components/tab.component.tsx";
 
 import styles from "./tabs.module.css";
 
