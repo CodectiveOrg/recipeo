@@ -1,11 +1,7 @@
-import {
-  type ComponentProps,
-  type FormEvent,
-  type ReactNode,
-  useRef,
-} from "react";
+import { type ComponentProps, type ReactNode } from "react";
 
-import { parseAsInteger, useQueryState } from "nuqs";
+import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
+import { useForm } from "react-hook-form";
 
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
@@ -15,42 +11,39 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
 
-type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {
-  selectedTag?: string;
-  inputRangeDefaultValue?: number;
+type Values = {
+  tag: string;
+  duration: number;
 };
 
-export default function FiltersDrawerComponent({
-  ref,
-  selectedTag,
-  inputRangeDefaultValue,
-}: Props): ReactNode {
-  const [duration, setDuration] = useQueryState<number>(
-    "duration",
-    parseAsInteger.withDefault(30),
+type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref">;
+
+export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
+  const [tag, setTag] = useQueryState<string>(
+    "tag",
+    parseAsString.withDefault("all"),
   );
 
-  const [tag, setTag] = useQueryState<string>("tag", {
-    parse: (value: string) => value,
+  const [duration, setDuration] = useQueryState<number>(
+    "duration",
+    parseAsInteger.withDefault(60),
+  );
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<Values>({
+    defaultValues: { tag, duration },
   });
 
-  const rangeInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleCancelButton = (): void => {
+  const handleCancelButtonClick = (): void => {
     ref.current?.close();
   };
 
-  let inputedTag = "";
-
-  const handleSubmitForm = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-
-    if (!rangeInputRef.current) {
-      return;
-    }
-
-    setDuration(parseInt(rangeInputRef.current?.value));
-    setTag(inputedTag);
+  const handleFormSubmit = async (values: Values): Promise<void> => {
+    await setTag(values.tag);
+    await setDuration(values.duration);
 
     ref.current?.close();
   };
@@ -58,7 +51,7 @@ export default function FiltersDrawerComponent({
   const rangeInputLabel = (
     <div className={styles.label}>
       <TypographyComponent as="span" variant="h2">
-        Cooking Duration
+        Max Duration
       </TypographyComponent>
       <TypographyComponent as="span" variant="p1" color="text-secondary">
         (in minutes)
@@ -73,30 +66,26 @@ export default function FiltersDrawerComponent({
           Add a filter
         </TypographyComponent>
       </header>
-      <form onSubmit={handleSubmitForm}>
-        <TagInputComponent
-          label="Tag"
-          value={selectedTag}
-          onChange={(value) => {
-            inputedTag = value;
-          }}
-        />
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <TagInputComponent label="Tag" {...register("tag")} />
         <RangeInputComponent
-          ref={rangeInputRef}
           label={rangeInputLabel}
-          defaultValue={inputRangeDefaultValue}
+          {...register("duration")}
           min={10}
           max={60}
         />
         <div className={styles.actions}>
           <ButtonComponent
-            type="reset"
+            type="button"
             color="secondary"
-            onClick={handleCancelButton}
+            disabled={isSubmitting}
+            onClick={handleCancelButtonClick}
           >
             Cancel
           </ButtonComponent>
-          <ButtonComponent type="submit">Done</ButtonComponent>
+          <ButtonComponent type="submit" disabled={isSubmitting}>
+            Done
+          </ButtonComponent>
         </div>
       </form>
     </DrawerComponent>

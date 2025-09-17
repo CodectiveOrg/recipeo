@@ -3,7 +3,6 @@ import {
   type ChangeEvent,
   type ComponentProps,
   type ReactNode,
-  type RefObject,
   useEffect,
   useRef,
   useState,
@@ -11,12 +10,12 @@ import {
 
 import clsx from "clsx";
 
+import IconComponent from "@/components/icon/icon.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./range-input.module.css";
 
-type Props = Omit<ComponentProps<"input">, "ref" | "type"> & {
-  ref?: RefObject<HTMLInputElement | null>;
+type Props = Omit<ComponentProps<"input">, "type"> & {
   label: ReactNode;
   min: number;
   max: number;
@@ -36,19 +35,18 @@ export default function RangeInputComponent({
   ...otherProps
 }: Props): ReactNode {
   const localRef = useRef<HTMLInputElement | null>(null);
-  const finalRef = ref ?? localRef;
 
   const [internalValue, setInternalValue] = useState<string>(`${defaultValue}`);
 
   const percentageValue = ((+internalValue - min) / (max - min)) * 100;
 
   useEffect(() => {
-    const finalValue = finalRef.current?.value ?? "";
+    const finalValue = localRef.current?.value ?? "";
     setInternalValue(`${finalValue}`);
-  }, [value, finalRef]);
+  }, [value, localRef]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInternalValue(finalRef.current?.value ?? "");
+    setInternalValue(localRef.current?.value ?? "");
     onChange?.(e);
   };
 
@@ -60,17 +58,29 @@ export default function RangeInputComponent({
       <span className={styles.label}>{label}</span>
       <span className={styles.hints}>
         <TypographyComponent as="span" variant="h3" color="text-secondary">
-          &lt;{min}
+          {min}
         </TypographyComponent>
         <TypographyComponent as="span" variant="h3" color="primary">
-          {internalValue}
+          {+internalValue === max ? (
+            <IconComponent name="infinity-bold" />
+          ) : (
+            internalValue
+          )}
         </TypographyComponent>
         <TypographyComponent as="span" variant="h3" color="text-secondary">
-          &gt;{max}
+          <IconComponent name="infinity-bold" />
         </TypographyComponent>
       </span>
       <input
-        ref={finalRef}
+        ref={(node) => {
+          localRef.current = node;
+
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
         type="range"
         min={min}
         max={max}

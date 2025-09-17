@@ -1,10 +1,4 @@
-import {
-  type ChangeEvent,
-  type ComponentProps,
-  type ReactNode,
-  useId,
-  useState,
-} from "react";
+import { type ComponentProps, type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -19,31 +13,15 @@ import { Tag } from "@/entities/tag";
 
 import styles from "./tag-input.module.css";
 
-type Props = Omit<
-  ComponentProps<"input">,
-  "type" | "value" | "defaultValue" | "onChange"
-> & {
+type Props = ComponentProps<"select"> & {
   label: string;
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
 };
 
 export default function TagInputComponent({
   className,
   label,
-  value: controlledValue,
-  defaultValue,
-  onChange,
   ...otherProps
 }: Props): ReactNode {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string>(
-    defaultValue ?? "all",
-  );
-  const value = controlledValue ?? uncontrolledValue;
-
-  const id = useId();
-
   const { data, isPending, isError } = useQuery({
     queryKey: ["tags"],
     queryFn: getAllTagsApi,
@@ -59,26 +37,18 @@ export default function TagInputComponent({
 
   const tags: Tag[] = [{ id: -1, title: "all" }, ...data];
 
-  const handleChangeTag = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setUncontrolledValue(e.currentTarget.value);
-    onChange?.(e.currentTarget.value);
-  };
-
   return (
-    <div className={clsx(styles["tag-input"], className)}>
-      <label htmlFor={id}>
-        <TypographyComponent as="span" variant="h2">
-          {label}
-        </TypographyComponent>
-      </label>
-      <select name="tag" id={id} onChange={handleChangeTag}>
+    <label className={clsx(styles["tag-input"], className)}>
+      <TypographyComponent as="span" variant="h2">
+        {label}
+      </TypographyComponent>
+      <select {...otherProps}>
         {tags.map((tag) => (
-          <option key={tag.id} value={tag.title} selected={tag.title === value}>
+          <option key={tag.id} value={tag.title}>
             {tag.title}
           </option>
         ))}
       </select>
-      <input id={id} type="hidden" value={value} {...otherProps} />
-    </div>
+    </label>
   );
 }
