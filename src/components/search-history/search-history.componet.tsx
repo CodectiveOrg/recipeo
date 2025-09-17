@@ -26,10 +26,6 @@ export default function SearchHistoryComponent(): ReactNode {
     useSearchHistory.getState().initialize(load());
   }, []);
 
-  useEffect(() => {
-    save(useSearchHistory.getState().list);
-  }, [useSearchHistory.getState().list]);
-
   return (
     <ul className={styles["search-history"]}>
       {useSearchHistory.getState().list.map((item) => (
