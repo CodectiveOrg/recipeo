@@ -10,6 +10,7 @@ import RootLayout from "@/layouts/root/root.layout.tsx";
 import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 
 import ChosenPage from "@/pages/chosen/chosen.page.tsx";
+import CreatePage from "@/pages/create/create.page.tsx";
 import HomePage from "@/pages/home/home.page.tsx";
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
@@ -33,7 +34,7 @@ export default function Routing(): ReactNode {
         </Route>
         <Route element={<SignedInLayout />}>
           <Route element={<SignedInOnlyGuard />}>
-            <Route path="todo" element="TODO" />
+            <Route path="create" element={<CreatePage />} />
           </Route>
           <Route index element={<HomePage />} />
           <Route path="tags" element={<TagsPage />} />

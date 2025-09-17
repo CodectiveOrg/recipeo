@@ -12,7 +12,6 @@ import ButtonComponent from "@/components/button/button.component";
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import FiltersDrawerComponent from "@/components/filters-drawer/filters-drawer.component";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
-import IngredientsInputComponent from "@/components/ingredients-input/ingredients-input.component";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import SearchHistoryComponent from "@/components/search-history/search-history.componet";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
@@ -64,8 +63,6 @@ export default function HomePage(): ReactNode {
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>
-        <br />
-        <IngredientsInputComponent />
         <br />
         <HandfulSection title="Popular Recipes" viewAllHref="/popular">
           <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />
