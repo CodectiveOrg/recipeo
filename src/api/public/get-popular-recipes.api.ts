@@ -2,8 +2,16 @@ import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recip
 
 import { richFetch } from "@/utils/fetch.utils.ts";
 
-export async function getPopularRecipesApi(): Promise<PaginatedRecipesResponseDto> {
-  const data = await richFetch<PaginatedRecipesResponseDto>("/recipe/popular");
+type Params = {
+  pageParam: number;
+};
+
+export async function getPopularRecipesApi({
+  pageParam,
+}: Params): Promise<PaginatedRecipesResponseDto> {
+  const data = await richFetch<PaginatedRecipesResponseDto>(
+    `/recipe/popular?page=${pageParam}`,
+  );
 
   if ("error" in data) {
     throw new Error(data.error);

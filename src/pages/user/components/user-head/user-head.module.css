@@ -1,0 +1,15 @@
+.user-head {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+
+  .picture {
+    block-size: 4.5rem;
+    inline-size: 4.5rem;
+    object-fit: cover;
+  }
+
+  .button {
+    min-inline-size: 15rem;
+  }
+}

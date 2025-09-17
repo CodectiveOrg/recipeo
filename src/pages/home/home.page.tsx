@@ -8,12 +8,11 @@ import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
-import DrawerComponent from "@/components/drawer/drawer.component";
+import FiltersDrawerComponent from "@/components/filters-drawer/filters-drawer.component";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import IngredientsInputComponent from "@/components/ingredients-input/ingredients-input.component";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component";
 
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
@@ -47,11 +46,9 @@ export default function HomePage(): ReactNode {
 
   return (
     <div className={styles.home}>
-      <DrawerComponent ref={drawerRef}>
-        <TypographyComponent variant="h2">Drawer Component</TypographyComponent>
-      </DrawerComponent>
       <header>Header</header>
       <main>
+        <FiltersDrawerComponent ref={drawerRef} />
         <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
           Show Drawer
         </ButtonComponent>
