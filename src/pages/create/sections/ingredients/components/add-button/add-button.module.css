@@ -1,0 +1,9 @@
+.add-more-ingredients-button {
+  .icon {
+    font-size: 2em;
+    font-weight: 400;
+
+    text-box-edge: cap alphabetic;
+    text-box-trim: trim-start;
+  }
+}

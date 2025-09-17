@@ -3,13 +3,12 @@ import type { ReactNode } from "react";
 import BackButtonComponent from "@/components/back-button/back-button.component";
 import TabsComponent, { type Tab } from "@/components/tabs/tabs.component";
 
+import LikedTabComponent from "@/pages/user/components/liked-tab/liked-tab.component.tsx";
+import RecipesTabComponent from "@/pages/user/components/recipes-tab/recipes-tab.component.tsx";
+import ShareButtonComponent from "@/pages/user/components/share-button/share-button.component.tsx";
 import UserHeadComponent from "@/pages/user/components/user-head/user-head.component.tsx";
 
 import useVerifyQuery from "@/queries/use-verify.query.ts";
-
-import LikedTabComponent from "./components/liked-tab/liked-tab.component";
-import RecipesTabComponent from "./components/recipes-tab/recipes-tab.component";
-import ShareButtonComponent from "./components/share-button/share-button.component";
 
 import styles from "./user.module.css";
 
