@@ -1,9 +1,18 @@
 .ingredient-input {
+  --icon-size: 1.5rem;
+
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: var(--icon-size) minmax(0, 1fr) var(--icon-size);
+  align-items: center;
   gap: 0.5rem;
 
   svg {
-    font-size: 1.5rem;
+    font-size: var(--icon-size);
+  }
+
+  &.sorting {
+    .remove-button {
+      opacity: 0;
+    }
   }
 }

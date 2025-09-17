@@ -19,9 +19,10 @@ export default function SortableInputsComponent(): ReactNode {
       strategy={verticalListSortingStrategy}
     >
       <ul className={styles["sortable-ingredient-inputs"]}>
-        {ingredients.map((ingredient) => (
+        {ingredients.map((ingredient, index) => (
           <IngredientInputComponent
             key={ingredient.id}
+            index={index}
             ingredient={ingredient}
           />
         ))}
