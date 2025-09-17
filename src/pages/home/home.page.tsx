@@ -16,6 +16,8 @@ import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-caro
 import SearchHistoryComponent from "@/components/search-history/search-history.componet";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
+import Greetings from "@/pages/home/components/greetings/greetings.component.tsx";
+
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./home.module.css";
@@ -50,7 +52,9 @@ export default function HomePage(): ReactNode {
 
   return (
     <div className={styles.home}>
-      <header>Header</header>
+      <header>
+        <Greetings />
+      </header>
       <main>
         <FiltersDrawerComponent ref={drawerRef} />
         <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
