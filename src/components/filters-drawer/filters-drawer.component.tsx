@@ -1,6 +1,6 @@
 import { type ComponentProps, type ReactNode } from "react";
 
-import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
+import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,22 +24,17 @@ type Values = z.infer<typeof FiltersSchema>;
 type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref">;
 
 export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
-  const [tag, setTag] = useQueryState<string>(
-    "tag",
-    parseAsString.withDefault("all"),
-  );
-
-  const [maxDuration, setMaxDuration] = useQueryState<number>(
-    "maxDuration",
-    parseAsInteger.withDefault(60),
-  );
+  const [values, setValues] = useQueryStates({
+    tag: parseAsString.withDefault("all"),
+    maxDuration: parseAsInteger.withDefault(60),
+  });
 
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm({
-    values: { tag, maxDuration },
+    values,
     resolver: zodResolver(FiltersSchema),
   });
 
@@ -48,9 +43,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
   };
 
   const handleFormSubmit = async (values: Values): Promise<void> => {
-    await setTag(values.tag);
-    await setMaxDuration(values.maxDuration);
-
+    await setValues(values);
     ref.current?.close();
   };
 
