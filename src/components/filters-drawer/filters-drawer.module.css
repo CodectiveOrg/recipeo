@@ -1,0 +1,21 @@
+.content {
+  display: grid;
+  gap: 2rem;
+
+  padding-block-end: 2rem;
+
+  .title {
+    text-align: center;
+  }
+
+  form {
+    display: grid;
+    gap: 2rem;
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+}
