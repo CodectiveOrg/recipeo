@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+import { type CSSProperties, Fragment, type ReactNode } from "react";
 
 import type {
   InfiniteData,
@@ -19,10 +19,12 @@ type Props = {
   queryResult: UseInfiniteQueryResult<
     InfiniteData<PaginatedRecipesResponseDto>
   >;
+  columnsCount?: number;
 };
 
 export default function InfiniteRecipesComponent({
   queryResult,
+  columnsCount = 1,
 }: Props): ReactNode {
   const {
     isPending,
@@ -51,7 +53,7 @@ export default function InfiniteRecipesComponent({
 
   return (
     <div className={styles["infinite-recipes"]}>
-      <ul>
+      <ul style={{ "--columns-count": `${columnsCount}` } as CSSProperties}>
         {data.pages.map((page, pageIndex) => (
           <Fragment key={page.currentPage}>
             {page.items.map((recipe, recipeIndex) => (
