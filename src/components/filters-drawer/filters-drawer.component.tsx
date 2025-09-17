@@ -27,7 +27,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     parseAsInteger.withDefault(30),
   );
 
-  const [__, setTag] = useQueryState<string>("tag", {
+  const [tag, setTag] = useQueryState<string>("tag", {
     parse: (value) => value,
   });
 
