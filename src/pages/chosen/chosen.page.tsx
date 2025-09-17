@@ -14,9 +14,9 @@ import LoadingComponent from "@/components/loading/loading.component";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
-import styles from "./editors-choice.module.css";
+import styles from "./chosen.module.css";
 
-export default function EditorsChoicePage(): ReactNode {
+export default function ChosenPage(): ReactNode {
   const {
     isPending,
     isError,
@@ -56,7 +56,7 @@ export default function EditorsChoicePage(): ReactNode {
   }
 
   return (
-    <div className={styles["editors-choice"]}>
+    <div className={styles.chosen}>
       <header>
         <IconButtonComponent
           className={styles["back-button"]}
