@@ -27,7 +27,7 @@ export default function UserHeadComponent(): ReactNode {
     isError: isUserError,
     data: user,
   } = useQuery({
-    queryKey: ["user", userId],
+    queryKey: ["user", +userId!],
     queryFn: async () => getUserApi({ userId }),
   });
 
@@ -70,7 +70,11 @@ export default function UserHeadComponent(): ReactNode {
       </div>
       {currentUser ? (
         currentUser.id !== user.id && (
-          <FollowButtonComponent userId={user.id} className={styles.button} />
+          <FollowButtonComponent
+            className={styles.button}
+            targetUserId={user.id}
+            isFollowedByCurrentUser={user.isFollowedByCurrentUser}
+          />
         )
       ) : (
         <ButtonComponent as={Link} to="/sign-in">

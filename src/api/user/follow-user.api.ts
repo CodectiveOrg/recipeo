@@ -4,16 +4,14 @@ import { richFetch } from "@/utils/fetch.utils";
 
 type Params = {
   targetUserId: number | undefined;
+  action: "follow" | "unfollow";
 };
 
-export async function UserUnFollowApi({
+export async function FollowUserApi({
   targetUserId,
+  action,
 }: Params): Promise<ResponseDto> {
-  const data = await richFetch<ResponseDto>(`/user/unfollow/${targetUserId}`);
-
-  if ("error" in data) {
-    throw new Error(data.error);
-  }
-
-  return data.result;
+  return richFetch(`/user/${targetUserId}/${action}`, {
+    method: "POST",
+  });
 }

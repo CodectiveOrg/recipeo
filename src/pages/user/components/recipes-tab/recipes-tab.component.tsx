@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { userRecipesApi } from "@/api/user/user-recipes.api";
+import { getUserRecipesApi } from "@/api/user/get-user-recipes.api.ts";
 
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 
@@ -13,7 +13,7 @@ export default function RecipesTabComponent(): ReactNode {
 
   const queryResult = useInfiniteQuery({
     queryKey: ["user", "all-tab", "recipes", userId],
-    queryFn: ({ pageParam }) => userRecipesApi({ userId, pageParam }),
+    queryFn: ({ pageParam }) => getUserRecipesApi({ userId, pageParam }),
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {
         return null;

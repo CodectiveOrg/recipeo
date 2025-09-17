@@ -1,69 +1,52 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode } from "react";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 
-import { UserFollowApi } from "@/api/user/user-follow.api";
-import { UserUnFollowApi } from "@/api/user/user-unfollow.api";
+import { FollowUserApi } from "@/api/user/follow-user.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 
 type Props = {
-  userId: number | undefined;
   className?: string;
+  targetUserId: number | undefined;
+  isFollowedByCurrentUser: boolean;
 };
 export default function FollowButtonComponent({
-  userId,
   className,
+  targetUserId,
+  isFollowedByCurrentUser,
 }: Props): ReactNode {
-  const [isFollowing, setIsFollowing] = useState(false);
+  const queryClient = useQueryClient();
 
-  const { mutateAsync: followMutateAsync } = useMutation({
-    mutationKey: ["user", "follow", userId],
-    mutationFn: () => UserFollowApi({ targetUserId: userId }),
+  const { mutateAsync } = useMutation({
+    mutationKey: ["follow", targetUserId],
+    mutationFn: FollowUserApi,
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user", targetUserId] });
+    },
   });
 
-  const { mutateAsync: unfollowMutateAsync } = useMutation({
-    mutationKey: ["user", "unfollow", userId],
-    mutationFn: () => UserUnFollowApi({ targetUserId: userId }),
-  });
-
-  const handleClickButton = async (): Promise<void> => {
-    try {
-      if (isFollowing) {
-        await unfollowMutateAsync(undefined, {
-          onSuccess: (data) => {
-            toast.success(data.message);
-            setIsFollowing(false);
-          },
-          onError: (error: Error) => {
-            toast.error(error.message);
-          },
-        });
-      } else {
-        await followMutateAsync(undefined, {
-          onSuccess: (data) => {
-            toast.success(data.message);
-            setIsFollowing(true);
-          },
-          onError: (error: Error) => {
-            toast.error(error.message);
-          },
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  const handleButtonClick = async (): Promise<void> => {
+    await mutateAsync({
+      targetUserId,
+      action: isFollowedByCurrentUser ? "unfollow" : "follow",
+    });
   };
 
   return (
     <ButtonComponent
+      color={isFollowedByCurrentUser ? "secondary" : "primary"}
+      variant={isFollowedByCurrentUser ? "outlined" : "solid"}
       size="medium"
       className={className}
-      onClick={handleClickButton}
+      onClick={handleButtonClick}
     >
-      {isFollowing ? "Unfollow" : "Follow"}
+      {isFollowedByCurrentUser ? "Unfollow" : "Follow"}
     </ButtonComponent>
   );
 }

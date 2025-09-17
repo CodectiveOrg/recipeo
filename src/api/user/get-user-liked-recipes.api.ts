@@ -7,7 +7,7 @@ type Params = {
   pageParam: number;
 };
 
-export async function userLikedRecipesApi({
+export async function getUserLikedRecipesApi({
   userId,
   pageParam,
 }: Params): Promise<PaginatedRecipesResponseDto> {
