@@ -11,20 +11,19 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
-import type { IngredientType } from "@/validation/schemas/ingredients.schema.ts";
-
-import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
-import IngredientInputComponent from "@/pages/create/sections/ingredients/components/ingredient-input/ingredient-input.component.tsx";
+import { SectionContext } from "@/pages/create/context/section.context.ts";
+import BaseInputComponent from "@/pages/create/sections/base/components/base-input/base-input.component.tsx";
 
 type ActiveData = {
   index: number;
-  ingredient: IngredientType;
+  item: never;
 };
 
 type Props = PropsWithChildren;
 
-export default function IngredientsDndProvider({ children }: Props): ReactNode {
-  const { setIngredients } = use(IngredientsContext);
+export default function BaseDndProvider({ children }: Props): ReactNode {
+  const { context } = use(SectionContext);
+  const { setItems } = use(context);
 
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -43,7 +42,7 @@ export default function IngredientsDndProvider({ children }: Props): ReactNode {
       return;
     }
 
-    setIngredients((old) => {
+    setItems((old) => {
       const oldIndex = old.findIndex((x) => x.id === active.id);
       const newIndex = old.findIndex((x) => x.id === over.id);
       return arrayMove(old, oldIndex, newIndex);
@@ -58,13 +57,7 @@ export default function IngredientsDndProvider({ children }: Props): ReactNode {
     >
       {children}
       <DragOverlay>
-        {activeData && (
-          <IngredientInputComponent
-            presentational
-            index={activeData.index}
-            ingredient={activeData.ingredient}
-          />
-        )}
+        {activeData && <BaseInputComponent {...activeData} presentational />}
       </DragOverlay>
     </DndContext>
   );

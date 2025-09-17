@@ -1,23 +1,38 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 
-import TypographyComponent from "@/components/typography/typography.component.tsx";
+import type { IngredientType } from "@/validation/schemas/ingredients.schema.ts";
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
-import AddButtonComponent from "@/pages/create/sections/ingredients/components/add-button/add-button.component.tsx";
-import SortableInputsComponent from "@/pages/create/sections/ingredients/components/sortable-inputs/sortable-inputs.component.tsx";
-import IngredientsDndProvider from "@/pages/create/sections/ingredients/providers/ingredients-dnd-provider.tsx";
+import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
+import { SectionContext } from "@/pages/create/context/section.context.ts";
+import { generateIngredient } from "@/pages/create/data/data-generator.ts";
+import BaseSection from "@/pages/create/sections/base/base.section.tsx";
+import IngredientInputComponent from "@/pages/create/sections/ingredients/components/ingredient-input/ingredient-input.component.tsx";
 
-import styles from "./ingredients.module.css";
+type Props = {
+  defaultValues?: Partial<RecipeType>;
+};
 
-export default function IngredientsSection(): ReactNode {
+export default function IngredientsSection({
+  defaultValues,
+}: Props): ReactNode {
+  const [ingredients, setIngredients] = useState<IngredientType[]>(() => {
+    return defaultValues?.ingredients ?? [generateIngredient()];
+  });
+
   return (
-    <div className={styles.ingredients}>
-      <TypographyComponent as="h2" variant="h2">
-        Ingredients
-      </TypographyComponent>
-      <IngredientsDndProvider>
-        <SortableInputsComponent />
-      </IngredientsDndProvider>
-      <AddButtonComponent />
-    </div>
+    <SectionContext value={{ context: IngredientsContext }}>
+      <IngredientsContext
+        value={{
+          name: "Ingredient",
+          items: ingredients,
+          setItems: setIngredients,
+          generate: generateIngredient,
+          Component: IngredientInputComponent,
+        }}
+      >
+        <BaseSection />
+      </IngredientsContext>
+    </SectionContext>
   );
 }
