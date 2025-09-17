@@ -12,6 +12,7 @@ import LoadingComponent from "@/components/loading/loading.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import FollowButtonComponent from "@/pages/user/components/follow-button/follow-button.component.tsx";
+import UserStatsComponent from "@/pages/user/components/user-stats/user-stats.component.tsx";
 
 import useVerifyQuery from "@/queries/use-verify.query.ts";
 
@@ -28,7 +29,7 @@ export default function UserHeadComponent(): ReactNode {
     data: user,
   } = useQuery({
     queryKey: ["user", +userId!],
-    queryFn: async () => getUserApi({ userId }),
+    queryFn: () => getUserApi({ userId }),
   });
 
   if (isVerifyPending || isUserPending) {
@@ -39,35 +40,18 @@ export default function UserHeadComponent(): ReactNode {
     return <div>Error</div>;
   }
 
-  const stats = [
-    { count: user.recipesCount, label: "Recipes" },
-    { count: user.followingCount, label: "Following" },
-    { count: user.followersCount, label: "Followers" },
-  ];
-
   return (
     <div className={styles["user-head"]}>
       <ImageComponent
+        className={styles.user}
         folder="user"
         src={user.picture}
         alt=""
-        className={styles.user}
       />
-      <TypographyComponent as="h2" variant="h2">
+      <TypographyComponent as="h1" variant="h2">
         {user.username}
       </TypographyComponent>
-      <div className={styles.stats}>
-        {stats.map(({ count, label }) => (
-          <div key={label} className={styles.stat}>
-            <TypographyComponent as="div" variant="h2">
-              {count}
-            </TypographyComponent>
-            <TypographyComponent as="span" variant="s" color="text-secondary">
-              {label}
-            </TypographyComponent>
-          </div>
-        ))}
-      </div>
+      <UserStatsComponent user={user} />
       {currentUser ? (
         currentUser.id !== user.id && (
           <FollowButtonComponent
