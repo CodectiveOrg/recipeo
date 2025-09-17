@@ -4,7 +4,7 @@ import type { ResponseDto } from "@/dto/response/response.dto.ts";
 import { richFetch } from "@/utils/fetch.utils.ts";
 
 export async function signUpApi(dto: AuthRequestDto): Promise<ResponseDto> {
-  return await richFetch("/auth/sign-up", {
+  return richFetch("/auth/sign-up", {
     method: "POST",
     body: JSON.stringify(dto),
   });
