@@ -15,9 +15,16 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
 
-type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {};
+type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref"> & {
+  selectedTag?: string;
+  inputRangeDefaultValue?: number;
+};
 
-export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
+export default function FiltersDrawerComponent({
+  ref,
+  selectedTag,
+  inputRangeDefaultValue,
+}: Props): ReactNode {
   const [duration, setDuration] = useQueryState<number>(
     "duration",
     parseAsInteger.withDefault(30),
@@ -44,7 +51,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
 
     setDuration(parseInt(rangeInputRef.current?.value));
     setTag(inputedTag);
-
+  
     ref.current?.close();
   };
 
@@ -69,6 +76,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
       <form onSubmit={handleSubmitForm}>
         <TagInputComponent
           label="Tag"
+          value={selectedTag}
           onChange={(value) => {
             inputedTag = value;
           }}
@@ -76,6 +84,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         <RangeInputComponent
           ref={rangeInputRef}
           label={rangeInputLabel}
+          defaultValue={inputRangeDefaultValue}
           min={10}
           max={60}
         />

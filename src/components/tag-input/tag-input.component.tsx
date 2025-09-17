@@ -73,7 +73,7 @@ export default function TagInputComponent({
       </label>
       <select name="tag" id={id} onChange={handleChangeTag}>
         {tags.map((tag) => (
-          <option key={tag.id} value={tag.title}>
+          <option key={tag.id} value={tag.title} selected={tag.title === value}>
             {tag.title}
           </option>
         ))}
