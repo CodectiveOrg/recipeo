@@ -1,9 +1,6 @@
 .user-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-
-  inline-size: 19.86rem;
+  display: flex;
+  gap: 3rem;
 
   .stat {
     text-align: center;
