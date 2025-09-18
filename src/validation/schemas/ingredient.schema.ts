@@ -5,6 +5,4 @@ export const IngredientSchema = z.object({
   title: z.string().trim().nonempty(),
 });
 
-export const IngredientsSchema = z.array(IngredientSchema);
-
 export type IngredientType = z.infer<typeof IngredientSchema>;

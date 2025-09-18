@@ -9,6 +9,7 @@ import styles from "./button.module.css";
 type Props<T extends ElementType> = {
   as?: T;
   className?: string;
+  shape?: "pill" | "rounded";
   variant?: "solid" | "outlined" | "text";
   color?: "primary" | "secondary" | "danger";
   size?: "large" | "medium" | "small";
@@ -21,6 +22,7 @@ type CombinedProps<T extends ElementType> = Combine<
 
 export default function ButtonComponent<T extends ElementType = "button">({
   as,
+  shape = "pill",
   variant = "solid",
   color = "primary",
   size = "large",
@@ -33,6 +35,7 @@ export default function ButtonComponent<T extends ElementType = "button">({
     <Component
       className={clsx(
         styles.button,
+        styles[shape],
         styles[variant],
         styles[size],
         styles[color],

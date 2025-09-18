@@ -1,0 +1,6 @@
+.sortable-inputs {
+  overflow: hidden;
+
+  display: grid;
+  gap: 1rem;
+}
