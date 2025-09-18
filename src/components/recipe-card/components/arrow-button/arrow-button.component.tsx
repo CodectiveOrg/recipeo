@@ -22,7 +22,10 @@ export default function ArrowButtonComponent({ className }: Props): ReactNode {
 
 export function ArrowButtonSkeleton({ className }: Props): ReactNode {
   return (
-    <div className={clsx(styles["arrow-button"], className)}>
+    <div
+      className={clsx(styles["arrow-button"], className)}
+      style={{ backgroundColor: "transparent" }}
+    >
       <IconSkeleton />
     </div>
   );
