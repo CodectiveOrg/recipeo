@@ -1,0 +1,22 @@
+.recipe-form {
+  display: grid;
+  gap: 1.5rem;
+
+  .section {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  hr {
+    border: 0.25rem solid var(--color-form);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      flex: 1;
+    }
+  }
+}

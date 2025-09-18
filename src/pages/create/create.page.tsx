@@ -1,5 +1,9 @@
 import { type ReactNode } from "react";
 
+import { Link } from "react-router";
+
+import TypographyComponent from "@/components/typography/typography.component";
+
 import RecipeFormComponent from "@/pages/create/components/recipe-form/recipe-form.component.tsx";
 
 import styles from "./create.module.css";
@@ -7,7 +11,11 @@ import styles from "./create.module.css";
 export default function CreatePage(): ReactNode {
   return (
     <div className={styles.home}>
-      <header>Create Page</header>
+      <header>
+        <TypographyComponent as={Link} to="/" variant="h2">
+          Cancel
+        </TypographyComponent>
+      </header>
       <main>
         <RecipeFormComponent />
       </main>

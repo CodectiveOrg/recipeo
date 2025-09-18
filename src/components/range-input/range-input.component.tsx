@@ -29,7 +29,7 @@ export default function RangeInputComponent({
       className={clsx(styles["range-input"], className)}
       style={{ "--value": `${percentageValue}%` } as CSSProperties}
     >
-      <span className={styles.label}>{label}</span>
+      {label}
       <span className={styles.hints}>
         <TypographyComponent as="span" variant="h3" color="text-secondary">
           {min}

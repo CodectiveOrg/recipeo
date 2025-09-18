@@ -8,6 +8,7 @@ import { z } from "zod";
 
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
+import RangeInputLabelComponent from "@/components/range-input/components/label/label.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import TagInputComponent from "@/components/tag-input/tag-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
@@ -50,17 +51,6 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     ref.current?.close();
   };
 
-  const rangeInputLabel = (
-    <div className={styles.label}>
-      <TypographyComponent as="span" variant="h2">
-        Max Duration
-      </TypographyComponent>
-      <TypographyComponent as="span" variant="p1" color="text-secondary">
-        (in minutes)
-      </TypographyComponent>
-    </div>
-  );
-
   return (
     <DrawerComponent ref={ref} contentClassName={styles.content}>
       <TypographyComponent className={styles.title} variant="h2" color="text">
@@ -69,7 +59,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <TagInputComponent label="Tag" {...register("tag")} />
         <RangeInputComponent
-          label={rangeInputLabel}
+          label={<RangeInputLabelComponent />}
           {...register("maxDuration")}
           min={10}
           max={60}
