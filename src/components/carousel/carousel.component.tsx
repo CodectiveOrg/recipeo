@@ -9,7 +9,7 @@ import styles from "./carousel.module.css";
 
 type Props = {
   spaceBetween?: SwiperProps["spaceBetween"];
-  children: ReactNode[];
+  children: ReactNode | ReactNode[];
 };
 
 export default function CarouselComponent({
@@ -23,11 +23,13 @@ export default function CarouselComponent({
         modules={[FreeMode]}
         spaceBetween={spaceBetween}
       >
-        {children.map((child, index) => (
-          <SwiperSlide key={index} className={styles.slide}>
-            {child}
-          </SwiperSlide>
-        ))}
+        {(!Array.isArray(children) ? [children] : children).map(
+          (child, index) => (
+            <SwiperSlide key={index} className={styles.slide}>
+              {child}
+            </SwiperSlide>
+          ),
+        )}
       </Swiper>
     </div>
   );

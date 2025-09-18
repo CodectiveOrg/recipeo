@@ -2,8 +2,12 @@ import type { MouseEvent, ReactNode } from "react";
 
 import clsx from "clsx";
 
-import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
-import IconComponent from "@/components/icon/icon.component.tsx";
+import IconButtonComponent, {
+  IconButtonSkeleton,
+} from "@/components/icon-button/icon-button.component.tsx";
+import IconComponent, {
+  IconSkeleton,
+} from "@/components/icon/icon.component.tsx";
 
 import useLikeMutation from "@/mutations/use-like.mutation.ts";
 
@@ -46,5 +50,13 @@ export default function LikeButtonComponent({
         <IconComponent className={styles.unliked} name="heart-linear" />
       )}
     </IconButtonComponent>
+  );
+}
+
+export function LikeButtonSkeleton({ className }: Partial<Props>): ReactNode {
+  return (
+    <IconButtonSkeleton className={clsx(styles["like-button"], className)}>
+      <IconSkeleton />
+    </IconButtonSkeleton>
   );
 }

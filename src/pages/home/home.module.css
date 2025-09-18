@@ -1,0 +1,9 @@
+.home {
+  header {
+    padding: 1.5rem;
+  }
+
+  main {
+    padding-inline: 1.5rem;
+  }
+}

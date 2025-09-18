@@ -7,6 +7,8 @@ import type {
 
 import clsx from "clsx";
 
+import SkeletonComponent from "@/components/skeleton/skeleton.component.tsx";
+
 import type { Combine } from "@/utils/type.utils.ts";
 
 import styles from "./typography.module.css";
@@ -60,5 +62,47 @@ export default function TypographyComponent<T extends ElementType = "div">({
       }}
       {...otherProps}
     />
+  );
+}
+
+export function TypographySkeleton<T extends ElementType = "div">({
+  as,
+  ellipsis = false,
+  className,
+  style,
+  variant,
+  maxLines,
+  blockSize,
+  inlineSize,
+  ...otherProps
+}: CombinedProps<T> & { blockSize?: number; inlineSize?: number }): ReactNode {
+  const Component = as ?? "div";
+
+  const maxLinesStyle: CSSProperties = {
+    display: "-webkit-box",
+    WebkitLineClamp: `${maxLines}`,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  };
+
+  return (
+    <Component
+      className={clsx(
+        styles.typography,
+        ellipsis && styles.ellipsis,
+        variant,
+        className,
+      )}
+      style={{
+        ...(maxLines ? maxLinesStyle : {}),
+        ...style,
+      }}
+      {...otherProps}
+    >
+      <SkeletonComponent
+        blockSize={blockSize ?? "100%"}
+        inlineSize={inlineSize ?? "100%"}
+      />
+    </Component>
   );
 }

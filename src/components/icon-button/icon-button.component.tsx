@@ -17,3 +17,15 @@ export default function IconButtonComponent({
     </button>
   );
 }
+
+export function IconButtonSkeleton({
+  className,
+  children,
+  ...otherProps
+}: Props): ReactNode {
+  return (
+    <span className={clsx(styles["icon-button"], className)} {...otherProps}>
+      {children}
+    </span>
+  );
+}

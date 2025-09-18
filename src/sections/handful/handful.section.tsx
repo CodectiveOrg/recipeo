@@ -23,7 +23,7 @@ export default function HandfulSection({
           {title}
         </TypographyComponent>
         {viewAllHref && (
-          <Link to={viewAllHref} className="p2">
+          <Link to={viewAllHref} className="s">
             View All
           </Link>
         )}
