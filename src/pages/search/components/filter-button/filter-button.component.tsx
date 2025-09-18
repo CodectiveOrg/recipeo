@@ -16,7 +16,7 @@ export default function FilterButtonComponent({
   ref,
   className,
 }: Props): ReactNode {
-  const handleFilterButtonClick = ():void => {
+  const handleFilterButtonClick = (): void => {
     ref?.current?.showModal();
   };
 
