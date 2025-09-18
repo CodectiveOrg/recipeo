@@ -72,7 +72,13 @@ export function RecipeCardSkeleton(): ReactNode {
     <div className={styles["recipe-card"]}>
       <div className={styles.content}>
         <ImageSkeleton className={styles["recipe-picture"]} />
-        <TypographySkeleton className={styles.title} />
+        <TypographySkeleton
+          as="p"
+          className={styles.title}
+          variant="h3"
+          color="text"
+          maxLines={2}
+        />
         <UserBadgeSkeleton className={styles["user-badge"]} />
         <DurationBadgeSkeleton className={styles["duration-badge"]} />
         <LikeButtonSkeleton className={styles["like-button"]} />

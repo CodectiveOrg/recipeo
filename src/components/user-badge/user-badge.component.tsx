@@ -71,7 +71,12 @@ export function UserBadgeSkeleton({
   return (
     <span className={clsx(styles["user-badge"], styles[size], className)}>
       <ImageSkeleton className={styles.picture} />
-      <TypographySkeleton inlineSize={60} />
+      <TypographySkeleton
+        as="span"
+        ellipsis
+        variant={size === "medium" ? "s" : "h3"}
+        inlineSize={60}
+      />
     </span>
   );
 }

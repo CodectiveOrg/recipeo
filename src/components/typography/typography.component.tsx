@@ -65,4 +65,38 @@ export default function TypographyComponent<T extends ElementType = "div">({
   );
 }
 
-export const TypographySkeleton = SkeletonComponent;
+export function TypographySkeleton<T extends ElementType = "div">({
+  as,
+  className,
+  style,
+  variant,
+  maxLines,
+  blockSize,
+  inlineSize,
+  ...otherProps
+}: CombinedProps<T> & { blockSize?: number; inlineSize?: number }): ReactNode {
+  const Component = as ?? "div";
+
+  const maxLinesStyle: CSSProperties = {
+    display: "-webkit-box",
+    WebkitLineClamp: `${maxLines}`,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  };
+
+  return (
+    <Component
+      className={clsx(styles.typography, variant, className)}
+      style={{
+        ...(maxLines ? maxLinesStyle : {}),
+        ...style,
+      }}
+      {...otherProps}
+    >
+      <SkeletonComponent
+        blockSize={blockSize ?? "100%"}
+        inlineSize={inlineSize ?? "100%"}
+      />
+    </Component>
+  );
+}

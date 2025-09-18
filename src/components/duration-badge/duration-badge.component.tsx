@@ -38,7 +38,7 @@ export function DurationBadgeSkeleton({
   return (
     <span className={clsx(styles["duration-badge"], className)}>
       <IconSkeleton />
-      <TypographySkeleton inlineSize={30} />
+      <TypographySkeleton as="span" variant="s" inlineSize={30} />
     </span>
   );
 }
