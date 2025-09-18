@@ -1,6 +1,17 @@
-import { type KeyboardEvent, type ReactNode, useRef } from "react";
+import {
+  type FormEvent,
+  type KeyboardEvent,
+  type ReactNode,
+  useRef,
+} from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router";
+
+import { parseAsString, useQueryStates } from "nuqs";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { toast } from "react-toastify";
 
 import { useSearchHistoryStore } from "@/stores/search-history.store";
 
@@ -24,17 +35,43 @@ import FilterButtonComponent from "./components/filter-button/filter-button.comp
 import styles from "./search.module.css";
 
 export default function SearchPage(): ReactNode {
+  const [query, setQuery] = useQueryStates({
+    query: parseAsString,
+  });
+
   const queryRef = useRef<HTMLInputElement | null>(null);
 
   const filterDrawerRef = useRef<HTMLDialogElement | null>(null);
 
+  const [searchParams] = useSearchParams();
+
   const add = useSearchHistoryStore((state) => state.add);
 
-  const handleSearchInputKeyDown = (
+  const { mutateAsync } = useMutation({
+    mutationKey: ["recipes", "search"],
+    mutationFn: searchRecipesApi,
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleSearchInputKeyDown = async (
     e: KeyboardEvent<HTMLInputElement>,
-  ): void => {
+  ): Promise<void> => {
     if (e.key === "Enter") {
-      add({ query: queryRef.current?.value });
+      if (!queryRef.current) {
+        return;
+      }
+
+      add({ query: queryRef.current.value });
+
+      await setQuery(query);
+
+      await mutateAsync({
+        query: queryRef.current.value,
+        tag: searchParams.get("tag")!,
+        maxDuration: +searchParams.get("maxDuration")!,
+      });
     }
   };
 
@@ -53,14 +90,27 @@ export default function SearchPage(): ReactNode {
     queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
   });
 
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    console.log(formData);
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    add({ query: queryRef.current?.value });
+    await mutateAsync({ query: queryRef.current?.value });
+  };
+
   return (
     <div className={styles.search}>
       <header>
         <BackButtonComponent />
-        <SearchInputComponent
-          ref={queryRef}
-          onKeyDown={handleSearchInputKeyDown}
-        />
+        <form onSubmit={handleFormSubmit}>
+          <SearchInputComponent
+            onKeyDown={handleSearchInputKeyDown}
+            ref={queryRef}
+          />
+        </form>
         <FilterButtonComponent ref={filterDrawerRef}></FilterButtonComponent>
       </header>
       <main>

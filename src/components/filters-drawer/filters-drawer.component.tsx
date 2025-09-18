@@ -1,10 +1,18 @@
 import { type ComponentProps, type ReactNode } from "react";
 
+import { useSearchParams } from "react-router";
+
 import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
+
+import { useMutation } from "@tanstack/react-query";
+
+import { toast } from "react-toastify";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { searchRecipesApi } from "@/api/recipe/search-recipes.api";
 
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
@@ -28,6 +36,9 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     tag: parseAsString.withDefault("all"),
     maxDuration: parseAsInteger.withDefault(60),
   });
+
+  const [searchParams] = useSearchParams();
+
   const {
     register,
     handleSubmit,
@@ -40,12 +51,29 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
 
   const watchedMaxDuration = watch("maxDuration");
 
+  const { mutateAsync } = useMutation({
+    mutationKey: ["recipes", "search"],
+    mutationFn: searchRecipesApi,
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
   const handleCancelButtonClick = (): void => {
     ref.current?.close();
   };
 
   const handleFormSubmit = async (values: Values): Promise<void> => {
     await setValues(values);
+
+    await mutateAsync({
+      query: searchParams.get("query")!,
+      tag: values.tag,
+      maxDuration: values.maxDuration,
+    });
+
+    console.log(searchParams.get("tag"));
+
     ref.current?.close();
   };
 
