@@ -77,7 +77,10 @@ export default function SearchPage(): ReactNode {
         </TypographyComponent>
         {data &&
           data.map((recipe) => (
-            <RecipeCardComponent recipe={recipe}></RecipeCardComponent>
+            <RecipeCardComponent
+              key={recipe.id}
+              recipe={recipe}
+            ></RecipeCardComponent>
           ))}
       </main>
     </div>
