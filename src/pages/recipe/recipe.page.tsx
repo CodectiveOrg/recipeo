@@ -35,6 +35,7 @@ export default function RecipePage(): ReactNode {
 
   return (
     <div className={styles.recipe}>
+      <title>{data?.title ?? "Recipe"}</title>
       <header />
       <main>
         <RecipeCoverComponent picture={data.picture} />

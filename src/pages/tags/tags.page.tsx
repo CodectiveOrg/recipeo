@@ -29,6 +29,7 @@ export default function TagsPage(): ReactNode {
 
   return (
     <div className={styles["tags"]}>
+      <title>Tags</title>
       <header>
         <BackButtonComponent className={styles["back-button"]} />
         <TypographyComponent variant="h2" className={styles.title}>

@@ -26,6 +26,7 @@ export default function RecentPage(): ReactNode {
 
   return (
     <div className={styles.recent}>
+      <title>Recent Recipes</title>
       <header>
         <BackButtonComponent className={styles["back-button"]} />
         <TypographyComponent variant="h2" className={styles.title}>

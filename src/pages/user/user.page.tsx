@@ -23,6 +23,7 @@ export default function UserPage(): ReactNode {
 
   return (
     <div className={styles.user}>
+      <title>Profile</title>
       <header>
         <BackButtonComponent />
         <ShareButtonComponent />

@@ -36,6 +36,7 @@ export default function SignInPage(): ReactNode {
 
   return (
     <div className={styles["sign-in"]}>
+      <title>SignIn</title>
       <main>
         <AuthSection
           heading="Welcome Back!"

@@ -26,6 +26,7 @@ export default function PopularPage(): ReactNode {
 
   return (
     <div className={styles.popular}>
+      <title>Popular Recipes</title>
       <header>
         <BackButtonComponent className={styles["back-button"]} />
         <TypographyComponent variant="h2" className={styles.title}>

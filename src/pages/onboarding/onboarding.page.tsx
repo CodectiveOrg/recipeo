@@ -10,6 +10,7 @@ import styles from "./onboarding.module.css";
 export default function OnboardingPage(): ReactNode {
   return (
     <div className={styles.onboarding}>
+      <title>Onboarding</title>
       <main>
         <img src="/images/onboarding.webp" alt="" />
         <div className={styles.writings}>

@@ -26,6 +26,7 @@ export default function ChosenPage(): ReactNode {
 
   return (
     <div className={styles.chosen}>
+      <title>Editor's Choice Recipes</title>
       <header>
         <BackButtonComponent className={styles["back-button"]} />
         <TypographyComponent variant="h2" className={styles.title}>
