@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
 
