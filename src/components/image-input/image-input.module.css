@@ -7,12 +7,13 @@
 
   display: block;
 
-  block-size: 10rem;
-
-  border: 2px dashed var(--color-outline);
   border-radius: 1rem;
 
   cursor: pointer;
+
+  &:has(.blank) {
+    border: 2px dashed var(--color-outline);
+  }
 
   input {
     display: none;
@@ -23,21 +24,6 @@
     block-size: 100%;
 
     padding: 1rem;
-  }
-
-  .blank {
-    display: grid;
-    align-content: center;
-    justify-items: center;
-    gap: 0.25rem;
-
-    text-align: center;
-
-    > svg {
-      color: var(--color-text-secondary);
-
-      font-size: 3rem;
-    }
   }
 
   .preview {
@@ -64,6 +50,44 @@
       border-radius: 0.25rem;
 
       font-size: 2rem;
+    }
+  }
+
+  &.simple {
+    .blank {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+
+      padding: 1rem;
+    }
+
+    .preview {
+      block-size: 10rem;
+
+      padding: 1rem;
+
+      img {
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  &.complex {
+    block-size: 10rem;
+
+    .blank {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 0.25rem;
+
+      text-align: center;
+
+      > svg {
+        font-size: 3rem;
+      }
     }
   }
 }

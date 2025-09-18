@@ -7,9 +7,8 @@ import {
 
 import type { StepType } from "@/validation/schemas/step.schema.ts";
 
+import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
 import TextAreaComponent from "@/components/text-area/text-area.component.tsx";
-
-import UploadImageButtonComponent from "@/pages/create/sections/steps/components/upload-image-button/upload-image-button.component.tsx";
 
 import styles from "./step-input.module.css";
 
@@ -37,6 +36,18 @@ export default function StepInputComponent({
     );
   };
 
+  const handlePictureInputChange = (file: File | null): void => {
+    setItems((old) =>
+      old.map((x) => {
+        if (x.id !== item.id) {
+          return x;
+        }
+
+        return { ...x, picture: file };
+      }),
+    );
+  };
+
   return (
     <div className={styles["step-input"]}>
       <TextAreaComponent
@@ -44,7 +55,13 @@ export default function StepInputComponent({
         onChange={handleDescriptionInputChange}
         placeholder="Tell a little about your food..."
       />
-      <UploadImageButtonComponent stepID={item.id} />
+      <ImageInputComponent
+        layout="simple"
+        previouslyUploadedPicture={
+          typeof item.picture === "string" ? item.picture : undefined
+        }
+        onChange={handlePictureInputChange}
+      />
     </div>
   );
 }
