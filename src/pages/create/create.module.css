@@ -2,8 +2,8 @@
   display: grid;
   gap: 1.5rem;
 
-  padding-inline: 1.5rem;
   padding-block: 1rem;
+  padding-inline: 1.5rem;
 
   > header {
     a {
