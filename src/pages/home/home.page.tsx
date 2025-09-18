@@ -3,10 +3,12 @@ import { type ReactNode } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
+import { getFeaturedRecipesApi } from "@/api/recipe/get-featured-recipes.api.ts";
 import { getPopularRecipesApi } from "@/api/recipe/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/recipe/get-recent-recipes.api.ts";
 
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
+import FeaturedRecipesCarouselComponent from "@/components/featured-carousel/featured-carousel.component.tsx";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
@@ -19,7 +21,7 @@ import styles from "./home.module.css";
 export default function HomePage(): ReactNode {
   const featuredRecipesQueryResult = useQuery({
     queryKey: ["recipes", "featured", 1],
-    queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
+    queryFn: getFeaturedRecipesApi,
   });
 
   const popularRecipesQueryResult = useQuery({
@@ -51,8 +53,10 @@ export default function HomePage(): ReactNode {
         <GreetingsSection />
       </header>
       <main>
-        <HandfulSection title="Featured" viewAllHref="/featured">
-          <RecipesCarouselComponent queryResult={featuredRecipesQueryResult} />
+        <HandfulSection title="Featured">
+          <FeaturedRecipesCarouselComponent
+            queryResult={featuredRecipesQueryResult}
+          />
         </HandfulSection>
         <br />
         <HandfulSection title="Tags" viewAllHref="/tags">

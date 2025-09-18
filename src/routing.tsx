@@ -11,7 +11,6 @@ import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 
 import ChosenPage from "@/pages/chosen/chosen.page.tsx";
 import CreatePage from "@/pages/create/create.page.tsx";
-import FeaturedPage from "@/pages/featured/featured.page.tsx";
 import HomePage from "@/pages/home/home.page.tsx";
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
@@ -43,7 +42,6 @@ export default function Routing(): ReactNode {
           <Route path="popular" element={<PopularPage />} />
           <Route path="chosen" element={<ChosenPage />} />
           <Route path="recent" element={<RecentPage />} />
-          <Route path="featured" element={<FeaturedPage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
           <Route path="user/:userId" element={<UserPage />} />
         </Route>

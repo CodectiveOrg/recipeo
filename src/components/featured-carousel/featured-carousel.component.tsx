@@ -8,12 +8,12 @@ import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 import FeaturedRecipeCardComponent from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 
-import type { PaginatedFeaturedRecipesResponseDto } from "@/dto/response/paginated-featured-recipes.response.dto.ts";
+import type { GetFeaturedRecipesResponseDto } from "@/dto/response/get-featured-recipes.response.dto.ts";
 
 import styles from "./featured-carousel.module.css";
 
 type Props = {
-  queryResult: UseQueryResult<PaginatedFeaturedRecipesResponseDto>;
+  queryResult: UseQueryResult<GetFeaturedRecipesResponseDto>;
   size?: "medium" | "small";
 };
 
@@ -32,10 +32,8 @@ export default function FeaturedRecipesCarouselComponent({
   }
 
   return (
-    <CarouselComponent>
-      {data.items.map((featured) => {
-        console.log(featured);
-
+    <CarouselComponent spaceBetween={16}>
+      {data.map((featured) => {
         return (
           <div key={featured.id} className={clsx(styles.slide, styles[size])}>
             <FeaturedRecipeCardComponent featured={featured} />

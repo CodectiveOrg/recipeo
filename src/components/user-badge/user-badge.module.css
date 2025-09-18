@@ -1,6 +1,6 @@
 .user-badge {
   background-color: transparent;
-  color: var(--color-text);
+  color: inherit;
 
   display: flex;
   align-items: center;

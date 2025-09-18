@@ -1,9 +1,4 @@
 .slide {
-  &.medium {
-    inline-size: 15rem;
-  }
-
-  &.small {
-    inline-size: 8rem;
-  }
+  block-size: 10rem;
+  inline-size: 16rem;
 }
