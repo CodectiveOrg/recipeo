@@ -11,16 +11,12 @@ import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-rec
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
-import useVerifyQuery from "@/queries/use-verify.query.ts";
-
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
-  const { data: currentUser } = useVerifyQuery();
-
   const featuredRecipesQueryResult = useQuery({
     queryKey: ["recipes", "featured", 1],
     queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
@@ -52,7 +48,7 @@ export default function HomePage(): ReactNode {
   return (
     <div className={styles.home}>
       <header>
-        <GreetingsSection userName={currentUser?.username ?? "Lazy User"} />
+        <GreetingsSection />
       </header>
       <main>
         <HandfulSection title="Featured" viewAllHref="/featured">

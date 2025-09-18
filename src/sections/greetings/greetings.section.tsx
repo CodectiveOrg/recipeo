@@ -5,13 +5,13 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import { useGreetingsHook } from "@/hooks/use-greetings.hook.ts";
 
+import useVerifyQuery from "@/queries/use-verify.query.ts";
+
 import styles from "./greetings.module.css";
 
-type Props = {
-  userName: string;
-};
+export default function GreetingsSection(): ReactNode {
+  const { data: user } = useVerifyQuery();
 
-export default function GreetingsSection({ userName }: Props): ReactNode {
   const { message, icon } = useGreetingsHook();
 
   return (
@@ -19,7 +19,7 @@ export default function GreetingsSection({ userName }: Props): ReactNode {
       <IconComponent name={icon} />
       <TypographyComponent variant="s">{message}</TypographyComponent>
       <TypographyComponent className={styles.username} variant="h2">
-        {userName}
+        {user?.username ?? "..."}
       </TypographyComponent>
     </div>
   );
