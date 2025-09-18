@@ -7,6 +7,8 @@ import type {
 
 import clsx from "clsx";
 
+import SkeletonComponent from "@/components/skeleton/skeleton.component.tsx";
+
 import type { Combine } from "@/utils/type.utils.ts";
 
 import styles from "./typography.module.css";
@@ -62,3 +64,5 @@ export default function TypographyComponent<T extends ElementType = "div">({
     />
   );
 }
+
+export const TypographySkeleton = SkeletonComponent;

@@ -5,6 +5,7 @@ import { Icon, type IconProps } from "@iconify/react";
 import clsx from "clsx";
 
 import { useIconHook } from "@/components/icon/hooks/use-icon.hook";
+import SkeletonComponent from "@/components/skeleton/skeleton.component.tsx";
 
 import styles from "./icon.module.css";
 
@@ -44,6 +45,17 @@ export default function IconComponent({
       className={clsx(styles.icon, styles[color], className)}
       inline={inline}
       {...otherProps}
+    />
+  );
+}
+
+export function IconSkeleton({ className }: Partial<Props>): ReactElement {
+  return (
+    <SkeletonComponent
+      className={clsx(styles.icon, className)}
+      style={{ borderRadius: "999rem" }}
+      inlineSize="1em"
+      blockSize="1em"
     />
   );
 }
