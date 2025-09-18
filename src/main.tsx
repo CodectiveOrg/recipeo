@@ -28,8 +28,3 @@ createRoot(document.getElementById("root")!).render(
     </ErrorBoundary>
   </StrictMode>,
 );
-//
-// setTimeout(() => {
-//   console.log("chiz");
-//   debugger;
-// }, 7000);

@@ -3,8 +3,9 @@ import type { ReactNode } from "react";
 import { type UseQueryResult } from "@tanstack/react-query";
 
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
-import FeaturedRecipeCardComponent from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
-import LoadingComponent from "@/components/loading/loading.component.tsx";
+import FeaturedRecipeCardComponent, {
+  FeaturedRecipeCardSkeleton,
+} from "@/components/featured-recipe-card/featured-recipe-card.component.tsx";
 
 import type { GetFeaturedRecipesResponseDto } from "@/dto/response/get-featured-recipes.response.dto.ts";
 
@@ -20,7 +21,7 @@ export default function FeaturedRecipesCarouselComponent({
   const { data, isPending, isError } = queryResult;
 
   if (isPending) {
-    return <LoadingComponent />;
+    return <FeaturedRecipesCarouselSkeleton />;
   }
 
   if (isError) {
@@ -29,13 +30,25 @@ export default function FeaturedRecipesCarouselComponent({
 
   return (
     <CarouselComponent spaceBetween={16}>
-      {data.map((featured) => {
-        return (
-          <div key={featured.id} className={styles.slide}>
-            <FeaturedRecipeCardComponent featured={featured} />
+      {data.map((featured) => (
+        <div key={featured.id} className={styles.slide}>
+          <FeaturedRecipeCardComponent featured={featured} />
+        </div>
+      ))}
+    </CarouselComponent>
+  );
+}
+
+export function FeaturedRecipesCarouselSkeleton(): ReactNode {
+  return (
+    <CarouselComponent spaceBetween={16}>
+      {Array(4)
+        .fill(null)
+        .map((_, i) => (
+          <div key={i} className={styles.slide}>
+            <FeaturedRecipeCardSkeleton />
           </div>
-        );
-      })}
+        ))}
     </CarouselComponent>
   );
 }
