@@ -1,4 +1,6 @@
 .button {
+  position: relative;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7,7 +9,6 @@
   block-size: max-content;
 
   border: 2px solid transparent;
-  border-radius: 999rem;
 
   font-size: 0.9375rem;
   font-weight: 700;
@@ -19,6 +20,14 @@
 
   svg {
     font-size: 1.5rem;
+  }
+
+  &.pill {
+    border-radius: 999rem;
+  }
+
+  &.rounded {
+    border-radius: 0.5rem;
   }
 
   &.solid {

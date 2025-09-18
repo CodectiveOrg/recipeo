@@ -2,29 +2,30 @@ import { type ReactNode, use } from "react";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 
-import { IngredientsContext } from "@/pages/create/context/ingredients.context.ts";
-import { generateIngredient } from "@/pages/create/data/data-generator.ts";
+import { SectionContext } from "@/pages/create/context/section.context.ts";
 
 import styles from "./add-button.module.css";
 
 export default function AddButtonComponent(): ReactNode {
-  const { setIngredients } = use(IngredientsContext);
+  const { context } = use(SectionContext);
+  const { name, setItems, generate } = use(context);
 
   const handleButtonClick = (): void => {
-    setIngredients((items) => [...items, generateIngredient()]);
+    setItems((items) => [...items, generate()]);
   };
 
   return (
     <ButtonComponent
-      className={styles["add-more-ingredients-button"]}
+      className={styles["add-more-button"]}
+      shape="rounded"
       variant="outlined"
       color="secondary"
-      size="medium"
+      size="small"
       type="button"
       onClick={handleButtonClick}
     >
       <span className={styles.icon}>+</span>
-      Add More Ingredients
+      Add Another {name}
     </ButtonComponent>
   );
 }

@@ -4,10 +4,18 @@ import { Link } from "react-router";
 
 import clsx from "clsx";
 
-import DurationBadgeComponent from "@/components/duration-badge/duration-badge.component.tsx";
-import ImageComponent from "@/components/image/image.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component";
-import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
+import DurationBadgeComponent, {
+  DurationBadgeSkeleton,
+} from "@/components/duration-badge/duration-badge.component.tsx";
+import ImageComponent, {
+  ImageSkeleton,
+} from "@/components/image/image.component.tsx";
+import TypographyComponent, {
+  TypographySkeleton,
+} from "@/components/typography/typography.component";
+import UserBadgeComponent, {
+  UserBadgeSkeleton,
+} from "@/components/user-badge/user-badge.component.tsx";
 
 import type { FeaturedRecipe } from "@/entities/featured-recipe.ts";
 
@@ -30,7 +38,12 @@ export default function FeaturedRecipeCardComponent({
       to={`/recipe/${recipe.id}`}
       {...otherProps}
     >
-      <ImageComponent folder="featured" src={featured.picture} alt="" />
+      <ImageComponent
+        className={styles.picture}
+        folder="featured"
+        src={featured.picture}
+        alt=""
+      />
       <span className={styles.writings}>
         <TypographyComponent
           as="span"
@@ -50,5 +63,23 @@ export default function FeaturedRecipeCardComponent({
         />
       </span>
     </Link>
+  );
+}
+
+export function FeaturedRecipeCardSkeleton(): ReactNode {
+  return (
+    <div className={clsx(styles["featured-recipe-card"])}>
+      <ImageSkeleton className={styles.picture} />
+      <span className={styles.writings}>
+        <TypographySkeleton
+          as="span"
+          className={styles.title}
+          variant="h2"
+          maxLines={2}
+        />
+        <UserBadgeSkeleton className={styles["user-badge"]} />
+        <DurationBadgeSkeleton className={styles["duration-badge"]} />
+      </span>
+    </div>
   );
 }

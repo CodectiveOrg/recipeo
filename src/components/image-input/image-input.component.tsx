@@ -24,6 +24,7 @@ const MAX_SIZE_BYTE = MAX_SIZE_MEGABYTE * 1024 * 1024;
 type Props = Omit<ComponentProps<"input">, "ref" | "accept" | "onChange"> & {
   ref?: RefObject<HTMLInputElement | null>;
   accept?: `image/${string}`;
+  layout?: "simple" | "complex";
   previouslyUploadedPicture?: string;
   onChange?: (file: File | null) => void;
 };
@@ -31,6 +32,7 @@ type Props = Omit<ComponentProps<"input">, "ref" | "accept" | "onChange"> & {
 export default function ImageInputComponent({
   ref,
   className,
+  layout = "complex",
   previouslyUploadedPicture,
   onChange,
   ...otherProps
@@ -105,10 +107,12 @@ export default function ImageInputComponent({
 
   const blankContent = (
     <div className={styles.blank}>
-      <IconComponent name="gallery-bold" />
-      <TypographyComponent variant="p2" color="text">
-        Add Cover Photo
-      </TypographyComponent>
+      <IconComponent name="gallery-bold" color="text-secondary" />
+      {layout === "complex" && (
+        <TypographyComponent variant="p2" color="text">
+          Add Cover Photo
+        </TypographyComponent>
+      )}
       <TypographyComponent variant="s" color="text-secondary">
         (up to {MAX_SIZE_MEGABYTE} MB)
       </TypographyComponent>
@@ -117,7 +121,7 @@ export default function ImageInputComponent({
 
   const previewContent = (
     <div className={styles.preview}>
-      {/* TODO: User ImageComponent. */}
+      {/* TODO: Use ImageComponent. */}
       <img src={previouslyUploadedPicture ?? previewUrl ?? ""} alt="" />
       <IconButtonComponent onClick={handleRemoveButtonClick}>
         <IconComponent name="close-circle-bold" />
@@ -126,7 +130,7 @@ export default function ImageInputComponent({
   );
 
   return (
-    <label className={clsx(styles["upload-image"], className)}>
+    <label className={clsx(styles["upload-image"], styles[layout], className)}>
       <input
         ref={finalRef}
         type="file"

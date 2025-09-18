@@ -2,12 +2,24 @@ import type { ReactNode } from "react";
 
 import { Link } from "react-router";
 
-import DurationBadgeComponent from "@/components/duration-badge/duration-badge.component.tsx";
-import ImageComponent from "@/components/image/image.component.tsx";
-import ArrowButtonComponent from "@/components/recipe-card/components/arrow-button/arrow-button.component.tsx";
-import LikeButtonComponent from "@/components/recipe-card/components/like-button/like-button.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component";
-import UserBadgeComponent from "@/components/user-badge/user-badge.component.tsx";
+import DurationBadgeComponent, {
+  DurationBadgeSkeleton,
+} from "@/components/duration-badge/duration-badge.component.tsx";
+import ImageComponent, {
+  ImageSkeleton,
+} from "@/components/image/image.component.tsx";
+import ArrowButtonComponent, {
+  ArrowButtonSkeleton,
+} from "@/components/recipe-card/components/arrow-button/arrow-button.component.tsx";
+import LikeButtonComponent, {
+  LikeButtonSkeleton,
+} from "@/components/recipe-card/components/like-button/like-button.component.tsx";
+import TypographyComponent, {
+  TypographySkeleton,
+} from "@/components/typography/typography.component";
+import UserBadgeComponent, {
+  UserBadgeSkeleton,
+} from "@/components/user-badge/user-badge.component.tsx";
 
 import { Recipe } from "@/entities/recipe";
 
@@ -52,5 +64,25 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
         <ArrowButtonComponent className={styles["arrow-button"]} />
       </div>
     </Link>
+  );
+}
+
+export function RecipeCardSkeleton(): ReactNode {
+  return (
+    <div className={styles["recipe-card"]}>
+      <div className={styles.content}>
+        <ImageSkeleton className={styles["recipe-picture"]} />
+        <TypographySkeleton
+          className={styles.title}
+          variant="h3"
+          color="text"
+          maxLines={2}
+        />
+        <UserBadgeSkeleton className={styles["user-badge"]} />
+        <DurationBadgeSkeleton className={styles["duration-badge"]} />
+        <LikeButtonSkeleton className={styles["like-button"]} />
+        <ArrowButtonSkeleton className={styles["arrow-button"]} />
+      </div>
+    </div>
   );
 }

@@ -1,5 +1,7 @@
 import { type ComponentProps, type ReactNode, useRef } from "react";
 
+import SkeletonComponent from "@/components/skeleton/skeleton.component.tsx";
+
 type Folder = "user" | "featured" | "recipe" | "step";
 
 const placeholders: Record<Folder, string> = {
@@ -38,3 +40,5 @@ export default function ImageComponent({
     />
   );
 }
+
+export const ImageSkeleton = SkeletonComponent;

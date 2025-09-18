@@ -1,29 +1,28 @@
-import { type ReactNode, useRef } from "react";
+import { type ReactNode } from "react";
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { useSearchHistoryStore } from "@/stores/search-history.store.ts";
-
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
+import { getFeaturedRecipesApi } from "@/api/recipe/get-featured-recipes.api.ts";
 import { getPopularRecipesApi } from "@/api/recipe/get-popular-recipes.api.ts";
 import { getRecentRecipesApi } from "@/api/recipe/get-recent-recipes.api.ts";
 
-import ButtonComponent from "@/components/button/button.component";
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
-import FiltersDrawerComponent from "@/components/filters-drawer/filters-drawer.component";
+import FeaturedRecipesCarouselComponent from "@/components/featured-carousel/featured-carousel.component.tsx";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
-import SearchHistoryComponent from "@/components/search-history/search-history.componet";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 
+import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
-  const add = useSearchHistoryStore((state) => state.add);
-
-  const drawerRef = useRef<HTMLDialogElement | null>(null);
+  const featuredRecipesQueryResult = useQuery({
+    queryKey: ["recipes", "featured", 1],
+    queryFn: getFeaturedRecipesApi,
+  });
 
   const popularRecipesQueryResult = useQuery({
     queryKey: ["recipes", "popular", 1],
@@ -50,16 +49,16 @@ export default function HomePage(): ReactNode {
 
   return (
     <div className={styles.home}>
-      <header>Header</header>
+      <header>
+        <GreetingsSection />
+      </header>
       <main>
-        <FiltersDrawerComponent ref={drawerRef} />
-        <ButtonComponent onClick={() => drawerRef.current?.showModal()}>
-          Show Drawer
-        </ButtonComponent>
-        <ButtonComponent onClick={() => add({ query: "value" })}>
-          Add Search History
-        </ButtonComponent>
-        <SearchHistoryComponent />
+        <HandfulSection title="Featured">
+          <FeaturedRecipesCarouselComponent
+            queryResult={featuredRecipesQueryResult}
+          />
+        </HandfulSection>
+        <br />
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>

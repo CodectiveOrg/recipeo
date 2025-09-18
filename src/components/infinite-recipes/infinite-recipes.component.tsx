@@ -7,8 +7,9 @@ import type {
 
 import { useInView } from "react-intersection-observer";
 
-import LoadingComponent from "@/components/loading/loading.component.tsx";
-import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
+import RecipeCardComponent, {
+  RecipeCardSkeleton,
+} from "@/components/recipe-card/recipe-card.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
@@ -44,7 +45,7 @@ export default function InfiniteRecipesComponent({
   });
 
   if (isPending) {
-    return <LoadingComponent />;
+    return <InfiniteRecipesSkeleton columnsCount={columnsCount} />;
   }
 
   if (isError) {
@@ -74,15 +75,18 @@ export default function InfiniteRecipesComponent({
             ))}
           </Fragment>
         ))}
+        {isFetchingNextPage &&
+          Array(columnsCount)
+            .fill(null)
+            .map((_, i) => (
+              <li key={i}>
+                <RecipeCardSkeleton />
+              </li>
+            ))}
       </ul>
       {isEmpty && (
         <TypographyComponent as="p" variant="s" color="text-secondary">
           No recipes found!
-        </TypographyComponent>
-      )}
-      {isFetchingNextPage && (
-        <TypographyComponent as="p" variant="s" color="text-secondary">
-          Loading...
         </TypographyComponent>
       )}
       {!hasNextPage && !isEmpty && (
@@ -90,6 +94,20 @@ export default function InfiniteRecipesComponent({
           All done!
         </TypographyComponent>
       )}
+    </div>
+  );
+}
+
+export function InfiniteRecipesSkeleton({
+  columnsCount,
+}: Partial<Props>): ReactNode {
+  return (
+    <div className={styles["infinite-recipes"]}>
+      <ul style={{ "--columns-count": `${columnsCount}` } as CSSProperties}>
+        <li>
+          <RecipeCardSkeleton />
+        </li>
+      </ul>
     </div>
   );
 }

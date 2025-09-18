@@ -14,7 +14,7 @@
   user-select: none;
 
   &::before,
-  > img {
+  .picture {
     border-radius: inherit;
   }
 
@@ -35,7 +35,7 @@
     inline-size: 100%;
   }
 
-  > img {
+  .picture {
     position: absolute;
     inset: 0;
     z-index: -2;

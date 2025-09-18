@@ -2,8 +2,12 @@ import type { ReactNode } from "react";
 
 import clsx from "clsx";
 
-import IconComponent from "@/components/icon/icon.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component.tsx";
+import IconComponent, {
+  IconSkeleton,
+} from "@/components/icon/icon.component.tsx";
+import TypographyComponent, {
+  TypographySkeleton,
+} from "@/components/typography/typography.component.tsx";
 
 import { formatDuration } from "@/utils/format.utils.ts";
 
@@ -24,6 +28,17 @@ export default function DurationBadgeComponent({
       <TypographyComponent as="span" variant="s">
         {formatDuration(duration)}
       </TypographyComponent>
+    </span>
+  );
+}
+
+export function DurationBadgeSkeleton({
+  className,
+}: Partial<Props>): ReactNode {
+  return (
+    <span className={clsx(styles["duration-badge"], className)}>
+      <IconSkeleton />
+      <TypographySkeleton as="span" variant="s" inlineSize={30} />
     </span>
   );
 }

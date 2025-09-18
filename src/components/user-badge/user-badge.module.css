@@ -1,6 +1,6 @@
 .user-badge {
   background-color: transparent;
-  color: var(--color-text);
+  color: inherit;
 
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@
 
   cursor: pointer;
 
-  > img {
+  .picture {
     block-size: 1.5rem;
     inline-size: 1.5rem;
 
@@ -20,7 +20,7 @@
   }
 
   &.large {
-    > img {
+    .picture {
       block-size: 2rem;
       inline-size: 2rem;
     }

@@ -4,8 +4,12 @@ import { Link, useNavigate } from "react-router";
 
 import clsx from "clsx";
 
-import ImageComponent from "@/components/image/image.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component.tsx";
+import ImageComponent, {
+  ImageSkeleton,
+} from "@/components/image/image.component.tsx";
+import TypographyComponent, {
+  TypographySkeleton,
+} from "@/components/typography/typography.component.tsx";
 
 import type { EssentialUser } from "@/entities/user.ts";
 
@@ -43,7 +47,12 @@ export default function UserBadgeComponent({
       to={href}
       onPointerDown={link ? undefined : handleButtonPointerDown}
     >
-      <ImageComponent folder="user" src={user?.picture} alt="" />
+      <ImageComponent
+        className={styles.picture}
+        folder="user"
+        src={user?.picture}
+        alt=""
+      />
       <TypographyComponent
         as="span"
         ellipsis
@@ -52,5 +61,22 @@ export default function UserBadgeComponent({
         {user?.username}
       </TypographyComponent>
     </Component>
+  );
+}
+
+export function UserBadgeSkeleton({
+  className,
+  size = "medium",
+}: Partial<Props>): ReactNode {
+  return (
+    <span className={clsx(styles["user-badge"], styles[size], className)}>
+      <ImageSkeleton className={styles.picture} />
+      <TypographySkeleton
+        as="span"
+        ellipsis
+        variant={size === "medium" ? "s" : "h3"}
+        inlineSize={60}
+      />
+    </span>
   );
 }

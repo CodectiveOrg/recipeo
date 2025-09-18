@@ -2,8 +2,9 @@ import { type ReactNode } from "react";
 
 import { type UseQueryResult } from "@tanstack/react-query";
 
-import LoadingComponent from "@/components/loading/loading.component.tsx";
-import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
+import RecipeCardComponent, {
+  RecipeCardSkeleton,
+} from "@/components/recipe-card/recipe-card.component.tsx";
 
 import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
 
@@ -19,7 +20,7 @@ export default function ChosenRecipesComponent({
   const { data, isPending, isError } = queryResult;
 
   if (isPending) {
-    return <LoadingComponent />;
+    return <ChosenRecipesSkeleton />;
   }
 
   if (isError) {
@@ -33,6 +34,20 @@ export default function ChosenRecipesComponent({
           <RecipeCardComponent recipe={recipe} />
         </li>
       ))}
+    </ul>
+  );
+}
+
+export function ChosenRecipesSkeleton(): ReactNode {
+  return (
+    <ul className={styles["chosen-recipes"]}>
+      {Array(5)
+        .fill(null)
+        .map((_, i) => (
+          <li key={i}>
+            <RecipeCardSkeleton />
+          </li>
+        ))}
     </ul>
   );
 }

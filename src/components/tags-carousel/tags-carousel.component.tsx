@@ -6,9 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getAllTagsApi } from "@/api/tag/get-all-tags.api.ts";
 
-import ButtonComponent from "@/components/button/button.component.tsx";
+import ButtonComponent, {
+  ButtonSkeleton,
+} from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
-import LoadingComponent from "@/components/loading/loading.component.tsx";
 
 import type { Tag } from "@/entities/tag.ts";
 
@@ -19,7 +20,7 @@ export default function TagsCarouselComponent(): ReactNode {
   });
 
   if (isPending) {
-    return <LoadingComponent />;
+    return <TagsCarouselSkeleton />;
   }
 
   if (isError) {
@@ -40,6 +41,29 @@ export default function TagsCarouselComponent(): ReactNode {
         >
           {tag.title}
         </ButtonComponent>
+      ))}
+    </CarouselComponent>
+  );
+}
+
+export function TagsCarouselSkeleton(): ReactNode {
+  const tags = [
+    { id: -1, inlineSize: 80 },
+    { id: -2, inlineSize: 140 },
+    { id: -3, inlineSize: 100 },
+    { id: -4, inlineSize: 80 },
+    { id: -5, inlineSize: 120 },
+  ];
+
+  return (
+    <CarouselComponent spaceBetween={16}>
+      {tags.map((tag) => (
+        <ButtonSkeleton
+          key={tag.id}
+          size="small"
+          variant="text"
+          style={{ minInlineSize: tag.inlineSize }}
+        />
       ))}
     </CarouselComponent>
   );
