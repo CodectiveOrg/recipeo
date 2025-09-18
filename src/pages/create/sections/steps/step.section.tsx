@@ -30,6 +30,7 @@ export default function StepSection({ defaultValues }: Props): ReactNode {
     >
       <StepsContext
         value={{
+          layout: "complex",
           name: "Step",
           items: steps,
           setItems: setSteps,

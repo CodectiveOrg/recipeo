@@ -25,7 +25,7 @@ export default function BaseInputComponent<T extends BaseItem>({
   item,
 }: Props<T>): ReactNode {
   const { context } = use(SectionContext);
-  const { setItems, Component } = use(context);
+  const { layout, setItems, Component } = use(context);
 
   const {
     attributes,
@@ -46,6 +46,7 @@ export default function BaseInputComponent<T extends BaseItem>({
       ref={setNodeRef}
       className={clsx(
         styles["base-input"],
+        styles[layout],
         presentational && styles.presentational,
         isSorting && styles.sorting,
         isDragging && styles.dragging,
@@ -56,14 +57,21 @@ export default function BaseInputComponent<T extends BaseItem>({
       }}
       {...attributes}
     >
-      <IconButtonComponent type="button" {...listeners}>
+      <span className={styles.component}>
+        <Component
+          presentational={presentational}
+          item={item}
+          setItems={setItems}
+        />
+      </span>
+      <span className={styles.number}>{index + 1}</span>
+      <IconButtonComponent
+        className={styles["drag-handle"]}
+        type="button"
+        {...listeners}
+      >
         <IconComponent name="sort-vertical-linear" color="text-secondary" />
       </IconButtonComponent>
-      <Component
-        presentational={presentational}
-        item={item}
-        setItems={setItems}
-      />
       {index !== 0 && (
         <IconButtonComponent
           className={styles["remove-button"]}

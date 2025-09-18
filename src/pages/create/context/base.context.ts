@@ -15,6 +15,7 @@ export type BaseComponent<T extends BaseItem> = JSXElementConstructor<{
 }>;
 
 export type BaseContextValue<T extends BaseItem> = {
+  layout: "simple" | "complex";
   name: string;
   items: T[];
   setItems: Dispatch<SetStateAction<T[]>>;

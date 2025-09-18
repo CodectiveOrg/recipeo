@@ -1,4 +1,6 @@
 .base {
+  --icon-size: 1.5rem;
+
   display: grid;
-  gap: 2rem;
+  gap: 1rem;
 }

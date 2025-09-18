@@ -7,7 +7,11 @@ import {
 
 import type { StepType } from "@/validation/schemas/step.schema.ts";
 
-import TextInputComponent from "@/components/text-input/text-input.component.tsx";
+import TextAreaComponent from "@/components/text-area/text-area.component.tsx";
+
+import UploadImageButtonComponent from "@/pages/create/sections/steps/components/upload-image-button/upload-image-button.component.tsx";
+
+import styles from "./step-input.module.css";
 
 type Props = {
   presentational?: boolean;
@@ -19,24 +23,28 @@ export default function StepInputComponent({
   item,
   setItems,
 }: Props): ReactNode {
-  const handleTitleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleDescriptionInputChange = (
+    e: ChangeEvent<HTMLTextAreaElement>,
+  ): void => {
     setItems((old) =>
       old.map((x) => {
         if (x.id !== item.id) {
           return x;
         }
 
-        return { ...x, title: e.target.value };
+        return { ...x, description: e.target.value };
       }),
     );
   };
 
   return (
-    <TextInputComponent
-      type="text"
-      value={item.title}
-      onChange={handleTitleInputChange}
-      placeholder={`Step...`}
-    />
+    <div className={styles["step-input"]}>
+      <TextAreaComponent
+        value={item.description}
+        onChange={handleDescriptionInputChange}
+        placeholder="Tell a little about your food..."
+      />
+      <UploadImageButtonComponent stepID={item.id} />
+    </div>
   );
 }

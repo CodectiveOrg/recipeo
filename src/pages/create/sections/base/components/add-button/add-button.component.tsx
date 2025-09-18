@@ -17,14 +17,15 @@ export default function AddButtonComponent(): ReactNode {
   return (
     <ButtonComponent
       className={styles["add-more-button"]}
+      shape="rounded"
       variant="outlined"
       color="secondary"
-      size="medium"
+      size="small"
       type="button"
       onClick={handleButtonClick}
     >
       <span className={styles.icon}>+</span>
-      Add Another ${name}
+      Add Another {name}
     </ButtonComponent>
   );
 }

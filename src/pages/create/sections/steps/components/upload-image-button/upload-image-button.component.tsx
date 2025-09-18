@@ -10,10 +10,10 @@ import {
 
 import { toast } from "react-toastify";
 
-import ButtonComponent from "@/components/button/button.component";
-import IconButtonComponent from "@/components/icon-button/icon-button.component";
-import IconComponent from "@/components/icon/icon.component";
-import TypographyComponent from "@/components/typography/typography.component";
+import ButtonComponent from "@/components/button/button.component.tsx";
+import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
+import IconComponent from "@/components/icon/icon.component.tsx";
+import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import styles from "./upload-image-button.module.css";
 
@@ -103,7 +103,12 @@ export default function UploadImageButtonComponent({
   const isBlank = !previouslyUploadedPicture && !previewUrl;
 
   const blankContent = (
-    <ButtonComponent size="medium" color="secondary" className={styles.blank}>
+    <ButtonComponent
+      shape="rounded"
+      size="small"
+      color="secondary"
+      className={styles.blank}
+    >
       <label htmlFor={"upload-" + stepID}>
         <IconComponent name="camera-bold" />
         <input

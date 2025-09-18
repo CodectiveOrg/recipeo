@@ -34,6 +34,7 @@ export default function IngredientsSection({
     >
       <IngredientsContext
         value={{
+          layout: "simple",
           name: "Ingredient",
           items: ingredients,
           setItems: setIngredients,
