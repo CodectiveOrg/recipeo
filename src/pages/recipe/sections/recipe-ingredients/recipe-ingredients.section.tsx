@@ -24,7 +24,7 @@ export default function RecipeIngredientsSection({
           <li key={ingredient.id}>
             <CheckCircleComponent active />
             <TypographyComponent as="span" variant="p2">
-              {ingredient.amount} {ingredient.unit} {ingredient.title}
+              {ingredient.title}
             </TypographyComponent>
           </li>
         ))}

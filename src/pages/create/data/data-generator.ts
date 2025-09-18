@@ -11,6 +11,7 @@ export function generateIngredient(): IngredientType {
 export function generateStep(): StepType {
   return {
     id: globalThis.crypto.randomUUID(),
-    title: "",
+    description: "",
+    picture: null,
   };
 }
