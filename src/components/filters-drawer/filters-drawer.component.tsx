@@ -1,7 +1,5 @@
 import { type ComponentProps, type ReactNode } from "react";
 
-import { useSearchParams } from "react-router";
-
 import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
 
 import { useMutation } from "@tanstack/react-query";
@@ -37,8 +35,6 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     maxDuration: parseAsInteger.withDefault(60),
   });
 
-  const [searchParams] = useSearchParams();
-
   const {
     register,
     handleSubmit,
@@ -67,12 +63,9 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     await setValues(values);
 
     await mutateAsync({
-      query: searchParams.get("query")!,
       tag: values.tag,
       maxDuration: values.maxDuration,
     });
-
-    console.log(searchParams.get("tag"));
 
     ref.current?.close();
   };

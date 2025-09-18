@@ -1,17 +1,14 @@
-import {
-  type FormEvent,
-  type KeyboardEvent,
-  type ReactNode,
-  useRef,
-} from "react";
-
-import { useSearchParams } from "react-router";
+import { type ReactNode, useRef } from "react";
 
 import { parseAsString, useQueryStates } from "nuqs";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { useSearchHistoryStore } from "@/stores/search-history.store";
 
@@ -22,6 +19,7 @@ import { searchRecipesApi } from "@/api/recipe/search-recipes.api";
 import BackButtonComponent from "@/components/back-button/back-button.component";
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component";
 import FiltersDrawerComponent from "@/components/filters-drawer/filters-drawer.component";
+import LoadingComponent from "@/components/loading/loading.component";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component";
 import SearchHistoryComponent from "@/components/search-history/search-history.componet";
@@ -34,50 +32,27 @@ import FilterButtonComponent from "./components/filter-button/filter-button.comp
 
 import styles from "./search.module.css";
 
-export default function SearchPage(): ReactNode {
-  const [query, setQuery] = useQueryStates({
-    query: parseAsString,
-  });
+const QuerySchema = z.object({
+  query: z.coerce.string<string>(),
+});
 
-  const queryRef = useRef<HTMLInputElement | null>(null);
+type Values = z.infer<typeof QuerySchema>;
+
+export default function SearchPage(): ReactNode {
+  const [values, setValues] = useQueryStates({
+    query: parseAsString.withDefault(""),
+  });
 
   const filterDrawerRef = useRef<HTMLDialogElement | null>(null);
 
-  const [searchParams] = useSearchParams();
-
   const add = useSearchHistoryStore((state) => state.add);
 
-  const { mutateAsync } = useMutation({
+  const { data, mutateAsync, isPending, isError } = useMutation({
     mutationKey: ["recipes", "search"],
     mutationFn: searchRecipesApi,
     onError: (error: Error) => {
       toast.error(error.message);
     },
-  });
-
-  const handleSearchInputKeyDown = async (
-    e: KeyboardEvent<HTMLInputElement>,
-  ): Promise<void> => {
-    if (e.key === "Enter") {
-      if (!queryRef.current) {
-        return;
-      }
-
-      add({ query: queryRef.current.value });
-
-      await setQuery(query);
-
-      await mutateAsync({
-        query: queryRef.current.value,
-        tag: searchParams.get("tag")!,
-        maxDuration: +searchParams.get("maxDuration")!,
-      });
-    }
-  };
-
-  const { data } = useQuery({
-    queryKey: ["recipes", queryRef.current?.value],
-    queryFn: () => searchRecipesApi({ query: queryRef.current?.value }),
   });
 
   const popularRecipesQueryResult = useQuery({
@@ -90,26 +65,45 @@ export default function SearchPage(): ReactNode {
     queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
   });
 
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    const formData = new FormData(e.currentTarget);
-    console.log(formData);
+  const handleFormSubmit = async (values: Values): Promise<void> => {
+    await setValues(values);
 
-    e.preventDefault();
-    e.stopPropagation();
+    add({ query: values.query });
 
-    add({ query: queryRef.current?.value });
-    await mutateAsync({ query: queryRef.current?.value });
+    await mutateAsync({
+      query: values.query,
+    });
   };
+
+  const { register, handleSubmit } = useForm<Values>({
+    values,
+    resolver: zodResolver(QuerySchema),
+  });
+
+  let searchResult;
+  if (isPending) {
+    searchResult = <LoadingComponent />;
+  }
+
+  if (isError) {
+    searchResult = <>Error...</>;
+  }
+
+  if (data) {
+    searchResult = data.map((recipe) => (
+      <RecipeCardComponent
+        key={recipe.id}
+        recipe={recipe}
+      ></RecipeCardComponent>
+    ));
+  }
 
   return (
     <div className={styles.search}>
       <header>
         <BackButtonComponent />
-        <form onSubmit={handleFormSubmit}>
-          <SearchInputComponent
-            onKeyDown={handleSearchInputKeyDown}
-            ref={queryRef}
-          />
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <SearchInputComponent {...register("query")} />
         </form>
         <FilterButtonComponent ref={filterDrawerRef}></FilterButtonComponent>
       </header>
@@ -125,13 +119,7 @@ export default function SearchPage(): ReactNode {
         <TypographyComponent as="h2" variant="h2">
           Search Result
         </TypographyComponent>
-        {data &&
-          data.map((recipe) => (
-            <RecipeCardComponent
-              key={recipe.id}
-              recipe={recipe}
-            ></RecipeCardComponent>
-          ))}
+        {searchResult}
       </main>
     </div>
   );
