@@ -67,6 +67,7 @@ export default function TypographyComponent<T extends ElementType = "div">({
 
 export function TypographySkeleton<T extends ElementType = "div">({
   as,
+  ellipsis = false,
   className,
   style,
   variant,
@@ -86,7 +87,12 @@ export function TypographySkeleton<T extends ElementType = "div">({
 
   return (
     <Component
-      className={clsx(styles.typography, variant, className)}
+      className={clsx(
+        styles.typography,
+        ellipsis && styles.ellipsis,
+        variant,
+        className,
+      )}
       style={{
         ...(maxLines ? maxLinesStyle : {}),
         ...style,

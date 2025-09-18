@@ -73,7 +73,6 @@ export function RecipeCardSkeleton(): ReactNode {
       <div className={styles.content}>
         <ImageSkeleton className={styles["recipe-picture"]} />
         <TypographySkeleton
-          as="p"
           className={styles.title}
           variant="h3"
           color="text"
