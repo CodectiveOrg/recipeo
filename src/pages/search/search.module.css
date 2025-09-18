@@ -6,4 +6,9 @@
 
     padding: 1rem 1.5rem;
   }
+
+  main {
+    display: grid;
+    gap: 1rem;
+  }
 }

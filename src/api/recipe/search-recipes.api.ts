@@ -9,9 +9,7 @@ export async function searchRecipesApi(
 ): Promise<SearchRecipesResponseDto> {
   const searchUrl = generateSearchUrl(params);
 
-  const data = await richFetch<SearchRecipesResponseDto>(
-    `/recipe${searchUrl}`,
-  );
+  const data = await richFetch<SearchRecipesResponseDto>(`/recipe${searchUrl}`);
 
   if ("error" in data) {
     throw new Error(data.error);
