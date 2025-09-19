@@ -30,6 +30,8 @@ import IngredientsSection from "@/pages/create/sections/ingredients/ingredients.
 import StepSection from "@/pages/create/sections/steps/step.section.tsx";
 import TagsSection from "@/pages/create/sections/tags/tags.section";
 
+import ToBase64 from "@/utils/toBase64.utils";
+
 import styles from "./recipe-form.module.css";
 
 type Props = {
@@ -45,8 +47,15 @@ export default function RecipeFormComponent({
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RecipeType>({
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      ingredients: defaultValues?.ingredients ?? [],
+      steps: defaultValues?.steps ?? [],
+      tags: defaultValues?.tags ?? [],
+    },
     resolver: zodResolver(RecipeSchema),
+    mode: "onChange",
+    reValidateMode: "onChange",
   });
 
   const { mutateAsync } = useMutation({
@@ -55,8 +64,10 @@ export default function RecipeFormComponent({
   });
 
   const onSubmit = async (data: RecipeType): Promise<void> => {
+    const pictureStr = await ToBase64(data.picture);
     const dto: RecipeRequestDto = {
       ...data,
+      picture: pictureStr,
       tags: data.tags.map((tag) => ({
         ...tag,
         id: Number(tag.id),
@@ -77,8 +88,8 @@ export default function RecipeFormComponent({
         // navigate("/")
       },
       onError: (error): void => {
-        console.log("error", error, error.message);
-
+        console.log("error", error);
+        console.log("error message-----------");
         toast.error(error.message);
       },
     });
@@ -86,32 +97,41 @@ export default function RecipeFormComponent({
   const onError = (errors: unknown): void => {
     console.log("Validation Errors:", errors);
   };
+  console.log("Errors", errors, Object.keys(errors).length);
 
   return (
     <form
       className={styles["recipe-form"]}
       onSubmit={handleSubmit(onSubmit, onError)}
     >
-      <Controller
-        name="picture"
-        control={control}
-        render={({ field }) => (
-          <ImageInputComponent
-            previouslyUploadedPicture={
-              typeof field.value === "string" ? field.value : undefined
-            }
-            onChange={(file) => field.onChange(file)}
-          />
+      <div className={styles.section}>
+        <Controller
+          name="picture"
+          control={control}
+          render={({ field }) => (
+            <ImageInputComponent onChange={(file) => field.onChange(file)} />
+          )}
+        />
+        {errors.picture && (
+          <TypographyComponent as="span" variant="s" color="text-secondary">
+            {errors.picture.message}
+          </TypographyComponent>
         )}
-      />
+      </div>
       <div className={styles.section}>
         <TypographyComponent as="span" variant="h2">
           Food Name
         </TypographyComponent>
         <TextInputComponent
+          state={errors.title ? "error" : "success"}
           placeholder="Enter food name"
           {...register("title")}
         />
+        {errors.title && (
+          <TypographyComponent as="span" variant="s" color="text-secondary">
+            {errors.title.message}
+          </TypographyComponent>
+        )}
       </div>
       <div className={styles.section}>
         <TypographyComponent as="span" variant="h2">
@@ -121,24 +141,34 @@ export default function RecipeFormComponent({
           placeholder="Tell a little about your food"
           {...register("description")}
         />
-      </div>
-      <Controller
-        name="duration"
-        control={control}
-        render={({ field }) => (
-          <RangeInputComponent
-            label={<RangeInputLabelComponent />}
-            min={10}
-            max={60}
-            watchedValue={field.value}
-            onChange={(e) => field.onChange(Number(e.target.value))}
-          />
+        {errors.description && (
+          <TypographyComponent as="span" variant="s" color="text-secondary">
+            {errors.description.message}
+          </TypographyComponent>
         )}
-      />
-      <IngredientsSection
-        defaultValues={defaultValues}
-        {...register("ingredients")}
-      />
+      </div>
+      <div className={styles.section}>
+        <Controller
+          name="duration"
+          control={control}
+          render={({ field }) => (
+            <RangeInputComponent
+              label={<RangeInputLabelComponent />}
+              min={10}
+              max={60}
+              watchedValue={field.value}
+              onChange={(e) => field.onChange(Number(e.target.value))}
+            />
+          )}
+        />
+        {errors.duration && (
+          <TypographyComponent as="span" variant="s" color="text-secondary">
+            {errors.duration.message}
+          </TypographyComponent>
+        )}
+      </div>
+
+      <IngredientsSection defaultValues={defaultValues} />
       <hr />
       <StepSection defaultValues={defaultValues} {...register("steps")} />
       <hr />
@@ -151,13 +181,11 @@ export default function RecipeFormComponent({
           color="primary"
           size="medium"
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || Object.keys(errors).length > 0}
         >
           {isSubmitting ? "Submitting..." : "Next"}
         </ButtonComponent>
       </div>
-      {errors.title && <span>{errors.title.message}</span>}
-      {errors.description && <span>{errors.description.message}</span>}
     </form>
   );
 }

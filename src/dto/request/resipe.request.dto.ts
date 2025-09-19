@@ -6,7 +6,7 @@ export type RecipeRequestDto = {
   title: string;
   description: string;
   duration: number;
-  picture: File;
+  picture: string;
   tags: Tag[];
   ingredients: Ingredient[];
   steps: Step[];
