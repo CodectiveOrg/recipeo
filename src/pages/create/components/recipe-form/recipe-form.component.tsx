@@ -52,7 +52,7 @@ export default function RecipeFormComponent({
     register,
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting },
   } = useForm<RecipeType>({
     defaultValues: {
       ...defaultValues,
@@ -65,7 +65,6 @@ export default function RecipeFormComponent({
     mode: "all",
     reValidateMode: "onChange",
   });
-  console.log("isValid", isValid);
 
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
@@ -92,25 +91,16 @@ export default function RecipeFormComponent({
     };
     await mutateAsync(dto, {
       onSuccess: (): void => {
-        console.log("dto", dto);
         openModal();
       },
       onError: (error): void => {
-        console.log("error", error);
         toast.error(error.message);
       },
     });
   };
-  const onError = (errors: unknown): void => {
-    console.log("Validation Errors:", errors);
-  };
-  console.log("Errors", errors, Object.keys(errors).length);
 
   return (
-    <form
-      className={styles["recipe-form"]}
-      onSubmit={handleSubmit(onSubmit, onError)}
-    >
+    <form className={styles["recipe-form"]} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.section}>
         <Controller
           name="picture"
