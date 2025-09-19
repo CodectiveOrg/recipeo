@@ -52,7 +52,7 @@ export default function RecipeFormComponent({
     register,
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<RecipeType>({
     defaultValues: {
       ...defaultValues,
@@ -64,6 +64,7 @@ export default function RecipeFormComponent({
     mode: "onChange",
     reValidateMode: "onChange",
   });
+  console.log("isValid", isValid);
 
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
@@ -90,6 +91,7 @@ export default function RecipeFormComponent({
     };
     await mutateAsync(dto, {
       onSuccess: (): void => {
+        console.log("dto", dto);
         openModal();
       },
       onError: (error): void => {
@@ -171,12 +173,35 @@ export default function RecipeFormComponent({
           </TypographyComponent>
         )}
       </div>
-
-      <IngredientsSection defaultValues={defaultValues} />
+      <div className={styles.section}>
+        <IngredientsSection
+          defaultValues={defaultValues}
+          {...register("ingredients")}
+        />
+        {errors.ingredients && (
+          <TypographyComponent as="span" variant="s" color="text-secondary">
+            {errors.ingredients.message}
+          </TypographyComponent>
+        )}
+      </div>
       <hr />
-      <StepSection defaultValues={defaultValues} {...register("steps")} />
+      <div className={styles.section}>
+        <StepSection defaultValues={defaultValues} {...register("steps")} />
+        {errors.steps && (
+          <TypographyComponent as="span" variant="s" color="text-secondary">
+            {errors.steps.message}
+          </TypographyComponent>
+        )}
+      </div>
       <hr />
-      <TagsSection defaultValues={defaultValues} {...register("tags")} />
+      <div className={styles.section}>
+        <TagsSection defaultValues={defaultValues} {...register("tags")} />
+        {errors.tags && (
+          <TypographyComponent as="span" variant="s" color="text-secondary">
+            {errors.tags.message}
+          </TypographyComponent>
+        )}
+      </div>
       <div className={styles.buttons}>
         <ButtonComponent as={Link} to="/" color="secondary" size="medium">
           Back
@@ -185,7 +210,7 @@ export default function RecipeFormComponent({
           color="primary"
           size="medium"
           type="submit"
-          disabled={isSubmitting || Object.keys(errors).length > 0}
+          disabled={isSubmitting || !isValid}
         >
           {isSubmitting ? "Submitting..." : "Next"}
         </ButtonComponent>
