@@ -16,10 +16,10 @@
   }
 
   .buttons {
-    padding-block-start: 1.75rem;
-
     display: flex;
     gap: 1rem;
+
+    padding-block-start: 1.75rem;
 
     a,
     button {
