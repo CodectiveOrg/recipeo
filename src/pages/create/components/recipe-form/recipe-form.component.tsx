@@ -43,7 +43,7 @@ export default function RecipeFormComponent({
     register,
     control,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm<RecipeType>({
     defaultValues,
     resolver: zodResolver(RecipeSchema),
@@ -55,20 +55,43 @@ export default function RecipeFormComponent({
   });
 
   const onSubmit = async (data: RecipeType): Promise<void> => {
-    console.log("data", data);
-    // await mutateAsync(data, {
-    //   onSuccess: (data): void => {
-    //     toast.success(data.message);
-    //     // navigate("/") //RecipeRequestDto;
-    //   },
-    //   onError: (error): void => {
-    //     toast.error(error.message);
-    //   },
-    // });
+    const dto: RecipeRequestDto = {
+      ...data,
+      tags: data.tags.map((tag) => ({
+        ...tag,
+        id: Number(tag.id),
+      })),
+      ingredients: data.ingredients.map((ingredient) => ({
+        ...ingredient,
+        id: Number(ingredient.id),
+      })),
+      steps: data.steps.map((step) => ({
+        ...step,
+        id: Number(step.id),
+      })),
+    };
+    await mutateAsync(dto, {
+      onSuccess: (data): void => {
+        console.log("data", data);
+        toast.success(data.message);
+        // navigate("/")
+      },
+      onError: (error): void => {
+        console.log("error", error, error.message);
+
+        toast.error(error.message);
+      },
+    });
+  };
+  const onError = (errors: unknown): void => {
+    console.log("Validation Errors:", errors);
   };
 
   return (
-    <form className={styles["recipe-form"]} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={styles["recipe-form"]}
+      onSubmit={handleSubmit(onSubmit, onError)}
+    >
       <Controller
         name="picture"
         control={control}
@@ -117,9 +140,9 @@ export default function RecipeFormComponent({
         {...register("ingredients")}
       />
       <hr />
-      <StepSection defaultValues={defaultValues} />
+      <StepSection defaultValues={defaultValues} {...register("steps")} />
       <hr />
-      <TagsSection defaultValues={defaultValues} />
+      <TagsSection defaultValues={defaultValues} {...register("tags")} />
       <div className={styles.buttons}>
         <ButtonComponent as={Link} to="/" color="secondary" size="medium">
           Back
@@ -133,6 +156,8 @@ export default function RecipeFormComponent({
           {isSubmitting ? "Submitting..." : "Next"}
         </ButtonComponent>
       </div>
+      {errors.title && <span>{errors.title.message}</span>}
+      {errors.description && <span>{errors.description.message}</span>}
     </form>
   );
 }
