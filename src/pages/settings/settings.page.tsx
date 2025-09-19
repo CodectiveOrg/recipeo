@@ -12,10 +12,10 @@ import ButtonComponent from "@/components/button/button.component.tsx";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
-import SettingsFormComponent from "@/pages/settings/components/settings-form/settings-form.components.tsx";
-import SettingsHeadComponent from "@/pages/settings/components/settings-head/settings-head.components.tsx";
-
 import useVerifyQuery from "@/queries/use-verify.query.ts";
+
+import SettingsFormComponent from "./components/settings-form/settings-form.components.tsx";
+import SettingsHeadComponent from "./components/settings-head/settings-head.components.tsx";
 
 import styles from "./settings.module.css";
 
