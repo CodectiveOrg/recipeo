@@ -15,7 +15,8 @@
     display: flex;
     gap: 1rem;
 
-    a {
+    a,
+    button {
       flex: 1;
     }
   }
