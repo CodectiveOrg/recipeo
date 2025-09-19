@@ -120,7 +120,6 @@ export default function RecipeFormComponent({
           Food Name
         </TypographyComponent>
         <TextInputComponent
-          state={errors.title ? "error" : "success"}
           placeholder="Enter food name"
           {...register("title")}
         />
