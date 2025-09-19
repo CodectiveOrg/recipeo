@@ -15,7 +15,6 @@ export default function SettingsHeadComponent({
   user,
   className,
 }: Props): ReactNode {
-  console.log("pic", user.picture);
   return (
     <div className={clsx(styles["settings-head"], styles.section, className)}>
       <ImageComponent
@@ -26,9 +25,6 @@ export default function SettingsHeadComponent({
       />
       <TypographyComponent as="h1" variant="h1" className={styles.username}>
         {user?.username}
-      </TypographyComponent>
-      <TypographyComponent as="h2" variant="p2" className={styles.email}>
-        {user?.email}
       </TypographyComponent>
     </div>
   );
