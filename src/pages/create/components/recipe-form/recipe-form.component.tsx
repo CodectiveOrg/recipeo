@@ -154,26 +154,19 @@ export default function RecipeFormComponent({
           </TypographyComponent>
         )}
       </div>
-      <div className={styles.section}>
-        <Controller
-          name="duration"
-          control={control}
-          render={({ field }) => (
-            <RangeInputComponent
-              label={<RangeInputLabelComponent />}
-              min={10}
-              max={60}
-              watchedValue={field.value}
-              onChange={(e) => field.onChange(e.target.value)}
-            />
-          )}
-        />
-        {errors.duration && (
-          <TypographyComponent as="span" variant="s" color="text-secondary">
-            {errors.duration.message}
-          </TypographyComponent>
+      <Controller
+        name="duration"
+        control={control}
+        render={({ field }) => (
+          <RangeInputComponent
+            label={<RangeInputLabelComponent />}
+            min={10}
+            max={60}
+            watchedValue={field.value}
+            onChange={(e) => field.onChange(e.target.value)}
+          />
         )}
-      </div>
+      />
       <div className={styles.section}>
         <IngredientsSection
           defaultValues={defaultValues}
