@@ -1,0 +1,16 @@
+.settings-head {
+  display: grid;
+  justify-content: center;
+  gap: 1rem;
+
+  margin-block: 2rem 1rem;
+
+  .picture {
+    block-size: 5rem;
+    inline-size: 5rem;
+    object-fit: cover;
+
+    border: 2px solid var(--color-primary);
+    border-radius: 999rem;
+  }
+}

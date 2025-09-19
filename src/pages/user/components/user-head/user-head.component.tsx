@@ -53,12 +53,16 @@ export default function UserHeadComponent(): ReactNode {
       </TypographyComponent>
       <UserStatsComponent user={user} />
       {currentUser ? (
-        currentUser.id !== user.id && (
+        currentUser.id !== user.id ? (
           <FollowButtonComponent
             className={styles.button}
             targetUserId={user.id}
             isFollowedByCurrentUser={user.isFollowedByCurrentUser}
           />
+        ) : (
+          <ButtonComponent className={styles.button} as={Link} to="/settings">
+            Settings
+          </ButtonComponent>
         )
       ) : (
         <ButtonComponent className={styles.button} as={Link} to="/sign-in">
