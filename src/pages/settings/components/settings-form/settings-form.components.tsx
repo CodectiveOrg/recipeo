@@ -16,7 +16,7 @@ import type { User } from "@/entities/user.ts";
 
 import styles from "./settings-form.module.css";
 
-type Props = { user: User; className: string };
+type Props = { user: User; className?: string };
 
 export default function SettingsFormComponent({
   user,
@@ -25,7 +25,7 @@ export default function SettingsFormComponent({
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationKey: ["edit-profile"],
+    mutationKey: ["user", "settings"],
     mutationFn: updateUserApi,
     onError: (error) => {
       toast.error(error.message);
@@ -40,21 +40,20 @@ export default function SettingsFormComponent({
     },
   });
 
-  console.log(user.username);
-
   const handleSubmitForm = async (
     e: FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
 
-    const form = new FormData(e.currentTarget);
+    const formData = new FormData(e.currentTarget);
 
-    const dto = {
-      username: form.get("username") as string,
-      password: form.get("password") as string,
-    };
-    await mutation.mutateAsync(dto);
-    console.log("form", user.username);
+    await mutation.mutateAsync({
+      user: {
+        username: formData.get("username") as string,
+        password: formData.get("password") as string,
+        email: formData.get("email") as string,
+      },
+    });
   };
 
   return (
@@ -62,16 +61,13 @@ export default function SettingsFormComponent({
       className={clsx(styles["settings-form"], className)}
       onSubmit={handleSubmitForm}
     >
-      <label>
-        <TextInputComponent name="username" defaultValue={user.username} />
-      </label>
-      <label>
-        <PasswordInputComponent
-          name="password"
-          defaultValue={user.password}
-          placeholder="********"
-        />
-      </label>
+      <TextInputComponent name="username" defaultValue={user.username} />
+      <TextInputComponent
+        name="email"
+        type="email"
+        defaultValue={user.email}
+      ></TextInputComponent>
+      <PasswordInputComponent name="password" defaultValue={user.password} />
       <ButtonComponent>Save</ButtonComponent>
     </form>
   );

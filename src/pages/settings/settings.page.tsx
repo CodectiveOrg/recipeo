@@ -47,7 +47,7 @@ export default function SettingsPage(): ReactNode {
     isError: isUserError,
     data: user,
   } = useQuery({
-    queryKey: ["user", +userId!],
+    queryKey: ["user", currentUser?.id],
     queryFn: () => getUserApi({ userId }),
   });
 
