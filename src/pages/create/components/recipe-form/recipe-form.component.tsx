@@ -56,12 +56,13 @@ export default function RecipeFormComponent({
   } = useForm<RecipeType>({
     defaultValues: {
       ...defaultValues,
+      duration: 35,
       ingredients: defaultValues?.ingredients ?? [],
       steps: defaultValues?.steps ?? [],
       tags: defaultValues?.tags ?? [],
     },
     resolver: zodResolver(RecipeSchema),
-    mode: "onChange",
+    mode: "all",
     reValidateMode: "onChange",
   });
   console.log("isValid", isValid);
@@ -163,7 +164,7 @@ export default function RecipeFormComponent({
               min={10}
               max={60}
               watchedValue={field.value}
-              onChange={(e) => field.onChange(Number(e.target.value))}
+              onChange={(e) => field.onChange(e.target.value)}
             />
           )}
         />
@@ -210,7 +211,7 @@ export default function RecipeFormComponent({
           color="primary"
           size="medium"
           type="submit"
-          disabled={isSubmitting || !isValid}
+          disabled={isSubmitting}
         >
           {isSubmitting ? "Submitting..." : "Next"}
         </ButtonComponent>
