@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useRef } from "react";
 
 import { Link } from "react-router";
 
@@ -20,6 +20,7 @@ import ButtonComponent from "@/components/button/button.component";
 import ImageInputComponent from "@/components/image-input/image-input.component";
 import RangeInputLabelComponent from "@/components/range-input/components/label/label.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
+import SuccessModalComponent from "@/components/success-modal/success-modal.component";
 import TextAreaComponent from "@/components/text-area/text-area.component";
 import TextInputComponent from "@/components/text-input/text-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
@@ -41,6 +42,12 @@ type Props = {
 export default function RecipeFormComponent({
   defaultValues,
 }: Props): ReactNode {
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  const openModal = (): void => {
+    modalRef.current?.showModal();
+  };
+
   const {
     register,
     control,
@@ -82,14 +89,11 @@ export default function RecipeFormComponent({
       })),
     };
     await mutateAsync(dto, {
-      onSuccess: (data): void => {
-        console.log("data", data);
-        toast.success(data.message);
-        // navigate("/")
+      onSuccess: (): void => {
+        openModal();
       },
       onError: (error): void => {
         console.log("error", error);
-        console.log("error message-----------");
         toast.error(error.message);
       },
     });
@@ -119,7 +123,7 @@ export default function RecipeFormComponent({
         )}
       </div>
       <div className={styles.section}>
-        <TypographyComponent as="span" variant="h2">
+        <TypographyComponent as="h2" variant="h2">
           Food Name
         </TypographyComponent>
         <TextInputComponent
@@ -134,7 +138,7 @@ export default function RecipeFormComponent({
         )}
       </div>
       <div className={styles.section}>
-        <TypographyComponent as="span" variant="h2">
+        <TypographyComponent as="h2" variant="h2">
           Description
         </TypographyComponent>
         <TextAreaComponent
@@ -186,6 +190,7 @@ export default function RecipeFormComponent({
           {isSubmitting ? "Submitting..." : "Next"}
         </ButtonComponent>
       </div>
+      <SuccessModalComponent ref={modalRef} />
     </form>
   );
 }

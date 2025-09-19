@@ -5,6 +5,10 @@
   .section {
     display: grid;
     gap: 0.5rem;
+
+    > span {
+      color: var(--color-danger);
+    }
   }
 
   hr {
