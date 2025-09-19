@@ -20,7 +20,7 @@ export default function PicturePickerComponent({
   className,
 }: Props): ReactNode {
   const formRef = useRef<HTMLFormElement>(null);
-
+  console.log(picture);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
