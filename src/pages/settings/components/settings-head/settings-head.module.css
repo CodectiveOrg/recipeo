@@ -6,14 +6,14 @@
   margin-block: 2rem 1rem;
 
   .picture {
+    justify-self: center;
+
     block-size: 5rem;
     inline-size: 5rem;
     object-fit: cover;
 
     border: 2px solid var(--color-primary);
     border-radius: 999rem;
-
-    justify-self: center;
   }
 
   .username {
