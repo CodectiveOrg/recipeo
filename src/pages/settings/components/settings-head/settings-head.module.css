@@ -12,6 +12,8 @@
 
     border: 2px solid var(--color-primary);
     border-radius: 999rem;
+
+    justify-self: center;
   }
 
   .username {
