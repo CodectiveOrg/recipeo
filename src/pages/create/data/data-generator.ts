@@ -1,5 +1,6 @@
 import type { IngredientType } from "@/validation/schemas/ingredient.schema.ts";
 import type { StepType } from "@/validation/schemas/step.schema.ts";
+import type { TagType } from "@/validation/schemas/tag.schema";
 
 export function generateIngredient(): IngredientType {
   return {
@@ -13,5 +14,12 @@ export function generateStep(): StepType {
     id: globalThis.crypto.randomUUID(),
     description: "",
     picture: null,
+  };
+}
+
+export function generateTag(): TagType {
+  return {
+    id: globalThis.crypto.randomUUID(),
+    title: "",
   };
 }

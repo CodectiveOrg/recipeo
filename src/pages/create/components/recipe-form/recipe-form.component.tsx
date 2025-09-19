@@ -14,6 +14,7 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import IngredientsSection from "@/pages/create/sections/ingredients/ingredients.section.tsx";
 import StepSection from "@/pages/create/sections/steps/step.section.tsx";
+import TagsSection from "@/pages/create/sections/tags/tags.section";
 
 import styles from "./recipe-form.module.css";
 
@@ -48,6 +49,8 @@ export default function RecipeFormComponent({
       <IngredientsSection defaultValues={defaultValues} />
       <hr />
       <StepSection defaultValues={defaultValues} />
+      <hr />
+      <TagsSection defaultValues={defaultValues} />
       <div className={styles.buttons}>
         <ButtonComponent as={Link} to="/" color="secondary" size="medium">
           Back
