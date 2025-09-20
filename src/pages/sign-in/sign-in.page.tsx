@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 
 import { signInApi } from "@/api/auth/sign-in.api.ts";
 
+import TitleComponent from "@/components/title/title.component.tsx";
+
 import type { AuthRequestDto } from "@/dto/request/auth.request.dto.ts";
 
 import AuthSection from "@/sections/auth/auth.section.tsx";
@@ -36,6 +38,7 @@ export default function SignInPage(): ReactNode {
 
   return (
     <div className={styles["sign-in"]}>
+      <TitleComponent>Sign In</TitleComponent>
       <main>
         <AuthSection
           heading="Welcome Back!"

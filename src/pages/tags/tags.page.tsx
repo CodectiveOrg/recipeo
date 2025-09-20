@@ -9,6 +9,7 @@ import { getAllTagsApi } from "@/api/tag/get-all-tags.api";
 import BackButtonComponent from "@/components/back-button/back-button.component.tsx";
 import ButtonComponent from "@/components/button/button.component";
 import LoadingComponent from "@/components/loading/loading.component";
+import TitleComponent from "@/components/title/title.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./tags.module.css";
@@ -29,6 +30,7 @@ export default function TagsPage(): ReactNode {
 
   return (
     <div className={styles["tags"]}>
+      <TitleComponent>Tags</TitleComponent>
       <header>
         <BackButtonComponent className={styles["back-button"]} />
         <TypographyComponent variant="h2" className={styles.title}>

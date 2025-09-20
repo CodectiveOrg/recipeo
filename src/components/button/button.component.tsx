@@ -43,6 +43,7 @@ export default function ButtonComponent<T extends ElementType = "button">({
         styles[color],
         className,
       )}
+      type={Component === "button" ? "button" : undefined}
       {...otherProps}
     />
   );
@@ -69,6 +70,7 @@ export function ButtonSkeleton<T extends ElementType = "button">({
         styles[color],
         className,
       )}
+      type={Component === "button" ? "button" : undefined}
       {...otherProps}
     >
       &nbsp;

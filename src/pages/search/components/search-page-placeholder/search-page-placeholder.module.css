@@ -1,0 +1,5 @@
+.search-page-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

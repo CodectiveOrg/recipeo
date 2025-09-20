@@ -11,7 +11,7 @@ import { SectionContext } from "@/pages/create/context/section.context.ts";
 import { TagsContext } from "@/pages/create/context/tags.context";
 import { generateTag } from "@/pages/create/data/data-generator";
 import BaseSection from "@/pages/create/sections/base/base.section";
-import MarkInputComponent from "@/pages/create/sections/tags/components/mark-input/mark-input.component";
+import TagInputComponent from "@/pages/create/sections/tags/components/tag-input/tag-input.component.tsx";
 
 type Props = {
   defaultValues?: Partial<RecipeType>;
@@ -35,7 +35,7 @@ export default function TagsSection({ defaultValues }: Props): ReactNode {
           items: tags,
           setItems: setTags,
           generate: generateTag,
-          Component: MarkInputComponent,
+          Component: TagInputComponent,
         }}
       >
         <BaseSection />
