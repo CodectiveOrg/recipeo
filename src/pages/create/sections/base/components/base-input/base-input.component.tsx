@@ -65,17 +65,12 @@ export default function BaseInputComponent<T extends BaseItem>({
         />
       </span>
       <span className={styles.number}>{index + 1}</span>
-      <IconButtonComponent
-        className={styles["drag-handle"]}
-        type="button"
-        {...listeners}
-      >
+      <IconButtonComponent className={styles["drag-handle"]} {...listeners}>
         <IconComponent name="sort-vertical-linear" color="text-secondary" />
       </IconButtonComponent>
       {index !== 0 && (
         <IconButtonComponent
           className={styles["remove-button"]}
-          type="button"
           onClick={handleRemoveButtonClick}
         >
           <IconComponent name="trash-bin-trash-linear" color="text-secondary" />

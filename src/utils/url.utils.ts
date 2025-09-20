@@ -1,19 +1,25 @@
+import {
+  maxDurationFilter,
+  phraseFilter,
+  tagFilter,
+} from "@/configs/search-filters.config.ts";
+
 import type { SearchRequestDto } from "@/dto/request/search.request.dto.ts";
 
 export function generateSearchUrl(dto: SearchRequestDto): string {
   const params = new URLSearchParams();
 
-  if (dto.query) {
-    params.append("query", dto.query);
+  if (dto.phrase && dto.phrase !== phraseFilter.defaultValue) {
+    params.append("phrase", dto.phrase);
   }
 
-  if (dto.tag) {
+  if (dto.tag && dto.tag !== tagFilter.defaultValue) {
     params.append("tag", dto.tag);
   }
 
-  if (dto.maxDuration) {
+  if (dto.maxDuration && dto.maxDuration !== maxDurationFilter.defaultValue) {
     params.append("maxDuration", dto.maxDuration.toString());
   }
 
-  return `/search?${params.toString()}`;
+  return params.toString();
 }

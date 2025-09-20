@@ -30,7 +30,6 @@
         display: contents;
 
         > a {
-          text-transform: capitalize;
           white-space: nowrap;
         }
       }
