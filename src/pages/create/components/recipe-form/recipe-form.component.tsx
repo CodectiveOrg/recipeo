@@ -1,4 +1,4 @@
-import { type ReactNode, useRef } from "react";
+import { type ReactNode } from "react";
 
 import { Link } from "react-router";
 
@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 
 import {
   RecipeSchema,
@@ -18,12 +18,11 @@ import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 import ImageInputComponent from "@/components/image-input/image-input.component";
-import RangeInputComponent from "@/components/range-input/range-input.component";
-import SuccessModalComponent from "@/components/success-modal/success-modal.component";
 import TextAreaComponent from "@/components/text-area/text-area.component";
 import TextInputComponent from "@/components/text-input/text-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
+import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 import {
   generateIngredient,
   generateStep,
@@ -36,24 +35,15 @@ import TagsSection from "@/pages/create/sections/tags/tags.section";
 import styles from "./recipe-form.module.css";
 
 type Props = {
-  defaultValues?: Partial<RecipeType>;
+  defaultValues?: RecipeType;
+  onSubmit?: () => void;
 };
 
 export default function RecipeFormComponent({
   defaultValues,
+  onSubmit,
 }: Props): ReactNode {
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  const openModal = (): void => {
-    modalRef.current?.showModal();
-  };
-
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<RecipeType>({
+  const methods = useForm({
     defaultValues: {
       ...defaultValues,
       duration: 35,
@@ -62,138 +52,107 @@ export default function RecipeFormComponent({
       tags: defaultValues?.tags ?? [generateTag()],
     },
     resolver: zodResolver(RecipeSchema),
-    mode: "all",
-    reValidateMode: "onChange",
   });
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
 
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
     mutationFn: createRecipeApi,
     onSuccess: (): void => {
-      openModal();
+      onSubmit?.();
     },
     onError: (error): void => {
       toast.error(error.message);
     },
   });
 
-  const onSubmit = async (data: RecipeType): Promise<void> => {
+  const handleFormSubmit = async (data: RecipeType): Promise<void> => {
     await mutateAsync(data);
   };
 
   return (
-    <form className={styles["recipe-form"]} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.section}>
-        <Controller
-          name="picture"
-          control={control}
-          render={({ field }) => (
-            <ImageInputComponent onChange={(file) => field.onChange(file)} />
-          )}
-        />
-        {errors.picture && (
-          <TypographyComponent as="span" variant="s" color="text-secondary">
-            {errors.picture.message}
-          </TypographyComponent>
-        )}
-      </div>
-      <div className={styles.section}>
-        <TypographyComponent as="h2" variant="h2">
-          Food Name
-        </TypographyComponent>
-        <TextInputComponent
-          placeholder="Enter food name"
-          {...register("title")}
-        />
-        {errors.title && (
-          <TypographyComponent as="span" variant="s" color="text-secondary">
-            {errors.title.message}
-          </TypographyComponent>
-        )}
-      </div>
-      <div className={styles.section}>
-        <TypographyComponent as="h2" variant="h2">
-          Description
-        </TypographyComponent>
-        <TextAreaComponent
-          placeholder="Tell a little about your food"
-          {...register("description")}
-        />
-        {errors.description && (
-          <TypographyComponent as="span" variant="s" color="text-secondary">
-            {errors.description.message}
-          </TypographyComponent>
-        )}
-      </div>
-      <Controller
-        name="duration"
-        control={control}
-        render={({ field }) => (
-          <RangeInputComponent
-            label={
-              <>
-                <TypographyComponent as="span" variant="h2">
-                  Max Duration
-                </TypographyComponent>
-                <TypographyComponent
-                  as="span"
-                  variant="p1"
-                  color="text-secondary"
-                >
-                  (in minutes)
-                </TypographyComponent>
-              </>
-            }
-            min={10}
-            max={60}
-            watchedValue={field.value}
-            onChange={(e) => field.onChange(e.target.value)}
+    <FormProvider {...methods}>
+      <form
+        className={styles["recipe-form"]}
+        onSubmit={handleSubmit(handleFormSubmit)}
+      >
+        <div className={styles.section}>
+          <Controller
+            name="picture"
+            control={control}
+            render={({ field }) => (
+              <ImageInputComponent onChange={(file) => field.onChange(file)} />
+            )}
           />
-        )}
-      />
-      <div className={styles.section}>
-        <IngredientsSection
-          defaultValues={defaultValues}
-          {...register("ingredients")}
-        />
-        {errors.ingredients && (
-          <TypographyComponent as="span" variant="s" color="text-secondary">
-            {errors.ingredients.message}
+          <RecipeFormErrorComponent name="picture" />
+        </div>
+        <div className={styles.section}>
+          <TypographyComponent as="h2" variant="h2">
+            Food Name
           </TypographyComponent>
-        )}
-      </div>
-      <hr />
-      <div className={styles.section}>
-        <StepSection defaultValues={defaultValues} {...register("steps")} />
-        {errors.steps && (
-          <TypographyComponent as="span" variant="s" color="text-secondary">
-            {errors.steps.message}
+          <TextInputComponent
+            placeholder="Enter food name"
+            {...register("title")}
+          />
+          <RecipeFormErrorComponent name="title" />
+        </div>
+        <div className={styles.section}>
+          <TypographyComponent as="h2" variant="h2">
+            Description
           </TypographyComponent>
-        )}
-      </div>
-      <hr />
-      <div className={styles.section}>
-        <TagsSection defaultValues={defaultValues} {...register("tags")} />
-        {errors.tags && (
-          <TypographyComponent as="span" variant="s" color="text-secondary">
-            {errors.tags.message}
+          <TextAreaComponent
+            placeholder="Tell a little about your food"
+            {...register("description")}
+          />
+          <RecipeFormErrorComponent name="description" />
+        </div>
+        <div className={styles.section}>
+          <TypographyComponent as="h2" variant="h2">
+            Max Duration
+            <TypographyComponent as="span" variant="p1" color="text-secondary">
+              (in minutes)
+            </TypographyComponent>
           </TypographyComponent>
-        )}
-      </div>
-      <div className={styles.buttons}>
-        <ButtonComponent as={Link} to="/" color="secondary" size="medium">
-          Back
-        </ButtonComponent>
-        <ButtonComponent
-          color="primary"
-          size="medium"
-          type="submit"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Submitting..." : "Next"}
-        </ButtonComponent>
-      </div>
-      <SuccessModalComponent ref={modalRef} />
-    </form>
+          <TextInputComponent placeholder="30" {...register("duration")} />
+          <RecipeFormErrorComponent name="duration" />
+        </div>
+        <div className={styles.section}>
+          <IngredientsSection
+            defaultValues={defaultValues}
+            {...register("ingredients")}
+          />
+          <RecipeFormErrorComponent name="ingredients" />
+        </div>
+        <hr />
+        <div className={styles.section}>
+          <StepSection defaultValues={defaultValues} {...register("steps")} />
+          <RecipeFormErrorComponent name="steps" />
+        </div>
+        <hr />
+        <div className={styles.section}>
+          <TagsSection defaultValues={defaultValues} {...register("tags")} />
+          <RecipeFormErrorComponent name="tags" />
+        </div>
+        <div className={styles.buttons}>
+          <ButtonComponent as={Link} to="/" color="secondary" size="medium">
+            Back
+          </ButtonComponent>
+          <ButtonComponent
+            color="primary"
+            size="medium"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Next"}
+          </ButtonComponent>
+        </div>
+      </form>
+    </FormProvider>
   );
 }
