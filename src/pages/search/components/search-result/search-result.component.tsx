@@ -1,7 +1,5 @@
 import { type ReactNode } from "react";
 
-import { parseAsString, useQueryStates } from "nuqs";
-
 import { useQuery } from "@tanstack/react-query";
 
 import { searchRecipesApi } from "@/api/recipe/search-recipes.api.ts";
@@ -9,12 +7,12 @@ import { searchRecipesApi } from "@/api/recipe/search-recipes.api.ts";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
 
+import useFilterParams from "@/hooks/use-filter-params.hook.ts";
+
 import styles from "./search-result.module.css";
 
 export default function SearchResultComponent(): ReactNode {
-  const [params] = useQueryStates({
-    query: parseAsString.withDefault(""),
-  });
+  const [params] = useFilterParams();
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["recipes", "search", params],

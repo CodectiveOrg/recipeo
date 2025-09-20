@@ -1,12 +1,12 @@
 import type { PropsWithChildren, ReactNode, RefObject } from "react";
 
-import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { useSearchHistoryStore } from "@/stores/search-history.store.ts";
+
+import useFilterParams from "@/hooks/use-filter-params.hook.ts";
 
 import styles from "./search-form.module.css";
 
@@ -30,11 +30,7 @@ export default function SearchFormComponent({
     (state) => state.addSearchHistoryItem,
   );
 
-  const [params, setParams] = useQueryStates({
-    query: parseAsString.withDefault(""),
-    tag: parseAsString.withDefault("all"),
-    maxDuration: parseAsInteger.withDefault(60),
-  });
+  const [params, setParams] = useFilterParams();
 
   const methods = useForm<Values>({
     values: params,

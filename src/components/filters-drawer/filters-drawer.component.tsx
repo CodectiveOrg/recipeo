@@ -41,7 +41,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
       <TypographyComponent className={styles.title} variant="h2" color="text">
         Add a Filter
       </TypographyComponent>
-      <div>
+      <div className={styles.fields}>
         <TagInputComponent label="Tag" {...register("tag")} />
         <RangeInputComponent
           label={rangeInputLabel}
