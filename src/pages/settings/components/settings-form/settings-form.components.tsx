@@ -67,7 +67,7 @@ export default function SettingsFormComponent({
         type="email"
         defaultValue={user.email}
       ></TextInputComponent>
-      <PasswordInputComponent name="password" defaultValue={user.password} />
+      <PasswordInputComponent name="password" placeholder="********" />
       <ButtonComponent>Save</ButtonComponent>
     </form>
   );

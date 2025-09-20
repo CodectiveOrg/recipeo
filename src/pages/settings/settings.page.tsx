@@ -1,5 +1,7 @@
 import { type ReactNode } from "react";
 
+import { useNavigate } from "react-router";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
@@ -24,6 +26,8 @@ export default function SettingsPage(): ReactNode {
 
   const queryClient = useQueryClient();
 
+  const navigate = useNavigate();
+
   const mutation = useMutation({
     mutationKey: ["sign-out"],
     mutationFn: signOutApi,
@@ -31,8 +35,12 @@ export default function SettingsPage(): ReactNode {
       toast.error(error.message);
     },
     onSuccess: async (result) => {
-      await queryClient.invalidateQueries({ queryKey: ["verify"] });
+      queryClient.removeQueries({ queryKey: ["user"] });
+      queryClient.removeQueries({ queryKey: ["verify"] });
+
       toast.success(result.message);
+
+      navigate("/sign-in", { replace: true });
     },
   });
 
