@@ -11,12 +11,12 @@ import styles from "./base.module.css";
 
 export default function BaseSection(): ReactNode {
   const { context } = use(SectionContext);
-  const { name } = use(context);
+  const { label } = use(context);
 
   return (
     <div className={styles.base}>
       <TypographyComponent as="h2" variant="h2">
-        {name}
+        {label}
       </TypographyComponent>
       <BaseDndProvider>
         <SortableInputsComponent />

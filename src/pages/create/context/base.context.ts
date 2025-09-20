@@ -1,26 +1,21 @@
-import {
-  type Context,
-  type Dispatch,
-  type JSXElementConstructor,
-  type SetStateAction,
-  createContext,
-} from "react";
+import { type Context, type JSXElementConstructor, createContext } from "react";
+
+import type { FieldArrayPath } from "react-hook-form";
+
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 export type BaseItem = { id: string };
 
-export type BaseComponent<T extends BaseItem> = JSXElementConstructor<{
-  presentational?: boolean;
-  item: T;
-  setItems: Dispatch<SetStateAction<T[]>>;
+export type BaseComponent = JSXElementConstructor<{
+  index: number;
 }>;
 
 export type BaseContextValue<T extends BaseItem> = {
   layout: "simple" | "complex";
-  name: string;
-  items: T[];
-  setItems: Dispatch<SetStateAction<T[]>>;
+  name: FieldArrayPath<RecipeType>;
+  label: string;
   generate: () => T;
-  Component: BaseComponent<T>;
+  Component: BaseComponent;
 };
 
 export function createBaseContext<T extends BaseItem>(): Context<

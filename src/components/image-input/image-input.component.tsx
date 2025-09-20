@@ -3,8 +3,6 @@ import {
   type ComponentProps,
   type MouseEvent,
   type ReactNode,
-  type RefObject,
-  useRef,
   useState,
 } from "react";
 
@@ -21,8 +19,7 @@ import styles from "./image-input.module.css";
 const MAX_SIZE_MEGABYTE = 1;
 const MAX_SIZE_BYTE = MAX_SIZE_MEGABYTE * 1024 * 1024;
 
-type Props = Omit<ComponentProps<"input">, "ref" | "accept" | "onChange"> & {
-  ref?: RefObject<HTMLInputElement | null>;
+type Props = Omit<ComponentProps<"input">, "accept" | "onChange"> & {
   accept?: `image/${string}`;
   layout?: "simple" | "complex";
   previouslyUploadedPicture?: string;
@@ -30,7 +27,6 @@ type Props = Omit<ComponentProps<"input">, "ref" | "accept" | "onChange"> & {
 };
 
 export default function ImageInputComponent({
-  ref,
   className,
   layout = "complex",
   previouslyUploadedPicture,
@@ -38,9 +34,6 @@ export default function ImageInputComponent({
   ...otherProps
 }: Props): ReactNode {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  const localRef = useRef<HTMLInputElement | null>(null);
-  const finalRef = ref ?? localRef;
 
   const updatePreviewUrl = (file: File | null): void => {
     if (previewUrl) {
@@ -78,10 +71,6 @@ export default function ImageInputComponent({
   };
 
   const remove = (): void => {
-    if (finalRef.current) {
-      finalRef.current.value = "";
-    }
-
     updatePreviewUrl(null);
     onChange?.(null);
   };
@@ -132,7 +121,6 @@ export default function ImageInputComponent({
   return (
     <label className={clsx(styles["upload-image"], styles[layout], className)}>
       <input
-        ref={finalRef}
         type="file"
         accept="image/*"
         onChange={handleInputChange}

@@ -3,7 +3,7 @@ import { type ReactNode, use } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import { useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 import clsx from "clsx";
 
@@ -30,7 +30,10 @@ export default function BaseInputComponent<T extends BaseItem>({
   item,
 }: Props<T>): ReactNode {
   const { context } = use(SectionContext);
-  const { layout, setItems, Component } = use(context);
+  const { name, layout, Component } = use(context);
+
+  const { control } = useFormContext<RecipeType>();
+  const { fields, remove } = useFieldArray<RecipeType>({ control, name });
 
   const {
     attributes,
@@ -47,7 +50,8 @@ export default function BaseInputComponent<T extends BaseItem>({
   } = useFormContext<RecipeType>();
 
   const handleRemoveButtonClick = (): void => {
-    setItems((old) => old.filter((x) => x.id !== item.id));
+    const index = fields.findIndex((x) => x.id === item.id);
+    remove(index);
   };
 
   return (
@@ -67,11 +71,7 @@ export default function BaseInputComponent<T extends BaseItem>({
       {...attributes}
     >
       <span className={styles.component}>
-        <Component
-          presentational={presentational}
-          item={item}
-          setItems={setItems}
-        />
+        <Component index={index} />
       </span>
       <span className={styles.number}>{index + 1}</span>
       <IconButtonComponent className={styles["drag-handle"]} {...listeners}>

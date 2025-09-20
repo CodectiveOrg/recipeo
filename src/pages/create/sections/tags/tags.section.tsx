@@ -1,7 +1,4 @@
-import { type Context, type ReactNode, useState } from "react";
-
-import type { RecipeType } from "@/validation/schemas/recipe.schema";
-import type { TagType } from "@/validation/schemas/tag.schema";
+import { type Context, type ReactNode } from "react";
 
 import type {
   BaseContextValue,
@@ -13,15 +10,7 @@ import { generateTag } from "@/pages/create/data/data-generator";
 import BaseSection from "@/pages/create/sections/base/base.section";
 import TagInputComponent from "@/pages/create/sections/tags/components/tag-input/tag-input.component.tsx";
 
-type Props = {
-  defaultValues?: Partial<RecipeType>;
-};
-
-export default function TagsSection({ defaultValues }: Props): ReactNode {
-  const [tags, setTags] = useState<TagType[]>(() => {
-    return defaultValues?.tags ?? [generateTag()];
-  });
-
+export default function TagsSection(): ReactNode {
   return (
     <SectionContext
       value={{
@@ -31,9 +20,8 @@ export default function TagsSection({ defaultValues }: Props): ReactNode {
       <TagsContext
         value={{
           layout: "simple",
-          name: "Tag",
-          items: tags,
-          setItems: setTags,
+          name: "tags",
+          label: "Tag",
           generate: generateTag,
           Component: TagInputComponent,
         }}

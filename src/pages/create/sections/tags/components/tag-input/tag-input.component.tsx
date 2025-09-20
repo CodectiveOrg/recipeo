@@ -1,13 +1,10 @@
-import {
-  type ChangeEvent,
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-} from "react";
+import { type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import type { TagType } from "@/validation/schemas/tag.schema";
+import { Controller, useFormContext } from "react-hook-form";
+
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import { getAllTagsApi } from "@/api/tag/get-all-tags.api.ts";
 
@@ -15,15 +12,12 @@ import LoadingComponent from "@/components/loading/loading.component.tsx";
 import SelectComponent from "@/components/select/select.component.tsx";
 
 type Props = {
-  presentational?: boolean;
-  item: TagType;
-  setItems: Dispatch<SetStateAction<TagType[]>>;
+  index: number;
 };
 
-export default function TagInputComponent({
-  item,
-  setItems,
-}: Props): ReactNode {
+export default function TagInputComponent({ index }: Props): ReactNode {
+  const { control } = useFormContext<RecipeType>();
+
   const { data, isPending, isError } = useQuery({
     queryKey: ["tags"],
     queryFn: getAllTagsApi,
@@ -37,25 +31,19 @@ export default function TagInputComponent({
     return <>Error...</>;
   }
 
-  const handleTagInputChange = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setItems((old) =>
-      old.map((x) => {
-        if (x.id !== item.id) {
-          return x;
-        }
-
-        return { ...x, title: e.target.value };
-      }),
-    );
-  };
-
   return (
-    <SelectComponent onChange={handleTagInputChange}>
-      {data.map((tag) => (
-        <option key={tag.id} value={tag.title}>
-          {tag.title}
-        </option>
-      ))}
-    </SelectComponent>
+    <Controller
+      name={`tags.${index}.title`}
+      control={control}
+      render={({ field }) => (
+        <SelectComponent {...field}>
+          {data.map((tag) => (
+            <option key={tag.id} value={tag.title}>
+              {tag.title}
+            </option>
+          ))}
+        </SelectComponent>
+      )}
+    />
   );
 }

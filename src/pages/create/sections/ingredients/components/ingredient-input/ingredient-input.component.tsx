@@ -1,42 +1,29 @@
-import {
-  type ChangeEvent,
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-} from "react";
+import { type ReactNode } from "react";
 
-import type { IngredientType } from "@/validation/schemas/ingredient.schema.ts";
+import { Controller, useFormContext } from "react-hook-form";
+
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 
 type Props = {
-  presentational?: boolean;
-  item: IngredientType;
-  setItems: Dispatch<SetStateAction<IngredientType[]>>;
+  index: number;
 };
 
-export default function IngredientInputComponent({
-  item,
-  setItems,
-}: Props): ReactNode {
-  const handleTitleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setItems((old) =>
-      old.map((x) => {
-        if (x.id !== item.id) {
-          return x;
-        }
-
-        return { ...x, title: e.target.value };
-      }),
-    );
-  };
+export default function IngredientInputComponent({ index }: Props): ReactNode {
+  const { control } = useFormContext<RecipeType>();
 
   return (
-    <TextInputComponent
-      type="text"
-      value={item.title}
-      onChange={handleTitleInputChange}
-      placeholder={`Ingredient...`}
+    <Controller
+      name={`ingredients.${index}.title`}
+      control={control}
+      render={({ field }) => (
+        <TextInputComponent
+          type="text"
+          placeholder={`Ingredient...`}
+          {...field}
+        />
+      )}
     />
   );
 }
