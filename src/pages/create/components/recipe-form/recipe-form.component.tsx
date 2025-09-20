@@ -95,9 +95,9 @@ export default function RecipeFormComponent({
             Cancel
           </ButtonComponent>
           <ButtonComponent
+            type="submit"
             color="primary"
             size="medium"
-            type="submit"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Submitting..." : "Submit"}
