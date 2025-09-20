@@ -65,7 +65,7 @@ export default function SettingsPage(): ReactNode {
   }
 
   if (isUserError) {
-    return <div>Error</div>;
+    return <>Error</>;
   }
 
   return (

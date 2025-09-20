@@ -19,16 +19,11 @@ export default function SettingsHeadComponent({
   user,
   className,
 }: Props): ReactNode {
-  const { data } = useQuery({
-    queryKey: ["picture"],
-    queryFn: () => getUserPictureApi({ filename: user.picture as string }),
-  });
-
   return (
     <div className={clsx(styles["settings-head"], styles.section, className)}>
       <PicturePickerComponent
         className={styles.picture}
-        picture={data as string}
+        picture={user.picture}
       />
       <TypographyComponent as="h1" variant="h1" className={styles.username}>
         {user?.username}
