@@ -28,7 +28,7 @@ export default function SearchInputComponent(): ReactNode {
       startAdornment={<IconComponent name="magnifer-linear" />}
       endAdornment={
         watchedQuery && (
-          <IconButtonComponent type="button" onClick={handleClearButtonClick}>
+          <IconButtonComponent onClick={handleClearButtonClick}>
             <IconComponent name="close-circle-bold" color="text" />
           </IconButtonComponent>
         )

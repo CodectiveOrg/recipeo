@@ -52,7 +52,6 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         />
         <div className={styles.actions}>
           <ButtonComponent
-            type="button"
             color="secondary"
             disabled={isSubmitting}
             onClick={handleCancelButtonClick}
