@@ -24,8 +24,6 @@ import TextAreaComponent from "@/components/text-area/text-area.component";
 import TextInputComponent from "@/components/text-input/text-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
-import type { CreateRecipeRequestDto } from "@/dto/request/create-recipe.request.dto.ts";
-
 import {
   generateIngredient,
   generateStep,
@@ -34,8 +32,6 @@ import {
 import IngredientsSection from "@/pages/create/sections/ingredients/ingredients.section.tsx";
 import StepSection from "@/pages/create/sections/steps/step.section.tsx";
 import TagsSection from "@/pages/create/sections/tags/tags.section";
-
-import ToBase64 from "@/utils/toBase64.utils";
 
 import styles from "./recipe-form.module.css";
 
@@ -73,46 +69,20 @@ export default function RecipeFormComponent({
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
     mutationFn: createRecipeApi,
+    onSuccess: (): void => {
+      openModal();
+    },
+    onError: (error): void => {
+      toast.error(error.message);
+    },
   });
 
   const onSubmit = async (data: RecipeType): Promise<void> => {
-    const pictureStr = await ToBase64(data.picture);
-    const dto: CreateRecipeRequestDto = {
-      ...data,
-      picture: pictureStr,
-      tags: data.tags.map((tag) => ({
-        ...tag,
-        id: Number(tag.id),
-      })),
-      ingredients: data.ingredients.map((ingredient) => ({
-        ...ingredient,
-        id: Number(ingredient.id),
-      })),
-      steps: data.steps.map((step) => ({
-        ...step,
-        id: Number(step.id),
-      })),
-    };
-    await mutateAsync(dto, {
-      onSuccess: (): void => {
-        console.log("dto", dto);
-        openModal();
-      },
-      onError: (error): void => {
-        toast.error(error.message);
-      },
-    });
-  };
-
-  const onError = (errors: unknown): void => {
-    console.log("errors", errors);
+    await mutateAsync(data);
   };
 
   return (
-    <form
-      className={styles["recipe-form"]}
-      onSubmit={handleSubmit(onSubmit, onError)}
-    >
+    <form className={styles["recipe-form"]} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.section}>
         <Controller
           name="picture"
