@@ -17,13 +17,11 @@ import styles from "./tag-input.module.css";
 
 type Props = ComponentProps<"select"> & {
   label: string;
-  isLabel?: boolean;
 };
 
 export default function TagInputComponent({
   className,
   label,
-  isLabel = true,
   ...otherProps
 }: Props): ReactNode {
   const { data, isPending, isError } = useQuery({
@@ -43,12 +41,9 @@ export default function TagInputComponent({
 
   return (
     <label className={clsx(styles["tag-input"], className)}>
-      {isLabel ? (
-        <TypographyComponent as="span" variant="h2">
-          {label}
-        </TypographyComponent>
-      ) : null}
-
+      <TypographyComponent as="span" variant="h2">
+        {label}
+      </TypographyComponent>
       <select {...otherProps}>
         {tags.map((tag) => (
           <option key={tag.id} value={tag.title}>
