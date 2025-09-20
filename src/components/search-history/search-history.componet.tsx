@@ -36,7 +36,7 @@ export default function SearchHistoryComponent(): ReactNode {
                 className={styles.title}
                 variant="p1"
               >
-                {[item.query, item.tag, item.maxDuration]
+                {[item.phrase, item.tag, item.maxDuration]
                   .filter(Boolean)
                   .join(" - ")}
               </TypographyComponent>

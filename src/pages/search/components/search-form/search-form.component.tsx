@@ -11,7 +11,7 @@ import useFilterParams from "@/hooks/use-filter-params.hook.ts";
 import styles from "./search-form.module.css";
 
 const FiltersSchema = z.object({
-  query: z.coerce.string<string>(),
+  phrase: z.coerce.string<string>(),
   tag: z.coerce.string<string>(),
   maxDuration: z.coerce.number<number>(),
 });
@@ -41,7 +41,7 @@ export default function SearchFormComponent({
 
   const handleFormSubmit = async (values: Values): Promise<void> => {
     await setParams(values);
-    addSearchHistoryItem({ query: values.query });
+    addSearchHistoryItem({ phrase: values.phrase });
     formDrawerRef.current?.close();
   };
 

@@ -11,23 +11,23 @@ import styles from "./search-input.module.css";
 export default function SearchInputComponent(): ReactNode {
   const { register, watch, setValue } = useFormContext();
 
-  const watchedQuery = watch("query");
+  const watchedPhrase = watch("phrase");
 
   const handleClearButtonClick = (): void => {
     // TODO: 1. This doesn't change the url.
     //       2. This doesn't submit the form.
-    setValue("query", "");
+    setValue("phrase", "");
   };
 
   return (
     <TextInputComponent
-      {...register("query")}
+      {...register("phrase")}
       className={styles["search-input"]}
       type="text"
       variant="search"
       startAdornment={<IconComponent name="magnifer-linear" />}
       endAdornment={
-        watchedQuery && (
+        watchedPhrase && (
           <IconButtonComponent onClick={handleClearButtonClick}>
             <IconComponent name="close-circle-bold" color="text" />
           </IconButtonComponent>
