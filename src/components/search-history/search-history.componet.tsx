@@ -20,6 +20,10 @@ export default function SearchHistoryComponent(): ReactNode {
   );
   const clear = useSearchHistoryStore((state) => state.clearSearchHistory);
 
+  if (items.length === 0) {
+    return null;
+  }
+
   return (
     <div className={styles["search-history"]}>
       <ul>
@@ -50,16 +54,14 @@ export default function SearchHistoryComponent(): ReactNode {
           </li>
         ))}
       </ul>
-      {items.length > 0 && (
-        <ButtonComponent
-          variant="text"
-          color="secondary"
-          size="small"
-          onClick={clear}
-        >
-          Clear Search History
-        </ButtonComponent>
-      )}
+      <ButtonComponent
+        variant="text"
+        color="secondary"
+        size="small"
+        onClick={clear}
+      >
+        Clear Search History
+      </ButtonComponent>
     </div>
   );
 }

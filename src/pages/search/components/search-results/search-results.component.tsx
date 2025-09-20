@@ -7,6 +7,8 @@ import { searchRecipesApi } from "@/api/recipe/search-recipes.api.ts";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
 
+import CurrentFiltersComponent from "@/pages/search/components/current-filters/current-filters.component.tsx";
+
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 type Props = {
@@ -30,12 +32,15 @@ export default function SearchResultsComponent({
   }
 
   return (
-    <HandfulSection title="Search Results">
-      <ul>
-        {data.map((recipe) => (
-          <RecipeCardComponent key={recipe.id} recipe={recipe} />
-        ))}
-      </ul>
-    </HandfulSection>
+    <div>
+      <CurrentFiltersComponent />
+      <HandfulSection title="Search Results">
+        <ul>
+          {data.map((recipe) => (
+            <RecipeCardComponent key={recipe.id} recipe={recipe} />
+          ))}
+        </ul>
+      </HandfulSection>
+    </div>
   );
 }

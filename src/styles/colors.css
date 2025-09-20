@@ -7,6 +7,7 @@
   --color-text-secondary-fade: hsl(229deg 21% 69% / 20%);
   --color-outline: hsl(215deg 38% 87%); /* #d0dbea */
   --color-form: hsl(220deg 16% 96%); /* #f4f5f7 */
+  --color-chip: hsl(0deg 0% 90%);
 
   --color-primary: hsl(151deg 74% 46%); /* #1fcc79 */
   --color-primary-fade: hsl(150deg 100% 95%); /* #e3fff1 */
