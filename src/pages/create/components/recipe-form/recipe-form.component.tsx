@@ -18,7 +18,6 @@ import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 
-import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 import {
   generateIngredient,
   generateStep,
@@ -56,9 +55,8 @@ export default function RecipeFormComponent({
   });
 
   const {
-    register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = methods;
 
   const { mutateAsync } = useMutation({
@@ -86,23 +84,12 @@ export default function RecipeFormComponent({
         <TitleSection />
         <DescriptionSection />
         <DurationSection />
-        <div className={styles.section}>
-          <IngredientsSection
-            defaultValues={defaultValues}
-            {...register("ingredients")}
-          />
-          <RecipeFormErrorComponent message={errors.ingredients?.message} />
-        </div>
         <hr />
-        <div className={styles.section}>
-          <StepSection defaultValues={defaultValues} {...register("steps")} />
-          <RecipeFormErrorComponent message={errors.steps?.message} />
-        </div>
+        <IngredientsSection defaultValues={defaultValues} />
         <hr />
-        <div className={styles.section}>
-          <TagsSection defaultValues={defaultValues} {...register("tags")} />
-          <RecipeFormErrorComponent message={errors.tags?.message} />
-        </div>
+        <StepSection defaultValues={defaultValues} />
+        <hr />
+        <TagsSection defaultValues={defaultValues} />
         <div className={styles.buttons}>
           <ButtonComponent as={Link} to="/" color="secondary" size="medium">
             Cancel

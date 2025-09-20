@@ -3,11 +3,16 @@ import { type ReactNode, use } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+import { useFormContext } from "react-hook-form";
+
 import clsx from "clsx";
+
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 
+import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 import type { BaseItem } from "@/pages/create/context/base.context.ts";
 import { SectionContext } from "@/pages/create/context/section.context.ts";
 
@@ -36,6 +41,10 @@ export default function BaseInputComponent<T extends BaseItem>({
     isSorting,
     isDragging,
   } = useSortable({ id: item.id, data: { index, item } });
+
+  const {
+    formState: { errors },
+  } = useFormContext<RecipeType>();
 
   const handleRemoveButtonClick = (): void => {
     setItems((old) => old.filter((x) => x.id !== item.id));
@@ -76,6 +85,7 @@ export default function BaseInputComponent<T extends BaseItem>({
           <IconComponent name="trash-bin-trash-linear" color="text-secondary" />
         </IconButtonComponent>
       )}
+      <RecipeFormErrorComponent message={errors.ingredients?.message} />
     </li>
   );
 }
