@@ -2,6 +2,7 @@ import { type ReactNode } from "react";
 
 import BackButtonComponent from "@/components/back-button/back-button.component";
 import SearchComponent from "@/components/search/search.component.tsx";
+import TitleComponent from "@/components/title/title.component.tsx";
 
 import useFilterParams from "@/hooks/use-filter-params.hook.ts";
 
@@ -18,6 +19,7 @@ export default function SearchPage(): ReactNode {
 
   return (
     <div className={styles.search}>
+      <TitleComponent>Search</TitleComponent>
       <header>
         <BackButtonComponent />
         <SearchComponent />
