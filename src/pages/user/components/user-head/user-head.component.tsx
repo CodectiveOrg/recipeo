@@ -9,6 +9,7 @@ import { getUserApi } from "@/api/user/get-user.api.ts";
 import ButtonComponent from "@/components/button/button.component.tsx";
 import ImageComponent from "@/components/image/image.component.tsx";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
+import TitleComponent from "@/components/title/title.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import FollowButtonComponent from "@/pages/user/components/follow-button/follow-button.component.tsx";
@@ -42,6 +43,7 @@ export default function UserHeadComponent(): ReactNode {
 
   return (
     <div className={styles["user-head"]}>
+      <TitleComponent>{user.username}</TitleComponent>
       <ImageComponent
         className={styles.picture}
         folder="user"
