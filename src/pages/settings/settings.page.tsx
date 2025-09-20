@@ -12,6 +12,7 @@ import { getUserApi } from "@/api/user/get-user.api.ts";
 import BackButtonComponent from "@/components/back-button/back-button.component.tsx";
 import ButtonComponent from "@/components/button/button.component.tsx";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
+import TitleComponent from "@/components/title/title.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import useVerifyQuery from "@/queries/use-verify.query.ts";
@@ -69,6 +70,7 @@ export default function SettingsPage(): ReactNode {
 
   return (
     <div className={styles.settings}>
+      <TitleComponent>Settins</TitleComponent>
       <header>
         <BackButtonComponent className={styles["back-button"]} />
         <TypographyComponent variant="h2" className={styles.title}>
