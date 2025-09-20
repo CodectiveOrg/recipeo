@@ -9,6 +9,8 @@ import { getAllTagsApi } from "@/api/tag/get-all-tags.api";
 import LoadingComponent from "@/components/loading/loading.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
+import { tagFilter } from "@/configs/search-filters.config.ts";
+
 import { Tag } from "@/entities/tag";
 
 import styles from "./tag-input.module.css";
@@ -35,7 +37,7 @@ export default function TagInputComponent({
     return <>Error...</>;
   }
 
-  const tags: Tag[] = [{ id: -1, title: "all" }, ...data];
+  const tags: Tag[] = [{ id: -1, title: tagFilter.defaultValue }, ...data];
 
   return (
     <label className={clsx(styles["tag-input"], className)}>

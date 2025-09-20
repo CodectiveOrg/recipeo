@@ -1,0 +1,52 @@
+.current-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  margin-block-end: 1.5rem;
+
+  .button {
+    background-color: var(--color-chip);
+
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    padding: 0.25rem;
+
+    border: none;
+    border-radius: 0.25rem;
+
+    cursor: pointer;
+
+    svg {
+      font-size: 1.5em;
+    }
+
+    &.danger {
+      background-color: transparent;
+      color: var(--color-red);
+    }
+  }
+
+  > ul {
+    display: contents;
+
+    .filter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      padding: 0.25rem;
+
+      border: 1px dashed var(--color-outline);
+      border-radius: 0.25rem;
+
+      .label {
+        &::after {
+          content: ": ";
+        }
+      }
+    }
+  }
+}

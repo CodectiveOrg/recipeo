@@ -11,6 +11,8 @@ import ButtonComponent, {
 } from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 
+import { tagFilter } from "@/configs/search-filters.config.ts";
+
 import type { Tag } from "@/entities/tag.ts";
 
 export default function TagsCarouselComponent(): ReactNode {
@@ -27,7 +29,10 @@ export default function TagsCarouselComponent(): ReactNode {
     return <>Error...</>;
   }
 
-  const tags: Tag[] = [{ id: -1, title: "All" }, ...data.slice(0, 5)];
+  const tags: Tag[] = [
+    { id: -1, title: tagFilter.defaultValue },
+    ...data.slice(0, 5),
+  ];
 
   return (
     <CarouselComponent spaceBetween={16}>
@@ -37,7 +42,7 @@ export default function TagsCarouselComponent(): ReactNode {
           as={Link}
           to={`/tag/${tag.title}`}
           size="small"
-          variant={tag.title === "All" ? "solid" : "outlined"}
+          variant={tag.title === tagFilter.label ? "solid" : "outlined"}
         >
           {tag.title}
         </ButtonComponent>
