@@ -11,7 +11,7 @@ import styles from "./create.module.css";
 
 export default function CreatePage(): ReactNode {
   return (
-    <div className={styles.home}>
+    <div className={styles.create}>
       <TitleComponent>Create</TitleComponent>
       <header>
         <TypographyComponent as={Link} to="/" variant="h2">

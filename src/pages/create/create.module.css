@@ -1,13 +1,13 @@
-.home {
-  display: grid;
-  gap: 2rem;
-
-  padding-block: 1rem;
-  padding-inline: 1.5rem;
-
+.create {
   > header {
+    padding: 1.5rem;
+
     a {
       color: var(--color-danger);
     }
+  }
+
+  > main {
+    padding-inline: 1.5rem;
   }
 }
