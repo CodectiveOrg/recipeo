@@ -1,16 +1,6 @@
 import { type ComponentProps, type ReactNode } from "react";
 
-import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
-
-import { useMutation } from "@tanstack/react-query";
-
-import { toast } from "react-toastify";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { searchRecipesApi } from "@/api/recipe/search-recipes.api";
+import { useFormContext } from "react-hook-form";
 
 import ButtonComponent from "@/components/button/button.component";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
@@ -20,53 +10,18 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./filters-drawer.module.css";
 
-const FiltersSchema = z.object({
-  tag: z.coerce.string<string>(),
-  maxDuration: z.coerce.number<number>(),
-});
-
-type Values = z.infer<typeof FiltersSchema>;
-
 type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref">;
 
 export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
-  const [values, setValues] = useQueryStates({
-    tag: parseAsString.withDefault("all"),
-    maxDuration: parseAsInteger.withDefault(60),
-  });
-
   const {
     register,
-    handleSubmit,
     watch,
     formState: { isSubmitting },
-  } = useForm<Values>({
-    values,
-    resolver: zodResolver(FiltersSchema),
-  });
+  } = useFormContext();
 
   const watchedMaxDuration = watch("maxDuration");
 
-  const { mutateAsync } = useMutation({
-    mutationKey: ["recipes", "search"],
-    mutationFn: searchRecipesApi,
-    onError: (error: Error) => {
-      toast.error(error.message);
-    },
-  });
-
   const handleCancelButtonClick = (): void => {
-    ref.current?.close();
-  };
-
-  const handleFormSubmit = async (values: Values): Promise<void> => {
-    await setValues(values);
-
-    await mutateAsync({
-      tag: values.tag,
-      maxDuration: values.maxDuration,
-    });
-
     ref.current?.close();
   };
 
@@ -86,7 +41,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
       <TypographyComponent className={styles.title} variant="h2" color="text">
         Add a Filter
       </TypographyComponent>
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <div>
         <TagInputComponent label="Tag" {...register("tag")} />
         <RangeInputComponent
           label={rangeInputLabel}
@@ -108,7 +63,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
             Done
           </ButtonComponent>
         </div>
-      </form>
+      </div>
     </DrawerComponent>
   );
 }

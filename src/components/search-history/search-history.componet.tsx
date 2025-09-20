@@ -14,9 +14,11 @@ import { generateSearchUrl } from "@/utils/url.utils.ts";
 import styles from "./search-history.module.css";
 
 export default function SearchHistoryComponent(): ReactNode {
-  const items = useSearchHistoryStore((state) => state.items);
-  const remove = useSearchHistoryStore((state) => state.remove);
-  const clear = useSearchHistoryStore((state) => state.clear);
+  const items = useSearchHistoryStore((state) => state.searchHistoryItems);
+  const remove = useSearchHistoryStore(
+    (state) => state.removeSearchHistoryItem,
+  );
+  const clear = useSearchHistoryStore((state) => state.clearSearchHistory);
 
   return (
     <div className={styles["search-history"]}>

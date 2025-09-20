@@ -8,16 +8,16 @@ import IconComponent from "@/components/icon/icon.component";
 import styles from "./filter-button.module.css";
 
 type Props = {
-  ref: RefObject<HTMLDialogElement | null>;
+  formDrawerRef: RefObject<HTMLDialogElement | null>;
   className?: string;
 };
 
 export default function FilterButtonComponent({
-  ref,
+  formDrawerRef,
   className,
 }: Props): ReactNode {
   const handleFilterButtonClick = (): void => {
-    ref?.current?.showModal();
+    formDrawerRef?.current?.showModal();
   };
 
   return (
