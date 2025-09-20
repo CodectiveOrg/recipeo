@@ -7,16 +7,18 @@ import { searchRecipesApi } from "@/api/recipe/search-recipes.api.ts";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 import RecipeCardComponent from "@/components/recipe-card/recipe-card.component.tsx";
 
-import useFilterParams from "@/hooks/use-filter-params.hook.ts";
+import HandfulSection from "@/sections/handful/handful.section.tsx";
 
-import styles from "./search-result.module.css";
+type Props = {
+  queryString: string;
+};
 
-export default function SearchResultComponent(): ReactNode {
-  const [params] = useFilterParams();
-
+export default function SearchResultsComponent({
+  queryString,
+}: Props): ReactNode {
   const { data, isPending, isError } = useQuery({
-    queryKey: ["recipes", "search", params],
-    queryFn: () => searchRecipesApi(params),
+    queryKey: ["recipes", "search", queryString],
+    queryFn: () => searchRecipesApi(queryString),
   });
 
   if (isPending) {
@@ -28,12 +30,12 @@ export default function SearchResultComponent(): ReactNode {
   }
 
   return (
-    <div className={styles["search-result"]}>
+    <HandfulSection title="Search Results">
       <ul>
         {data.map((recipe) => (
           <RecipeCardComponent key={recipe.id} recipe={recipe} />
         ))}
       </ul>
-    </div>
+    </HandfulSection>
   );
 }

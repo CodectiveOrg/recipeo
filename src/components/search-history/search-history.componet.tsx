@@ -25,7 +25,7 @@ export default function SearchHistoryComponent(): ReactNode {
       <ul>
         {items.map((item, index) => (
           <li key={index}>
-            <Link to={generateSearchUrl(item)}>
+            <Link to={`/search?${generateSearchUrl(item)}`}>
               <IconComponent
                 name="clock-circle-linear"
                 color="text-secondary"

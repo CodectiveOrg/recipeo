@@ -15,5 +15,5 @@ export function generateSearchUrl(dto: SearchRequestDto): string {
     params.append("maxDuration", dto.maxDuration.toString());
   }
 
-  return `/search?${params.toString()}`;
+  return params.toString();
 }
