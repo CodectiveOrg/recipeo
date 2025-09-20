@@ -14,18 +14,17 @@ import {
   type RecipeType,
 } from "@/validation/schemas/recipe.schema.ts";
 
-import { postRecipeApi } from "@/api/recipe/post-recipe.api";
+import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 import ImageInputComponent from "@/components/image-input/image-input.component";
-import RangeInputLabelComponent from "@/components/range-input/components/label/label.component";
 import RangeInputComponent from "@/components/range-input/range-input.component";
 import SuccessModalComponent from "@/components/success-modal/success-modal.component";
 import TextAreaComponent from "@/components/text-area/text-area.component";
 import TextInputComponent from "@/components/text-input/text-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
-import type { RecipeRequestDto } from "@/dto/request/resipe.request.dto";
+import type { CreateRecipeRequestDto } from "@/dto/request/create-recipe.request.dto.ts";
 
 import {
   generateIngredient,
@@ -73,12 +72,12 @@ export default function RecipeFormComponent({
 
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
-    mutationFn: postRecipeApi,
+    mutationFn: createRecipeApi,
   });
 
   const onSubmit = async (data: RecipeType): Promise<void> => {
     const pictureStr = await ToBase64(data.picture);
-    const dto: RecipeRequestDto = {
+    const dto: CreateRecipeRequestDto = {
       ...data,
       picture: pictureStr,
       tags: data.tags.map((tag) => ({
@@ -161,7 +160,20 @@ export default function RecipeFormComponent({
         control={control}
         render={({ field }) => (
           <RangeInputComponent
-            label={<RangeInputLabelComponent />}
+            label={
+              <>
+                <TypographyComponent as="span" variant="h2">
+                  Max Duration
+                </TypographyComponent>
+                <TypographyComponent
+                  as="span"
+                  variant="p1"
+                  color="text-secondary"
+                >
+                  (in minutes)
+                </TypographyComponent>
+              </>
+            }
             min={10}
             max={60}
             watchedValue={field.value}
