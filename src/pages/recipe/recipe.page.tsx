@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getRecipeApi } from "@/api/recipe/get-recipe.api";
 
 import LoadingComponent from "@/components/loading/loading.component";
+import TitleComponent from "@/components/title/title.component.tsx";
 
 import RecipeCoverComponent from "@/pages/recipe/components/recipe-cover/recipe-cover.component.tsx";
 import RecipePanelComponent from "@/pages/recipe/components/recipe-panel/recipe-panel.component.tsx";
@@ -35,6 +36,7 @@ export default function RecipePage(): ReactNode {
 
   return (
     <div className={styles.recipe}>
+      <TitleComponent>{data?.title ?? "Recipe"}</TitleComponent>
       <header />
       <main>
         <RecipeCoverComponent picture={data.picture} />
