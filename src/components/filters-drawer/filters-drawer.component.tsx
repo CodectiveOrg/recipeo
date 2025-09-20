@@ -8,6 +8,8 @@ import RangeInputComponent from "@/components/range-input/range-input.component"
 import TagInputComponent from "@/components/tag-input/tag-input.component";
 import TypographyComponent from "@/components/typography/typography.component";
 
+import { maxDurationFilter } from "@/configs/search-filters.config.ts";
+
 import styles from "./filters-drawer.module.css";
 
 type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref">;
@@ -47,7 +49,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
           label={rangeInputLabel}
           {...register("maxDuration")}
           min={10}
-          max={60}
+          max={maxDurationFilter.defaultValue}
           watchedValue={watchedMaxDuration}
         />
         <div className={styles.actions}>

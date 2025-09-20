@@ -3,7 +3,7 @@ import { create } from "zustand/react";
 
 import type { SearchRequestDto } from "@/dto/request/search.request.dto.ts";
 
-const MAX_LENGTH = 3;
+const MAX_LENGTH = 5;
 
 type SearchHistoryState = {
   searchHistoryItems: SearchRequestDto[];
