@@ -1,9 +1,8 @@
 import { type ReactNode } from "react";
 
-import { Link } from "react-router";
-
+import BackButtonComponent from "@/components/back-button/back-button.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component";
+import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import RecipeFormComponent from "@/pages/create/components/recipe-form/recipe-form.component.tsx";
 
@@ -14,8 +13,9 @@ export default function CreatePage(): ReactNode {
     <div className={styles.create}>
       <TitleComponent>Create</TitleComponent>
       <header>
-        <TypographyComponent as={Link} to="/" variant="h2">
-          Cancel
+        <BackButtonComponent className={styles["back-button"]} />
+        <TypographyComponent variant="h2" className={styles.title}>
+          Create
         </TypographyComponent>
       </header>
       <main>
