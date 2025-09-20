@@ -11,12 +11,19 @@ import { getAllTagsApi } from "@/api/tag/get-all-tags.api.ts";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 import SelectComponent from "@/components/select/select.component.tsx";
 
+import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
+
 type Props = {
   index: number;
 };
 
 export default function TagInputComponent({ index }: Props): ReactNode {
-  const { control } = useFormContext<RecipeType>();
+  const {
+    control,
+    formState: { errors, isSubmitted },
+  } = useFormContext<RecipeType>();
+
+  const titleErrorMessage = errors.ingredients?.[index]?.title?.message;
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["tags"],
@@ -32,18 +39,26 @@ export default function TagInputComponent({ index }: Props): ReactNode {
   }
 
   return (
-    <Controller
-      name={`tags.${index}.title`}
-      control={control}
-      render={({ field }) => (
-        <SelectComponent {...field}>
-          {data.map((tag) => (
-            <option key={tag.id} value={tag.title}>
-              {tag.title}
-            </option>
-          ))}
-        </SelectComponent>
-      )}
-    />
+    <>
+      <Controller
+        name={`tags.${index}.title`}
+        control={control}
+        render={({ field }) => (
+          <SelectComponent
+            state={
+              titleErrorMessage ? "error" : isSubmitted ? "success" : "idle"
+            }
+            {...field}
+          >
+            {data.map((tag) => (
+              <option key={tag.id} value={tag.title}>
+                {tag.title}
+              </option>
+            ))}
+          </SelectComponent>
+        )}
+      />
+      <RecipeFormErrorComponent message={titleErrorMessage} />
+    </>
   );
 }

@@ -7,6 +7,8 @@ import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
 import TextAreaComponent from "@/components/text-area/text-area.component.tsx";
 
+import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
+
 import styles from "./step-input.module.css";
 
 type Props = {
@@ -14,7 +16,13 @@ type Props = {
 };
 
 export function StepInputComponent({ index }: Props): ReactNode {
-  const { control } = useFormContext<RecipeType>();
+  const {
+    control,
+    formState: { errors, isSubmitted },
+  } = useFormContext<RecipeType>();
+
+  const descriptionErrorMessage = errors.steps?.[index]?.description?.message;
+  const pictureErrorMessage = errors.steps?.[index]?.picture?.message;
 
   return (
     <div className={styles["step-input"]}>
@@ -24,10 +32,18 @@ export function StepInputComponent({ index }: Props): ReactNode {
         render={({ field }) => (
           <TextAreaComponent
             placeholder="Tell a little about your food..."
+            state={
+              descriptionErrorMessage
+                ? "error"
+                : isSubmitted
+                  ? "success"
+                  : "idle"
+            }
             {...field}
           />
         )}
       />
+      <RecipeFormErrorComponent message={descriptionErrorMessage} />
       <Controller
         name={`steps.${index}.picture`}
         control={control}
@@ -42,6 +58,7 @@ export function StepInputComponent({ index }: Props): ReactNode {
           />
         )}
       />
+      <RecipeFormErrorComponent message={pictureErrorMessage} />
     </div>
   );
 }

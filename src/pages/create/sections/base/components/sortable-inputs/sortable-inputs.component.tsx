@@ -16,8 +16,6 @@ export default function SortableInputsComponent(): ReactNode {
     fieldArray: { fields },
   } = use(context);
 
-  console.log(fields);
-
   return (
     <SortableContext
       items={fields.map((item) => item.id)}
