@@ -10,10 +10,6 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 
-import { useFieldArray, useFormContext } from "react-hook-form";
-
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
-
 import { SectionContext } from "@/pages/create/context/section.context.ts";
 import BaseInputComponent from "@/pages/create/sections/base/components/base-input/base-input.component.tsx";
 
@@ -26,10 +22,9 @@ type Props = PropsWithChildren;
 
 export default function BaseDndProvider({ children }: Props): ReactNode {
   const { context } = use(SectionContext);
-  const { name } = use(context);
-
-  const { control } = useFormContext<RecipeType>();
-  const { move } = useFieldArray<RecipeType>({ control, name });
+  const {
+    fieldArray: { move },
+  } = use(context);
 
   const sensors = useSensors(useSensor(PointerSensor));
 

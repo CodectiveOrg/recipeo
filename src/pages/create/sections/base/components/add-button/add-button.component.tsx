@@ -1,9 +1,5 @@
 import { type ReactNode, use } from "react";
 
-import { useFieldArray, useFormContext } from "react-hook-form";
-
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
-
 import ButtonComponent from "@/components/button/button.component.tsx";
 
 import { SectionContext } from "@/pages/create/context/section.context.ts";
@@ -12,10 +8,11 @@ import styles from "./add-button.module.css";
 
 export default function AddButtonComponent(): ReactNode {
   const { context } = use(SectionContext);
-  const { name, label, generate } = use(context);
-
-  const { control } = useFormContext<RecipeType>();
-  const { append } = useFieldArray<RecipeType>({ control, name });
+  const {
+    label,
+    generate,
+    fieldArray: { append },
+  } = use(context);
 
   const handleButtonClick = (): void => {
     append(generate());

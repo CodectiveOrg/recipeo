@@ -1,6 +1,6 @@
 import { type Context, type JSXElementConstructor, createContext } from "react";
 
-import type { FieldArrayPath } from "react-hook-form";
+import type { FieldArrayPath, UseFieldArrayReturn } from "react-hook-form";
 
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
@@ -16,6 +16,7 @@ export type BaseContextValue<T extends BaseItem> = {
   label: string;
   generate: () => T;
   Component: BaseComponent;
+  fieldArray: UseFieldArrayReturn<RecipeType>;
 };
 
 export function createBaseContext<T extends BaseItem>(): Context<

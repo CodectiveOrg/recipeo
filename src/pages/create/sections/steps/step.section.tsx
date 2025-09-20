@@ -1,5 +1,9 @@
 import { type Context, type ReactNode } from "react";
 
+import { useFieldArray, useFormContext } from "react-hook-form";
+
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
+
 import type {
   BaseContextValue,
   BaseItem,
@@ -11,6 +15,12 @@ import BaseSection from "@/pages/create/sections/base/base.section.tsx";
 import { StepInputComponent } from "@/pages/create/sections/steps/components/step-input/step-input.component.tsx";
 
 export default function StepSection(): ReactNode {
+  const { control } = useFormContext<RecipeType>();
+  const fieldArray = useFieldArray<RecipeType>({
+    control,
+    name: "steps",
+  });
+
   return (
     <SectionContext
       value={{
@@ -24,6 +34,7 @@ export default function StepSection(): ReactNode {
           label: "Step",
           generate: generateStep,
           Component: StepInputComponent,
+          fieldArray,
         }}
       >
         <BaseSection />
