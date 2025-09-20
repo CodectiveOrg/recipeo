@@ -8,6 +8,8 @@ import clsx from "clsx";
 
 import { updateUserApi } from "@/api/user/update-user.api";
 
+import ImageComponent from "@/components/image/image.component";
+
 import styles from "./picture-picker.module.css";
 
 type Props = {
@@ -20,7 +22,7 @@ export default function PicturePickerComponent({
   className,
 }: Props): ReactNode {
   const formRef = useRef<HTMLFormElement>(null);
-  console.log(picture);
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -52,10 +54,7 @@ export default function PicturePickerComponent({
 
   return (
     <form ref={formRef} className={clsx(styles["picture-picker"], className)}>
-      <img
-        src={picture ?? "/placeholders/user.svg"}
-        alt="User's Profile Picture"
-      />
+      <ImageComponent folder="user" src={picture} alt="" />
       <label>
         <span className={styles.icon}>+</span>
         <input

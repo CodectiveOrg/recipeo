@@ -15,12 +15,6 @@
 
   clip-path: circle(50% at 50% 50%);
 
-  img {
-    max-block-size: 23.5rem;
-    max-inline-size: 23.5rem;
-    aspect-ratio: 1 / 1;
-  }
-
   label {
     position: absolute;
     z-index: 1;
