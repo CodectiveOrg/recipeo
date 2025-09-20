@@ -58,7 +58,7 @@ export default function RecipeFormComponent({
     register,
     control,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
   } = methods;
 
   const { mutateAsync } = useMutation({
@@ -90,7 +90,7 @@ export default function RecipeFormComponent({
               <ImageInputComponent onChange={(file) => field.onChange(file)} />
             )}
           />
-          <RecipeFormErrorComponent name="picture" />
+          <RecipeFormErrorComponent message={errors.picture?.message} />
         </div>
         <div className={styles.section}>
           <TypographyComponent as="h2" variant="h2">
@@ -100,7 +100,7 @@ export default function RecipeFormComponent({
             placeholder="Enter food name"
             {...register("title")}
           />
-          <RecipeFormErrorComponent name="title" />
+          <RecipeFormErrorComponent message={errors.title?.message} />
         </div>
         <div className={styles.section}>
           <TypographyComponent as="h2" variant="h2">
@@ -110,7 +110,7 @@ export default function RecipeFormComponent({
             placeholder="Tell a little about your food"
             {...register("description")}
           />
-          <RecipeFormErrorComponent name="description" />
+          <RecipeFormErrorComponent message={errors.description?.message} />
         </div>
         <div className={styles.section}>
           <TypographyComponent as="h2" variant="h2">
@@ -120,24 +120,24 @@ export default function RecipeFormComponent({
             </TypographyComponent>
           </TypographyComponent>
           <TextInputComponent placeholder="30" {...register("duration")} />
-          <RecipeFormErrorComponent name="duration" />
+          <RecipeFormErrorComponent message={errors.duration?.message} />
         </div>
         <div className={styles.section}>
           <IngredientsSection
             defaultValues={defaultValues}
             {...register("ingredients")}
           />
-          <RecipeFormErrorComponent name="ingredients" />
+          <RecipeFormErrorComponent message={errors.ingredients?.message} />
         </div>
         <hr />
         <div className={styles.section}>
           <StepSection defaultValues={defaultValues} {...register("steps")} />
-          <RecipeFormErrorComponent name="steps" />
+          <RecipeFormErrorComponent message={errors.steps?.message} />
         </div>
         <hr />
         <div className={styles.section}>
           <TagsSection defaultValues={defaultValues} {...register("tags")} />
-          <RecipeFormErrorComponent name="tags" />
+          <RecipeFormErrorComponent message={errors.tags?.message} />
         </div>
         <div className={styles.buttons}>
           <ButtonComponent as={Link} to="/" color="secondary" size="medium">
@@ -149,7 +149,7 @@ export default function RecipeFormComponent({
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Submitting..." : "Next"}
+            {isSubmitting ? "Submitting..." : "Submit"}
           </ButtonComponent>
         </div>
       </form>

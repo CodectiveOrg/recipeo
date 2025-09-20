@@ -1,27 +1,21 @@
 import type { ReactNode } from "react";
 
-import { useFormContext } from "react-hook-form";
-
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
-
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 type Props = {
-  name: keyof RecipeType;
+  message: string | undefined;
 };
 
-export default function RecipeFormErrorComponent({ name }: Props): ReactNode {
-  const {
-    formState: { errors },
-  } = useFormContext<RecipeType>();
-
-  if (!errors[name]) {
+export default function RecipeFormErrorComponent({
+  message,
+}: Props): ReactNode {
+  if (!message) {
     return null;
   }
 
   return (
-    <TypographyComponent as="span" variant="s" color="text-secondary">
-      {errors[name].message}
+    <TypographyComponent as="span" variant="s" color="danger">
+      {message}
     </TypographyComponent>
   );
 }
