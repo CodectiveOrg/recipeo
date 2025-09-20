@@ -2,8 +2,8 @@ import type { ReactNode, RefObject } from "react";
 
 import clsx from "clsx";
 
-import IconButtonComponent from "@/components/icon-button/icon-button.component";
-import IconComponent from "@/components/icon/icon.component";
+import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
+import IconComponent from "@/components/icon/icon.component.tsx";
 
 import styles from "./filter-button.module.css";
 

@@ -2,21 +2,15 @@ import { type PropsWithChildren, type ReactNode, type RefObject } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { useSearchHistoryStore } from "@/stores/search-history.store.ts";
+import { SearchFiltersSchema } from "@/validation/schemas/search-filters.schema.ts";
+
+import type { SearchFormValuesType } from "@/components/search/types/search-form-values.type.ts";
 
 import useFilterParams from "@/hooks/use-filter-params.hook.ts";
 
 import styles from "./search-form.module.css";
-
-const FiltersSchema = z.object({
-  phrase: z.coerce.string<string>(),
-  tag: z.coerce.string<string>(),
-  maxDuration: z.coerce.number<number>(),
-});
-
-type Values = z.infer<typeof FiltersSchema>;
 
 type Props = PropsWithChildren<{
   formDrawerRef: RefObject<HTMLDialogElement | null>;
@@ -32,14 +26,16 @@ export default function SearchFormComponent({
 
   const [params, setParams] = useFilterParams();
 
-  const methods = useForm<Values>({
+  const methods = useForm<SearchFormValuesType>({
     values: params,
-    resolver: zodResolver(FiltersSchema),
+    resolver: zodResolver(SearchFiltersSchema),
   });
 
   const { handleSubmit } = methods;
 
-  const handleFormSubmit = async (values: Values): Promise<void> => {
+  const handleFormSubmit = async (
+    values: SearchFormValuesType,
+  ): Promise<void> => {
     await setParams(values);
     addSearchHistoryItem(values);
     formDrawerRef.current?.close();

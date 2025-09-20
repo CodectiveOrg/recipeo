@@ -2,11 +2,12 @@ import { type ComponentProps, type ReactNode } from "react";
 
 import { useFormContext } from "react-hook-form";
 
-import ButtonComponent from "@/components/button/button.component";
+import ButtonComponent from "@/components/button/button.component.tsx";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
-import RangeInputComponent from "@/components/range-input/range-input.component";
-import TagInputComponent from "@/components/tag-input/tag-input.component";
-import TypographyComponent from "@/components/typography/typography.component";
+import RangeInputComponent from "@/components/range-input/range-input.component.tsx";
+import type { SearchFormValuesType } from "@/components/search/types/search-form-values.type.ts";
+import TagInputComponent from "@/components/tag-input/tag-input.component.tsx";
+import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import { maxDurationFilter } from "@/configs/search-filters.config.ts";
 
@@ -19,7 +20,7 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
     register,
     watch,
     formState: { isSubmitting },
-  } = useFormContext();
+  } = useFormContext<SearchFormValuesType>();
 
   const watchedMaxDuration = watch("maxDuration");
 
