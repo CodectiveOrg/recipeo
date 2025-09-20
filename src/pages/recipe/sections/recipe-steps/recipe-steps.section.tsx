@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 
+import type { StepType } from "@/validation/schemas/step.schema.ts";
+
 import ImageComponent from "@/components/image/image.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
-
-import type { Step } from "@/entities/step.ts";
 
 import styles from "./recipe-steps.module.css";
 
 type Props = {
-  steps: Step[];
+  steps: StepType[];
 };
 
 export default function RecipeStepsSection({ steps }: Props): ReactNode {
