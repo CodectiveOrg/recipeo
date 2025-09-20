@@ -27,6 +27,11 @@ import TypographyComponent from "@/components/typography/typography.component";
 
 import type { RecipeRequestDto } from "@/dto/request/resipe.request.dto";
 
+import {
+  generateIngredient,
+  generateStep,
+  generateTag,
+} from "@/pages/create/data/data-generator";
 import IngredientsSection from "@/pages/create/sections/ingredients/ingredients.section.tsx";
 import StepSection from "@/pages/create/sections/steps/step.section.tsx";
 import TagsSection from "@/pages/create/sections/tags/tags.section";
@@ -57,9 +62,9 @@ export default function RecipeFormComponent({
     defaultValues: {
       ...defaultValues,
       duration: 35,
-      ingredients: defaultValues?.ingredients ?? [],
-      steps: defaultValues?.steps ?? [],
-      tags: defaultValues?.tags ?? [],
+      ingredients: defaultValues?.ingredients ?? [generateIngredient()],
+      steps: defaultValues?.steps ?? [generateStep()],
+      tags: defaultValues?.tags ?? [generateTag()],
     },
     resolver: zodResolver(RecipeSchema),
     mode: "all",
@@ -91,6 +96,7 @@ export default function RecipeFormComponent({
     };
     await mutateAsync(dto, {
       onSuccess: (): void => {
+        console.log("dto", dto);
         openModal();
       },
       onError: (error): void => {
@@ -99,8 +105,15 @@ export default function RecipeFormComponent({
     });
   };
 
+  const onError = (errors: unknown): void => {
+    console.log("errors", errors);
+  };
+
   return (
-    <form className={styles["recipe-form"]} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={styles["recipe-form"]}
+      onSubmit={handleSubmit(onSubmit, onError)}
+    >
       <div className={styles.section}>
         <Controller
           name="picture"
