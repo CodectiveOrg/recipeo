@@ -18,7 +18,7 @@ export default function AddButtonComponent(): ReactNode {
     <ButtonComponent
       className={styles["add-more-button"]}
       shape="rounded"
-      variant="outlined"
+      variant="solid"
       color="secondary"
       size="small"
       onClick={handleButtonClick}
