@@ -18,6 +18,7 @@ import PopularPage from "@/pages/popular/popular.page.tsx";
 import RecentPage from "@/pages/recent/recent.page.tsx";
 import RecipePage from "@/pages/recipe/recipe.page.tsx";
 import SearchPage from "@/pages/search/search.page";
+import SettingsPage from "@/pages/settings/settings.page.tsx";
 import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
 import SignUpPage from "@/pages/sign-up/sign-up.page.tsx";
 import TagsPage from "@/pages/tags/tags.page.tsx";
@@ -37,6 +38,7 @@ export default function Routing(): ReactNode {
         <Route element={<SignedInLayout />}>
           <Route element={<SignedInOnlyGuard />}>
             <Route path="create" element={<CreatePage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
           <Route index element={<HomePage />} />
           <Route path="tags" element={<TagsPage />} />
