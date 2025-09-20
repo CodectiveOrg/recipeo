@@ -7,18 +7,20 @@ import IconComponent from "@/components/icon/icon.component.tsx";
 import type { SearchFormValuesType } from "@/components/search/types/search-form-values.type.ts";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 
+import useFilterParams from "@/hooks/use-filter-params.hook.ts";
+
 import styles from "./search-input.module.css";
 
 export default function SearchInputComponent(): ReactNode {
+  const [params, setParams] = useFilterParams();
+
   // TODO: When search history items are used several times, the input doesn't react.
-  const { register, watch, setValue } = useFormContext<SearchFormValuesType>();
+  const { register, watch } = useFormContext<SearchFormValuesType>();
 
   const watchedPhrase = watch("phrase");
 
-  const handleClearButtonClick = (): void => {
-    // TODO: 1. This doesn't change the url.
-    //       2. This doesn't submit the form.
-    setValue("phrase", "");
+  const handleClearButtonClick = async (): Promise<void> => {
+    await setParams({ ...params, phrase: "" });
   };
 
   return (
