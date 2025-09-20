@@ -1,6 +1,6 @@
 import { type ComponentProps, type ReactNode } from "react";
 
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 import DrawerComponent from "@/components/drawer/drawer.component.tsx";
@@ -17,12 +17,9 @@ type Props = Pick<ComponentProps<typeof DrawerComponent>, "ref">;
 
 export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
   const {
-    register,
-    watch,
+    control,
     formState: { isSubmitting },
   } = useFormContext<SearchFormValuesType>();
-
-  const watchedMaxDuration = watch("maxDuration");
 
   const handleCancelButtonClick = (): void => {
     ref.current?.close();
@@ -45,13 +42,23 @@ export default function FiltersDrawerComponent({ ref }: Props): ReactNode {
         Add a Filter
       </TypographyComponent>
       <div className={styles.fields}>
-        <TagInputComponent label="Tag" {...register("tag")} />
-        <RangeInputComponent
-          label={rangeInputLabel}
-          {...register("maxDuration")}
-          min={10}
-          max={maxDurationFilter.defaultValue}
-          watchedValue={watchedMaxDuration}
+        <Controller
+          control={control}
+          name="tag"
+          render={({ field }) => <TagInputComponent label="Tag" {...field} />}
+        />
+        <Controller
+          control={control}
+          name="maxDuration"
+          render={({ field }) => (
+            <RangeInputComponent
+              {...field}
+              label={rangeInputLabel}
+              min={10}
+              max={maxDurationFilter.defaultValue}
+              watchedValue={field.value}
+            />
+          )}
         />
         <div className={styles.actions}>
           <ButtonComponent
