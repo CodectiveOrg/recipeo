@@ -9,6 +9,7 @@ import useFilterParams from "@/hooks/use-filter-params.hook.ts";
 import SearchPagePlaceholderComponent from "@/pages/search/components/search-page-placeholder/search-page-placeholder.component.tsx";
 import SearchResultsComponent from "@/pages/search/components/search-results/search-results.component.tsx";
 
+import { formatSearchTitle } from "@/utils/format.utils.ts";
 import { generateSearchUrl } from "@/utils/url.utils.ts";
 
 import styles from "./search.module.css";
@@ -17,9 +18,11 @@ export default function SearchPage(): ReactNode {
   const [params] = useFilterParams();
   const queryString = generateSearchUrl(params);
 
+  const title = formatSearchTitle(params);
+
   return (
     <div className={styles.search}>
-      <TitleComponent>Search</TitleComponent>
+      <TitleComponent>{title ? `${title} | Search` : "Search"}</TitleComponent>
       <header>
         <BackButtonComponent />
         <SearchComponent />

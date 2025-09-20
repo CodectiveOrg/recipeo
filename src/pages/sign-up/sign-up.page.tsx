@@ -38,7 +38,7 @@ export default function SignUpPage(): ReactNode {
 
   return (
     <div className={styles["sign-up"]}>
-      <TitleComponent>SingUp</TitleComponent>
+      <TitleComponent>Sing Up</TitleComponent>
       <main>
         <AuthSection
           withValidation

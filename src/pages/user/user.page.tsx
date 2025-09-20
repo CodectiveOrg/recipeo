@@ -24,7 +24,7 @@ export default function UserPage(): ReactNode {
 
   return (
     <div className={styles.user}>
-      <TitleComponent>Profile</TitleComponent>
+      <TitleComponent>{currentUser?.username ?? "Profile"}</TitleComponent>
       <header>
         <BackButtonComponent />
         <ShareButtonComponent />

@@ -9,7 +9,7 @@ import styles from "./create.module.css";
 export default function CreatePage(): ReactNode {
   return (
     <div className={styles.home}>
-      <TitleComponent>Create Recipe</TitleComponent>
+      <TitleComponent>Create</TitleComponent>
       <header>Create Page</header>
       <main>
         <RecipeFormComponent />

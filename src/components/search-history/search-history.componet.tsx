@@ -9,8 +9,7 @@ import IconButtonComponent from "@/components/icon-button/icon-button.component.
 import IconComponent from "@/components/icon/icon.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
-import { searchFilters } from "@/configs/search-filters.config.ts";
-
+import { formatSearchTitle } from "@/utils/format.utils.ts";
 import { generateSearchUrl } from "@/utils/url.utils.ts";
 
 import styles from "./search-history.module.css";
@@ -42,17 +41,7 @@ export default function SearchHistoryComponent(): ReactNode {
                 className={styles.title}
                 variant="p1"
               >
-                {searchFilters
-                  .filter(
-                    (filter) =>
-                      item[filter.key] &&
-                      item[filter.key] !== filter.defaultValue,
-                  )
-                  .map(
-                    (filter) =>
-                      `${item[filter.key]}${filter.valueSuffix ?? ""}`,
-                  )
-                  .join(" - ")}
+                {formatSearchTitle(item)}
               </TypographyComponent>
             </Link>
             <IconButtonComponent onClick={() => remove(index)}>
