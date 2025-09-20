@@ -5,6 +5,7 @@ import clsx from "clsx";
 import styles from "./text-area.module.css";
 
 type Props = ComponentProps<"textarea"> & {
+  state?: "idle" | "success" | "error";
   defaultLines?: number;
   minLines?: number;
   maxLines?: number;
@@ -13,6 +14,7 @@ type Props = ComponentProps<"textarea"> & {
 export default function TextAreaComponent({
   className,
   style,
+  state = "idle",
   defaultLines = 3,
   minLines = 1,
   maxLines = 5,
@@ -26,7 +28,7 @@ export default function TextAreaComponent({
 
   return (
     <textarea
-      className={clsx(styles["text-area"], className)}
+      className={clsx(styles["text-area"], styles[state], className)}
       style={{
         ...customStyles,
         ...style,

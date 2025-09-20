@@ -1,6 +1,7 @@
-import { type Context, type ReactNode, useState } from "react";
+import { type Context, type ReactNode } from "react";
 
-import type { IngredientType } from "@/validation/schemas/ingredient.schema.ts";
+import { useFieldArray, useFormContext } from "react-hook-form";
+
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import type {
@@ -13,15 +14,11 @@ import { generateIngredient } from "@/pages/create/data/data-generator.ts";
 import BaseSection from "@/pages/create/sections/base/base.section.tsx";
 import IngredientInputComponent from "@/pages/create/sections/ingredients/components/ingredient-input/ingredient-input.component.tsx";
 
-type Props = {
-  defaultValues?: Partial<RecipeType>;
-};
-
-export default function IngredientsSection({
-  defaultValues,
-}: Props): ReactNode {
-  const [ingredients, setIngredients] = useState<IngredientType[]>(() => {
-    return defaultValues?.ingredients ?? [generateIngredient()];
+export default function IngredientsSection(): ReactNode {
+  const { control } = useFormContext<RecipeType>();
+  const fieldArray = useFieldArray<RecipeType>({
+    control,
+    name: "ingredients",
   });
 
   return (
@@ -35,11 +32,11 @@ export default function IngredientsSection({
       <IngredientsContext
         value={{
           layout: "simple",
-          name: "Ingredient",
-          items: ingredients,
-          setItems: setIngredients,
+          name: "ingredients",
+          label: "Ingredient",
           generate: generateIngredient,
           Component: IngredientInputComponent,
+          fieldArray,
         }}
       >
         <BaseSection />

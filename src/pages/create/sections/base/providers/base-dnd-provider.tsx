@@ -9,7 +9,6 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
 
 import { SectionContext } from "@/pages/create/context/section.context.ts";
 import BaseInputComponent from "@/pages/create/sections/base/components/base-input/base-input.component.tsx";
@@ -23,7 +22,9 @@ type Props = PropsWithChildren;
 
 export default function BaseDndProvider({ children }: Props): ReactNode {
   const { context } = use(SectionContext);
-  const { setItems } = use(context);
+  const {
+    fieldArray: { move },
+  } = use(context);
 
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -42,11 +43,7 @@ export default function BaseDndProvider({ children }: Props): ReactNode {
       return;
     }
 
-    setItems((old) => {
-      const oldIndex = old.findIndex((x) => x.id === active.id);
-      const newIndex = old.findIndex((x) => x.id === over.id);
-      return arrayMove(old, oldIndex, newIndex);
-    });
+    move(active.data.current!.index, over.data.current!.index);
   };
 
   return (

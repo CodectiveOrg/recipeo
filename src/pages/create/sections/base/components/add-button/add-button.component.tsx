@@ -8,23 +8,27 @@ import styles from "./add-button.module.css";
 
 export default function AddButtonComponent(): ReactNode {
   const { context } = use(SectionContext);
-  const { name, setItems, generate } = use(context);
+  const {
+    label,
+    generate,
+    fieldArray: { append },
+  } = use(context);
 
   const handleButtonClick = (): void => {
-    setItems((items) => [...items, generate()]);
+    append(generate());
   };
 
   return (
     <ButtonComponent
       className={styles["add-more-button"]}
       shape="rounded"
-      variant="outlined"
+      variant="solid"
       color="secondary"
       size="small"
       onClick={handleButtonClick}
     >
       <span className={styles.icon}>+</span>
-      Add Another {name}
+      Add Another {label}
     </ButtonComponent>
   );
 }

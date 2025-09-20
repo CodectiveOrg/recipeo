@@ -1,4 +1,7 @@
 .text-area {
+  --adornment-color: var(--color-text);
+  --border-color: var(--color-outline);
+
   --min-lines: 1;
   --default-lines: 3;
   --max-lines: 5;
@@ -37,7 +40,7 @@
 
   padding: var(--padding);
 
-  border: var(--border-width) solid var(--color-outline);
+  border: var(--border-width) solid var(--border-color);
   border-radius: 0.5rem;
 
   font-size: 0.9375rem;
@@ -49,8 +52,18 @@
     color: var(--color-text-secondary);
   }
 
+  &.success {
+    --adornment-color: var(--color-primary);
+    --border-color: var(--color-primary);
+  }
+
+  &.error {
+    --adornment-color: var(--color-danger);
+    --border-color: var(--color-danger);
+  }
+
   &:focus {
-    outline: 1px solid var(--color-text);
+    outline: 1px solid var(--adornment-color);
     outline-offset: -2px;
   }
 }

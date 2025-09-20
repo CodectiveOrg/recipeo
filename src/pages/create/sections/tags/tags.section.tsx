@@ -1,7 +1,8 @@
-import { type Context, type ReactNode, useState } from "react";
+import { type Context, type ReactNode } from "react";
 
-import type { RecipeType } from "@/validation/schemas/recipe.schema";
-import type { TagType } from "@/validation/schemas/tag.schema";
+import { useFieldArray, useFormContext } from "react-hook-form";
+
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import type {
   BaseContextValue,
@@ -13,13 +14,11 @@ import { generateTag } from "@/pages/create/data/data-generator";
 import BaseSection from "@/pages/create/sections/base/base.section";
 import TagInputComponent from "@/pages/create/sections/tags/components/tag-input/tag-input.component.tsx";
 
-type Props = {
-  defaultValues?: Partial<RecipeType>;
-};
-
-export default function TagsSection({ defaultValues }: Props): ReactNode {
-  const [tags, setTags] = useState<TagType[]>(() => {
-    return defaultValues?.tags ?? [generateTag()];
+export default function TagsSection(): ReactNode {
+  const { control } = useFormContext<RecipeType>();
+  const fieldArray = useFieldArray<RecipeType>({
+    control,
+    name: "tags",
   });
 
   return (
@@ -31,11 +30,11 @@ export default function TagsSection({ defaultValues }: Props): ReactNode {
       <TagsContext
         value={{
           layout: "simple",
-          name: "Tag",
-          items: tags,
-          setItems: setTags,
+          name: "tags",
+          label: "Tag",
           generate: generateTag,
           Component: TagInputComponent,
+          fieldArray,
         }}
       >
         <BaseSection />

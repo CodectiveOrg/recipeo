@@ -25,7 +25,11 @@ export default function BaseInputComponent<T extends BaseItem>({
   item,
 }: Props<T>): ReactNode {
   const { context } = use(SectionContext);
-  const { layout, setItems, Component } = use(context);
+  const {
+    layout,
+    Component,
+    fieldArray: { fields, remove },
+  } = use(context);
 
   const {
     attributes,
@@ -38,7 +42,8 @@ export default function BaseInputComponent<T extends BaseItem>({
   } = useSortable({ id: item.id, data: { index, item } });
 
   const handleRemoveButtonClick = (): void => {
-    setItems((old) => old.filter((x) => x.id !== item.id));
+    const index = fields.findIndex((x) => x.id === item.id);
+    remove(index);
   };
 
   return (
@@ -58,11 +63,7 @@ export default function BaseInputComponent<T extends BaseItem>({
       {...attributes}
     >
       <span className={styles.component}>
-        <Component
-          presentational={presentational}
-          item={item}
-          setItems={setItems}
-        />
+        <Component index={index} />
       </span>
       <span className={styles.number}>{index + 1}</span>
       <IconButtonComponent className={styles["drag-handle"]} {...listeners}>
