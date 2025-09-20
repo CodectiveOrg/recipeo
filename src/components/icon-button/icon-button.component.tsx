@@ -12,7 +12,11 @@ export default function IconButtonComponent({
   ...otherProps
 }: Props): ReactNode {
   return (
-    <button className={clsx(styles["icon-button"], className)} {...otherProps}>
+    <button
+      className={clsx(styles["icon-button"], className)}
+      type="button"
+      {...otherProps}
+    >
       {children}
     </button>
   );
@@ -24,7 +28,11 @@ export function IconButtonSkeleton({
   ...otherProps
 }: Props): ReactNode {
   return (
-    <span className={clsx(styles["icon-button"], className)} {...otherProps}>
+    <span
+      className={clsx(styles["icon-button"], className)}
+      type="button"
+      {...otherProps}
+    >
       {children}
     </span>
   );
