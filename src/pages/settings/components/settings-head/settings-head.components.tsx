@@ -1,10 +1,6 @@
 import { type ReactNode } from "react";
 
-import { useQuery } from "@tanstack/react-query";
-
 import clsx from "clsx";
-
-import { getUserPictureApi } from "@/api/public/get-user-picture.api";
 
 import PicturePickerComponent from "@/components/picture-picker/picture-picker.component";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
