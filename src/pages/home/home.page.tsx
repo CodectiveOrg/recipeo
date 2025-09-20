@@ -59,19 +59,15 @@ export default function HomePage(): ReactNode {
             queryResult={featuredRecipesQueryResult}
           />
         </HandfulSection>
-        <br />
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>
-        <br />
         <HandfulSection title="Popular Recipes" viewAllHref="/popular">
           <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />
         </HandfulSection>
-        <br />
         <HandfulSection title="Editor's Choice" viewAllHref="/chosen">
           <ChosenRecipesComponent queryResult={chosenRecipesQueryResult} />
         </HandfulSection>
-        <br />
         <HandfulSection title="Recent Recipes" viewAllHref="/recent">
           <InfiniteRecipesComponent queryResult={recentRecipesQueryResult} />
         </HandfulSection>

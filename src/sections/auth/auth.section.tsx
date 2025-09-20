@@ -94,6 +94,7 @@ export default function AuthSection({
         />
         {withValidation && <AuthValidationComponent rules={rules} />}
         <ButtonComponent
+          type="submit"
           disabled={withValidation && rules.some((rule) => !rule.isValid)}
         >
           {submitText}

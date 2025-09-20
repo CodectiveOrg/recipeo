@@ -17,6 +17,7 @@
     "<THIRD_PARTY_MODULES>",
     "^@/api",
     "^@/components",
+    "^@/configs",
     "^@/dto",
     "^@/entities",
     "^@/guards",

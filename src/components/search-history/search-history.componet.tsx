@@ -9,21 +9,29 @@ import IconButtonComponent from "@/components/icon-button/icon-button.component.
 import IconComponent from "@/components/icon/icon.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
+import { searchFilters } from "@/configs/search-filters.config.ts";
+
 import { generateSearchUrl } from "@/utils/url.utils.ts";
 
 import styles from "./search-history.module.css";
 
 export default function SearchHistoryComponent(): ReactNode {
-  const items = useSearchHistoryStore((state) => state.items);
-  const remove = useSearchHistoryStore((state) => state.remove);
-  const clear = useSearchHistoryStore((state) => state.clear);
+  const items = useSearchHistoryStore((state) => state.searchHistoryItems);
+  const remove = useSearchHistoryStore(
+    (state) => state.removeSearchHistoryItem,
+  );
+  const clear = useSearchHistoryStore((state) => state.clearSearchHistory);
+
+  if (items.length === 0) {
+    return null;
+  }
 
   return (
     <div className={styles["search-history"]}>
       <ul>
         {items.map((item, index) => (
           <li key={index}>
-            <Link to={generateSearchUrl(item)}>
+            <Link to={`/search?${generateSearchUrl(item)}`}>
               <IconComponent
                 name="clock-circle-linear"
                 color="text-secondary"
@@ -34,8 +42,16 @@ export default function SearchHistoryComponent(): ReactNode {
                 className={styles.title}
                 variant="p1"
               >
-                {[item.query, item.tag, item.maxDuration]
-                  .filter(Boolean)
+                {searchFilters
+                  .filter(
+                    (filter) =>
+                      item[filter.key] &&
+                      item[filter.key] !== filter.defaultValue,
+                  )
+                  .map(
+                    (filter) =>
+                      `${item[filter.key]}${filter.valueSuffix ?? ""}`,
+                  )
                   .join(" - ")}
               </TypographyComponent>
             </Link>
@@ -48,16 +64,14 @@ export default function SearchHistoryComponent(): ReactNode {
           </li>
         ))}
       </ul>
-      {items.length > 0 && (
-        <ButtonComponent
-          variant="text"
-          color="secondary"
-          size="small"
-          onClick={clear}
-        >
-          Clear Search History
-        </ButtonComponent>
-      )}
+      <ButtonComponent
+        variant="text"
+        color="secondary"
+        size="small"
+        onClick={clear}
+      >
+        Clear Search History
+      </ButtonComponent>
     </div>
   );
 }

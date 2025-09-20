@@ -8,7 +8,7 @@
     text-align: center;
   }
 
-  form {
+  .fields {
     display: grid;
     gap: 2rem;
 

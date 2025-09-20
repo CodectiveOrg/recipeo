@@ -10,8 +10,6 @@
 
   .duration {
     .tag {
-      text-transform: capitalize;
-
       &:not(:empty) {
         &::after {
           content: " - ";
