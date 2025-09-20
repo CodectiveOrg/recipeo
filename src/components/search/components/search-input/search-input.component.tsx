@@ -9,6 +9,7 @@ import TextInputComponent from "@/components/text-input/text-input.component.tsx
 import styles from "./search-input.module.css";
 
 export default function SearchInputComponent(): ReactNode {
+  // TODO: When search history items are used several times, the input doesn't react.
   const { register, watch, setValue } = useFormContext();
 
   const watchedPhrase = watch("phrase");

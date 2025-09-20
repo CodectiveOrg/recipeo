@@ -1,4 +1,4 @@
-import type { PropsWithChildren, ReactNode, RefObject } from "react";
+import { type PropsWithChildren, type ReactNode, type RefObject } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
@@ -41,7 +41,7 @@ export default function SearchFormComponent({
 
   const handleFormSubmit = async (values: Values): Promise<void> => {
     await setParams(values);
-    addSearchHistoryItem({ phrase: values.phrase });
+    addSearchHistoryItem(values);
     formDrawerRef.current?.close();
   };
 
