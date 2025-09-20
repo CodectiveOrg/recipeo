@@ -24,8 +24,8 @@ export default function SettingsFormComponent({
 }: Props): ReactNode {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationKey: ["user", "settings"],
+  const { mutateAsync } = useMutation({
+    mutationKey: ["user", user.id],
     mutationFn: updateUserApi,
     onError: (error) => {
       toast.error(error.message);
@@ -40,14 +40,14 @@ export default function SettingsFormComponent({
     },
   });
 
-  const handleSubmitForm = async (
+  const handleFormSubmit = async (
     e: FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
 
-    await mutation.mutateAsync({
+    await mutateAsync({
       user: {
         username: formData.get("username") as string,
         password: formData.get("password") as string,
@@ -59,7 +59,7 @@ export default function SettingsFormComponent({
   return (
     <form
       className={clsx(styles["settings-form"], className)}
-      onSubmit={handleSubmitForm}
+      onSubmit={handleFormSubmit}
     >
       <TextInputComponent name="username" defaultValue={user.username} />
       <TextInputComponent
@@ -67,8 +67,8 @@ export default function SettingsFormComponent({
         type="email"
         defaultValue={user.email}
       ></TextInputComponent>
-      <PasswordInputComponent name="password" placeholder="********" />
-      <ButtonComponent>Save</ButtonComponent>
+      <PasswordInputComponent name="password" />
+      <ButtonComponent type="submit">Save</ButtonComponent>
     </form>
   );
 }
