@@ -21,7 +21,6 @@ export default function AddButtonComponent(): ReactNode {
       variant="outlined"
       color="secondary"
       size="small"
-      type="button"
       onClick={handleButtonClick}
     >
       <span className={styles.icon}>+</span>

@@ -1,0 +1,13 @@
+.search {
+  header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+
+    padding: 1.5rem;
+  }
+
+  main {
+    padding-inline: 1.5rem;
+  }
+}

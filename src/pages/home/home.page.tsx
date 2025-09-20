@@ -12,6 +12,7 @@ import FeaturedRecipesCarouselComponent from "@/components/featured-carousel/fea
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
+import TitleComponent from "@/components/title/title.component.tsx";
 
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import HandfulSection from "@/sections/handful/handful.section.tsx";
@@ -49,6 +50,7 @@ export default function HomePage(): ReactNode {
 
   return (
     <div className={styles.home}>
+      <TitleComponent>Home</TitleComponent>
       <header>
         <GreetingsSection />
       </header>
@@ -58,19 +60,15 @@ export default function HomePage(): ReactNode {
             queryResult={featuredRecipesQueryResult}
           />
         </HandfulSection>
-        <br />
         <HandfulSection title="Tags" viewAllHref="/tags">
           <TagsCarouselComponent />
         </HandfulSection>
-        <br />
         <HandfulSection title="Popular Recipes" viewAllHref="/popular">
           <RecipesCarouselComponent queryResult={popularRecipesQueryResult} />
         </HandfulSection>
-        <br />
         <HandfulSection title="Editor's Choice" viewAllHref="/chosen">
           <ChosenRecipesComponent queryResult={chosenRecipesQueryResult} />
         </HandfulSection>
-        <br />
         <HandfulSection title="Recent Recipes" viewAllHref="/recent">
           <InfiniteRecipesComponent queryResult={recentRecipesQueryResult} />
         </HandfulSection>

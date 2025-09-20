@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
+import TitleComponent from "@/components/title/title.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./onboarding.module.css";
@@ -10,6 +11,7 @@ import styles from "./onboarding.module.css";
 export default function OnboardingPage(): ReactNode {
   return (
     <div className={styles.onboarding}>
+      <TitleComponent>Get Started</TitleComponent>
       <main>
         <img src="/images/onboarding.webp" alt="" />
         <div className={styles.writings}>

@@ -1,5 +1,5 @@
 export type SearchRequestDto = {
-  query?: string;
+  phrase?: string;
   tag?: string;
   maxDuration?: number;
 };
