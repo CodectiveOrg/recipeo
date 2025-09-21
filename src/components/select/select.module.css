@@ -1,4 +1,7 @@
 .select {
+  --adornment-color: var(--color-text);
+  --border-color: var(--color-outline);
+
   background-color: var(--color-white);
   color: var(--color-text);
 
@@ -6,7 +9,7 @@
 
   padding: calc(1rem - 1px);
 
-  border: 1px solid var(--color-outline);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
 
   font-size: 0.9375rem;
@@ -18,8 +21,18 @@
     color: inherit;
   }
 
+  &.success {
+    --adornment-color: var(--color-primary);
+    --border-color: var(--color-primary);
+  }
+
+  &.error {
+    --adornment-color: var(--color-danger);
+    --border-color: var(--color-danger);
+  }
+
   &:focus {
-    outline: 1px solid var(--color-text);
+    outline: 1px solid var(--adornment-color);
     outline-offset: -2px;
   }
 }

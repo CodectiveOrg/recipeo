@@ -2,9 +2,9 @@ import { type ComponentProps, type ReactNode, useRef } from "react";
 
 import SkeletonComponent from "@/components/skeleton/skeleton.component.tsx";
 
-type Folder = "user" | "featured" | "recipe" | "step";
+import type { PictureFolderType } from "@/types/picture-folder.type.ts";
 
-const placeholders: Record<Folder, string> = {
+const placeholders: Record<PictureFolderType, string> = {
   user: "/placeholders/user.svg",
   featured: "/placeholders/featured.webp",
   recipe: "/placeholders/recipe.webp",
@@ -12,7 +12,7 @@ const placeholders: Record<Folder, string> = {
 };
 
 type Props = Omit<ComponentProps<"img">, "src"> & {
-  folder: Folder;
+  folder: PictureFolderType;
   src: string | null;
   alt: string;
 };

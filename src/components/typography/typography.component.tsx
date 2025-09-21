@@ -19,7 +19,7 @@ type Props<T extends ElementType> = {
   className?: string;
   style?: CSSProperties;
   variant: "h1" | "h2" | "h3" | "p1" | "p2" | "s";
-  color?: "inherit" | "primary" | "text" | "text-secondary";
+  color?: "inherit" | "primary" | "danger" | "text" | "text-secondary";
   maxLines?: number;
 };
 

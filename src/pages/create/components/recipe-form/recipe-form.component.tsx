@@ -1,25 +1,135 @@
-import { type ReactNode } from "react";
+import { type ReactNode, use } from "react";
 
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
+import { Link } from "react-router";
 
+import { useMutation } from "@tanstack/react-query";
+
+import { toast } from "react-toastify";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+
+import {
+  RecipeSchema,
+  type RecipeType,
+} from "@/validation/schemas/recipe.schema.ts";
+import type { StepType } from "@/validation/schemas/step.schema.ts";
+
+import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
+
+import ButtonComponent from "@/components/button/button.component";
+
+import { DataContext } from "@/pages/create/context/data.context.ts";
+import {
+  generateIngredient,
+  generateStep,
+  generateTag,
+} from "@/pages/create/data/data-generator";
+import DescriptionSection from "@/pages/create/sections/description/description.section.tsx";
+import DurationSection from "@/pages/create/sections/duration/duration.section.tsx";
 import IngredientsSection from "@/pages/create/sections/ingredients/ingredients.section.tsx";
+import PictureSection from "@/pages/create/sections/picture/picture.section.tsx";
 import StepSection from "@/pages/create/sections/steps/step.section.tsx";
 import TagsSection from "@/pages/create/sections/tags/tags.section";
+import TitleSection from "@/pages/create/sections/title/title.section.tsx";
+
+import { convertToFormData } from "@/utils/form.utils.ts";
 
 import styles from "./recipe-form.module.css";
 
 type Props = {
-  defaultValues?: Partial<RecipeType>;
+  defaultValues?: RecipeType;
+  onSubmit?: () => void;
 };
 
 export default function RecipeFormComponent({
   defaultValues,
+  onSubmit,
 }: Props): ReactNode {
+  const { allTags } = use(DataContext);
+
+  const methods = useForm({
+    defaultValues: defaultValues ?? {
+      title: "",
+      description: "",
+      duration: 35,
+      picture: undefined,
+      ingredients: [generateIngredient()],
+      steps: [generateStep()],
+      tags: [generateTag(allTags)],
+    },
+    resolver: zodResolver(RecipeSchema),
+  });
+
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
+  const { mutateAsync } = useMutation({
+    mutationKey: ["recipe", "create"],
+    mutationFn: createRecipeApi,
+    onSuccess: (): void => {
+      onSubmit?.();
+    },
+    onError: (error): void => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleFormSubmit = async (data: RecipeType): Promise<void> => {
+    const processedData: any = { ...data };
+
+    const stepsPictures: StepType["picture"][] = processedData.steps.map(
+      (step: StepType) => step.picture,
+    );
+
+    processedData.steps = processedData.steps.map((step: StepType) => ({
+      ...step,
+      picture: undefined,
+    }));
+
+    const formData = convertToFormData(processedData);
+
+    stepsPictures.forEach((stepPicture, index) => {
+      if (stepPicture instanceof File) {
+        formData.append(`stepPicture.${index}`, stepPicture);
+      }
+    });
+
+    await mutateAsync(formData);
+  };
+
   return (
-    <form className={styles["recipe-form"]}>
-      <IngredientsSection defaultValues={defaultValues} />
-      <StepSection defaultValues={defaultValues} />
-      <TagsSection defaultValues={defaultValues} />
-    </form>
+    <FormProvider {...methods}>
+      <form
+        className={styles["recipe-form"]}
+        onSubmit={handleSubmit(handleFormSubmit)}
+      >
+        <PictureSection />
+        <TitleSection />
+        <DescriptionSection />
+        <DurationSection />
+        <hr />
+        <IngredientsSection />
+        <hr />
+        <StepSection />
+        <hr />
+        <TagsSection />
+        <div className={styles.buttons}>
+          <ButtonComponent as={Link} to="/" color="secondary" size="medium">
+            Cancel
+          </ButtonComponent>
+          <ButtonComponent
+            type="submit"
+            color="primary"
+            size="medium"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </ButtonComponent>
+        </div>
+      </form>
+    </FormProvider>
   );
 }

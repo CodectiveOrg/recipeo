@@ -1,7 +1,8 @@
-import { type Context, type ReactNode, useState } from "react";
+import { type Context, type ReactNode } from "react";
+
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
-import type { StepType } from "@/validation/schemas/step.schema.ts";
 
 import type {
   BaseContextValue,
@@ -11,15 +12,13 @@ import { SectionContext } from "@/pages/create/context/section.context.ts";
 import { StepsContext } from "@/pages/create/context/steps.context.ts";
 import { generateStep } from "@/pages/create/data/data-generator.ts";
 import BaseSection from "@/pages/create/sections/base/base.section.tsx";
-import StepInputComponent from "@/pages/create/sections/steps/components/step-input/step-input.component.tsx";
+import { StepInputComponent } from "@/pages/create/sections/steps/components/step-input/step-input.component.tsx";
 
-type Props = {
-  defaultValues?: Partial<RecipeType>;
-};
-
-export default function StepSection({ defaultValues }: Props): ReactNode {
-  const [steps, setSteps] = useState<StepType[]>(() => {
-    return defaultValues?.steps ?? [generateStep()];
+export default function StepSection(): ReactNode {
+  const { control } = useFormContext<RecipeType>();
+  const fieldArray = useFieldArray<RecipeType>({
+    control,
+    name: "steps",
   });
 
   return (
@@ -31,11 +30,11 @@ export default function StepSection({ defaultValues }: Props): ReactNode {
       <StepsContext
         value={{
           layout: "complex",
-          name: "Step",
-          items: steps,
-          setItems: setSteps,
+          name: "steps",
+          label: "Step",
           generate: generateStep,
           Component: StepInputComponent,
+          fieldArray,
         }}
       >
         <BaseSection />

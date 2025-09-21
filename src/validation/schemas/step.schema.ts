@@ -1,8 +1,10 @@
 import { z } from "zod";
 
 export const StepSchema = z.object({
-  id: z.uuid(),
-  description: z.string().trim().nonempty(),
+  description: z
+    .string("Description must be a string.")
+    .trim()
+    .nonempty("Description cannot be empty."),
   picture: z.union([z.string(), z.file().nullable()]),
 });
 

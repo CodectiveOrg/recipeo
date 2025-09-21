@@ -25,7 +25,7 @@
 
     &.danger {
       background-color: transparent;
-      color: var(--color-red);
+      color: var(--color-danger);
     }
   }
 

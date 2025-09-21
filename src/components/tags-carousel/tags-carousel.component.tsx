@@ -40,7 +40,7 @@ export default function TagsCarouselComponent(): ReactNode {
         <ButtonComponent
           key={tag.id}
           as={Link}
-          to={`/tag/${tag.title}`}
+          to={`/search?tag=${tag.title}`}
           size="small"
           variant={tag.title === tagFilter.label ? "solid" : "outlined"}
         >
