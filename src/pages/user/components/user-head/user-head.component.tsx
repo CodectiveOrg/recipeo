@@ -1,18 +1,17 @@
 import type { ReactNode } from "react";
 
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import { useQuery } from "@tanstack/react-query";
 
 import { getUserApi } from "@/api/user/get-user.api.ts";
 
-import ButtonComponent from "@/components/button/button.component.tsx";
 import ImageComponent from "@/components/image/image.component.tsx";
 import LoadingComponent from "@/components/loading/loading.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
-import FollowButtonComponent from "@/pages/user/components/follow-button/follow-button.component.tsx";
+import UserHeadActionsComponent from "@/pages/user/components/user-head-actions/user-head-actions.component.tsx";
 import UserStatsComponent from "@/pages/user/components/user-stats/user-stats.component.tsx";
 
 import useVerifyQuery from "@/queries/use-verify.query.ts";
@@ -30,7 +29,7 @@ export default function UserHeadComponent(): ReactNode {
     data: user,
   } = useQuery({
     queryKey: ["user", +userId!],
-    queryFn: () => getUserApi({ userId }),
+    queryFn: () => getUserApi(+userId!),
   });
 
   if (isVerifyPending || isUserPending) {
@@ -54,19 +53,7 @@ export default function UserHeadComponent(): ReactNode {
         {user.username}
       </TypographyComponent>
       <UserStatsComponent user={user} />
-      {currentUser ? (
-        currentUser.id !== user.id && (
-          <FollowButtonComponent
-            className={styles.button}
-            targetUserId={user.id}
-            isFollowedByCurrentUser={user.isFollowedByCurrentUser}
-          />
-        )
-      ) : (
-        <ButtonComponent className={styles.button} as={Link} to="/sign-in">
-          Sign In to Follow
-        </ButtonComponent>
-      )}
+      <UserHeadActionsComponent currentUser={currentUser} user={user} />
     </div>
   );
 }

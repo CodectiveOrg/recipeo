@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-import { IngredientSchema } from "@/validation/schemas/ingredient.schema.ts";
+import { IngredientSchema } from "@/validation/schemas/recipe/ingredient.schema.ts";
 import {
   RecipeDescriptionSchema,
   RecipeDurationSchema,
   RecipeTitleSchema,
-} from "@/validation/schemas/recipe-fields.schema.ts";
-import { StepSchema } from "@/validation/schemas/step.schema.ts";
-import { TagArraySchema } from "@/validation/schemas/tag.schema";
+} from "@/validation/schemas/recipe/recipe-fields.schema.ts";
+import { StepSchema } from "@/validation/schemas/recipe/step.schema.ts";
+import { TagArraySchema } from "@/validation/schemas/recipe/tag.schema.ts";
 
 export const RecipeSchema = z.object({
   title: RecipeTitleSchema,

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { useSearchHistoryStore } from "@/stores/search-history.store.ts";
-import { SearchFiltersSchema } from "@/validation/schemas/search-filters.schema.ts";
+import { SearchFiltersSchema } from "@/validation/schemas/search/search-filters.schema.ts";
 
 import type { SearchFormValuesType } from "@/components/search/types/search-form-values.type.ts";
 

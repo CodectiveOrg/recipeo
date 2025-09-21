@@ -1,13 +1,14 @@
 .upload-image {
+  --border-radius: 1rem;
+
   background-color: var(--color-white);
 
   position: relative;
   isolation: isolate;
-  overflow: hidden;
 
   display: block;
 
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
 
   cursor: pointer;
 
@@ -24,6 +25,10 @@
     block-size: 100%;
 
     padding: 1rem;
+
+    img {
+      border-radius: var(--border-radius);
+    }
   }
 
   .preview {
@@ -43,7 +48,18 @@
       object-fit: cover;
     }
 
-    button {
+    .edit-icon {
+      color: var(--color-white);
+
+      position: absolute;
+      inset: 0;
+
+      margin: auto;
+
+      font-size: 2rem;
+    }
+
+    .remove-button {
       background-color: var(--color-form);
       color: var(--color-danger);
 
@@ -67,10 +83,6 @@
       block-size: 10rem;
 
       padding: 1rem;
-
-      img {
-        border-radius: 1rem;
-      }
     }
   }
 
@@ -87,6 +99,36 @@
 
       > svg {
         font-size: 3rem;
+      }
+    }
+  }
+
+  &.profile {
+    --border-radius: 999rem;
+
+    block-size: 8rem;
+    inline-size: 8rem;
+
+    .blank {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 0.25rem;
+
+      text-align: center;
+
+      > svg {
+        font-size: 3rem;
+      }
+    }
+
+    .preview {
+      .remove-button {
+        background-color: transparent;
+
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-end: 0;
       }
     }
   }

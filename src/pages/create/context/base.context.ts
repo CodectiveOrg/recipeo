@@ -2,7 +2,7 @@ import { type Context, type JSXElementConstructor, createContext } from "react";
 
 import type { FieldArrayPath, UseFieldArrayReturn } from "react-hook-form";
 
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
+import type { RecipeType } from "@/validation/schemas/recipe/recipe.schema.ts";
 
 export type BaseItem = { id: string };
 

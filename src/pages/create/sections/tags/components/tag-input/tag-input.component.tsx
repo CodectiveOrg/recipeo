@@ -2,11 +2,11 @@ import { type ReactNode, use } from "react";
 
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
+import type { RecipeType } from "@/validation/schemas/recipe/recipe.schema.ts";
 
+import ErrorMessageComponent from "@/components/error-message/error-message.component.tsx";
 import SelectComponent from "@/components/select/select.component.tsx";
 
-import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 import { DataContext } from "@/pages/create/context/data.context.ts";
 
 type Props = {
@@ -17,7 +17,7 @@ export default function TagInputComponent({ index }: Props): ReactNode {
   const { allTags } = use(DataContext);
 
   const { control } = useFormContext<RecipeType>();
-  const { errors, isSubmitted } = useFormState({ control });
+  const { errors, isSubmitted } = useFormState<RecipeType>({ control });
 
   const titleErrorMessage = errors.tags?.[index]?.title?.message;
 
@@ -41,7 +41,7 @@ export default function TagInputComponent({ index }: Props): ReactNode {
           </SelectComponent>
         )}
       />
-      <RecipeFormErrorComponent message={titleErrorMessage} />
+      <ErrorMessageComponent message={titleErrorMessage} />
     </>
   );
 }

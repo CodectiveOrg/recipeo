@@ -1,5 +1,8 @@
-import type { TagType } from "@/validation/schemas/tag.schema";
+import type { TagType } from "@/validation/schemas/recipe/tag.schema.ts";
 
-import { createBaseContext } from "@/pages/create/context/base.context.ts";
+import {
+  type BaseItem,
+  createBaseContext,
+} from "@/pages/create/context/base.context.ts";
 
-export const TagsContext = createBaseContext<TagType>();
+export const TagsContext = createBaseContext<BaseItem & TagType>();

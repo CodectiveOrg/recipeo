@@ -2,15 +2,14 @@ import { type ReactNode } from "react";
 
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
+import type { RecipeType } from "@/validation/schemas/recipe/recipe.schema.ts";
 
+import ErrorMessageComponent from "@/components/error-message/error-message.component.tsx";
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
-
-import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 
 export default function PictureSection(): ReactNode {
   const { control } = useFormContext<RecipeType>();
-  const { errors } = useFormState({ control });
+  const { errors } = useFormState<RecipeType>({ control });
 
   return (
     <div>
@@ -24,7 +23,7 @@ export default function PictureSection(): ReactNode {
           />
         )}
       />
-      <RecipeFormErrorComponent message={errors.picture?.message} />
+      <ErrorMessageComponent message={errors.picture?.message} />
     </div>
   );
 }

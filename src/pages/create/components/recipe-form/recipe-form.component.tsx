@@ -12,8 +12,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   RecipeSchema,
   type RecipeType,
-} from "@/validation/schemas/recipe.schema.ts";
-import type { StepType } from "@/validation/schemas/step.schema.ts";
+} from "@/validation/schemas/recipe/recipe.schema.ts";
+import type { StepType } from "@/validation/schemas/recipe/step.schema.ts";
 
 import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
 
@@ -39,12 +39,12 @@ import styles from "./recipe-form.module.css";
 
 type Props = {
   defaultValues?: RecipeType;
-  onSubmit?: () => void;
+  onSuccess?: (id: number) => void;
 };
 
 export default function RecipeFormComponent({
   defaultValues,
-  onSubmit,
+  onSuccess,
 }: Props): ReactNode {
   const { allTags } = use(DataContext);
 
@@ -69,8 +69,8 @@ export default function RecipeFormComponent({
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
     mutationFn: createRecipeApi,
-    onSuccess: (): void => {
-      onSubmit?.();
+    onSuccess: (result): void => {
+      onSuccess?.(result.id);
     },
     onError: (error): void => {
       toast.error(error.message);
@@ -116,7 +116,7 @@ export default function RecipeFormComponent({
         <StepSection />
         <hr />
         <TagsSection />
-        <div className={styles.buttons}>
+        <div className={styles.actions}>
           <ButtonComponent as={Link} to="/" color="secondary" size="medium">
             Cancel
           </ButtonComponent>

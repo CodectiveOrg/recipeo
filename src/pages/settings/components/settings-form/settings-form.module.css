@@ -1,0 +1,21 @@
+.settings-form {
+  display: grid;
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    margin-block-start: 1.5rem;
+  }
+
+  > *:not(:first-child) {
+    &:not(.error) {
+      margin-block-start: 1.5rem;
+    }
+
+    &.error {
+      margin-block-start: 0.5rem;
+    }
+  }
+}

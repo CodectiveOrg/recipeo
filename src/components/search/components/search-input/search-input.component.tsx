@@ -14,10 +14,14 @@ import styles from "./search-input.module.css";
 export default function SearchInputComponent(): ReactNode {
   const [params, setParams] = useFilterParams();
 
-  const { control } = useFormContext<SearchFormValuesType>();
+  const { control, resetField } = useFormContext<SearchFormValuesType>();
 
   const handleClearButtonClick = async (): Promise<void> => {
-    await setParams({ ...params, phrase: "" });
+    if (!params.phrase) {
+      resetField("phrase");
+    } else {
+      await setParams({ ...params, phrase: "" });
+    }
   };
 
   return (

@@ -1,5 +1,8 @@
-import type { StepType } from "@/validation/schemas/step.schema.ts";
+import type { StepType } from "@/validation/schemas/recipe/step.schema.ts";
 
-import { createBaseContext } from "@/pages/create/context/base.context.ts";
+import {
+  type BaseItem,
+  createBaseContext,
+} from "@/pages/create/context/base.context.ts";
 
-export const StepsContext = createBaseContext<StepType>();
+export const StepsContext = createBaseContext<BaseItem & StepType>();

@@ -7,7 +7,7 @@ type Props = {
   message: string | undefined;
 };
 
-export default function RecipeFormErrorComponent({
+export default function ErrorMessageComponent({
   className,
   message,
 }: Props): ReactNode {

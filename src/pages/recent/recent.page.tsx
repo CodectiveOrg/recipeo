@@ -4,10 +4,9 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { getRecentRecipesApi } from "@/api/recipe/get-recent-recipes.api.ts";
 
-import BackButtonComponent from "@/components/back-button/back-button.component.tsx";
+import HeaderWithBackButtonComponent from "@/components/header-with-back-button/header-with-back-button.component.tsx";
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import styles from "./recent.module.css";
 
@@ -28,12 +27,7 @@ export default function RecentPage(): ReactNode {
   return (
     <div className={styles.recent}>
       <TitleComponent>Recent Recipes</TitleComponent>
-      <header>
-        <BackButtonComponent className={styles["back-button"]} />
-        <TypographyComponent variant="h2" className={styles.title}>
-          Recent Recipes
-        </TypographyComponent>
-      </header>
+      <HeaderWithBackButtonComponent title="Recent Recipes" />
       <main>
         <InfiniteRecipesComponent queryResult={queryResult} />
       </main>

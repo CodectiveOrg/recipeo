@@ -7,6 +7,8 @@
     block-size: 4.5rem;
     inline-size: 4.5rem;
     object-fit: cover;
+
+    border-radius: 999rem;
   }
 
   .button {

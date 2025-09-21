@@ -6,6 +6,7 @@ import IconComponent from "@/components/icon/icon.component.tsx";
 
 import {
   type SearchFilter,
+  type SearchFilterKey,
   searchFilters,
 } from "@/configs/search-filters.config.ts";
 
@@ -16,8 +17,8 @@ import styles from "./current-filters.module.css";
 export default function CurrentFiltersComponent(): ReactNode {
   const [params, setParams] = useFilterParams();
 
-  const handleClearButtonClick = async (
-    filter: SearchFilter,
+  const handleClearButtonClick = async <T extends SearchFilterKey>(
+    filter: SearchFilter<T>,
   ): Promise<void> => {
     await setParams({ ...params, [filter.key]: filter.defaultValue });
   };
