@@ -60,11 +60,8 @@ export default function RecipeFormComponent({
 
   const {
     handleSubmit,
-    watch,
     formState: { isSubmitting },
   } = methods;
-
-  console.log(watch("tags"));
 
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
