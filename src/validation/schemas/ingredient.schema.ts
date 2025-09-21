@@ -1,8 +1,9 @@
 import { z } from "zod";
 
+import { RecipeTitleSchema } from "@/validation/schemas/recipe-fields.schema.ts";
+
 export const IngredientSchema = z.object({
-  id: z.uuid(),
-  title: z.string().trim().nonempty(),
+  title: RecipeTitleSchema,
 });
 
 export type IngredientType = z.infer<typeof IngredientSchema>;

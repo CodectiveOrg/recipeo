@@ -12,15 +12,17 @@ import styles from "./sortable-inputs.module.css";
 
 export default function SortableInputsComponent(): ReactNode {
   const { context } = use(SectionContext);
-  const { items } = use(context);
+  const {
+    fieldArray: { fields },
+  } = use(context);
 
   return (
     <SortableContext
-      items={items.map((item) => item.id)}
+      items={fields.map((item) => item.id)}
       strategy={verticalListSortingStrategy}
     >
       <ul className={styles["sortable-inputs"]}>
-        {items.map((item, index) => (
+        {fields.map((item, index) => (
           <BaseInputComponent key={item.id} index={index} item={item} />
         ))}
       </ul>

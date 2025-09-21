@@ -3,8 +3,6 @@ import {
   type ComponentProps,
   type MouseEvent,
   type ReactNode,
-  type RefObject,
-  useRef,
   useState,
 } from "react";
 
@@ -14,33 +12,33 @@ import clsx from "clsx";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component";
+import ImageComponent from "@/components/image/image.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
+
+import type { PictureFolderType } from "@/types/picture-folder.type.ts";
 
 import styles from "./image-input.module.css";
 
 const MAX_SIZE_MEGABYTE = 1;
 const MAX_SIZE_BYTE = MAX_SIZE_MEGABYTE * 1024 * 1024;
 
-type Props = Omit<ComponentProps<"input">, "ref" | "accept" | "onChange"> & {
-  ref?: RefObject<HTMLInputElement | null>;
+type Props = Omit<ComponentProps<"input">, "accept" | "onChange"> & {
   accept?: `image/${string}`;
   layout?: "simple" | "complex";
+  folder: PictureFolderType;
   previouslyUploadedPicture?: string;
   onChange?: (file: File | null) => void;
 };
 
 export default function ImageInputComponent({
-  ref,
   className,
   layout = "complex",
+  folder,
   previouslyUploadedPicture,
   onChange,
   ...otherProps
 }: Props): ReactNode {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  const localRef = useRef<HTMLInputElement | null>(null);
-  const finalRef = ref ?? localRef;
 
   const updatePreviewUrl = (file: File | null): void => {
     if (previewUrl) {
@@ -78,10 +76,6 @@ export default function ImageInputComponent({
   };
 
   const remove = (): void => {
-    if (finalRef.current) {
-      finalRef.current.value = "";
-    }
-
     updatePreviewUrl(null);
     onChange?.(null);
   };
@@ -121,8 +115,15 @@ export default function ImageInputComponent({
 
   const previewContent = (
     <div className={styles.preview}>
-      {/* TODO: Use ImageComponent. */}
-      <img src={previouslyUploadedPicture ?? previewUrl ?? ""} alt="" />
+      {previouslyUploadedPicture ? (
+        <ImageComponent
+          folder={folder}
+          src={previouslyUploadedPicture}
+          alt=""
+        />
+      ) : (
+        <img src={previewUrl ?? ""} alt="" />
+      )}
       <IconButtonComponent onClick={handleRemoveButtonClick}>
         <IconComponent name="close-circle-bold" />
       </IconButtonComponent>
@@ -132,7 +133,6 @@ export default function ImageInputComponent({
   return (
     <label className={clsx(styles["upload-image"], styles[layout], className)}>
       <input
-        ref={finalRef}
         type="file"
         accept="image/*"
         onChange={handleInputChange}

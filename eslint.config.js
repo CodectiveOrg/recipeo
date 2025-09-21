@@ -27,6 +27,7 @@ export default tseslint.config([
         { allowExpressions: true },
       ],
       "@typescript-eslint/explicit-member-accessibility": "error",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ]);

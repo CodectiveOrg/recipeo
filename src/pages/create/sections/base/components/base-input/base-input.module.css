@@ -1,6 +1,6 @@
 .base-input {
   display: grid;
-  align-items: center;
+  align-items: start;
   gap: 0.5rem;
 
   svg {
@@ -49,6 +49,11 @@
     grid-template-areas: "drag-handle component remove-button";
     grid-template-columns: var(--icon-size) minmax(0, 1fr) var(--icon-size);
 
+    .drag-handle,
+    .remove-button {
+      margin-block: 1rem;
+    }
+
     .number {
       display: none;
     }
@@ -57,6 +62,5 @@
   &.complex {
     grid-template-areas: "number component remove-button" "drag-handle component ." ". component .";
     grid-template-columns: var(--icon-size) minmax(0, 1fr) var(--icon-size);
-    align-items: start;
   }
 }

@@ -1,67 +1,63 @@
-import {
-  type ChangeEvent,
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-} from "react";
+import { type ReactNode } from "react";
 
-import type { StepType } from "@/validation/schemas/step.schema.ts";
+import { Controller, useFormContext, useFormState } from "react-hook-form";
+
+import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
 import ImageInputComponent from "@/components/image-input/image-input.component.tsx";
 import TextAreaComponent from "@/components/text-area/text-area.component.tsx";
 
+import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
+
 import styles from "./step-input.module.css";
 
 type Props = {
-  presentational?: boolean;
-  item: StepType;
-  setItems: Dispatch<SetStateAction<StepType[]>>;
+  index: number;
 };
 
-export default function StepInputComponent({
-  item,
-  setItems,
-}: Props): ReactNode {
-  const handleDescriptionInputChange = (
-    e: ChangeEvent<HTMLTextAreaElement>,
-  ): void => {
-    setItems((old) =>
-      old.map((x) => {
-        if (x.id !== item.id) {
-          return x;
-        }
+export function StepInputComponent({ index }: Props): ReactNode {
+  const { control } = useFormContext<RecipeType>();
+  const { errors, isSubmitted } = useFormState({ control });
 
-        return { ...x, description: e.target.value };
-      }),
-    );
-  };
-
-  const handlePictureInputChange = (file: File | null): void => {
-    setItems((old) =>
-      old.map((x) => {
-        if (x.id !== item.id) {
-          return x;
-        }
-
-        return { ...x, picture: file };
-      }),
-    );
-  };
+  const descriptionErrorMessage = errors.steps?.[index]?.description?.message;
+  const pictureErrorMessage = errors.steps?.[index]?.picture?.message;
 
   return (
     <div className={styles["step-input"]}>
-      <TextAreaComponent
-        value={item.description}
-        onChange={handleDescriptionInputChange}
-        placeholder="Tell a little about your food..."
+      <Controller
+        name={`steps.${index}.description`}
+        control={control}
+        render={({ field }) => (
+          <TextAreaComponent
+            placeholder="Tell a little about your food..."
+            state={
+              descriptionErrorMessage
+                ? "error"
+                : isSubmitted
+                  ? "success"
+                  : "idle"
+            }
+            {...field}
+          />
+        )}
       />
-      <ImageInputComponent
-        layout="simple"
-        previouslyUploadedPicture={
-          typeof item.picture === "string" ? item.picture : undefined
-        }
-        onChange={handlePictureInputChange}
+      <RecipeFormErrorComponent message={descriptionErrorMessage} />
+      <Controller
+        name={`steps.${index}.picture`}
+        control={control}
+        render={({ field }) => (
+          <ImageInputComponent
+            layout="simple"
+            folder="step"
+            previouslyUploadedPicture={
+              typeof field.value === "string" ? field.value : undefined
+            }
+            {...field}
+            value={undefined}
+          />
+        )}
       />
+      <RecipeFormErrorComponent message={pictureErrorMessage} />
     </div>
   );
 }

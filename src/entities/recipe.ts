@@ -11,9 +11,9 @@ export class Recipe {
   public duration!: number;
   public picture!: string | null;
   public isChosen!: boolean;
-  public tags!: Tag[];
   public ingredients!: Ingredient[];
   public steps!: Step[];
+  public tags!: Tag[];
   public user!: EssentialUser;
   public likes!: Like[];
   public createdAt!: Date;
