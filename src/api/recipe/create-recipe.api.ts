@@ -1,12 +1,18 @@
-import type { ResponseDto } from "@/dto/response/response.dto.ts";
+import type { CreateRecipeResponseDto } from "@/dto/response/create-recipe.response.dto.ts";
 
 import { richFetch } from "@/utils/fetch.utils.ts";
 
 export async function createRecipeApi(
   formData: FormData,
-): Promise<ResponseDto> {
-  return richFetch("/recipe", {
+): Promise<CreateRecipeResponseDto> {
+  const data = await richFetch<CreateRecipeResponseDto>("/recipe", {
     method: "POST",
     body: formData,
   });
+
+  if ("error" in data) {
+    throw new Error(data.error);
+  }
+
+  return data.result;
 }

@@ -10,13 +10,19 @@ import styles from "./success-modal.module.css";
 
 type Props = {
   ref: ComponentProps<typeof ModalComponent>["ref"];
+  createdRecipeId: number | null;
 };
 
-export default function SuccessModalComponent({ ref }: Props): ReactNode {
+export default function SuccessModalComponent({
+  ref,
+  createdRecipeId,
+}: Props): ReactNode {
+  const href = `/recipe/${createdRecipeId}`;
+
   const navigate = useNavigate();
 
   const navigateToHomePage = (): void => {
-    navigate("/");
+    navigate(href);
   };
 
   return (
@@ -35,8 +41,8 @@ export default function SuccessModalComponent({ ref }: Props): ReactNode {
           Your recipe has been uploaded, you can see it on your profile.
         </TypographyComponent>
       </div>
-      <ButtonComponent as={Link} to="/">
-        Back to Home
+      <ButtonComponent as={Link} to={href}>
+        View Recipe
       </ButtonComponent>
     </ModalComponent>
   );

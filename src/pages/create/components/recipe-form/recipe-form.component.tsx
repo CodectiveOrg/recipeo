@@ -39,12 +39,12 @@ import styles from "./recipe-form.module.css";
 
 type Props = {
   defaultValues?: RecipeType;
-  onSubmit?: () => void;
+  onSuccess?: (id: number) => void;
 };
 
 export default function RecipeFormComponent({
   defaultValues,
-  onSubmit,
+  onSuccess,
 }: Props): ReactNode {
   const { allTags } = use(DataContext);
 
@@ -69,8 +69,8 @@ export default function RecipeFormComponent({
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
     mutationFn: createRecipeApi,
-    onSuccess: (): void => {
-      onSubmit?.();
+    onSuccess: (result): void => {
+      onSuccess?.(result.id);
     },
     onError: (error): void => {
       toast.error(error.message);
