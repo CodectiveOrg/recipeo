@@ -42,6 +42,7 @@ export default function SignOutButtonComponent(): ReactNode {
     <ButtonComponent
       iconOnly
       className={styles["sign-out-button"]}
+      variant="outlined"
       color="danger"
       onClick={handleSignOutButtonClick}
     >
