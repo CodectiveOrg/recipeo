@@ -1,5 +1,5 @@
 .onboarding {
-  main {
+  > main {
     display: grid;
     align-content: start;
 

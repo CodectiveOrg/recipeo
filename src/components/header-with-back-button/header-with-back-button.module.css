@@ -16,6 +16,13 @@
     grid-row: 1 / -1;
   }
 
+  .custom-title {
+    grid-column: 2 / -1;
+    grid-row: 1 / -1;
+
+    inline-size: 100%;
+  }
+
   .extra {
     grid-column: 3 / -1;
     grid-row: 1 / -1;

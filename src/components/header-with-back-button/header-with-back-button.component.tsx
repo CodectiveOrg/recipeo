@@ -6,7 +6,7 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 import styles from "./header-with-back-button.module.css";
 
 type Props = {
-  title?: string;
+  title?: string | ReactNode;
   extra?: ReactNode;
 };
 
@@ -17,9 +17,13 @@ export default function HeaderWithBackButtonComponent({
   return (
     <header className={styles["header-with-back-button"]}>
       <BackButtonComponent className={styles["back-button"]} />
-      <TypographyComponent variant="h2" className={styles.title}>
-        {title}
-      </TypographyComponent>
+      {typeof title === "string" ? (
+        <TypographyComponent variant="h2" className={styles.title}>
+          {title}
+        </TypographyComponent>
+      ) : (
+        <div className={styles["custom-title"]}>{title}</div>
+      )}
       {extra && <div className={styles.extra}>{extra}</div>}
     </header>
   );
