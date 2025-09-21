@@ -1,6 +1,5 @@
 .settings-form {
   display: grid;
-  gap: 1.5rem;
 
   .actions {
     display: grid;
@@ -8,5 +7,15 @@
     gap: 1rem;
 
     margin-block-start: 1.5rem;
+  }
+
+  > *:not(:first-child) {
+    &:not(.error) {
+      margin-block-start: 1.5rem;
+    }
+
+    &.error {
+      margin-block-start: 0.5rem;
+    }
   }
 }

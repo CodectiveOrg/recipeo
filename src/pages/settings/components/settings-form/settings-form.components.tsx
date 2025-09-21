@@ -17,6 +17,7 @@ import {
 import { updateUserApi } from "@/api/user/update-user.api.ts";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
+import ErrorMessageComponent from "@/components/error-message/error-message.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
@@ -43,7 +44,7 @@ export default function SettingsFormComponent(): ReactNode {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
   } = methods;
 
   const queryClient = useQueryClient();
@@ -76,11 +77,19 @@ export default function SettingsFormComponent(): ReactNode {
         onSubmit={handleSubmit(handleFormSubmit)}
       >
         <UserImageInputComponent />
+        <ErrorMessageComponent
+          className={styles.error}
+          message={errors.picture?.message}
+        />
         <TextInputComponent
           {...register("username")}
           autoComplete="username"
           placeholder="MyNameIsAwesome"
           startAdornment={<IconComponent name="user-linear" color="text" />}
+        />
+        <ErrorMessageComponent
+          className={styles.error}
+          message={errors.username?.message}
         />
         <TextInputComponent
           {...register("email")}
@@ -89,6 +98,10 @@ export default function SettingsFormComponent(): ReactNode {
           placeholder="name@email.com"
           startAdornment={<IconComponent name="letter-linear" color="text" />}
         />
+        <ErrorMessageComponent
+          className={styles.error}
+          message={errors.email?.message}
+        />
         <PasswordInputComponent
           {...register("password")}
           autoComplete="new-password"
@@ -96,6 +109,10 @@ export default function SettingsFormComponent(): ReactNode {
           startAdornment={
             <IconComponent name="lock-keyhole-minimalistic-outline" />
           }
+        />
+        <ErrorMessageComponent
+          className={styles.error}
+          message={errors.password?.message}
         />
         <div className={styles.actions}>
           <ButtonComponent
