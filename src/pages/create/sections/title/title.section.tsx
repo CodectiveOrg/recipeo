@@ -9,12 +9,14 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 
+import styles from "./title.module.css";
+
 export default function TitleSection(): ReactNode {
   const { control } = useFormContext<RecipeType>();
   const { errors } = useFormState({ control });
 
   return (
-    <div>
+    <div className={styles.section}>
       <TypographyComponent as="h2" variant="h2">
         Food Name
       </TypographyComponent>
