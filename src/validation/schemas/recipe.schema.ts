@@ -1,14 +1,19 @@
 import { z } from "zod";
 
 import { IngredientSchema } from "@/validation/schemas/ingredient.schema.ts";
+import {
+  RecipeDescriptionSchema,
+  RecipeDurationSchema,
+  RecipeTitleSchema,
+} from "@/validation/schemas/recipe-fields.schema.ts";
 import { StepSchema } from "@/validation/schemas/step.schema.ts";
 import { TagArraySchema } from "@/validation/schemas/tag.schema";
 
 export const RecipeSchema = z.object({
-  title: z.string().trim().nonempty(),
-  description: z.string().min(20),
-  duration: z.coerce.number<number>().min(10),
-  picture: z.instanceof(File),
+  title: RecipeTitleSchema,
+  description: RecipeDescriptionSchema,
+  duration: RecipeDurationSchema,
+  picture: z.file().nullable(),
   ingredients: z.array(IngredientSchema),
   steps: z.array(StepSchema),
   tags: TagArraySchema,

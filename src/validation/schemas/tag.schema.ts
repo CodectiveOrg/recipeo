@@ -1,8 +1,10 @@
 import { z } from "zod";
 
+import { RecipeTitleSchema } from "@/validation/schemas/recipe-fields.schema.ts";
+
 export const TagSchema = z.object({
   id: z.uuid(),
-  title: z.string().trim().nonempty(),
+  title: RecipeTitleSchema,
 });
 
 export type TagType = z.infer<typeof TagSchema>;
