@@ -11,8 +11,7 @@ export const SettingsSchema = z.object({
   ]),
   username: UsernameSchema.optional(),
   email: EmailSchema.optional(),
-  currentPassword: z.string().optional(),
-  newPassword: PasswordSchema.optional(),
+  password: PasswordSchema.optional(),
 });
 
 export type SettingsType = z.infer<typeof SettingsSchema>;

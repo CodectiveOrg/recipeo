@@ -79,24 +79,20 @@ export default function SettingsFormComponent(): ReactNode {
         <TextInputComponent
           {...register("username")}
           autoComplete="username"
+          placeholder="MyNameIsAwesome"
           startAdornment={<IconComponent name="user-linear" color="text" />}
         />
         <TextInputComponent
           {...register("email")}
           type="email"
           autoComplete="email"
+          placeholder="name@email.com"
           startAdornment={<IconComponent name="letter-linear" color="text" />}
         />
         <PasswordInputComponent
-          {...register("currentPassword")}
-          autoComplete="current-password"
-          startAdornment={
-            <IconComponent name="lock-keyhole-minimalistic-outline" />
-          }
-        />
-        <PasswordInputComponent
-          {...register("newPassword")}
+          {...register("password")}
           autoComplete="new-password"
+          placeholder="new!@#$password"
           startAdornment={
             <IconComponent name="lock-keyhole-minimalistic-outline" />
           }
