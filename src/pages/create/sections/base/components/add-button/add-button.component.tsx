@@ -18,7 +18,7 @@ export default function AddButtonComponent(): ReactNode {
   } = use(context);
 
   const handleButtonClick = (): void => {
-    append(generate(allTags));
+    append(generate(allTags as never) as never);
   };
 
   return (
