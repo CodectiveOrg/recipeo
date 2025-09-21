@@ -46,13 +46,14 @@ export default function RecipeFormComponent({
   const { allTags } = use(DataContext);
 
   const methods = useForm({
-    defaultValues: {
-      ...defaultValues,
-      title: defaultValues?.title ?? "",
+    defaultValues: defaultValues ?? {
+      title: "",
+      description: "",
       duration: 35,
-      ingredients: defaultValues?.ingredients ?? [generateIngredient()],
-      steps: defaultValues?.steps ?? [generateStep()],
-      tags: defaultValues?.tags ?? [generateTag(allTags)],
+      picture: undefined,
+      ingredients: [generateIngredient()],
+      steps: [generateStep()],
+      tags: [generateTag(allTags)],
     },
     resolver: zodResolver(RecipeSchema),
   });
