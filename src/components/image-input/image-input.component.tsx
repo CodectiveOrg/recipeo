@@ -26,7 +26,7 @@ type Props = Omit<ComponentProps<"input">, "accept" | "onChange"> & {
   accept?: `image/${string}`;
   layout?: "simple" | "complex";
   folder: PictureFolderType;
-  previouslyUploadedPicture?: string;
+  previouslyUploadedPicture?: string | null;
   onChange?: (file: File | null) => void;
 };
 

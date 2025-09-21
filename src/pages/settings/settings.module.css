@@ -1,5 +1,5 @@
 .settings {
-  header {
+  > header {
     display: grid;
     grid-template-columns: auto 1fr;
     justify-items: center;
@@ -18,11 +18,7 @@
     }
   }
 
-  main {
-    display: grid;
-    align-content: start;
-    gap: 1rem;
-
+  > main {
     padding-inline: 1rem;
   }
 }

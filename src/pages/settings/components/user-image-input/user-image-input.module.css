@@ -1,0 +1,8 @@
+.user-image-input {
+  justify-self: center;
+
+  block-size: 5rem;
+  inline-size: 5rem;
+
+  border-radius: 999rem;
+}

@@ -12,8 +12,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   RecipeSchema,
   type RecipeType,
-} from "@/validation/schemas/recipe.schema.ts";
-import type { StepType } from "@/validation/schemas/step.schema.ts";
+} from "@/validation/schemas/recipe/recipe.schema.ts";
+import type { StepType } from "@/validation/schemas/recipe/step.schema.ts";
 
 import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
 
@@ -116,7 +116,7 @@ export default function RecipeFormComponent({
         <StepSection />
         <hr />
         <TagsSection />
-        <div className={styles.buttons}>
+        <div className={styles.actions}>
           <ButtonComponent as={Link} to="/" color="secondary" size="medium">
             Cancel
           </ButtonComponent>

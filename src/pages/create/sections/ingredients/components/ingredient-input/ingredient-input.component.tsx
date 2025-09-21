@@ -2,11 +2,10 @@ import { type ReactNode } from "react";
 
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
+import type { RecipeType } from "@/validation/schemas/recipe/recipe.schema.ts";
 
+import ErrorMessageComponent from "@/components/error-message/error-message.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
-
-import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 
 type Props = {
   index: number;
@@ -14,7 +13,7 @@ type Props = {
 
 export default function IngredientInputComponent({ index }: Props): ReactNode {
   const { control } = useFormContext<RecipeType>();
-  const { errors, isSubmitted } = useFormState({ control });
+  const { errors, isSubmitted } = useFormState<RecipeType>({ control });
 
   const titleErrorMessage = errors.ingredients?.[index]?.title?.message;
 
@@ -34,7 +33,7 @@ export default function IngredientInputComponent({ index }: Props): ReactNode {
           />
         )}
       />
-      <RecipeFormErrorComponent message={titleErrorMessage} />
+      <ErrorMessageComponent message={titleErrorMessage} />
     </>
   );
 }

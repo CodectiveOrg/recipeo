@@ -30,7 +30,7 @@ export default function UserHeadComponent(): ReactNode {
     data: user,
   } = useQuery({
     queryKey: ["user", +userId!],
-    queryFn: () => getUserApi({ userId }),
+    queryFn: () => getUserApi(+userId!),
   });
 
   if (isVerifyPending || isUserPending) {
@@ -55,16 +55,16 @@ export default function UserHeadComponent(): ReactNode {
       </TypographyComponent>
       <UserStatsComponent user={user} />
       {currentUser ? (
-        currentUser.id !== user.id ? (
+        currentUser.id === user.id ? (
+          <ButtonComponent className={styles.button} as={Link} to="/settings">
+            Settings
+          </ButtonComponent>
+        ) : (
           <FollowButtonComponent
             className={styles.button}
             targetUserId={user.id}
             isFollowedByCurrentUser={user.isFollowedByCurrentUser}
           />
-        ) : (
-          <ButtonComponent className={styles.button} as={Link} to="/settings">
-            Settings
-          </ButtonComponent>
         )
       ) : (
         <ButtonComponent className={styles.button} as={Link} to="/sign-in">

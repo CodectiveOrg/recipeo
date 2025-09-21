@@ -2,14 +2,8 @@ import type { GetUserResponseDto } from "@/dto/response/get-user.response.dto.ts
 
 import { richFetch } from "@/utils/fetch.utils";
 
-type Params = {
-  userId: string | undefined;
-};
-
-export async function getUserApi({
-  userId,
-}: Params): Promise<GetUserResponseDto> {
-  const data = await richFetch<GetUserResponseDto>(`/user/${userId}`);
+export async function getUserApi(id: number): Promise<GetUserResponseDto> {
+  const data = await richFetch<GetUserResponseDto>(`/user/${id}`);
 
   if ("error" in data) {
     throw new Error(data.error);

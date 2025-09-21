@@ -1,5 +1,12 @@
 .settings-form {
   display: grid;
-  align-content: center;
-  gap: 0.75rem;
+  gap: 1.5rem;
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    margin-block-start: 1.5rem;
+  }
 }

@@ -1,10 +1,18 @@
-import { type FormEvent, type ReactNode } from "react";
+import { type ReactNode, use } from "react";
+
+import { Link } from "react-router";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 
-import clsx from "clsx";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+
+import {
+  SettingsSchema,
+  type SettingsType,
+} from "@/validation/schemas/user/settings.schema.ts";
 
 import { updateUserApi } from "@/api/user/update-user.api.ts";
 
@@ -12,16 +20,31 @@ import ButtonComponent from "@/components/button/button.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 
-import type { User } from "@/entities/user.ts";
+import UserImageInputComponent from "@/pages/settings/components/user-image-input/user-image-input.component.tsx";
+import { UserContext } from "@/pages/settings/context/user.context.ts";
+
+import { convertToFormData } from "@/utils/form.utils.ts";
 
 import styles from "./settings-form.module.css";
 
-type Props = { user: User; className?: string };
+export default function SettingsFormComponent(): ReactNode {
+  const user = use(UserContext);
 
-export default function SettingsFormComponent({
-  user,
-  className,
-}: Props): ReactNode {
+  const methods = useForm({
+    defaultValues: {
+      picture: user.picture,
+      username: user.username,
+      email: user.email,
+    },
+    resolver: zodResolver(SettingsSchema),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
   const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
@@ -40,35 +63,46 @@ export default function SettingsFormComponent({
     },
   });
 
-  const handleFormSubmit = async (
-    e: FormEvent<HTMLFormElement>,
-  ): Promise<void> => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
-    await mutateAsync({
-      user: {
-        username: formData.get("username") as string,
-        password: formData.get("password") as string,
-        email: formData.get("email") as string,
-      },
-    });
+  const handleFormSubmit = async (data: SettingsType): Promise<void> => {
+    const formData = convertToFormData(data);
+    await mutateAsync(formData);
   };
 
   return (
-    <form
-      className={clsx(styles["settings-form"], className)}
-      onSubmit={handleFormSubmit}
-    >
-      <TextInputComponent name="username" defaultValue={user.username} />
-      <TextInputComponent
-        name="email"
-        type="email"
-        defaultValue={user.email}
-      ></TextInputComponent>
-      <PasswordInputComponent name="password" />
-      <ButtonComponent type="submit">Save</ButtonComponent>
-    </form>
+    <FormProvider {...methods}>
+      <form
+        className={styles["settings-form"]}
+        onSubmit={handleSubmit(handleFormSubmit)}
+      >
+        <UserImageInputComponent />
+        <TextInputComponent {...register("username")} autoComplete="username" />
+        <TextInputComponent
+          {...register("email")}
+          type="email"
+          autoComplete="email"
+        />
+        <PasswordInputComponent
+          {...register("currentPassword")}
+          autoComplete="current-password"
+        />
+        <PasswordInputComponent
+          {...register("newPassword")}
+          autoComplete="new-password"
+        />
+        <div className={styles.actions}>
+          <ButtonComponent
+            as={Link}
+            to={`/user/${user.id}`}
+            color="secondary"
+            size="medium"
+          >
+            Cancel
+          </ButtonComponent>
+          <ButtonComponent type="submit" size="medium" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </ButtonComponent>
+        </div>
+      </form>
+    </FormProvider>
   );
 }

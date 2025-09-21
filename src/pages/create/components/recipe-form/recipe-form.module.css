@@ -2,28 +2,15 @@
   display: grid;
   gap: 1.5rem;
 
-  .section {
-    display: grid;
-    gap: 0.5rem;
-
-    > span {
-      color: var(--color-danger);
-    }
-  }
-
   hr {
     border: 0.25rem solid var(--color-form);
   }
 
-  .buttons {
-    display: flex;
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
 
-    padding-block-start: 1.75rem;
-
-    a,
-    button {
-      flex: 1;
-    }
+    margin-block-start: 1.5rem;
   }
 }

@@ -2,7 +2,7 @@ import { type Context, type ReactNode } from "react";
 
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
+import type { RecipeType } from "@/validation/schemas/recipe/recipe.schema.ts";
 
 import type {
   BaseContextValue,
