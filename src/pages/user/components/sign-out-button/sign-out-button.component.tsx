@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 import { signOutApi } from "@/api/auth/sign-out.api.ts";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
+import IconComponent from "@/components/icon/icon.component.tsx";
+
+import styles from "./sign-out-button.module.css";
 
 export default function SignOutButtonComponent(): ReactNode {
   const queryClient = useQueryClient();
@@ -27,7 +30,7 @@ export default function SignOutButtonComponent(): ReactNode {
 
       toast.success(result.message);
 
-      navigate("/sign-in", { replace: true });
+      navigate("/");
     },
   });
 
@@ -36,8 +39,13 @@ export default function SignOutButtonComponent(): ReactNode {
   };
 
   return (
-    <ButtonComponent color="danger" onClick={handleSignOutButtonClick}>
-      Sign out
+    <ButtonComponent
+      iconOnly
+      className={styles["sign-out-button"]}
+      color="danger"
+      onClick={handleSignOutButtonClick}
+    >
+      <IconComponent name="logout-2-linear" />
     </ButtonComponent>
   );
 }

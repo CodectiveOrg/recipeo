@@ -4,7 +4,6 @@ import BackButtonComponent from "@/components/back-button/back-button.component.
 import TitleComponent from "@/components/title/title.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component.tsx";
 
-import SignOutButtonComponent from "@/pages/settings/components/sign-out-button/sign-out-button.component.tsx";
 import TokenProvider from "@/pages/settings/providers/token.provider.tsx";
 import UserProvider from "@/pages/settings/providers/user.provider.tsx";
 
@@ -26,7 +25,6 @@ export default function SettingsPage(): ReactNode {
           </header>
           <main>
             <SettingsFormComponent />
-            <SignOutButtonComponent />
           </main>
         </div>
       </UserProvider>

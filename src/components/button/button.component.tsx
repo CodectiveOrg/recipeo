@@ -10,6 +10,7 @@ import styles from "./button.module.css";
 
 type Props<T extends ElementType> = {
   as?: T;
+  iconOnly?: boolean;
   className?: string;
   shape?: "pill" | "rounded";
   variant?: "solid" | "outlined" | "text";
@@ -24,11 +25,12 @@ type CombinedProps<T extends ElementType> = Combine<
 
 export default function ButtonComponent<T extends ElementType = "button">({
   as,
+  iconOnly = false,
+  className,
   shape = "pill",
   variant = "solid",
   color = "primary",
   size = "large",
-  className,
   ...otherProps
 }: CombinedProps<T>): ReactNode {
   const Component = as ?? "button";
@@ -37,6 +39,7 @@ export default function ButtonComponent<T extends ElementType = "button">({
     <Component
       className={clsx(
         styles.button,
+        iconOnly && styles["icon-only"],
         styles[shape],
         styles[variant],
         styles[size],
