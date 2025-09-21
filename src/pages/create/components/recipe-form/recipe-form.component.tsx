@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ReactNode, use } from "react";
 
 import { Link } from "react-router";
 
@@ -18,6 +18,7 @@ import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 
+import { DataContext } from "@/pages/create/context/data.context.ts";
 import {
   generateIngredient,
   generateStep,
@@ -42,6 +43,8 @@ export default function RecipeFormComponent({
   defaultValues,
   onSubmit,
 }: Props): ReactNode {
+  const { allTags } = use(DataContext);
+
   const methods = useForm({
     defaultValues: {
       ...defaultValues,
@@ -49,15 +52,18 @@ export default function RecipeFormComponent({
       duration: 35,
       ingredients: defaultValues?.ingredients ?? [generateIngredient()],
       steps: defaultValues?.steps ?? [generateStep()],
-      tags: defaultValues?.tags ?? [generateTag()],
+      tags: defaultValues?.tags ?? [generateTag(allTags)],
     },
     resolver: zodResolver(RecipeSchema),
   });
 
   const {
     handleSubmit,
+    watch,
     formState: { isSubmitting },
   } = methods;
+
+  console.log(watch("tags"));
 
   const { mutateAsync } = useMutation({
     mutationKey: ["recipe", "create"],
@@ -85,11 +91,11 @@ export default function RecipeFormComponent({
         <DescriptionSection />
         <DurationSection />
         <hr />
-        <IngredientsSection defaultValues={defaultValues} />
+        <IngredientsSection />
         <hr />
-        <StepSection defaultValues={defaultValues} />
+        <StepSection />
         <hr />
-        <TagsSection defaultValues={defaultValues} />
+        <TagsSection />
         <div className={styles.buttons}>
           <ButtonComponent as={Link} to="/" color="secondary" size="medium">
             Cancel

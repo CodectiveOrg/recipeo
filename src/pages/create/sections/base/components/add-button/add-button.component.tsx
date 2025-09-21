@@ -2,11 +2,14 @@ import { type ReactNode, use } from "react";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
 
+import { DataContext } from "@/pages/create/context/data.context.ts";
 import { SectionContext } from "@/pages/create/context/section.context.ts";
 
 import styles from "./add-button.module.css";
 
 export default function AddButtonComponent(): ReactNode {
+  const { allTags } = use(DataContext);
+
   const { context } = use(SectionContext);
   const {
     label,
@@ -15,7 +18,7 @@ export default function AddButtonComponent(): ReactNode {
   } = use(context);
 
   const handleButtonClick = (): void => {
-    append(generate());
+    append(generate(allTags));
   };
 
   return (

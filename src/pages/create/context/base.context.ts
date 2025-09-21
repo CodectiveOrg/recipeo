@@ -14,7 +14,7 @@ export type BaseContextValue<T extends BaseItem> = {
   layout: "simple" | "complex";
   name: FieldArrayPath<RecipeType>;
   label: string;
-  generate: () => T;
+  generate: (...args: never[]) => T;
   Component: BaseComponent;
   fieldArray: UseFieldArrayReturn<RecipeType>;
 };
