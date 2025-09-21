@@ -13,6 +13,7 @@ import {
   RecipeSchema,
   type RecipeType,
 } from "@/validation/schemas/recipe.schema.ts";
+import type { StepType } from "@/validation/schemas/step.schema.ts";
 
 import { createRecipeApi } from "@/api/recipe/create-recipe.api.ts";
 
@@ -77,7 +78,25 @@ export default function RecipeFormComponent({
   });
 
   const handleFormSubmit = async (data: RecipeType): Promise<void> => {
-    const formData = convertToFormData(data);
+    const processedData: any = { ...data };
+
+    const stepsPictures: StepType["picture"][] = processedData.steps.map(
+      (step: StepType) => step.picture,
+    );
+
+    processedData.steps = processedData.steps.map((step: StepType) => ({
+      ...step,
+      picture: undefined,
+    }));
+
+    const formData = convertToFormData(processedData);
+
+    stepsPictures.forEach((stepPicture, index) => {
+      if (stepPicture instanceof File) {
+        formData.append(`stepPicture.${index}`, stepPicture);
+      }
+    });
+
     await mutateAsync(formData);
   };
 

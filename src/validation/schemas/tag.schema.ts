@@ -3,7 +3,6 @@ import { z } from "zod";
 import { RecipeTitleSchema } from "@/validation/schemas/recipe-fields.schema.ts";
 
 export const TagSchema = z.object({
-  id: z.uuid(),
   title: RecipeTitleSchema,
 });
 
