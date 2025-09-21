@@ -17,6 +17,7 @@ import {
 import { updateUserApi } from "@/api/user/update-user.api.ts";
 
 import ButtonComponent from "@/components/button/button.component.tsx";
+import IconComponent from "@/components/icon/icon.component.tsx";
 import PasswordInputComponent from "@/components/password-input/password-input.component.tsx";
 import TextInputComponent from "@/components/text-input/text-input.component.tsx";
 
@@ -75,19 +76,30 @@ export default function SettingsFormComponent(): ReactNode {
         onSubmit={handleSubmit(handleFormSubmit)}
       >
         <UserImageInputComponent />
-        <TextInputComponent {...register("username")} autoComplete="username" />
+        <TextInputComponent
+          {...register("username")}
+          autoComplete="username"
+          startAdornment={<IconComponent name="user-linear" color="text" />}
+        />
         <TextInputComponent
           {...register("email")}
           type="email"
           autoComplete="email"
+          startAdornment={<IconComponent name="letter-linear" color="text" />}
         />
         <PasswordInputComponent
           {...register("currentPassword")}
           autoComplete="current-password"
+          startAdornment={
+            <IconComponent name="lock-keyhole-minimalistic-outline" />
+          }
         />
         <PasswordInputComponent
           {...register("newPassword")}
           autoComplete="new-password"
+          startAdornment={
+            <IconComponent name="lock-keyhole-minimalistic-outline" />
+          }
         />
         <div className={styles.actions}>
           <ButtonComponent
