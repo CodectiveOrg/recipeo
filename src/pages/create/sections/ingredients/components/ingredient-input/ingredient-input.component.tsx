@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useFormState } from "react-hook-form";
 
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
@@ -13,10 +13,8 @@ type Props = {
 };
 
 export default function IngredientInputComponent({ index }: Props): ReactNode {
-  const {
-    control,
-    formState: { errors, isSubmitted },
-  } = useFormContext<RecipeType>();
+  const { control } = useFormContext<RecipeType>();
+  const { errors, isSubmitted } = useFormState({ control });
 
   const titleErrorMessage = errors.ingredients?.[index]?.title?.message;
 

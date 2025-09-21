@@ -1,6 +1,6 @@
 import { type ReactNode, use } from "react";
 
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useFormState } from "react-hook-form";
 
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
@@ -16,10 +16,8 @@ type Props = {
 export default function TagInputComponent({ index }: Props): ReactNode {
   const { allTags } = use(DataContext);
 
-  const {
-    control,
-    formState: { errors, isSubmitted },
-  } = useFormContext<RecipeType>();
+  const { control } = useFormContext<RecipeType>();
+  const { errors, isSubmitted } = useFormState({ control });
 
   const titleErrorMessage = errors.tags?.[index]?.title?.message;
 

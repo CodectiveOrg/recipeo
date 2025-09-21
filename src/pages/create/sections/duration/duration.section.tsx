@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useFormState } from "react-hook-form";
 
 import type { RecipeType } from "@/validation/schemas/recipe.schema.ts";
 
@@ -10,10 +10,8 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 import RecipeFormErrorComponent from "@/pages/create/components/recipe-form-error/recipe-form-error.component.tsx";
 
 export default function DurationSection(): ReactNode {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext<RecipeType>();
+  const { control } = useFormContext<RecipeType>();
+  const { errors } = useFormState({ control });
 
   return (
     <div>
