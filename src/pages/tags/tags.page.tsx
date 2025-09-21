@@ -6,11 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getAllTagsApi } from "@/api/tag/get-all-tags.api";
 
-import BackButtonComponent from "@/components/back-button/back-button.component.tsx";
 import ButtonComponent from "@/components/button/button.component";
+import HeaderWithBackButtonComponent from "@/components/header-with-back-button/header-with-back-button.component.tsx";
 import LoadingComponent from "@/components/loading/loading.component";
 import TitleComponent from "@/components/title/title.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component";
 
 import styles from "./tags.module.css";
 
@@ -31,12 +30,7 @@ export default function TagsPage(): ReactNode {
   return (
     <div className={styles["tags"]}>
       <TitleComponent>Tags</TitleComponent>
-      <header>
-        <BackButtonComponent className={styles["back-button"]} />
-        <TypographyComponent variant="h2" className={styles.title}>
-          Tags
-        </TypographyComponent>
-      </header>
+      <HeaderWithBackButtonComponent title="Tags" />
       <main>
         <ul>
           {data.map((tag) => (

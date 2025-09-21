@@ -1,9 +1,8 @@
 import { type ReactNode, useRef } from "react";
 
-import BackButtonComponent from "@/components/back-button/back-button.component.tsx";
+import HeaderWithBackButtonComponent from "@/components/header-with-back-button/header-with-back-button.component.tsx";
 import SuccessModalComponent from "@/components/success-modal/success-modal.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
-import TypographyComponent from "@/components/typography/typography.component.tsx";
 
 import RecipeFormComponent from "@/pages/create/components/recipe-form/recipe-form.component.tsx";
 import DataProvider from "@/pages/create/providers/data.provider.tsx";
@@ -21,12 +20,7 @@ export default function CreatePage(): ReactNode {
     <DataProvider>
       <div className={styles.create}>
         <TitleComponent>Create</TitleComponent>
-        <header>
-          <BackButtonComponent className={styles["back-button"]} />
-          <TypographyComponent variant="h2" className={styles.title}>
-            Create
-          </TypographyComponent>
-        </header>
+        <HeaderWithBackButtonComponent title="Create a New Recipe" />
         <main>
           <RecipeFormComponent onSubmit={handleFormSubmit} />
         </main>

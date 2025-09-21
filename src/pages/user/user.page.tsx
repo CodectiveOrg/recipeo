@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import BackButtonComponent from "@/components/back-button/back-button.component";
+import HeaderWithBackButtonComponent from "@/components/header-with-back-button/header-with-back-button.component.tsx";
 import TabsComponent, { type Tab } from "@/components/tabs/tabs.component";
 
 import LikedTabComponent from "@/pages/user/components/liked-tab/liked-tab.component.tsx";
@@ -23,10 +23,7 @@ export default function UserPage(): ReactNode {
 
   return (
     <div className={styles.user}>
-      <header>
-        <BackButtonComponent />
-        <ShareButtonComponent />
-      </header>
+      <HeaderWithBackButtonComponent extra={<ShareButtonComponent />} />
       <main>
         <UserHeadComponent />
         <hr />
