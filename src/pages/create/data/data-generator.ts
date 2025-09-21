@@ -22,6 +22,6 @@ export function generateStep(): StepType {
 export function generateTag(allTags: Tag[]): TagType {
   return {
     id: globalThis.crypto.randomUUID(),
-    title: allTags.at(-1)!.title,
+    title: allTags[0].title,
   };
 }
