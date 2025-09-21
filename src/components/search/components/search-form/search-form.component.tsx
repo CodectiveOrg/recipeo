@@ -26,8 +26,6 @@ export default function SearchFormComponent({
 
   const [params, setParams] = useFilterParams();
 
-  console.log(params);
-
   const methods = useForm<SearchFormValuesType>({
     values: params,
     resolver: zodResolver(SearchFiltersSchema),
