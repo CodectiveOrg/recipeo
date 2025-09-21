@@ -32,6 +32,8 @@ import StepSection from "@/pages/create/sections/steps/step.section.tsx";
 import TagsSection from "@/pages/create/sections/tags/tags.section";
 import TitleSection from "@/pages/create/sections/title/title.section.tsx";
 
+import { convertToFormData } from "@/utils/form.utils.ts";
+
 import styles from "./recipe-form.module.css";
 
 type Props = {
@@ -75,7 +77,8 @@ export default function RecipeFormComponent({
   });
 
   const handleFormSubmit = async (data: RecipeType): Promise<void> => {
-    await mutateAsync(data);
+    const formData = convertToFormData(data);
+    await mutateAsync(formData);
   };
 
   return (
