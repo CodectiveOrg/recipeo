@@ -13,7 +13,7 @@ export const RecipeSchema = z.object({
   title: RecipeTitleSchema,
   description: RecipeDescriptionSchema,
   duration: RecipeDurationSchema,
-  picture: z.file().nullable(),
+  picture: z.file("Please upload a valid jpg, png or webp image."),
   ingredients: z.array(IngredientSchema),
   steps: z.array(StepSchema),
   tags: TagArraySchema,
