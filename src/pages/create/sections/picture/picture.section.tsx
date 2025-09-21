@@ -20,7 +20,10 @@ export default function PictureSection(): ReactNode {
         name="picture"
         control={control}
         render={({ field }) => (
-          <ImageInputComponent onChange={(file) => field.onChange(file)} />
+          <ImageInputComponent
+            folder="recipe"
+            onChange={(file) => field.onChange(file)}
+          />
         )}
       />
       <RecipeFormErrorComponent message={errors.picture?.message} />

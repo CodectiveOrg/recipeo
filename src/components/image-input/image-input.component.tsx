@@ -12,7 +12,10 @@ import clsx from "clsx";
 
 import IconButtonComponent from "@/components/icon-button/icon-button.component.tsx";
 import IconComponent from "@/components/icon/icon.component";
+import ImageComponent from "@/components/image/image.component.tsx";
 import TypographyComponent from "@/components/typography/typography.component";
+
+import type { PictureFolderType } from "@/types/picture-folder.type.ts";
 
 import styles from "./image-input.module.css";
 
@@ -22,6 +25,7 @@ const MAX_SIZE_BYTE = MAX_SIZE_MEGABYTE * 1024 * 1024;
 type Props = Omit<ComponentProps<"input">, "accept" | "onChange"> & {
   accept?: `image/${string}`;
   layout?: "simple" | "complex";
+  folder: PictureFolderType;
   previouslyUploadedPicture?: string;
   onChange?: (file: File | null) => void;
 };
@@ -29,6 +33,7 @@ type Props = Omit<ComponentProps<"input">, "accept" | "onChange"> & {
 export default function ImageInputComponent({
   className,
   layout = "complex",
+  folder,
   previouslyUploadedPicture,
   onChange,
   ...otherProps
@@ -110,8 +115,15 @@ export default function ImageInputComponent({
 
   const previewContent = (
     <div className={styles.preview}>
-      {/* TODO: Use ImageComponent. */}
-      <img src={previouslyUploadedPicture ?? previewUrl ?? ""} alt="" />
+      {previouslyUploadedPicture ? (
+        <ImageComponent
+          folder={folder}
+          src={previouslyUploadedPicture}
+          alt=""
+        />
+      ) : (
+        <img src={previewUrl ?? ""} alt="" />
+      )}
       <IconButtonComponent onClick={handleRemoveButtonClick}>
         <IconComponent name="close-circle-bold" />
       </IconButtonComponent>

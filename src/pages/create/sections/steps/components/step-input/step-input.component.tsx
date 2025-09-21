@@ -50,6 +50,7 @@ export function StepInputComponent({ index }: Props): ReactNode {
         render={({ field }) => (
           <ImageInputComponent
             layout="simple"
+            folder="step"
             previouslyUploadedPicture={
               typeof field.value === "string" ? field.value : undefined
             }
