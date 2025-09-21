@@ -9,9 +9,9 @@ export const RecipeSchema = z.object({
   description: z.string().min(20),
   duration: z.coerce.number<number>().min(10),
   picture: z.instanceof(File),
-  tags: TagArraySchema,
   ingredients: z.array(IngredientSchema),
   steps: z.array(StepSchema),
+  tags: TagArraySchema,
 });
 
 export type RecipeType = z.infer<typeof RecipeSchema>;
