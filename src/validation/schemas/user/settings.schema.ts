@@ -9,9 +9,9 @@ export const SettingsSchema = z.object({
     z.string().nullable(),
     z.file("Please upload a valid jpg, png or webp image."),
   ]),
-  username: UsernameSchema.optional(),
-  email: EmailSchema.optional(),
-  password: PasswordSchema.optional(),
+  username: UsernameSchema,
+  email: EmailSchema,
+  password: PasswordSchema,
 });
 
 export type SettingsType = z.infer<typeof SettingsSchema>;
