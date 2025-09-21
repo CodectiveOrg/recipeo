@@ -21,6 +21,7 @@ export default function UserImageInputComponent(): ReactNode {
         render={({ field }) => (
           <ImageInputComponent
             className={styles["user-image-input"]}
+            layout="profile"
             folder="user"
             previouslyUploadedPicture={
               typeof field.value === "string" ? field.value : undefined

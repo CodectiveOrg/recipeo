@@ -24,7 +24,7 @@ const MAX_SIZE_BYTE = MAX_SIZE_MEGABYTE * 1024 * 1024;
 
 type Props = Omit<ComponentProps<"input">, "accept" | "onChange"> & {
   accept?: `image/${string}`;
-  layout?: "simple" | "complex";
+  layout?: "simple" | "complex" | "profile";
   folder: PictureFolderType;
   previouslyUploadedPicture?: string | null;
   onChange?: (file: File | null) => void;
@@ -124,7 +124,11 @@ export default function ImageInputComponent({
       ) : (
         <img src={previewUrl ?? ""} alt="" />
       )}
-      <IconButtonComponent onClick={handleRemoveButtonClick}>
+      <IconComponent className={styles["edit-icon"]} name="gallery-edit-bold" />
+      <IconButtonComponent
+        className={styles["remove-button"]}
+        onClick={handleRemoveButtonClick}
+      >
         <IconComponent name="close-circle-bold" />
       </IconButtonComponent>
     </div>
