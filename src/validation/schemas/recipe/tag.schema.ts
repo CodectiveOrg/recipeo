@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { RecipeTitleSchema } from "@/validation/schemas/recipe/recipe-fields.schema.ts";
 
-export const TagSchema = z.object({
+const TagSchema = z.object({
   title: RecipeTitleSchema,
 });
 

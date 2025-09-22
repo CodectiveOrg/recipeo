@@ -39,7 +39,7 @@ export default function FeaturedRecipesCarouselComponent({
   );
 }
 
-export function FeaturedRecipesCarouselSkeleton(): ReactNode {
+function FeaturedRecipesCarouselSkeleton(): ReactNode {
   return (
     <CarouselComponent spaceBetween={16}>
       {Array(4)

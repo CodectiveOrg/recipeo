@@ -98,7 +98,7 @@ export default function InfiniteRecipesComponent({
   );
 }
 
-export function InfiniteRecipesSkeleton({
+function InfiniteRecipesSkeleton({
   columnsCount,
 }: Partial<Props>): ReactNode {
   return (

@@ -16,7 +16,7 @@ export async function richFetch<TResult = void>(
   return data;
 }
 
-export async function fetchWithAutoRefreshToken<TResult = void>(
+async function fetchWithAutoRefreshToken<TResult = void>(
   input: RequestInfo | URL,
   init?: RequestInit,
 ): Promise<[Response, ResponseDto<TResult>]> {
@@ -38,7 +38,7 @@ export async function fetchWithAutoRefreshToken<TResult = void>(
   return [response, data];
 }
 
-export async function tryToFetch<TResult = void>(
+async function tryToFetch<TResult = void>(
   input: RequestInfo | URL,
   init?: RequestInit,
 ): Promise<[Response, ResponseDto<TResult>]> {
