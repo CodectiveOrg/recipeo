@@ -11,4 +11,5 @@ jobs:
     with:
       host: recipeo.ir
       base-href: /
-    secrets: inherit
+    secrets:
+      ENV_FILE: ${{ secrets.ENV_FILE }}
