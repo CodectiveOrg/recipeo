@@ -2,17 +2,20 @@ import { useEffect } from "react";
 
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
-import { getUserRecipesApi } from "@/api/user/get-user-recipes.api.ts";
+import { getUserRecipesApi } from "@/api/recipe/get-user-recipes.api.ts";
 
-import { recipeKeys } from "@/queries/keys.ts";
+import { type UserRecipesTab, recipeKeys } from "@/queries/keys.ts";
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function useUserRecipesQuery(userId: string | undefined) {
+export function useUserRecipesQuery(
+  tab: UserRecipesTab,
+  userId: string | undefined,
+) {
   const queryClient = useQueryClient();
 
   const queryResult = useInfiniteQuery({
-    queryKey: recipeKeys.list({ type: "user", tab: "all", userId }),
-    queryFn: ({ pageParam }) => getUserRecipesApi({ userId, pageParam }),
+    queryKey: recipeKeys.list({ type: "user", tab, userId }),
+    queryFn: ({ pageParam }) => getUserRecipesApi({ pageParam }, tab, userId),
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {
         return null;
@@ -26,10 +29,10 @@ export function useUserRecipesQuery(userId: string | undefined) {
   useEffect(() => {
     return () => {
       queryClient.removeQueries({
-        queryKey: recipeKeys.list({ type: "user", tab: "all", userId }),
+        queryKey: recipeKeys.list({ type: "user", tab, userId }),
       });
     };
-  }, [queryClient, userId]);
+  }, [queryClient, tab, userId]);
 
   return queryResult;
 }
