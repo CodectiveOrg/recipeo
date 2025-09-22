@@ -14,6 +14,8 @@ import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-caro
 import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
 
+import { recipeKeys } from "@/queries/keys.ts";
+
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
@@ -21,22 +23,22 @@ import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
   const featuredRecipesQueryResult = useQuery({
-    queryKey: ["recipes", "featured", 1],
+    queryKey: recipeKeys.list({ type: "featured" }),
     queryFn: getFeaturedRecipesApi,
   });
 
   const popularRecipesQueryResult = useQuery({
-    queryKey: ["recipes", "popular", 1],
+    queryKey: recipeKeys.list({ type: "popular" }),
     queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
   });
 
   const chosenRecipesQueryResult = useQuery({
-    queryKey: ["recipes", "chosen", 1],
+    queryKey: recipeKeys.list({ type: "chosen" }),
     queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
   });
 
   const recentRecipesQueryResult = useInfiniteQuery({
-    queryKey: ["recipes", "recent"],
+    queryKey: recipeKeys.list({ type: "recent" }),
     queryFn: getRecentRecipesApi,
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {

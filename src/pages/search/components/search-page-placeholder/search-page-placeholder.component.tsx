@@ -9,18 +9,20 @@ import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.c
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import SearchHistoryComponent from "@/components/search-history/search-history.componet.tsx";
 
+import { recipeKeys } from "@/queries/keys.ts";
+
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./search-page-placeholder.module.css";
 
 export default function SearchPagePlaceholderComponent(): ReactNode {
   const popularRecipesQueryResult = useQuery({
-    queryKey: ["recipes", "popular", 1],
+    queryKey: recipeKeys.list({ type: "popular" }),
     queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
   });
 
   const chosenRecipesQueryResult = useQuery({
-    queryKey: ["recipes", "chosen", 1],
+    queryKey: recipeKeys.list({ type: "chosen" }),
     queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
   });
 

@@ -33,6 +33,8 @@ import StepSection from "@/pages/create/sections/steps/step.section.tsx";
 import TagsSection from "@/pages/create/sections/tags/tags.section";
 import TitleSection from "@/pages/create/sections/title/title.section.tsx";
 
+import { mutationKeys } from "@/queries/keys.ts";
+
 import { convertToFormData } from "@/utils/form.utils.ts";
 
 import styles from "./recipe-form.module.css";
@@ -67,7 +69,7 @@ export default function RecipeFormComponent({
   } = methods;
 
   const { mutateAsync } = useMutation({
-    mutationKey: ["recipe", "create"],
+    mutationKey: mutationKeys.createRecipe(),
     mutationFn: createRecipeApi,
     onSuccess: (result): void => {
       onSuccess?.(result.id);

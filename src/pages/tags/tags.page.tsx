@@ -11,11 +11,13 @@ import HeaderWithBackButtonComponent from "@/components/header-with-back-button/
 import LoadingComponent from "@/components/loading/loading.component";
 import TitleComponent from "@/components/title/title.component.tsx";
 
+import { tagKeys } from "@/queries/keys.ts";
+
 import styles from "./tags.module.css";
 
 export default function TagsPage(): ReactNode {
   const { data, isPending, isError } = useQuery({
-    queryKey: ["tags"],
+    queryKey: tagKeys.all,
     queryFn: getAllTagsApi,
   });
 

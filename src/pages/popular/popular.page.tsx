@@ -8,11 +8,13 @@ import HeaderWithBackButtonComponent from "@/components/header-with-back-button/
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
 
+import { recipeKeys } from "@/queries/keys.ts";
+
 import styles from "./popular.module.css";
 
 export default function PopularPage(): ReactNode {
   const queryResult = useInfiniteQuery({
-    queryKey: ["recipes", "popular"],
+    queryKey: recipeKeys.list({ type: "popular" }),
     queryFn: getPopularRecipesApi,
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {

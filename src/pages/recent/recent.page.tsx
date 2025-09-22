@@ -8,11 +8,13 @@ import HeaderWithBackButtonComponent from "@/components/header-with-back-button/
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
 
+import { recipeKeys } from "@/queries/keys.ts";
+
 import styles from "./recent.module.css";
 
 export default function RecentPage(): ReactNode {
   const queryResult = useInfiniteQuery({
-    queryKey: ["recipes", "recent"],
+    queryKey: recipeKeys.list({ type: "recent" }),
     queryFn: getRecentRecipesApi,
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {

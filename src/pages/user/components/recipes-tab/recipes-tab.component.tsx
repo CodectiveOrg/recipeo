@@ -8,11 +8,13 @@ import { getUserRecipesApi } from "@/api/user/get-user-recipes.api.ts";
 
 import InfiniteRecipesComponent from "@/components/infinite-recipes/infinite-recipes.component.tsx";
 
+import { recipeKeys } from "@/queries/keys.ts";
+
 export default function RecipesTabComponent(): ReactNode {
   const { userId } = useParams();
 
   const queryResult = useInfiniteQuery({
-    queryKey: ["user", "all-tab", "recipes", userId],
+    queryKey: recipeKeys.list({ type: "user", tab: "all", userId }),
     queryFn: ({ pageParam }) => getUserRecipesApi({ userId, pageParam }),
     getNextPageParam: (last) => {
       if (last.currentPage >= last.lastPage) {

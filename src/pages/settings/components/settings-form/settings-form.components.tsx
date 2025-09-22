@@ -25,6 +25,8 @@ import TextInputComponent from "@/components/text-input/text-input.component.tsx
 import UserImageInputComponent from "@/pages/settings/components/user-image-input/user-image-input.component.tsx";
 import { UserContext } from "@/pages/settings/context/user.context.ts";
 
+import { authKeys, mutationKeys, userKeys } from "@/queries/keys.ts";
+
 import { convertToFormData } from "@/utils/form.utils.ts";
 
 import styles from "./settings-form.module.css";
@@ -50,15 +52,15 @@ export default function SettingsFormComponent(): ReactNode {
   const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
-    mutationKey: ["user", user.id],
+    mutationKey: mutationKeys.updateUser(user.id),
     mutationFn: updateUserApi,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: async (result) => {
       await Promise.allSettled([
-        queryClient.invalidateQueries({ queryKey: ["verify"] }),
-        queryClient.invalidateQueries({ queryKey: ["user", user.id] }),
+        queryClient.invalidateQueries({ queryKey: authKeys.verify() }),
+        queryClient.invalidateQueries({ queryKey: userKeys.detail(user.id) }),
       ]);
 
       toast.success(result.message);

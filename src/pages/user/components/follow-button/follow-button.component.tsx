@@ -8,6 +8,8 @@ import { FollowUserApi } from "@/api/user/follow-user.api.ts";
 
 import ButtonComponent from "@/components/button/button.component";
 
+import { mutationKeys, userKeys } from "@/queries/keys.ts";
+
 type Props = {
   className?: string;
   targetUserId: number | undefined;
@@ -21,13 +23,15 @@ export default function FollowButtonComponent({
   const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
-    mutationKey: ["follow", targetUserId],
+    mutationKey: mutationKeys.followUser(targetUserId),
     mutationFn: FollowUserApi,
     onError: (error: Error) => {
       toast.error(error.message);
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["user", targetUserId] });
+      await queryClient.invalidateQueries({
+        queryKey: userKeys.detail(targetUserId),
+      });
     },
   });
 

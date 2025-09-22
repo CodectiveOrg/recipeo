@@ -8,11 +8,13 @@ import LoadingComponent from "@/components/loading/loading.component.tsx";
 
 import { DataContext } from "@/pages/create/context/data.context.ts";
 
+import { tagKeys } from "@/queries/keys.ts";
+
 type Props = PropsWithChildren;
 
 export default function DataProvider({ children }: Props): ReactNode {
   const { data, isPending, isError } = useQuery({
-    queryKey: ["tags"],
+    queryKey: tagKeys.all,
     queryFn: getAllTagsApi,
   });
 
