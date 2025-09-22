@@ -12,11 +12,11 @@ export const tagKeys = {
   all: ["tags"] as const,
 };
 
+export type InfiniteRecipesType = "popular" | "chosen" | "recent";
+
 export type RecipeListScope =
+  | { type: InfiniteRecipesType }
   | { type: "featured" }
-  | { type: "popular" }
-  | { type: "chosen" }
-  | { type: "recent" }
   | { type: "user"; tab: "all" | "liked"; userId: number | string | undefined }
   | { type: "search"; queryString: string };
 

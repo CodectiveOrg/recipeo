@@ -1,15 +1,9 @@
-import { type ReactNode, useEffect } from "react";
+import { type ReactNode } from "react";
 
-import {
-  useInfiniteQuery,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 import { getFeaturedRecipesApi } from "@/api/recipe/get-featured-recipes.api.ts";
-import { getPopularRecipesApi } from "@/api/recipe/get-popular-recipes.api.ts";
-import { getRecentRecipesApi } from "@/api/recipe/get-recent-recipes.api.ts";
+import { getRecipesApi } from "@/api/recipe/get-recipes.api.ts";
 
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import FeaturedRecipesCarouselComponent from "@/components/featured-carousel/featured-carousel.component.tsx";
@@ -19,6 +13,7 @@ import TagsCarouselComponent from "@/components/tags-carousel/tags-carousel.comp
 import TitleComponent from "@/components/title/title.component.tsx";
 
 import { recipeKeys } from "@/queries/keys.ts";
+import { useInfiniteRecipesQuery } from "@/queries/use-infinite-recipes.query.ts";
 
 import GreetingsSection from "@/sections/greetings/greetings.section.tsx";
 import HandfulSection from "@/sections/handful/handful.section.tsx";
@@ -26,8 +21,6 @@ import HandfulSection from "@/sections/handful/handful.section.tsx";
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
-  const queryClient = useQueryClient();
-
   const featuredRecipesQueryResult = useQuery({
     queryKey: recipeKeys.list({ type: "featured" }),
     queryFn: getFeaturedRecipesApi,
@@ -35,34 +28,15 @@ export default function HomePage(): ReactNode {
 
   const popularRecipesQueryResult = useQuery({
     queryKey: recipeKeys.list({ type: "popular" }),
-    queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
+    queryFn: () => getRecipesApi({ pageParam: 1 }, "popular"),
   });
 
   const chosenRecipesQueryResult = useQuery({
     queryKey: recipeKeys.list({ type: "chosen" }),
-    queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
+    queryFn: () => getRecipesApi({ pageParam: 1 }, "chosen"),
   });
 
-  const recentRecipesQueryResult = useInfiniteQuery({
-    queryKey: recipeKeys.list({ type: "recent" }),
-    queryFn: getRecentRecipesApi,
-    getNextPageParam: (last) => {
-      if (last.currentPage >= last.lastPage) {
-        return null;
-      }
-
-      return last.currentPage + 1;
-    },
-    initialPageParam: 1,
-  });
-
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries({
-        queryKey: recipeKeys.list({ type: "recent" }),
-      });
-    };
-  }, [queryClient]);
+  const recentRecipesQueryResult = useInfiniteRecipesQuery("recent");
 
   return (
     <div className={styles.home}>

@@ -2,8 +2,7 @@ import type { ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
-import { getPopularRecipesApi } from "@/api/recipe/get-popular-recipes.api.ts";
+import { getRecipesApi } from "@/api/recipe/get-recipes.api.ts";
 
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
@@ -18,12 +17,12 @@ import styles from "./search-page-placeholder.module.css";
 export default function SearchPagePlaceholderComponent(): ReactNode {
   const popularRecipesQueryResult = useQuery({
     queryKey: recipeKeys.list({ type: "popular" }),
-    queryFn: () => getPopularRecipesApi({ pageParam: 1 }),
+    queryFn: () => getRecipesApi({ pageParam: 1 }, "popular"),
   });
 
   const chosenRecipesQueryResult = useQuery({
     queryKey: recipeKeys.list({ type: "chosen" }),
-    queryFn: () => getChosenRecipesApi({ pageParam: 1 }),
+    queryFn: () => getRecipesApi({ pageParam: 1 }, "chosen"),
   });
 
   return (
