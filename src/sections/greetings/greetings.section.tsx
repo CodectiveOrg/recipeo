@@ -27,9 +27,11 @@ export default function GreetingsSection(): ReactNode {
           inlineSize={180}
         />
       ) : (
-        <TypographyComponent className={styles.username} variant="h2">
-          {user?.username ?? "..."}
-        </TypographyComponent>
+        user?.username && (
+          <TypographyComponent className={styles.username} variant="h2">
+            {user.username}
+          </TypographyComponent>
+        )
       )}
     </div>
   );
