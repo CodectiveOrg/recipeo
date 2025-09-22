@@ -1,0 +1,13 @@
+name: Deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: BijanProgrammerWebsites/hub/.github/workflows/deploy-vite.yml@master
+    with:
+      host: recipeo.ir
+      base-href: /
