@@ -1,0 +1,50 @@
+.loading {
+  display: grid;
+  place-content: center;
+
+  margin: auto;
+
+  .spinner {
+    --size: 3rem;
+    --border-width: 8px;
+
+    position: relative;
+
+    block-size: var(--size);
+    inline-size: var(--size);
+
+    border: var(--border-width) solid transparent;
+    border-inline-end-color: hsl(151deg 74% 46% / 59%);
+
+    border-radius: 999rem;
+
+    animation: spinner-animation 1s infinite linear;
+
+    &::before,
+    &::after {
+      content: "";
+
+      position: absolute;
+      inset: calc(-1 * var(--border-width));
+
+      border: inherit;
+      border-radius: inherit;
+
+      animation: inherit;
+    }
+
+    &::before {
+      animation-duration: 2s;
+    }
+
+    &::after {
+      animation-duration: 4s;
+    }
+  }
+}
+
+@keyframes spinner-animation {
+  100% {
+    transform: rotate(1turn);
+  }
+}

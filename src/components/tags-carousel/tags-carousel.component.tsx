@@ -11,10 +11,6 @@ import ButtonComponent, {
 } from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 
-import { tagFilter } from "@/configs/search-filters.config.ts";
-
-import type { Tag } from "@/entities/tag.ts";
-
 export default function TagsCarouselComponent(): ReactNode {
   const { data, isPending, isError } = useQuery({
     queryKey: ["tags"],
@@ -29,20 +25,14 @@ export default function TagsCarouselComponent(): ReactNode {
     return <>Error...</>;
   }
 
-  const tags: Tag[] = [
-    { id: -1, title: tagFilter.defaultValue },
-    ...data.slice(0, 5),
-  ];
-
   return (
     <CarouselComponent spaceBetween={16}>
-      {tags.map((tag) => (
+      {data.slice(0, 5).map((tag) => (
         <ButtonComponent
           key={tag.id}
           as={Link}
           to={`/search?tag=${tag.title}`}
           size="small"
-          variant={tag.title === tagFilter.label ? "solid" : "outlined"}
         >
           {tag.title}
         </ButtonComponent>
