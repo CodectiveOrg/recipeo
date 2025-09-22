@@ -25,7 +25,7 @@ export default function Routing(): ReactNode {
     <Routes>
       <Route element={<RootLayout />}>
         <Route element={<GuestOnlyGuard />}>
-          <Route path="onboarding" element={<OnboardingPage />} />
+          <Route path="start" element={<OnboardingPage />} />
           <Route path="sign-in" element={<SignInPage />} />
           <Route path="sign-up" element={<SignUpPage />} />
         </Route>
