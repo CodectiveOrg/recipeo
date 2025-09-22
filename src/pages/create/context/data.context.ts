@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 import type { Tag } from "@/entities/tag.ts";
 
-export type ContextValue = {
+type ContextValue = {
   allTags: Tag[];
 };
 

@@ -98,9 +98,7 @@ export default function InfiniteRecipesComponent({
   );
 }
 
-export function InfiniteRecipesSkeleton({
-  columnsCount,
-}: Partial<Props>): ReactNode {
+function InfiniteRecipesSkeleton({ columnsCount }: Partial<Props>): ReactNode {
   return (
     <div className={styles["infinite-recipes"]}>
       <ul style={{ "--columns-count": `${columnsCount}` } as CSSProperties}>

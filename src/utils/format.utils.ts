@@ -13,7 +13,7 @@ export function formatDuration(value: number): string {
   return `${pad2(hours)}:${pad2(minutes)}`;
 }
 
-export function pad2(value: number | string): string {
+function pad2(value: number | string): string {
   return value.toString().padStart(2, "0");
 }
 

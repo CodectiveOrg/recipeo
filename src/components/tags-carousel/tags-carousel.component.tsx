@@ -51,7 +51,7 @@ export default function TagsCarouselComponent(): ReactNode {
   );
 }
 
-export function TagsCarouselSkeleton(): ReactNode {
+function TagsCarouselSkeleton(): ReactNode {
   const tags = [
     { id: -1, inlineSize: 80 },
     { id: -2, inlineSize: 140 },

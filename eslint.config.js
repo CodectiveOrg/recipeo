@@ -1,3 +1,5 @@
+import pluginQuery from "@tanstack/eslint-plugin-query";
+
 import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -9,6 +11,7 @@ export default tseslint.config([
   globalIgnores(["dist"]),
   js.configs.recommended,
   tseslint.configs.recommended,
+  ...pluginQuery.configs["flat/recommended"],
   {
     files: ["**/*.{ts,tsx}"],
     extends: [

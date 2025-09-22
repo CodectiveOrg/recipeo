@@ -43,7 +43,7 @@ export default function RecipesCarouselComponent({
   );
 }
 
-export function RecipesCarouselSkeleton({ size }: Partial<Props>): ReactNode {
+function RecipesCarouselSkeleton({ size }: Partial<Props>): ReactNode {
   return (
     <CarouselComponent>
       {Array(4)

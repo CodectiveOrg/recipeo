@@ -38,7 +38,7 @@ export default function ChosenRecipesComponent({
   );
 }
 
-export function ChosenRecipesSkeleton(): ReactNode {
+function ChosenRecipesSkeleton(): ReactNode {
   return (
     <ul className={styles["chosen-recipes"]}>
       {Array(5)

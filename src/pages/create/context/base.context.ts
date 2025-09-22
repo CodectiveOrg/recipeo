@@ -6,7 +6,7 @@ import type { RecipeType } from "@/validation/schemas/recipe/recipe.schema.ts";
 
 export type BaseItem = { id: string };
 
-export type BaseComponent = JSXElementConstructor<{
+type BaseComponent = JSXElementConstructor<{
   index: number;
 }>;
 

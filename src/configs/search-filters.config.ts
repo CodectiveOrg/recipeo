@@ -1,6 +1,4 @@
-export const searchFilterKeys = ["phrase", "tag", "maxDuration"] as const;
-
-export type SearchFilterKey = (typeof searchFilterKeys)[number];
+export type SearchFilterKey = "phrase" | "tag" | "maxDuration";
 
 export type SearchFilter<T extends SearchFilterKey> = {
   key: T;

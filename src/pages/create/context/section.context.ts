@@ -5,7 +5,7 @@ import type {
   BaseItem,
 } from "@/pages/create/context/base.context.ts";
 
-export type ContextValue = {
+type ContextValue = {
   context: Context<BaseContextValue<BaseItem>>;
 };
 
