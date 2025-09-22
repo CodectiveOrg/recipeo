@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 import { signUpApi } from "@/api/auth/sign-up.api.ts";
 
+import HeaderWithBackButtonComponent from "@/components/header-with-back-button/header-with-back-button.component.tsx";
 import TitleComponent from "@/components/title/title.component.tsx";
 
 import type { AuthRequestDto } from "@/dto/request/auth.request.dto.ts";
@@ -41,6 +42,7 @@ export default function SignUpPage(): ReactNode {
   return (
     <div className={styles["sign-up"]}>
       <TitleComponent>Sing Up</TitleComponent>
+      <HeaderWithBackButtonComponent title="Sign Up" />
       <main>
         <AuthSection
           withValidation

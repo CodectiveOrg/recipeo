@@ -1,9 +1,9 @@
 .onboarding {
   > main {
     display: grid;
-    align-content: start;
+    align-content: center;
 
-    block-size: 100dvh;
+    padding-inline: 1.5rem;
 
     img {
       block-size: 100%;
@@ -27,7 +27,7 @@
       }
     }
 
-    a {
+    > a {
       inline-size: min(20rem, 100%);
 
       margin-block-end: 4.5rem;

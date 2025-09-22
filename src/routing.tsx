@@ -5,9 +5,7 @@ import { Route, Routes } from "react-router";
 import GuestOnlyGuard from "@/guards/guest-only.guard.tsx";
 import SignedInOnlyGuard from "@/guards/signed-in-only.guard.tsx";
 
-import GuestLayout from "@/layouts/guest/guest.layout.tsx";
 import RootLayout from "@/layouts/root/root.layout.tsx";
-import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 
 import CreatePage from "@/pages/create/create.page.tsx";
 import HomePage from "@/pages/home/home.page.tsx";
@@ -27,26 +25,22 @@ export default function Routing(): ReactNode {
     <Routes>
       <Route element={<RootLayout />}>
         <Route element={<GuestOnlyGuard />}>
-          <Route element={<GuestLayout />}>
-            <Route path="onboarding" element={<OnboardingPage />} />
-            <Route path="sign-in" element={<SignInPage />} />
-            <Route path="sign-up" element={<SignUpPage />} />
-          </Route>
+          <Route path="start" element={<OnboardingPage />} />
+          <Route path="sign-in" element={<SignInPage />} />
+          <Route path="sign-up" element={<SignUpPage />} />
         </Route>
-        <Route element={<SignedInLayout />}>
-          <Route element={<SignedInOnlyGuard />}>
-            <Route path="create" element={<CreatePage />} />
-            <Route path="settings" element={<SettingsPage />} />
-          </Route>
-          <Route index element={<HomePage />} />
-          <Route path="tags" element={<TagsPage />} />
-          <Route path="chosen" element={<RecipesPage type="chosen" />} />
-          <Route path="popular" element={<RecipesPage type="popular" />} />
-          <Route path="recent" element={<RecipesPage type="recent" />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="recipe/:recipeId" element={<RecipePage />} />
-          <Route path="user/:userId" element={<UserPage />} />
+        <Route element={<SignedInOnlyGuard />}>
+          <Route path="create" element={<CreatePage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
+        <Route index element={<HomePage />} />
+        <Route path="tags" element={<TagsPage />} />
+        <Route path="chosen" element={<RecipesPage type="chosen" />} />
+        <Route path="popular" element={<RecipesPage type="popular" />} />
+        <Route path="recent" element={<RecipesPage type="recent" />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="recipe/:recipeId" element={<RecipePage />} />
+        <Route path="user/:userId" element={<UserPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

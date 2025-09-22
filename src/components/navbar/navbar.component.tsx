@@ -54,8 +54,8 @@ export default function NavbarComponent({ className }: Props): ReactNode {
       disabled: !currentUser,
     },
     {
-      href: "/sign-in",
-      title: "Sign In",
+      href: "/start",
+      title: "Start",
       icon: <IconComponent name="user-bold" />,
       disabled: !!currentUser,
     },

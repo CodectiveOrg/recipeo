@@ -1,8 +1,8 @@
 .sign-in {
-  display: grid;
-  align-content: center;
+  > main {
+    display: grid;
+    align-content: center;
 
-  min-block-size: 100dvh;
-
-  padding-inline: 1.5rem;
+    padding-inline: 1.5rem;
+  }
 }

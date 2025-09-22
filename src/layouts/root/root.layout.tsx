@@ -4,17 +4,19 @@ import { Outlet } from "react-router";
 
 import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 
+import NavbarComponent from "@/components/navbar/navbar.component.tsx";
 import ToastComponent from "@/components/toast/toast.component.tsx";
 
 import styles from "./root.module.css";
 
 export default function RootLayout(): ReactNode {
   return (
-    <div className={styles.root}>
-      <NuqsAdapter>
+    <NuqsAdapter>
+      <div className={styles.root}>
         <Outlet />
-      </NuqsAdapter>
+        <NavbarComponent />
+      </div>
       <ToastComponent />
-    </div>
+    </NuqsAdapter>
   );
 }
