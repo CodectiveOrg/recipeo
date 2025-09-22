@@ -10,6 +10,8 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 
 import CurrentFiltersComponent from "@/pages/search/components/current-filters/current-filters.component.tsx";
 
+import { recipeKeys } from "@/queries/keys.ts";
+
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./search-results.module.css";
@@ -22,7 +24,7 @@ export default function SearchResultsComponent({
   queryString,
 }: Props): ReactNode {
   const { data, isPending, isError } = useQuery({
-    queryKey: ["recipes", "search", queryString],
+    queryKey: recipeKeys.list({ type: "search", queryString }),
     queryFn: () => searchRecipesApi(queryString),
   });
 

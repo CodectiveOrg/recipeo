@@ -9,14 +9,12 @@ import GuestLayout from "@/layouts/guest/guest.layout.tsx";
 import RootLayout from "@/layouts/root/root.layout.tsx";
 import SignedInLayout from "@/layouts/signed-in/signed-in.layout.tsx";
 
-import ChosenPage from "@/pages/chosen/chosen.page.tsx";
 import CreatePage from "@/pages/create/create.page.tsx";
 import HomePage from "@/pages/home/home.page.tsx";
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 import OnboardingPage from "@/pages/onboarding/onboarding.page.tsx";
-import PopularPage from "@/pages/popular/popular.page.tsx";
-import RecentPage from "@/pages/recent/recent.page.tsx";
 import RecipePage from "@/pages/recipe/recipe.page.tsx";
+import RecipesPage from "@/pages/recipes/recipes.page.tsx";
 import SearchPage from "@/pages/search/search.page";
 import SettingsPage from "@/pages/settings/settings.page.tsx";
 import SignInPage from "@/pages/sign-in/sign-in.page.tsx";
@@ -42,9 +40,9 @@ export default function Routing(): ReactNode {
           </Route>
           <Route index element={<HomePage />} />
           <Route path="tags" element={<TagsPage />} />
-          <Route path="popular" element={<PopularPage />} />
-          <Route path="chosen" element={<ChosenPage />} />
-          <Route path="recent" element={<RecentPage />} />
+          <Route path="chosen" element={<RecipesPage type="chosen" />} />
+          <Route path="popular" element={<RecipesPage type="popular" />} />
+          <Route path="recent" element={<RecipesPage type="recent" />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="recipe/:recipeId" element={<RecipePage />} />
           <Route path="user/:userId" element={<UserPage />} />

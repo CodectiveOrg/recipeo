@@ -12,6 +12,8 @@ import TitleComponent from "@/components/title/title.component.tsx";
 
 import type { AuthRequestDto } from "@/dto/request/auth.request.dto.ts";
 
+import { mutationKeys } from "@/queries/keys.ts";
+
 import AuthSection from "@/sections/auth/auth.section.tsx";
 
 import styles from "./sign-in.module.css";
@@ -20,7 +22,7 @@ export default function SignInPage(): ReactNode {
   const navigate = useNavigate();
 
   const { mutateAsync } = useMutation({
-    mutationKey: ["sign-in"],
+    mutationKey: mutationKeys.signIn(),
     mutationFn: signInApi,
   });
 

@@ -1,6 +1,9 @@
 import { type ReactNode } from "react";
 
-import { type UseQueryResult } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  type UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
 import RecipeCardComponent, {
   RecipeCardSkeleton,
@@ -11,7 +14,9 @@ import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recip
 import styles from "./chosen-recipes.module.css";
 
 type Props = {
-  queryResult: UseQueryResult<PaginatedRecipesResponseDto>;
+  queryResult: UseInfiniteQueryResult<
+    InfiniteData<PaginatedRecipesResponseDto>
+  >;
 };
 
 export default function ChosenRecipesComponent({
@@ -29,7 +34,7 @@ export default function ChosenRecipesComponent({
 
   return (
     <ul className={styles["chosen-recipes"]}>
-      {data.items.slice(0, 5).map((recipe) => (
+      {data.pages[0].items.slice(0, 5).map((recipe) => (
         <li key={recipe.id}>
           <RecipeCardComponent recipe={recipe} />
         </li>

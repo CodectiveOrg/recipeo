@@ -9,13 +9,15 @@ import LoadingComponent from "@/components/loading/loading.component.tsx";
 import { TokenContext } from "@/pages/settings/context/token.context.ts";
 import { UserContext } from "@/pages/settings/context/user.context.ts";
 
+import { userKeys } from "@/queries/keys.ts";
+
 type Props = PropsWithChildren;
 
 export default function UserProvider({ children }: Props): ReactNode {
   const { id } = use(TokenContext);
 
   const { data, isPending, isError } = useQuery({
-    queryKey: ["user", id],
+    queryKey: userKeys.detail(id),
     queryFn: () => getUserApi(id),
   });
 

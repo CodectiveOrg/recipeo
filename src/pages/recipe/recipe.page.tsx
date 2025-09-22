@@ -16,13 +16,15 @@ import RecipeHeadSection from "@/pages/recipe/sections/recipe-head/recipe-head.s
 import RecipeIngredientsSection from "@/pages/recipe/sections/recipe-ingredients/recipe-ingredients.section.tsx";
 import RecipeStepsSection from "@/pages/recipe/sections/recipe-steps/recipe-steps.section.tsx";
 
+import { recipeKeys } from "@/queries/keys.ts";
+
 import styles from "./recipe.module.css";
 
 export default function RecipePage(): ReactNode {
   const { recipeId } = useParams();
 
   const { isPending, isError, data } = useQuery({
-    queryKey: ["recipe", recipeId],
+    queryKey: recipeKeys.detail(recipeId),
     queryFn: () => getRecipeApi({ recipeId }),
   });
 

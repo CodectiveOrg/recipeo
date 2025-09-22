@@ -14,6 +14,7 @@ import TypographyComponent from "@/components/typography/typography.component.ts
 import UserHeadActionsComponent from "@/pages/user/components/user-head-actions/user-head-actions.component.tsx";
 import UserStatsComponent from "@/pages/user/components/user-stats/user-stats.component.tsx";
 
+import { userKeys } from "@/queries/keys.ts";
 import useVerifyQuery from "@/queries/use-verify.query.ts";
 
 import styles from "./user-head.module.css";
@@ -28,7 +29,7 @@ export default function UserHeadComponent(): ReactNode {
     isError: isUserError,
     data: user,
   } = useQuery({
-    queryKey: ["user", +userId!],
+    queryKey: userKeys.detail(+userId!),
     queryFn: () => getUserApi(+userId!),
   });
 

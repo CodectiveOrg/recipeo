@@ -1,16 +1,20 @@
 import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recipes.response.dto.ts";
 
+import type { UserRecipesTab } from "@/queries/keys.ts";
+
 import { richFetch } from "@/utils/fetch.utils.ts";
 
 type Params = {
   pageParam: number;
 };
 
-export async function getPopularRecipesApi({
-  pageParam,
-}: Params): Promise<PaginatedRecipesResponseDto> {
+export async function getUserRecipesApi(
+  { pageParam }: Params,
+  tab: UserRecipesTab,
+  userId: string | undefined,
+): Promise<PaginatedRecipesResponseDto> {
   const data = await richFetch<PaginatedRecipesResponseDto>(
-    `/recipe/popular?page=${pageParam}`,
+    `/recipe/user/${userId}${tab === "liked" ? "/liked" : ""}?page=${pageParam}`,
   );
 
   if ("error" in data) {

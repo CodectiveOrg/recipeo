@@ -11,6 +11,8 @@ import { signOutApi } from "@/api/auth/sign-out.api.ts";
 import ButtonComponent from "@/components/button/button.component.tsx";
 import IconComponent from "@/components/icon/icon.component.tsx";
 
+import { authKeys, mutationKeys, userKeys } from "@/queries/keys.ts";
+
 import styles from "./sign-out-button.module.css";
 
 export default function SignOutButtonComponent(): ReactNode {
@@ -19,14 +21,14 @@ export default function SignOutButtonComponent(): ReactNode {
   const navigate = useNavigate();
 
   const { mutateAsync } = useMutation({
-    mutationKey: ["sign-out"],
+    mutationKey: mutationKeys.signOut(),
     mutationFn: signOutApi,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: async (result) => {
-      queryClient.removeQueries({ queryKey: ["user"] });
-      queryClient.removeQueries({ queryKey: ["verify"] });
+      queryClient.removeQueries({ queryKey: userKeys.all });
+      queryClient.removeQueries({ queryKey: authKeys.verify() });
 
       toast.success(result.message);
 

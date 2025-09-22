@@ -11,9 +11,11 @@ import ButtonComponent, {
 } from "@/components/button/button.component.tsx";
 import CarouselComponent from "@/components/carousel/carousel.component.tsx";
 
+import { tagKeys } from "@/queries/keys.ts";
+
 export default function TagsCarouselComponent(): ReactNode {
   const { data, isPending, isError } = useQuery({
-    queryKey: ["tags"],
+    queryKey: tagKeys.all,
     queryFn: getAllTagsApi,
   });
 
