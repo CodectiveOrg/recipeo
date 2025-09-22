@@ -3,7 +3,6 @@ import { type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { getFeaturedRecipesApi } from "@/api/recipe/get-featured-recipes.api.ts";
-import { getRecipesApi } from "@/api/recipe/get-recipes.api.ts";
 
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import FeaturedRecipesCarouselComponent from "@/components/featured-carousel/featured-carousel.component.tsx";
@@ -26,16 +25,8 @@ export default function HomePage(): ReactNode {
     queryFn: getFeaturedRecipesApi,
   });
 
-  const popularRecipesQueryResult = useQuery({
-    queryKey: recipeKeys.list({ type: "popular" }),
-    queryFn: () => getRecipesApi({ pageParam: 1 }, "popular"),
-  });
-
-  const chosenRecipesQueryResult = useQuery({
-    queryKey: recipeKeys.list({ type: "chosen" }),
-    queryFn: () => getRecipesApi({ pageParam: 1 }, "chosen"),
-  });
-
+  const popularRecipesQueryResult = useInfiniteRecipesQuery("popular");
+  const chosenRecipesQueryResult = useInfiniteRecipesQuery("chosen");
   const recentRecipesQueryResult = useInfiniteRecipesQuery("recent");
 
   return (

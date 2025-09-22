@@ -1,29 +1,18 @@
 import type { ReactNode } from "react";
 
-import { useQuery } from "@tanstack/react-query";
-
-import { getRecipesApi } from "@/api/recipe/get-recipes.api.ts";
-
 import ChosenRecipesComponent from "@/components/chosen-recipes/chosen-recipes.component.tsx";
 import RecipesCarouselComponent from "@/components/recipes-carousel/recipes-carousel.component.tsx";
 import SearchHistoryComponent from "@/components/search-history/search-history.componet.tsx";
 
-import { recipeKeys } from "@/queries/keys.ts";
+import { useInfiniteRecipesQuery } from "@/queries/use-infinite-recipes.query.ts";
 
 import HandfulSection from "@/sections/handful/handful.section.tsx";
 
 import styles from "./search-page-placeholder.module.css";
 
 export default function SearchPagePlaceholderComponent(): ReactNode {
-  const popularRecipesQueryResult = useQuery({
-    queryKey: recipeKeys.list({ type: "popular" }),
-    queryFn: () => getRecipesApi({ pageParam: 1 }, "popular"),
-  });
-
-  const chosenRecipesQueryResult = useQuery({
-    queryKey: recipeKeys.list({ type: "chosen" }),
-    queryFn: () => getRecipesApi({ pageParam: 1 }, "chosen"),
-  });
+  const popularRecipesQueryResult = useInfiniteRecipesQuery("popular");
+  const chosenRecipesQueryResult = useInfiniteRecipesQuery("chosen");
 
   return (
     <div className={styles["search-page-placeholder"]}>

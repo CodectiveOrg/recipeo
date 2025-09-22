@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 
-import { type UseQueryResult } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  type UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
 import clsx from "clsx";
 
@@ -14,7 +17,9 @@ import type { PaginatedRecipesResponseDto } from "@/dto/response/paginated-recip
 import styles from "./recipes-carousel.module.css";
 
 type Props = {
-  queryResult: UseQueryResult<PaginatedRecipesResponseDto>;
+  queryResult: UseInfiniteQueryResult<
+    InfiniteData<PaginatedRecipesResponseDto>
+  >;
   size?: "medium" | "small";
 };
 
@@ -34,7 +39,7 @@ export default function RecipesCarouselComponent({
 
   return (
     <CarouselComponent>
-      {data.items.map((recipe) => (
+      {data.pages[0].items.map((recipe) => (
         <div key={recipe.id} className={clsx(styles.slide, styles[size])}>
           <RecipeCardComponent recipe={recipe} />
         </div>
