@@ -12,6 +12,7 @@ export default function OnboardingPage(): ReactNode {
   return (
     <div className={styles.onboarding}>
       <TitleComponent>Get Started</TitleComponent>
+      <header />
       <main>
         <img src="/images/onboarding.webp" alt="" />
         <div className={styles.writings}>
