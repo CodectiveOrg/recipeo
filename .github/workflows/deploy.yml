@@ -11,3 +11,4 @@ jobs:
     with:
       host: recipeo.ir
       base-href: /
+    secrets: inherit
