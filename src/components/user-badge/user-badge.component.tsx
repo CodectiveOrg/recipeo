@@ -1,6 +1,6 @@
-import type { PointerEvent, ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 import clsx from "clsx";
 
@@ -16,36 +16,20 @@ import type { EssentialUser } from "@/entities/user.ts";
 import styles from "./user-badge.module.css";
 
 type Props = {
-  link?: boolean;
   className?: string;
   user: EssentialUser;
   size?: "medium" | "large";
 };
 
 export default function UserBadgeComponent({
-  link,
   className,
   user,
   size = "medium",
 }: Props): ReactNode {
-  const navigate = useNavigate();
-
-  const Component = link ? Link : "button";
-
-  const href = `/user/${user?.id}`;
-
-  const handleButtonPointerDown = (e: PointerEvent): void => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    navigate(href);
-  };
-
   return (
-    <Component
+    <Link
       className={clsx(styles["user-badge"], styles[size], className)}
-      to={href}
-      onPointerDown={link ? undefined : handleButtonPointerDown}
+      to={`/user/${user?.id}`}
     >
       <ImageComponent
         className={styles.picture}
@@ -60,7 +44,7 @@ export default function UserBadgeComponent({
       >
         {user?.username}
       </TypographyComponent>
-    </Component>
+    </Link>
   );
 }
 

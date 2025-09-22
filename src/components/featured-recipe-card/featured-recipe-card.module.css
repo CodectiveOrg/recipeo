@@ -59,13 +59,28 @@
     .title {
       grid-area: title;
 
+      color: inherit;
+
       inline-size: 12rem;
 
       line-height: 110%;
+
+      &::before {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+
+        cursor: pointer;
+      }
     }
 
     .user-badge {
       grid-area: user-badge;
+
+      position: relative;
+      z-index: 2;
     }
 
     .duration-badge {

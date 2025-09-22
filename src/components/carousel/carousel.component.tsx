@@ -19,6 +19,7 @@ export default function CarouselComponent({
   return (
     <div className={styles.carousel}>
       <Swiper
+        freeMode
         slidesPerView="auto"
         modules={[FreeMode]}
         spaceBetween={spaceBetween}

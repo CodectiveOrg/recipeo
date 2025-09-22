@@ -31,7 +31,7 @@ export default function RecipeHeadSection({ recipe }: Props): ReactNode {
         <span className={styles.tag}>{recipe.tags[1]?.title}</span>
         {formatDuration(recipe.duration)}
       </TypographyComponent>
-      <UserBadgeComponent link user={recipe.user} size="large" />
+      <UserBadgeComponent user={recipe.user} size="large" />
       <LikeButtonComponent recipe={recipe} />
     </div>
   );

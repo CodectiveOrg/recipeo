@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Link } from "react-router";
 
@@ -21,23 +21,17 @@ import type { FeaturedRecipe } from "@/entities/featured-recipe.ts";
 
 import styles from "./featured-recipe-card.module.css";
 
-type Props = Omit<ComponentProps<typeof Link>, "to"> & {
+type Props = {
   featured: FeaturedRecipe;
 };
 
 export default function FeaturedRecipeCardComponent({
-  className,
   featured,
-  ...otherProps
 }: Props): ReactNode {
   const { recipe } = featured;
 
   return (
-    <Link
-      className={clsx(styles["featured-recipe-card"], className)}
-      to={`/recipe/${recipe.id}`}
-      {...otherProps}
-    >
+    <div className={styles["featured-recipe-card"]}>
       <ImageComponent
         className={styles.picture}
         folder="featured"
@@ -46,8 +40,9 @@ export default function FeaturedRecipeCardComponent({
       />
       <span className={styles.writings}>
         <TypographyComponent
-          as="span"
           className={styles.title}
+          as={Link}
+          to={`/recipe/${recipe.id}`}
           variant="h2"
           maxLines={2}
         >
@@ -62,7 +57,7 @@ export default function FeaturedRecipeCardComponent({
           duration={recipe.duration}
         />
       </span>
-    </Link>
+    </div>
   );
 }
 
