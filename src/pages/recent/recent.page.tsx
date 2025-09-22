@@ -1,6 +1,6 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getRecentRecipesApi } from "@/api/recipe/get-recent-recipes.api.ts";
 
@@ -13,6 +13,8 @@ import { recipeKeys } from "@/queries/keys.ts";
 import styles from "./recent.module.css";
 
 export default function RecentPage(): ReactNode {
+  const queryClient = useQueryClient();
+
   const queryResult = useInfiniteQuery({
     queryKey: recipeKeys.list({ type: "recent" }),
     queryFn: getRecentRecipesApi,
@@ -25,6 +27,14 @@ export default function RecentPage(): ReactNode {
     },
     initialPageParam: 1,
   });
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: recipeKeys.list({ type: "recent" }),
+      });
+    };
+  }, [queryClient]);
 
   return (
     <div className={styles.recent}>

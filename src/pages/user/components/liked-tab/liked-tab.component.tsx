@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 
 import { useParams } from "react-router";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getUserLikedRecipesApi } from "@/api/user/get-user-liked-recipes.api.ts";
 
@@ -12,6 +13,7 @@ import { recipeKeys } from "@/queries/keys.ts";
 
 export default function LikedTabComponent(): ReactNode {
   const { userId } = useParams();
+  const queryClient = useQueryClient();
 
   const queryResult = useInfiniteQuery({
     queryKey: recipeKeys.list({ type: "user", tab: "liked", userId }),
@@ -25,6 +27,14 @@ export default function LikedTabComponent(): ReactNode {
     },
     initialPageParam: 1,
   });
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: recipeKeys.list({ type: "user", tab: "liked", userId }),
+      });
+    };
+  }, [queryClient, userId]);
 
   return (
     <InfiniteRecipesComponent queryResult={queryResult} columnsCount={2} />

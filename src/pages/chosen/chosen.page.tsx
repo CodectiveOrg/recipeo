@@ -1,6 +1,6 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 
@@ -13,6 +13,8 @@ import { recipeKeys } from "@/queries/keys.ts";
 import styles from "./chosen.module.css";
 
 export default function ChosenPage(): ReactNode {
+  const queryClient = useQueryClient();
+
   const queryResult = useInfiniteQuery({
     queryKey: recipeKeys.list({ type: "chosen" }),
     queryFn: getChosenRecipesApi,
@@ -25,6 +27,14 @@ export default function ChosenPage(): ReactNode {
     },
     initialPageParam: 1,
   });
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: recipeKeys.list({ type: "chosen" }),
+      });
+    };
+  }, [queryClient]);
 
   return (
     <div className={styles.chosen}>

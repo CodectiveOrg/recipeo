@@ -1,6 +1,10 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import { getChosenRecipesApi } from "@/api/recipe/get-chosen-recipes.api.ts";
 import { getFeaturedRecipesApi } from "@/api/recipe/get-featured-recipes.api.ts";
@@ -22,6 +26,8 @@ import HandfulSection from "@/sections/handful/handful.section.tsx";
 import styles from "./home.module.css";
 
 export default function HomePage(): ReactNode {
+  const queryClient = useQueryClient();
+
   const featuredRecipesQueryResult = useQuery({
     queryKey: recipeKeys.list({ type: "featured" }),
     queryFn: getFeaturedRecipesApi,
@@ -49,6 +55,14 @@ export default function HomePage(): ReactNode {
     },
     initialPageParam: 1,
   });
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: recipeKeys.list({ type: "recent" }),
+      });
+    };
+  }, [queryClient]);
 
   return (
     <div className={styles.home}>
