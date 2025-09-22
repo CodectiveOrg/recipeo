@@ -1,5 +1,22 @@
 .root {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+
+  block-size: 100dvh;
   max-inline-size: var(--layout-size-2);
 
   margin-inline: auto;
+
+  > :first-child {
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    > main {
+      overflow: auto;
+
+      scrollbar-width: thin;
+
+      padding-block-end: 2rem;
+    }
+  }
 }
