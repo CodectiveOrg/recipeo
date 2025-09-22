@@ -1,7 +1,7 @@
 .recipe-card {
   container-type: inline-size;
 
-  color: inherit;
+  position: relative;
 
   display: block;
 
@@ -29,10 +29,23 @@
       grid-area: title;
 
       min-block-size: 2lh;
+
+      &::before {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+
+        cursor: pointer;
+      }
     }
 
     .user-badge {
       grid-area: user-badge;
+
+      position: relative;
+      z-index: 2;
     }
 
     .duration-badge {

@@ -31,7 +31,7 @@ type Props = {
 
 export default function RecipeCardComponent({ recipe }: Props): ReactNode {
   return (
-    <Link className={styles["recipe-card"]} to={`/recipe/${recipe.id}`}>
+    <div className={styles["recipe-card"]}>
       <div className={styles.content}>
         <ImageComponent
           className={styles["recipe-picture"]}
@@ -40,8 +40,9 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
           alt=""
         />
         <TypographyComponent
-          as="p"
           className={styles.title}
+          as={Link}
+          to={`/recipe/${recipe.id}`}
           variant="h3"
           color="text"
           maxLines={2}
@@ -63,7 +64,7 @@ export default function RecipeCardComponent({ recipe }: Props): ReactNode {
         />
         <ArrowButtonComponent className={styles["arrow-button"]} />
       </div>
-    </Link>
+    </div>
   );
 }
 
