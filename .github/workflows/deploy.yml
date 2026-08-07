@@ -11,4 +11,8 @@ jobs:
       host: recipeo.ir
       base-href: /
     secrets:
+      SERVER_HOST: ${{secrets.SERVER_HOST}}
+      SERVER_USERNAME: ${{secrets.SERVER_USERNAME}}
+      SERVER_PORT: ${{secrets.SERVER_PORT}}
+      SERVER_SSH_KEY: ${{secrets.SERVER_SSH_KEY}}
       ENV_FILE: ${{ secrets.ENV_FILE }}
