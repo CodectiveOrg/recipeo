@@ -8,7 +8,7 @@ jobs:
   deploy:
     uses: BijanProgrammerWebsites/hub/.github/workflows/deploy-vite.yml@master
     with:
-      host: recipeo.ir
+      domain: recipeo.ir
       base-href: /
     secrets:
       SERVER_HOST: ${{secrets.SERVER_HOST}}
